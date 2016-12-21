@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_profile"
+            android:icon="@drawable/ic_my_profile"
+            android:title="@string/my_profile" />
+        <item
+            android:id="@+id/nav_achievements"
+            android:icon="@drawable/ic_achievments"
+            android:title="@string/achievements" />
+        <item
+            android:id="@+id/nav_event_history"
+            android:icon="@drawable/event_history"
+            android:title="@string/event_history" />
+        <item
+            android:id="@+id/nav_social_strength"
+            android:icon="@drawable/social_strength"
+            android:title="@string/social_strength" />
+        <item
+            android:id="@+id/nav_request"
+            android:icon="@drawable/event_request"
+            android:title="@string/event_request" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_about_us"
+            android:title="@string/about_us" />
+
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/contact_us"
+            android:title="@string/contact_us" />
+    </group>
+
+    <!--<item android:title="Communicate">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/nav_share"-->
+    <!--android:icon="@drawable/ic_menu_share"-->
+    <!--android:title="Share" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_send"-->
+    <!--android:icon="@drawable/ic_menu_send"-->
+    <!--android:title="Send" />-->
+    <!--</menu>-->
+    <!--</item>-->
+
+</menu>

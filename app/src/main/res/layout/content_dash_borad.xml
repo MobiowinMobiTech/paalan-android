@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_dash_borad"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.phyder.paalan.fragments.FragmentDashBoard"
+    tools:showIn="@layout/app_bar_dash_borad">
+
+    <FrameLayout
+        android:id="@+id/frame_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
