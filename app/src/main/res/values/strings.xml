@@ -4,7 +4,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign</string>
+    <string name="action_sign_in">Sign IN</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_empty_password">Password can not be empty</string>
@@ -38,4 +38,8 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="covernment_registration_number">Covernment Registration Number</string>
+    <string name="individual_registration">Individual REGISTRATION</string>
+    <string name="ngo_registration">NGO Registration</string>
+    <string name="join_ngo">JOIN NGO + </string>
+    <string name="testing">Testing</string>
 </resources>

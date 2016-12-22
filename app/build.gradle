@@ -43,12 +43,12 @@ dependencies {
 //onesignal configuration
     compile 'com.onesignal:OneSignal:3.+@aar'
 
-    // Required for OneSignal, even if you have added FCM.
+    // Required for OneSignalActivity, even if you have added FCM.
     compile 'com.google.android.gms:play-services:10.0.1'
 //
     // Required for geotagging
-    compile "com.google.android.gms:play-services-location:+"
+    compile "com.google.android.gms:play-services-location:10.0.1"
 
     testCompile 'junit:junit:4.12'
 }
-//apply plugin:
+apply plugin: 'com.google.gms.google-services'

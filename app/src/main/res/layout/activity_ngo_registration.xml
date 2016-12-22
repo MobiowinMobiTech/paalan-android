@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -94,24 +94,12 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/edit_ngo_contact_number"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="@string/contact_number"-->
-        <!--android:inputType="number" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
         <Button
             android:id="@+id/button_submit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/background_button"
             android:text="@string/dismiss" />
     </LinearLayout>
 </ScrollView>

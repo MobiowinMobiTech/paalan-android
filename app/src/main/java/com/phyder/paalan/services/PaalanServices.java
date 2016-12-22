@@ -1,7 +1,5 @@
 package com.phyder.paalan.services;
 
-import com.phyder.paalan.payload.request.ReqLoginPayload;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
