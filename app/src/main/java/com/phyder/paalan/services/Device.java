@@ -23,7 +23,7 @@ public class Device {
     private String mVersionName;
     private int mVersionCode;
 
-    private Device(Context context) {
+    public Device(Context context) {
         initAppName(context);
         initModel();
         initVersionName(context);

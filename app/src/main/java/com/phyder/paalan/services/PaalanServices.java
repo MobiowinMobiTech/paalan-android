@@ -1,5 +1,20 @@
 package com.phyder.paalan.services;
 
+import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
+import com.phyder.paalan.payload.request.individual.IndivitualReqProfile;
+import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
+import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrganizationReqLogin;
+import com.phyder.paalan.payload.request.organization.OrganizationReqProfile;
+import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
+import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
+import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
+import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
+import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
+import com.phyder.paalan.payload.response.organization.OrganizationResPublishEvent;
+import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -12,24 +27,24 @@ import retrofit2.http.POST;
 
 public interface PaalanServices {
 
-    @POST("PaalanNGO")
-    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
+    @POST("mobiOwin/GeeniServlet")
+    Call<IndivitualResLogin> paalanLogin(@Body IndivitualReqLogin reqLoginPayload);
 
-//    @POST("PaalanNGO")
-//    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
-//
-//    @POST("PaalanNGO")
-//    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
-//
-//    @POST("PaalanNGO")
-//    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
-//
-//    @POST("PaalanNGO")
-//    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
-//
-//    @POST("PaalanNGO")
-//    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
-//
-//    @POST("PaalanNGO")
-//    Call<ReqLoginPayload> paalanLogin(@Body ReqLoginPayload reqLoginPayload);
+    @POST("mobiOwin/GeeniServlet")
+    Call<IndivitualReqProfile> indProfile(@Body IndivitualReqProfile indivitualReqProfile);
+
+    @POST("mobiOwin/GeeniServlet")
+    Call<IndivitualReqRegistration> indRegistration(@Body IndivitualResRegistration indivitualResRegistration);
+
+    @POST("mobiOwin/GeeniServlet")
+    Call<IndivitualReqPublishEvent> indEventPublish(@Body IndivitualResPublishEvent indivitualResPublishEvent);
+
+    @POST("mobiOwin/GeeniServlet")
+    Call<OrganizationReqProfile> orgProfile(@Body OrganizationResProfile organizationResProfile);
+
+    @POST("mobiOwin/GeeniServlet")
+    Call<OrganizationReqPublishEven> orgEventPublish(@Body OrganizationResPublishEvent organizationResPublishEvent);
+
+    @POST("mobiOwin/GeeniServlet")
+    Call<OrganizationResRegistration> orgRegistration(@Body OrganizationReqRegistration organizationResRegistration);
 }

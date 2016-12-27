@@ -95,11 +95,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/button_submit"
+            android:id="@+id/btn_register"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/background_button"
-            android:text="@string/dismiss" />
+            android:text="@string/register" />
     </LinearLayout>
 </ScrollView>

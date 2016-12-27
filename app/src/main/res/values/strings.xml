@@ -42,4 +42,5 @@
     <string name="ngo_registration">NGO Registration</string>
     <string name="join_ngo">JOIN NGO + </string>
     <string name="testing">Testing</string>
+    <string name="register">REGISTER</string>
 </resources>

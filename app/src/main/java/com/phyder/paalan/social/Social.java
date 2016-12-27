@@ -6,5 +6,8 @@ package com.phyder.paalan.social;
  * Company Cmss
  */
 public class Social {
-
+    public static final String IND_LOGIN_ENTITY = "paalan";
+    public static final String IND_LOGIN_TYPE = "individual";
+    public static final String ORG_REGISTRATION_ENTITY = "org";
+    public static final String IND_REGISTRATION_ENTITY = "ind";
 }

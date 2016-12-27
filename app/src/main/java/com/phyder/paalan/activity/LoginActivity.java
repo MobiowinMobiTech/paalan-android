@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -20,7 +21,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,9 +38,21 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentDashBoard;
+import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
+import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
+import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
+import com.phyder.paalan.services.Device;
+import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.utils.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -58,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+    private static final String TAG = LoginActivity.class.getCanonicalName();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -118,14 +134,60 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 edtContactNumber = (EditText) findViewById(R.id.edit_ngo_contact_number);
 
                 mLayout = (LinearLayout) findViewById(R.id.linearLayout);
-//                mEditText = (EditText) findViewById(R.id.edit_ngo_test);
+
+                final String imeiNo = "sdajnf";
+                final ArrayList<String> places = new ArrayList<>();
+                final String registrationNo = "sdfsdf";
+                final String isNewsLetter = "sdfsdf";
+                final String name = "sdfsdf";
+                final String role = "sdfsdf";
+                final String lat = "sdfsdf";
+                final String longi = "sdfsdf";
+                final String isRegistered = "sdfsdf";
+                final String password = "sdfsdf";
+                final ArrayList<String> socialLinks = new ArrayList<>();
+                final String email = "sdfsdf";
+                final String mobile = "sdfsdf";
+
+                Button btnRegister;
 
                 Button btnSubmit;
-                btnSubmit = (Button) registrationView.findViewById(R.id.button_submit);
+                btnSubmit = (Button) registrationView.findViewById(R.id.btn_register);
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        places.add("1");
+                        places.add("2");
+                        places.add("3");
+                        places.add("4");
 
+                        socialLinks.add("facebook");
+                        socialLinks.add("twiter");
+                        socialLinks.add("gmail");
+                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
+
+                        Device.newInstance(LoginActivity.this);
+
+                        Retrofit mRetrofit = NetworkUtil.getRetrofit();
+
+                        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+
+                        Call<OrganizationResRegistration> registrationCall = mPaalanServices.orgRegistration(organizationReqRegistration);
+                        registrationCall.enqueue(new Callback<OrganizationResRegistration>() {
+                            @Override
+                            public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, "onResponse: Registration Response" + response.message());
+                                } else {
+                                    Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<OrganizationResRegistration> call, Throwable t) {
+                                Log.d(TAG, "onFailure: " + t.getMessage());
+                            }
+                        });
 //                        mLayout.addView(mEditText);
                         Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                     }
@@ -149,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
                 Button btnSubmit;
-                btnSubmit = (Button) registrationView.findViewById(R.id.button_submit);
+                btnSubmit = (Button) registrationView.findViewById(R.id.btn_register);
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -179,40 +241,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         getLoaderManager().initLoader(0, null, this);
     }
 
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
-    }
+//    private boolean mayRequestContacts() {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            return true;
+//        }
+//        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+//            return true;
+//        }
+//        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+//            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+//                    .setAction(android.R.string.ok, new View.OnClickListener() {
+//                        @Override
+//                        @TargetApi(Build.VERSION_CODES.M)
+//                        public void onClick(View v) {
+//                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+//                        }
+//                    });
+//        } else {
+//            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+//        }
+//        return false;
+//    }
 
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+//                                           @NonNull int[] grantResults) {
+//        if (requestCode == REQUEST_READ_CONTACTS) {
+//            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                populateAutoComplete();
+//            }
+//        }
+//    }
 
 
     /**
@@ -261,6 +323,38 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mPasswordView;
             cancel = true;
         } else {
+            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            String device_id = tm.getDeviceId();
+            Log.d(TAG, "attemptLogin: " + device_id);
+            String userID = "testUser";
+            String indPassword = "12345678";
+//            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(email, password, imoNumber);
+            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, indPassword, device_id);
+
+            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+            Call<IndivitualResLogin> indivitualResLogin = mPaalanServices.paalanLogin(indivitualReqLogin);
+
+            indivitualResLogin.enqueue(new Callback<IndivitualResLogin>() {
+                @Override
+                public void onResponse(Call<IndivitualResLogin> call, Response<IndivitualResLogin> response) {
+
+                    if (response.isSuccessful()) {
+
+                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+//                        if (response.body().){
+//
+//                        }
+                    }
+//                    Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
+//                    startActivity(singInIntent);
+                }
+
+                @Override
+                public void onFailure(Call<IndivitualResLogin> call, Throwable t) {
+                    Log.d(TAG, "onFailure: " + t.getMessage());
+                }
+            });
             Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
             startActivity(singInIntent);
         }

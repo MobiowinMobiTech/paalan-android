@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
-import com.phyder.android.socialsdk.BuildConfig;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -178,10 +176,10 @@ public class ECrypto {
                 encodedCipherParam = URLEncoder.encode(encryptedParam, "UTF-8");
             }
 
-            if (BuildConfig.DEBUG) {
-                Log.d(TAG, "Base64Encoded Encrypted Param: " + encodedCipherParam);
-                Log.d(TAG, "URLEncoded Encrypted Param: " + encodedCipherParam);
-            }
+//            if (BuildConfig.DEBUG) {
+//                Log.d(TAG, "Base64Encoded Encrypted Param: " + encodedCipherParam);
+//                Log.d(TAG, "URLEncoded Encrypted Param: " + encodedCipherParam);
+//            }
 
         } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidAlgorithmParameterException | BadPaddingException ueEx) {
             Log.e(TAG, "UnsupportedEncodingException: " + ueEx.getMessage());
@@ -205,11 +203,11 @@ public class ECrypto {
             byte[] encryptedInByte = cipher.doFinal(bytEncrypted);
             plainText = new String(encryptedInByte, "UTF-8");
 
-            if (BuildConfig.DEBUG) {
-//                ELog.d(TAG, "Encrypted Cipher: " + cipherText);
-//                ELog.d(TAG, "Decryption Key: " + mStrAESKey);
-//                ELog.d(TAG, "Decrypted Text: " + plainText);
-            }
+//            if (BuildConfig.DEBUG) {
+////                ELog.d(TAG, "Encrypted Cipher: " + cipherText);
+////                ELog.d(TAG, "Decryption Key: " + mStrAESKey);
+////                ELog.d(TAG, "Decrypted Text: " + plainText);
+//            }
         } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException ueEx) {
 //            ELog.e(TAG, "UnsupportedEncodingException: " + ueEx.getMessage());
 //            ELog.stack(ueEx);

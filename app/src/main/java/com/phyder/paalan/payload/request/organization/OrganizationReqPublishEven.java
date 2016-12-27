@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.request.organization;
 
+import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
+
 /**
  * Created on 22/12/16.
  * Author Dharmendra
@@ -7,11 +9,21 @@ package com.phyder.paalan.payload.request.organization;
  */
 
 public class OrganizationReqPublishEven {
+
     private String entity;
 
     private Data data;
 
     private String type;
+
+
+    public static OrganizationReqPublishEven get(String endtime, String starttime, String memberid, String state, String cnubmer,
+                                                 String eventid, String country, String city, String imeino, String title, String address, String subtitle, String cperson) {
+
+
+
+        return null;
+    }
 
     public String getEntity() {
         return entity;
@@ -59,7 +71,7 @@ public class OrganizationReqPublishEven {
 
         private String image;
 
-        private String cnumer;
+        private String cnubmer;
 
         private String eventid;
 
@@ -126,11 +138,11 @@ public class OrganizationReqPublishEven {
         }
 
         public String getCnumer() {
-            return cnumer;
+            return cnubmer;
         }
 
         public void setCnumer(String cnumer) {
-            this.cnumer = cnumer;
+            this.cnubmer = cnumer;
         }
 
         public String getEventid() {
@@ -206,7 +218,7 @@ public class OrganizationReqPublishEven {
                     ", state='" + state + '\'' +
                     ", discription='" + discription + '\'' +
                     ", image='" + image + '\'' +
-                    ", cnumer='" + cnumer + '\'' +
+                    ", cnumer='" + cnubmer + '\'' +
                     ", eventid='" + eventid + '\'' +
                     ", country='" + country + '\'' +
                     ", city='" + city + '\'' +

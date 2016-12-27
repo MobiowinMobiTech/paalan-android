@@ -52,7 +52,7 @@ public class NetworkUtil {
 
 //            Log.i("SERVER", "" + BuildConfig.DEBUG);
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl("https://serviceconnectuat.fullertonindia.com/")
+                    .baseUrl("http://192.168.0.36:8080/")
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .client(clientBuilder.build())
                     .build();

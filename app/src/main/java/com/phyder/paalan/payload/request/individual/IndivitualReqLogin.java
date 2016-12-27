@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.request.individual;
 
+import com.phyder.paalan.social.Social;
+
 /**
  * Created on 22/12/16.
  * Author Dharmendra
@@ -14,10 +16,17 @@ public class IndivitualReqLogin {
 
     private String type;
 
-    public IndivitualReqLogin(String entity, Data data, String type) {
-        this.entity = entity;
-        this.data = data;
-        this.type = type;
+    public static IndivitualReqLogin get(String imeino, String userid, String password) {
+        Data data = new Data();
+        data.setImeino(imeino);
+        data.setUserid(userid);
+        data.setPassword(password);
+
+        IndivitualReqLogin indivitualReqLogin = new IndivitualReqLogin();
+        indivitualReqLogin.setData(data);
+        indivitualReqLogin.setEntity(Social.IND_LOGIN_ENTITY);
+        indivitualReqLogin.setType(Social.IND_LOGIN_TYPE);
+        return indivitualReqLogin;
     }
 
     public String getEntity() {
@@ -53,7 +62,7 @@ public class IndivitualReqLogin {
                 '}';
     }
 
-    public class Data {
+    public static class Data {
         private String imeino;
 
         private String userid;

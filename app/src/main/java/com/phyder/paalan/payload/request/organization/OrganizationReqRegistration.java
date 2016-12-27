@@ -1,5 +1,8 @@
 package com.phyder.paalan.payload.request.organization;
 
+import com.phyder.paalan.social.Social;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -14,6 +17,46 @@ public class OrganizationReqRegistration {
     private Data data;
 
     private String type;
+
+    public static OrganizationReqRegistration get(String imeino, ArrayList<String> place, String registrationno, String isnewsletter, String name, String role, String lati, String longi, String isRegistered, String password, ArrayList<String> socialLink, String email, String mobile) {
+
+        Data data = new Data();
+        data.setImeino(imeino);
+
+        Presence[] presence1 = new Presence[place.size()];
+
+        for (int i = 0; i < presence1.length; i++) {
+            Presence obj = new Presence();
+            obj.setPlace(place.get(i));
+            presence1[i] = obj;
+        }
+        data.setRegistrationno(registrationno);
+        data.setIsnewsletter(isnewsletter);
+        data.setName(name);
+        data.setRole(role);
+        data.setLatitude(lati);
+        data.setLongitude(longi);
+        data.setIsregisterd(isRegistered);
+        data.setPassword(password);
+
+        Sociallink[] sociallinks = new Sociallink[socialLink.size()];
+        for (int i = 0; i < sociallinks.length; i++) {
+            Sociallink social = new Sociallink();
+            social.setSocialsitelink(socialLink.get(i));
+            sociallinks[i] = social;
+        }
+        data.setSociallink(sociallinks);
+        data.setPresence(presence1);
+
+        data.setEmailid(email);
+        data.setMobileno(mobile);
+
+        OrganizationReqRegistration payload = new OrganizationReqRegistration();
+        payload.setEntity(Social.ORG_REGISTRATION_ENTITY);
+        payload.setType("registration");
+        payload.setData(data);
+        return payload;
+    }
 
     public String getEntity() {
         return entity;
@@ -48,7 +91,7 @@ public class OrganizationReqRegistration {
                 '}';
     }
 
-    public class Data {
+    public static class Data {
         private String imeino;
 
         private Presence[] presence;
@@ -199,93 +242,27 @@ public class OrganizationReqRegistration {
         }
     }
 
-    public class Sociallink {
-        private String twitter;
+    public static class Sociallink {
+        private String socialsitelink;
 
-        private String instagram;
-
-        private String hangoutlink;
-
-        private String linkedin;
-
-        private String fb;
-
-        public String getTwitter() {
-            return twitter;
+        public String getSocialsitelink() {
+            return socialsitelink;
         }
 
-        public void setTwitter(String twitter) {
-            this.twitter = twitter;
-        }
-
-        public String getInstagram() {
-            return instagram;
-        }
-
-        public void setInstagram(String instagram) {
-            this.instagram = instagram;
-        }
-
-        public String getHangoutlink() {
-            return hangoutlink;
-        }
-
-        public void setHangoutlink(String hangoutlink) {
-            this.hangoutlink = hangoutlink;
-        }
-
-        public String getLinkedin() {
-            return linkedin;
-        }
-
-        public void setLinkedin(String linkedin) {
-            this.linkedin = linkedin;
-        }
-
-        public String getFb() {
-            return fb;
-        }
-
-        public void setFb(String fb) {
-            this.fb = fb;
+        public void setSocialsitelink(String socialsitelink) {
+            this.socialsitelink = socialsitelink;
         }
 
         @Override
         public String toString() {
             return "Sociallink{" +
-                    "twitter='" + twitter + '\'' +
-                    ", instagram='" + instagram + '\'' +
-                    ", hangoutlink='" + hangoutlink + '\'' +
-                    ", linkedin='" + linkedin + '\'' +
-                    ", fb='" + fb + '\'' +
+                    "socialsitelink='" + socialsitelink + '\'' +
                     '}';
         }
     }
 
-    public class Presence {
-        private String place2;
-
-        private String place1;
-
+    public static class Presence {
         private String place;
-
-        private String place3;
-
-        public String getPlace2() {
-            return place2;
-        }
-
-        public void setPlace2(String place2) {
-            this.place2 = place2;
-        }
-
-        public String getPlace1() {
-            return place1;
-        }
-
-        public void setPlace1(String place1) {
-            this.place1 = place1;
-        }
 
         public String getPlace() {
             return place;
@@ -295,21 +272,10 @@ public class OrganizationReqRegistration {
             this.place = place;
         }
 
-        public String getPlace3() {
-            return place3;
-        }
-
-        public void setPlace3(String place3) {
-            this.place3 = place3;
-        }
-
         @Override
         public String toString() {
             return "Presence{" +
-                    "place2='" + place2 + '\'' +
-                    ", place1='" + place1 + '\'' +
-                    ", place='" + place + '\'' +
-                    ", place3='" + place3 + '\'' +
+                    "place='" + place + '\'' +
                     '}';
         }
     }
