@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.request.individual;
 
+import com.phyder.paalan.social.Social;
+
 /**
  * Created on 22/12/16.
  * Author Dharmendra
@@ -13,6 +15,29 @@ public class IndivitualReqProfile {
     private Data data;
 
     private String type;
+
+    public static IndivitualReqProfile get(String pincode, String dpimage, String memberid, String dob, String state, String gender, String firstName, String lastName, String mobileNo, String country, String city) {
+
+        Data data = new Data();
+        data.setPincode(pincode);
+        data.setDpimage(dpimage);
+        data.setMemberid(memberid);
+        data.setDob(dob);
+        data.setState(state);
+        data.setGender(gender);
+        data.setFirstname(firstName);
+        data.setLastname(lastName);
+        data.setMobileno(mobileNo);
+        data.setCountry(country);
+        data.setCity(city);
+
+
+        IndivitualReqProfile reqProfile = new IndivitualReqProfile();
+        reqProfile.setType(Social.IND_LOGIN_TYPE);
+        reqProfile.setData(data);
+        reqProfile.setEntity(Social.IND_PROFILE_ENTITY);
+        return null;
+    }
 
     public String getEntity() {
         return entity;
@@ -47,7 +72,7 @@ public class IndivitualReqProfile {
                 '}';
     }
 
-    public class Data {
+    public static class Data {
         private String pincode;
 
         private String dpimage;
