@@ -16,7 +16,7 @@ public class IndivitualReqLogin {
 
     private String type;
 
-    public static IndivitualReqLogin get(String imeino, String userid, String password) {
+    public static IndivitualReqLogin get(String userid, String imeino, String password) {
         Data data = new Data();
         data.setImeino(imeino);
         data.setUserid(userid);
@@ -96,8 +96,8 @@ public class IndivitualReqLogin {
         @Override
         public String toString() {
             return "Data{" +
-                    "imeino='" + imeino + '\'' +
-                    ", userid='" + userid + '\'' +
+                    "userid='" + userid + '\'' +
+                    ", imeino='" + imeino + '\'' +
                     ", password='" + password + '\'' +
                     '}';
         }

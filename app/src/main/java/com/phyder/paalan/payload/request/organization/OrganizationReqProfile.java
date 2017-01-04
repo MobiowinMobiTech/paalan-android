@@ -1,6 +1,13 @@
 package com.phyder.paalan.payload.request.organization;
 
+import android.util.Log;
+
+import com.phyder.paalan.social.Social;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.google.android.gms.internal.zzs.TAG;
 
 /**
  * Created on 22/12/16.
@@ -15,6 +22,46 @@ public class OrganizationReqProfile {
     private Data data;
 
     private String type;
+
+    public static OrganizationReqProfile get(String pincode, String dpimage, ArrayList<String> presence, String memberid, String registrationno, String name, String state, ArrayList<String> socialLink, String mobileno, String country, String city) {
+        Data data = new Data();
+        data.setPincode(pincode);
+        data.setCity(city);
+        data.setDpimage(dpimage);
+
+        Presence[] presences = new Presence[presence.size()];
+
+        for (int i = 0; i < presence.size(); i++) {
+
+            Presence obj = new Presence();
+            obj.setPlace(presence.get(i));
+            presences[i] = obj;
+        }
+        data.setPresence(presences);
+
+        data.setMemberid(memberid);
+        data.setRegistrationno(registrationno);
+        data.setName(name);
+        data.setState(state);
+
+        Sociallink[] sociallinks = new Sociallink[socialLink.size()];
+        for (int i = 0; i < sociallinks.length; i++) {
+            Sociallink socialObj = new Sociallink();
+            socialObj.setSociallink(socialLink.get(i));
+            sociallinks[i] = socialObj;
+        }
+        data.setSociallink(sociallinks);
+
+        data.setMobileno(mobileno);
+        data.setCountry(country);
+        data.setCity(city);
+
+        OrganizationReqProfile reqProfile = new OrganizationReqProfile();
+        reqProfile.setData(data);
+        reqProfile.setEntity(Social.ORG_REGISTRATION_ENTITY);
+        reqProfile.setType(Social.ORG_PROFILE);
+        return reqProfile;
+    }
 
     public String getEntity() {
         return entity;
@@ -49,7 +96,7 @@ public class OrganizationReqProfile {
                 '}';
     }
 
-    public class Data {
+    public static class Data {
         private String pincode;
 
         private String dpimage;
@@ -178,93 +225,37 @@ public class OrganizationReqProfile {
         }
     }
 
-    public class Sociallink {
-        private String twitter;
+    public static class Sociallink {
 
-        private String instagram;
+        private String socialLinks;
 
-        private String hangoutlink;
-
-        private String linkedin;
-
-        private String fb;
-
-        public String getTwitter() {
-            return twitter;
+        public String getSociallink() {
+            return socialLinks;
         }
 
-        public void setTwitter(String twitter) {
-            this.twitter = twitter;
-        }
-
-        public String getInstagram() {
-            return instagram;
-        }
-
-        public void setInstagram(String instagram) {
-            this.instagram = instagram;
-        }
-
-        public String getHangoutlink() {
-            return hangoutlink;
-        }
-
-        public void setHangoutlink(String hangoutlink) {
-            this.hangoutlink = hangoutlink;
-        }
-
-        public String getLinkedin() {
-            return linkedin;
-        }
-
-        public void setLinkedin(String linkedin) {
-            this.linkedin = linkedin;
-        }
-
-        public String getFb() {
-            return fb;
-        }
-
-        public void setFb(String fb) {
-            this.fb = fb;
+        public void setSociallink(String socialLinks) {
+            this.socialLinks = socialLinks;
         }
 
         @Override
         public String toString() {
             return "Sociallink{" +
-                    "twitter='" + twitter + '\'' +
-                    ", instagram='" + instagram + '\'' +
-                    ", hangoutlink='" + hangoutlink + '\'' +
-                    ", linkedin='" + linkedin + '\'' +
-                    ", fb='" + fb + '\'' +
+                    "twitter='" + socialLinks + '\'' +
                     '}';
         }
+        //        private String instagram;
+//
+//        private String hangoutlink;
+//
+//        private String linkedin;
+//
+//        private String fb;
+
+
     }
 
-    public class Presence {
-        private String place2;
-
-        private String place1;
-
+    public static class Presence {
         private String place;
-
-        private String place3;
-
-        public String getPlace2() {
-            return place2;
-        }
-
-        public void setPlace2(String place2) {
-            this.place2 = place2;
-        }
-
-        public String getPlace1() {
-            return place1;
-        }
-
-        public void setPlace1(String place1) {
-            this.place1 = place1;
-        }
 
         public String getPlace() {
             return place;
@@ -274,21 +265,10 @@ public class OrganizationReqProfile {
             this.place = place;
         }
 
-        public String getPlace3() {
-            return place3;
-        }
-
-        public void setPlace3(String place3) {
-            this.place3 = place3;
-        }
-
         @Override
         public String toString() {
             return "Presence{" +
-                    "place2='" + place2 + '\'' +
-                    ", place1='" + place1 + '\'' +
                     ", place='" + place + '\'' +
-                    ", place3='" + place3 + '\'' +
                     '}';
         }
     }

@@ -76,7 +76,7 @@ public class OrgRegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
                         if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: Registration Response" + response.message());
+                            Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getStatus());
                         } else {
                             Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
                         }
