@@ -4,6 +4,9 @@ import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
 import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqSyncEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganizationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
 import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
@@ -11,6 +14,9 @@ import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
+import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
+import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
+import com.phyder.paalan.payload.response.organization.OrgResUpdateEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResPublishEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
@@ -27,24 +33,33 @@ import retrofit2.http.POST;
 
 public interface PaalanServices {
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<IndivitualResLogin> paalanLogin(@Body IndivitualReqLogin reqLoginPayload);
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<IndivitualResUpdateProfile> indUpdateProfile(@Body IndivitualReqUpdateProfile indivitualReqProfile);
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<IndivitualReqRegistration> indRegistration(@Body IndivitualResRegistration indivitualResRegistration);
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<IndivitualReqPublishEvent> indEventPublish(@Body IndivitualResPublishEvent indivitualResPublishEvent);
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<OrganizationResProfile> orgProfile(@Body OrganizationReqProfile organizationReqProfile);
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<OrganizationReqPublishEven> orgEventPublish(@Body OrganizationResPublishEvent organizationResPublishEvent);
 
-    @POST("mobiOwin/GeeniServlet")
+    @POST("paalan/PaalanGateway")
     Call<OrganizationResRegistration> orgRegistration(@Body OrganizationReqRegistration organizationResRegistration);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResCreateEvent> orgCreateEvent(@Body OrgReqCreateEvent orgResCreateEvent);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResUpdateEvent> orgupdateEvent(@Body OrgReqUpdateEvent orgResUpdateEvent);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResSyncEvent> orgSyncEvent(@Body OrgReqSyncEvent orgResUpdateEvent);
 }
