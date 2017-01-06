@@ -48,4 +48,10 @@
     <string name="login_as_organization">Login as Organization</string>
     <string name="login_as_Individual">Login as Individual</string>
     <string name="delete_event">Delete Event</string>
+    <string name="create_event">Create Event</string>
+    <string name="ind">IND</string>
+    <string name="org">ORG</string>
+    <string name="enter_user_or_password">Enter USer OR Mobile Number</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="signin">SIGNIN</string>
 </resources>

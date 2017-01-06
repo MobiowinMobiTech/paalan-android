@@ -13,8 +13,14 @@ public class Social {
     public static final String ORG_LOGIN_TYPE = "login";
     public static final String PROFILE_TYPE = "profile";
     public static final String ORG_REGISTRATION_ENTITY = "org";
+    //    public static final String ORG_ENTITY = "org";
     public static final String ORG_PROFILE = "profile";
     public static final String IND_REGISTRATION_ENTITY = "ind";
+    public static final String EVENT_CRETAE_ACTION = "create";
+    public static final String EVENT_SYNC_ACTION = "create";
+    public static final String EVENT_UPDATE_ACTION = "update";
+    public static final String ACTION_TYPE = "event";
+    public static final String ACTION_SYNC_TYPE = "sync";
     public static final String IND_PROFILE = "profile";
     public static final String ORG_REQ_TYPE = "registration";
     public static final String EVENT_ACTION = "delete";

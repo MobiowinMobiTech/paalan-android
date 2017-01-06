@@ -66,7 +66,26 @@
         </activity>
         <activity android:name=".activity.individual.INDUpdateProfileActivity" />
         <activity android:name=".activity.OrgLoginActivity" />
-        <activity android:name=".activity.DeleteEventActivity">
+        <activity android:name=".activity.DeleteEventActivity" />
+        <!--<activity android:name=".activity.individual.UpdateProfileActivity">-->
+
+        <!--</activity>-->
+        <!--<activity android:name=".activity.ActivityCreateEvent">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<activity android:name=".activity.ActivityUpdateEvent">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name=".activity.ActivitySyncEvent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
