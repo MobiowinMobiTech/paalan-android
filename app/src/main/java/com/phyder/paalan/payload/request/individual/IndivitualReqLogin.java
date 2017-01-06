@@ -16,7 +16,7 @@ public class IndivitualReqLogin {
 
     private String type;
 
-    public static IndivitualReqLogin get(String imeino, String userid, String password) {
+    public static IndivitualReqLogin get(String userid, String imeino, String password) {
         Data data = new Data();
         data.setImeino(imeino);
         data.setUserid(userid);
@@ -24,8 +24,9 @@ public class IndivitualReqLogin {
 
         IndivitualReqLogin indivitualReqLogin = new IndivitualReqLogin();
         indivitualReqLogin.setData(data);
-        indivitualReqLogin.setEntity(Social.IND_LOGIN_ENTITY);
-        indivitualReqLogin.setType(Social.IND_LOGIN_TYPE);
+        indivitualReqLogin.setEntity(Social.ORG_ENTITY);
+//        indivitualReqLogin.setType(Social.IND_LOGIN_TYPE);
+        indivitualReqLogin.setType(Social.ORG_LOGIN_TYPE);
         return indivitualReqLogin;
     }
 
@@ -96,8 +97,8 @@ public class IndivitualReqLogin {
         @Override
         public String toString() {
             return "Data{" +
-                    "imeino='" + imeino + '\'' +
-                    ", userid='" + userid + '\'' +
+                    "userid='" + userid + '\'' +
+                    ", imeino='" + imeino + '\'' +
                     ", password='" + password + '\'' +
                     '}';
         }

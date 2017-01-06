@@ -4,24 +4,20 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.telephony.TelephonyManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,7 +35,7 @@ import android.widget.Toast;
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentDashBoard;
 import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
-import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.Device;
@@ -66,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+    boolean isIND = true;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -89,6 +86,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     EditText edtNGOName, edtemail, edtContactNumber;
 
+    TextView txtLoginAsOrg;
+
     private LinearLayout mLayout;
     private EditText mEditText;
 
@@ -98,6 +97,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
 
+        txtLoginAsOrg = (TextView) findViewById(R.id.txt_org_login);
+        txtLoginAsOrg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isIND) {
+                    isIND = false;
+                    txtLoginAsOrg.setText(R.string.login_as_organization);
+                    //switch back to ind
+                } else {
+                    txtLoginAsOrg.setText(R.string.login_as_organization);
+//                    switch back to org
+                    isIND = true;
+                }
+//                txtLoginAsOrg.setVisibility(View.GONE);
+//                if (isIND){
+//                    txtLoginAsOrg.setVisibility(View.GONE);
+//                    Toast.makeText(getApplicationContext(),"IND",Toast.LENGTH_LONG).show();
+//                }else if (!isIND){
+//                    txtLoginAsOrg.setVisibility(View.GONE);
+//                    Toast.makeText(getApplicationContext(),"ORG",Toast.LENGTH_LONG).show();
+//                }
+//                Intent orgIntent = new Intent(LoginActivity.this, OrgLoginActivity.class);
+//                startActivity(orgIntent);
+//                Toast.makeText(LoginActivity.this, "Try to login as ORG", Toast.LENGTH_SHORT).show();
+            }
+        });
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -135,19 +161,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 mLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
-                final String imeiNo = "sdajnf";
-                final ArrayList<String> places = new ArrayList<>();
+
+//                final ArrayList<String> places = new ArrayList<>();
                 final String registrationNo = "sdfsdf";
                 final String isNewsLetter = "sdfsdf";
                 final String name = "sdfsdf";
-                final String role = "sdfsdf";
-                final String lat = "sdfsdf";
-                final String longi = "sdfsdf";
-                final String isRegistered = "sdfsdf";
-                final String password = "sdfsdf";
-                final ArrayList<String> socialLinks = new ArrayList<>();
+                final String mobile = "8879531264";
                 final String email = "sdfsdf";
-                final String mobile = "sdfsdf";
+                final String password = "sdfsdf";
+                final String notificationID = "sdfsdf";
+                final String deviceID = "sdfsdf";
+                final String imeiNo = "sdajnf";
+                final String address = "sdajnf";
+                final String city = "sdfsdf";
+                final String state = "sdfsdf";
+                final String pincode = "sdfsdf";
+                final String country = "sdfsdf";
+
+//                final ArrayList<String> socialLinks = new ArrayList<>();
+
 
                 Button btnRegister;
 
@@ -156,16 +188,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        places.add("1");
-                        places.add("2");
-                        places.add("3");
-                        places.add("4");
+//                        places.add("1");
+//                        places.add("2");
+//                        places.add("3");
+//                        places.add("4");
+//
+//                        socialLinks.add("facebook");
+//                        socialLinks.add("twiter");
+//                        socialLinks.add("gmail");
+//                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
+                        OrganizationReqResistration organizationReqRegistration = OrganizationReqResistration.get(name, mobile, email, password, notificationID,
+                                deviceID, imeiNo, address, city, state, pincode, country);
 
-                        socialLinks.add("facebook");
-                        socialLinks.add("twiter");
-                        socialLinks.add("gmail");
-                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
-
+                        Log.d(TAG, "onClick: " + organizationReqRegistration);
                         Device.newInstance(LoginActivity.this);
 
                         Retrofit mRetrofit = NetworkUtil.getRetrofit();
@@ -177,7 +212,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             @Override
                             public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
                                 if (response.isSuccessful()) {
-                                    Log.d(TAG, "onResponse: Registration Response" + response.message());
+                                    Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getMessage());
+                                    Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getData()[0]);
                                 } else {
                                     Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
                                 }
@@ -189,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         });
 //                        mLayout.addView(mEditText);
-                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -234,47 +270,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void populateAutoComplete() {
-//        if (!mayRequestContacts()) {
-//            return;
-//        }
+        if (!mayRequestContacts()) {
+            return;
+        }
 
         getLoaderManager().initLoader(0, null, this);
     }
 
-//    private boolean mayRequestContacts() {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//            return true;
-//        }
-//        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-//            return true;
-//        }
-//        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-//            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-//                    .setAction(android.R.string.ok, new View.OnClickListener() {
-//                        @Override
-//                        @TargetApi(Build.VERSION_CODES.M)
-//                        public void onClick(View v) {
-//                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-//                        }
-//                    });
-//        } else {
-//            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-//        }
-//        return false;
-//    }
+    private boolean mayRequestContacts() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                        }
+                    });
+        } else {
+            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+        }
+        return false;
+    }
 
     /**
      * Callback received when a permissions request has been completed.
      */
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-//                                           @NonNull int[] grantResults) {
-//        if (requestCode == REQUEST_READ_CONTACTS) {
-//            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                populateAutoComplete();
-//            }
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_READ_CONTACTS) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                populateAutoComplete();
+            }
+        }
+    }
 
 
     /**
@@ -318,18 +354,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mPasswordView.setError(getString(R.string.error_empty_password));
             focusView = mPasswordView;
             cancel = true;
-        } else if (password.length() < 8) {
+        } else if (password.length() < 5) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         } else {
-            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            String device_id = tm.getDeviceId();
+            String device_id = "123456789";
             Log.d(TAG, "attemptLogin: " + device_id);
-            String userID = "testUser";
-            String indPassword = "12345678";
+            String userID = "8879531264";
+            String indPassword = "sdfsdf";
+//            String userID = edtemail.getText().toString();
+            Device.newInstance(LoginActivity.this);
 //            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(email, password, imoNumber);
-            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, indPassword, device_id);
+            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -527,6 +564,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    private void readPhoneState() {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivity(intent);
+        Toast.makeText(this, "Camera feature working", Toast.LENGTH_SHORT)
+                .show();
     }
 }
 

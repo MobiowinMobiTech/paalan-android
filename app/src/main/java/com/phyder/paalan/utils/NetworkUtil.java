@@ -51,8 +51,9 @@ public class NetworkUtil {
 //            }
 
 //            Log.i("SERVER", "" + BuildConfig.DEBUG);
+//            http://192.168.0.15:8080/paalan/PaalanGateway
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.36:8080/")
+                    .baseUrl("http://192.168.0.15:8080/")
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .client(clientBuilder.build())
                     .build();
