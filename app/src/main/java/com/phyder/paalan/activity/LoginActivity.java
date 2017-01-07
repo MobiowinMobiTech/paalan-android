@@ -35,7 +35,7 @@ import android.widget.Toast;
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentDashBoard;
 import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
-import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.Device;
@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+    boolean isIND = true;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -85,6 +86,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     EditText edtNGOName, edtemail, edtContactNumber;
 
+    TextView txtLoginAsOrg;
+
     private LinearLayout mLayout;
     private EditText mEditText;
 
@@ -94,6 +97,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
 
+        txtLoginAsOrg = (TextView) findViewById(R.id.txt_org_login);
+        txtLoginAsOrg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isIND) {
+                    isIND = false;
+                    txtLoginAsOrg.setText(R.string.login_as_organization);
+                    //switch back to ind
+                } else {
+                    txtLoginAsOrg.setText(R.string.login_as_organization);
+//                    switch back to org
+                    isIND = true;
+                }
+//                txtLoginAsOrg.setVisibility(View.GONE);
+//                if (isIND){
+//                    txtLoginAsOrg.setVisibility(View.GONE);
+//                    Toast.makeText(getApplicationContext(),"IND",Toast.LENGTH_LONG).show();
+//                }else if (!isIND){
+//                    txtLoginAsOrg.setVisibility(View.GONE);
+//                    Toast.makeText(getApplicationContext(),"ORG",Toast.LENGTH_LONG).show();
+//                }
+//                Intent orgIntent = new Intent(LoginActivity.this, OrgLoginActivity.class);
+//                startActivity(orgIntent);
+//                Toast.makeText(LoginActivity.this, "Try to login as ORG", Toast.LENGTH_SHORT).show();
+            }
+        });
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -131,19 +161,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 mLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
-                final String imeiNo = "sdajnf";
-                final ArrayList<String> places = new ArrayList<>();
+
+//                final ArrayList<String> places = new ArrayList<>();
                 final String registrationNo = "sdfsdf";
                 final String isNewsLetter = "sdfsdf";
                 final String name = "sdfsdf";
-                final String role = "sdfsdf";
-                final String lat = "sdfsdf";
-                final String longi = "sdfsdf";
-                final String isRegistered = "sdfsdf";
-                final String password = "sdfsdf";
-                final ArrayList<String> socialLinks = new ArrayList<>();
+                final String mobile = "8879531264";
                 final String email = "sdfsdf";
-                final String mobile = "sdfsdf";
+                final String password = "sdfsdf";
+                final String notificationID = "sdfsdf";
+                final String deviceID = "sdfsdf";
+                final String imeiNo = "sdajnf";
+                final String address = "sdajnf";
+                final String city = "sdfsdf";
+                final String state = "sdfsdf";
+                final String pincode = "sdfsdf";
+                final String country = "sdfsdf";
+
+//                final ArrayList<String> socialLinks = new ArrayList<>();
+
 
                 Button btnRegister;
 
@@ -152,16 +188,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        places.add("1");
-                        places.add("2");
-                        places.add("3");
-                        places.add("4");
+//                        places.add("1");
+//                        places.add("2");
+//                        places.add("3");
+//                        places.add("4");
+//
+//                        socialLinks.add("facebook");
+//                        socialLinks.add("twiter");
+//                        socialLinks.add("gmail");
+//                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
+                        OrganizationReqResistration organizationReqRegistration = OrganizationReqResistration.get(name, mobile, email, password, notificationID,
+                                deviceID, imeiNo, address, city, state, pincode, country);
 
-                        socialLinks.add("facebook");
-                        socialLinks.add("twiter");
-                        socialLinks.add("gmail");
-                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
-
+                        Log.d(TAG, "onClick: " + organizationReqRegistration);
                         Device.newInstance(LoginActivity.this);
 
                         Retrofit mRetrofit = NetworkUtil.getRetrofit();
@@ -174,6 +213,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
                                 if (response.isSuccessful()) {
                                     Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getMessage());
+                                    Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getData()[0]);
                                 } else {
                                     Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
                                 }
@@ -185,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         });
 //                        mLayout.addView(mEditText);
-                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -314,15 +354,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mPasswordView.setError(getString(R.string.error_empty_password));
             focusView = mPasswordView;
             cancel = true;
-        } else if (password.length() < 8) {
+        } else if (password.length() < 5) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         } else {
             String device_id = "123456789";
             Log.d(TAG, "attemptLogin: " + device_id);
-            String userID = "7709642004";
-            String indPassword = "c123";
+            String userID = "8879531264";
+            String indPassword = "sdfsdf";
+//            String userID = edtemail.getText().toString();
             Device.newInstance(LoginActivity.this);
 //            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(email, password, imoNumber);
             IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);

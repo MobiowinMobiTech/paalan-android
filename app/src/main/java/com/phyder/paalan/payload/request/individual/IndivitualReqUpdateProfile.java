@@ -36,7 +36,7 @@ public class IndivitualReqUpdateProfile {
 
 
         IndivitualReqUpdateProfile reqProfile = new IndivitualReqUpdateProfile();
-        reqProfile.setType(Social.IND_PROFILE_TYPE);
+        reqProfile.setType(Social.PROFILE_TYPE);
         reqProfile.setData(data);
         reqProfile.setEntity(Social.IND_PROFILE_ENTITY);
         return reqProfile;

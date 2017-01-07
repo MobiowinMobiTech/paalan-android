@@ -11,6 +11,8 @@ public class OrganizationResRegistration {
 
     private String status;
 
+    private String[] data;
+
     public String getMessage() {
         return message;
     }
@@ -27,11 +29,16 @@ public class OrganizationResRegistration {
         this.status = status;
     }
 
+    public String[] getData() {
+        return data;
+    }
+
+    public void setData(String[] data) {
+        this.data = data;
+    }
+
     @Override
     public String toString() {
-        return "OrganizationResRegistration{" +
-                "message='" + message + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return "ClassPojo [message = " + message + ", status = " + status + ", data = " + data + "]";
     }
 }

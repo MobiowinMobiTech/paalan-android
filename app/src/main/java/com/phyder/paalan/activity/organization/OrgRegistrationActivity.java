@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.PaalanServices;
@@ -71,22 +72,23 @@ public class OrgRegistrationActivity extends AppCompatActivity {
                 Retrofit mRetrofit = NetworkUtil.getRetrofit();
                 PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-                Call<OrganizationResRegistration> registrationCall = mPaalanServices.orgRegistration(organizationReqRegistration);
-                registrationCall.enqueue(new Callback<OrganizationResRegistration>() {
-                    @Override
-                    public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
-                        if (response.isSuccessful()) {
-                            Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getStatus());
-                        } else {
-                            Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
-                        }
-                    }
+//                Call<OrganizationResRegistration> Call = mPaalanServices.orgRegistration(organizationReqRegistration);
+//                Call<OrganizationResRegistration> registrationCall = mPaalanServices.orgRegistration(organizationReqRegistration);
+//                registrationCall.enqueue(new Callback<OrganizationResRegistration>() {
+//                    @Override
+//                    public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
+//                        if (response.isSuccessful()) {
+//                            Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getStatus());
+//                        } else {
+//                            Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
+//                        }
+//                    }
 
-                    @Override
-                    public void onFailure(Call<OrganizationResRegistration> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.getMessage());
-                    }
-                });
+//                    @Override
+//                    public void onFailure(Call<OrganizationResRegistration> call, Throwable t) {
+//                        Log.d(TAG, "onFailure: " + t.getMessage());
+//                    }
+//                });
             }
         });
 

@@ -1,5 +1,6 @@
 package com.phyder.paalan.activity.organization;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.services.Device;
@@ -41,27 +43,24 @@ public class OrganizationProfile extends AppCompatActivity {
         /*Base64 Decoded Image for Profile Image*/
                 final String dpimage = Social.DP_IMG;
 //        final ArrayList<OrganizationReqProfile> presence = new ArrayList<>();
-                final ArrayList<String> presence = new ArrayList<>();
-                final String memberid = "ghbnbhdfhb";
-                final String registrationno = "dfhgdfgh";
-                final String name = "dfgdfg";
-                final String state = "dafgdafg";
-                final ArrayList<String> socialLink = new ArrayList<>();
-                final String mobileno = "adsfgdasfg";
-                final String country = "adsfgadsfg";
-                final String city = "dfgdfagdg";
+//                final ArrayList<String> presence = new ArrayList<>();
+                final String registrationno = "AKHPG8935";
+//                final ArrayList<String> socialLink = new ArrayList<>();
+                final String orgid ="paalan";
+                final String role="7709642004";
+                final String imeino="1236547893";
+                final String isnewsletter="cmss";
+                final String isregisterd="Y";
+                final String fblink="https://www.facebook.com/Paalan-1729449980622228/";
+                final String twitterlink="https://www.facebook.com/Paalan-1729449980622228/";
+                final String websitelink="http://www.paalan.com/";
+                final String linkedinlink="https://www.facebook.com/Paalan-1729449980622228/";
+                final String preencearea="india";
 
-                presence.add("mumbai");
-                presence.add("delhi");
-                presence.add("kolkata");
-
-                socialLink.add("facebook");
-                socialLink.add("twiter");
-                socialLink.add("gmail");
-
-                OrganizationReqProfile reqProfile = OrganizationReqProfile.get(pincode, dpimage, presence, memberid, registrationno, name, state, socialLink, mobileno, country, city);
-
+//                OrganizationReqProfile reqProfile = OrganizationReqProfile.get(pincode, dpimage, presence, memberid, registrationno, name, state, socialLink, mobileno, country, city);
+                OrganisationReqProfile reqProfile = OrganisationReqProfile.get(orgid,role,imeino,isnewsletter, isregisterd,registrationno, dpimage, fblink, linkedinlink, websitelink, twitterlink,preencearea );
                 Device.newInstance(OrganizationProfile.this);
+
 
                 Retrofit mRetrofit = NetworkUtil.getRetrofit();
 
@@ -84,7 +83,7 @@ public class OrganizationProfile extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<OrganizationResProfile> call, Throwable t) {
-
+                        Log.d(TAG, "onFailure: " + t.getMessage());
                     }
                 });
             }

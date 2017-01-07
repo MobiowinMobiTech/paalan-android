@@ -24,8 +24,9 @@ public class IndivitualReqLogin {
 
         IndivitualReqLogin indivitualReqLogin = new IndivitualReqLogin();
         indivitualReqLogin.setData(data);
-        indivitualReqLogin.setEntity(Social.IND_LOGIN_ENTITY);
-        indivitualReqLogin.setType(Social.IND_LOGIN_TYPE);
+        indivitualReqLogin.setEntity(Social.ORG_ENTITY);
+//        indivitualReqLogin.setType(Social.IND_LOGIN_TYPE);
+        indivitualReqLogin.setType(Social.ORG_LOGIN_TYPE);
         return indivitualReqLogin;
     }
 

@@ -1,20 +1,23 @@
 package com.phyder.paalan.services;
 
 import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
-import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
+import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqDeleteEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
-import com.phyder.paalan.payload.request.organization.OrganizationReqProfile;
+import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
 import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
+import com.phyder.paalan.payload.response.organization.OrgResDeleteEvent;
 import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
@@ -46,12 +49,18 @@ public interface PaalanServices {
     Call<IndivitualReqPublishEvent> indEventPublish(@Body IndivitualResPublishEvent indivitualResPublishEvent);
 
     @POST("paalan/PaalanGateway")
-    Call<OrganizationResProfile> orgProfile(@Body OrganizationReqProfile organizationReqProfile);
+    Call<OrganizationResProfile> orgProfile(@Body OrganisationReqProfile organizationReqProfile);
+//    Call<OrganizationResProfile> orgProfile(@Body OrganizationReqProfile organizationReqProfile);
 
     @POST("paalan/PaalanGateway")
     Call<OrganizationReqPublishEven> orgEventPublish(@Body OrganizationResPublishEvent organizationResPublishEvent);
 
     @POST("paalan/PaalanGateway")
+    Call<OrganizationResRegistration> orgRegistration(@Body OrganizationReqResistration reqLoginPayload);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResDeleteEvent> orgDeleteEvent(@Body OrgReqDeleteEvent reqLoginPayload);
+
     Call<OrganizationResRegistration> orgRegistration(@Body OrganizationReqRegistration organizationResRegistration);
 
     @POST("paalan/PaalanGateway")
