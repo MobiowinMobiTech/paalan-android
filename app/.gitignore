@@ -34,6 +34,9 @@ captures/
 
 # Intellij
 *.iml
+build.gradle
+*.idea
+
 .idea/workspace.xml
 .idea/libraries
 
@@ -52,7 +55,7 @@ Not you.png
 RootShell/
 RootTools/
 Screenshot/
-app/Fullerton.apk
+
 app/fabric.properties
 app/google-services-old.json
 app/keystore/

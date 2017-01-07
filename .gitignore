@@ -45,6 +45,7 @@ captures/
 .idea/file.template.settings.xml
 .idea/libraries/
 4: splash.png
+build.gradle
 ComplaintAction.png
 Fullerton Last Transaction.png
 Fullerton Last transaction dashboard.png
