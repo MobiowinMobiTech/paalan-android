@@ -162,7 +162,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
 
-//                final ArrayList<String> places = new ArrayList<>();
                 final String registrationNo = "sdfsdf";
                 final String isNewsLetter = "sdfsdf";
                 final String name = "sdfsdf";
@@ -178,9 +177,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 final String pincode = "sdfsdf";
                 final String country = "sdfsdf";
 
-//                final ArrayList<String> socialLinks = new ArrayList<>();
-
-
                 Button btnRegister;
 
                 Button btnSubmit;
@@ -188,15 +184,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        places.add("1");
-//                        places.add("2");
-//                        places.add("3");
-//                        places.add("4");
-//
-//                        socialLinks.add("facebook");
-//                        socialLinks.add("twiter");
-//                        socialLinks.add("gmail");
-//                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
                         OrganizationReqResistration organizationReqRegistration = OrganizationReqResistration.get(name, mobile, email, password, notificationID,
                                 deviceID, imeiNo, address, city, state, pincode, country);
 
@@ -224,8 +211,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 Log.d(TAG, "onFailure: " + t.getMessage());
                             }
                         });
-//                        mLayout.addView(mEditText);
-//                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                     }
                 });
 

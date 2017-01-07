@@ -54,4 +54,10 @@
     <string name="enter_user_or_password">Enter USer OR Mobile Number</string>
     <string name="enter_password">Enter Password</string>
     <string name="signin">SIGNIN</string>
+    <string name="postal_address">postal_address</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="pincode">Pincode</string>
+    <string name="postaladdress">PostalAddress</string>
 </resources>
