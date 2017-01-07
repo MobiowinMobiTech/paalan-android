@@ -51,4 +51,13 @@
     <string name="enter_user_or_password">Enter USer OR Mobile Number</string>
     <string name="enter_password">Enter Password</string>
     <string name="signin">SIGNIN</string>
+    <string name="login_as_org">Login as ORG</string>
+    <string name="ngo_achievments">NGO Achievments</string>
+    <string name="syncdata">SyncData</string>
+    <string name="deletedata">DeleteData</string>
+    <string name="postal_address">Postal Address</string>
+    <string name="pincode">Pincode</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="country">Country</string>
 </resources>

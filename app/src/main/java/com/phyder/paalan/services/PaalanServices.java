@@ -4,8 +4,12 @@ import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
 import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqDeleteAchievement;
+import com.phyder.paalan.payload.request.organization.OrgReqSyncAchievement;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqUpdateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganizationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
@@ -14,8 +18,12 @@ import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
+import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
+import com.phyder.paalan.payload.response.organization.OrgResDeleteAchievement;
+import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
 import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
+import com.phyder.paalan.payload.response.organization.OrgResUpdateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResPublishEvent;
@@ -62,4 +70,16 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<OrgResSyncEvent> orgSyncEvent(@Body OrgReqSyncEvent orgResUpdateEvent);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResCreateAchievments> orgCreateAchievements(@Body OrgReqCreateAchievments orgReqAchievements);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResUpdateAchievments> orgUpdateAchievements(@Body OrgReqUpdateAchievments orgReqAchievements);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResDeleteAchievement> orgDeleteAchievements(@Body OrgReqDeleteAchievement orgReqAchievements);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResSyncAchievement> orgSyncAchievements(@Body OrgReqSyncAchievement orgReqAchievements);
 }
