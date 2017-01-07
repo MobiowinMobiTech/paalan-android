@@ -19,20 +19,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-<<<<<<< HEAD
-||||||| merged common ancestors
         <activity
             android:name=".test.TestActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-=======
-        <activity
-            android:name=".test.TestActivity"
-            android:label="@string/app_name">
->>>>>>> achievments
 
-<<<<<<< HEAD
         <!-- <activity -->
         <!-- android:name=".test.TestActivity" -->
         <!-- android:label="@string/app_name"> -->
@@ -43,19 +35,15 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-||||||| merged common ancestors
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-=======
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-        </activity>
->>>>>>> achievments
         <!-- <activity -->
         <!-- android:name=".activity.PaalanSplashActivity" -->
         <!-- android:label="@string/app_name"> -->
@@ -84,23 +72,14 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-<<<<<<< HEAD
-        <activity android:name=".activity.organization.OrganizationProfile">
+        <activity android:name=".activity.organization.OrganizationProfile"/>
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
-||||||| merged common ancestors
-        <activity android:name=".activity.individual.UpdateProfileActivity">
-=======
-        <activity android:name=".activity.individual.UpdateProfileActivity" />
-        <!-- <activity android:name=".activity.ActivityCreateEvent"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
->>>>>>> achievments
+        <!--<activity android:name=".activity.individual.UpdateProfileActivity"/>-->
 
-<<<<<<< HEAD
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
-        </activity>
+        <!--</activity>-->
         <activity android:name=".activity.individual.INDUpdateProfileActivity" />
         <activity android:name=".activity.OrgLoginActivity" />
         <activity android:name=".activity.DeleteEventActivity" />
@@ -110,13 +89,6 @@
         <!--<activity android:name=".activity.ActivityCreateEvent">-->
         <!--<intent-filter>-->
         <!--<action android:name="android.intent.action.MAIN" />-->
-||||||| merged common ancestors
-        </activity>
-        <!--<activity android:name=".activity.ActivityCreateEvent">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-=======
->>>>>>> achievments
 
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
