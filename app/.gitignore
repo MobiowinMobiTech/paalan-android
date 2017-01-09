@@ -1,3 +1,4 @@
+.gitignore
 # Built application files
 *.apk
 *.ap_
@@ -7,7 +8,7 @@
 
 # Java class files
 *.class
-
+*.idea
 # Generated files
 bin/
 gen/
@@ -39,6 +40,7 @@ captures/
 
 # Keystore files
 *.jks
+
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
