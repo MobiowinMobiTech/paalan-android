@@ -344,39 +344,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mPasswordView;
             cancel = true;
         } else {
-            String device_id = "123456789";
-            Log.d(TAG, "attemptLogin: " + device_id);
-            String userID = "8879531264";
-            String indPassword = "sdfsdf";
+//            String device_id = "123456789";
+//            Log.d(TAG, "attemptLogin: " + device_id);
+//            String userID = "8879531264";
+//            String indPassword = "sdfsdf";
 //            String userID = edtemail.getText().toString();
             Device.newInstance(LoginActivity.this);
 //            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(email, password, imoNumber);
-            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);
+//            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);
 
-            Retrofit mRetrofit = NetworkUtil.getRetrofit();
-            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
-            Call<IndivitualResLogin> indivitualResLogin = mPaalanServices.paalanLogin(indivitualReqLogin);
-
-            indivitualResLogin.enqueue(new Callback<IndivitualResLogin>() {
-                @Override
-                public void onResponse(Call<IndivitualResLogin> call, Response<IndivitualResLogin> response) {
-
-                    if (response.isSuccessful()) {
-
-                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+//            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+//            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+//            Call<IndivitualResLogin> indivitualResLogin = mPaalanServices.paalanLogin(indivitualReqLogin);
+//
+//            indivitualResLogin.enqueue(new Callback<IndivitualResLogin>() {
+//                @Override
+//                public void onResponse(Call<IndivitualResLogin> call, Response<IndivitualResLogin> response) {
+//
+//                    if (response.isSuccessful()) {
+//
+//                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
 //                        if (response.body().){
 //
 //                        }
-                    }
+//                    }
 //                    Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
 //                    startActivity(singInIntent);
-                }
+//                }
 
-                @Override
-                public void onFailure(Call<IndivitualResLogin> call, Throwable t) {
-                    Log.d(TAG, "onFailure: " + t.getMessage());
-                }
-            });
+//                @Override
+//                public void onFailure(Call<IndivitualResLogin> call, Throwable t) {
+//                    Log.d(TAG, "onFailure: " + t.getMessage());
+//                }
+//            });
             Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
             startActivity(singInIntent);
         }
