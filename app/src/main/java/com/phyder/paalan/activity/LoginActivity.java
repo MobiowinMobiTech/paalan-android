@@ -36,6 +36,7 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentDashBoard;
 import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
 import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.Device;
@@ -123,77 +124,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mSignUPNGORegistration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
-//                View registrationView = getLayoutInflater().inflate(R.layout.activity_ngo_registration, null);
-//                edtNGOName = (EditText) findViewById(R.id.edit_ngo_name);
-//                edtemail = (EditText) findViewById(R.id.edit_ngo_email);
-//                edtContactNumber = (EditText) findViewById(R.id.edit_ngo_contact_number);
-//
-//                mLayout = (LinearLayout) findViewById(R.id.linearLayout);
-//
-//                final String imeiNo = "sdajnf";
-//                final ArrayList<String> places = new ArrayList<>();
-//                final String registrationNo = "sdfsdf";
-//                final String isNewsLetter = "sdfsdf";
-//                final String name = "sdfsdf";
-//                final String role = "sdfsdf";
-//                final String lat = "sdfsdf";
-//                final String longi = "sdfsdf";
-//                final String isRegistered = "sdfsdf";
-//                final String password = "sdfsdf";
-//                final ArrayList<String> socialLinks = new ArrayList<>();
-//                final String email = "sdfsdf";
-//                final String mobile = "sdfsdf";
-//
-//                Button btnRegister;
-//
-//                Button btnSubmit;
-//                btnSubmit = (Button) registrationView.findViewById(R.id.btn_register);
-//                btnSubmit.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        places.add("1");
-//                        places.add("2");
-//                        places.add("3");
-//                        places.add("4");
-//
-//                        socialLinks.add("facebook");
-//                        socialLinks.add("twiter");
-//                        socialLinks.add("gmail");
-//                        OrganizationReqRegistration organizationReqRegistration = OrganizationReqRegistration.get(imeiNo, places, registrationNo, isNewsLetter, name, role, lat, longi, isRegistered, password, socialLinks, email, mobile);
-//
-//                        Device.newInstance(LoginActivity.this);
-//
-//                        Retrofit mRetrofit = NetworkUtil.getRetrofit();
-//
-//                        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
-//
-//                        Call<OrganizationResRegistration> registrationCall = mPaalanServices.orgRegistration(organizationReqRegistration);
-//                        registrationCall.enqueue(new Callback<OrganizationResRegistration>() {
-//                            @Override
-//                            public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
-//                                if (response.isSuccessful()) {
-//                                    Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getMessage());
-//                                } else {
-//                                    Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<OrganizationResRegistration> call, Throwable t) {
-//                                Log.d(TAG, "onFailure: " + t.getMessage());
-//                            }
-//                        });
-////                        mLayout.addView(mEditText);
-//                        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//                mBuilder.setView(registrationView);
-//                AlertDialog alertDialog = mBuilder.create();
-//                alertDialog.show();
-=======
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
                 View registrationView = getLayoutInflater().inflate(R.layout.activity_ngo_registration, null);
                 edtNGOName = (EditText) findViewById(R.id.edit_ngo_name);
@@ -258,7 +188,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mBuilder.setView(registrationView);
                 AlertDialog alertDialog = mBuilder.create();
                 alertDialog.show();
->>>>>>> UI
             }
         });
 
@@ -386,18 +315,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mPasswordView;
             cancel = true;
         } else {
-<<<<<<< HEAD
             String device_id = "123456789";
             Log.d(TAG, "attemptLogin: " + device_id);
             String userID = "7709642004";
             String indPassword = "c123";
-=======
 //            String device_id = "123456789";
 //            Log.d(TAG, "attemptLogin: " + device_id);
 //            String userID = "8879531264";
 //            String indPassword = "sdfsdf";
 //            String userID = edtemail.getText().toString();
->>>>>>> UI
             Device.newInstance(LoginActivity.this);
 //            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(email, password, imoNumber);
 //            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);
