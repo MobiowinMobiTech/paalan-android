@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.response.organization;
 
+import java.util.Arrays;
+
 /**
  * Created on 22/12/16.
  * Author Dharmendra
@@ -11,7 +13,7 @@ public class OrganizationResRegistration {
 
     private String status;
 
-    private String[] data;
+    private Data[] data;
 
     public String getMessage() {
         return message;
@@ -29,16 +31,39 @@ public class OrganizationResRegistration {
         this.status = status;
     }
 
-    public String[] getData() {
+    public Data[] getData() {
         return data;
     }
 
-    public void setData(String[] data) {
+    public void setData(Data[] data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "ClassPojo [message = " + message + ", status = " + status + ", data = " + data + "]";
+        return "OrganizationResRegistration{" +
+                "message='" + message + '\'' +
+                ", status='" + status + '\'' +
+                ", data=" + Arrays.toString(data) +
+                '}';
+    }
+
+    public class Data {
+        private String orgid;
+
+        public String getOrgid() {
+            return orgid;
+        }
+
+        public void setOrgid(String orgid) {
+            this.orgid = orgid;
+        }
+
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "orgid='" + orgid + '\'' +
+                    '}';
+        }
     }
 }

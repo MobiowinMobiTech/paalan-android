@@ -15,6 +15,7 @@ public class OrganizationReqResistration {
 
     private String type;
 
+    private String action;
     public static OrganizationReqResistration get(String name, String mobileno, String emailid, String password, String notificationid,
                                                   String deviceid, String imeino, String address, String city
             , String state, String pincode, String country) {
@@ -37,6 +38,7 @@ public class OrganizationReqResistration {
         reqResistration.setData(data);
         reqResistration.setEntity(Social.ORG_REGISTRATION_ENTITY);
         reqResistration.setType(Social.ORG_REQ_TYPE);
+        reqResistration.setAction(Social.SUBMIT_ACTION);
         return reqResistration;
 
     }
@@ -63,6 +65,13 @@ public class OrganizationReqResistration {
 
     public void setType(String type) {
         this.type = type;
+    }
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 
     @Override

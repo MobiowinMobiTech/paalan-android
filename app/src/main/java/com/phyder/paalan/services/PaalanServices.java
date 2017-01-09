@@ -1,6 +1,6 @@
 package com.phyder.paalan.services;
 
-import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
+import com.phyder.paalan.payload.request.individual.IndividualReqLogin;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
@@ -13,6 +13,7 @@ import com.phyder.paalan.payload.request.organization.OrgReqSyncEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
+import com.phyder.paalan.payload.request.organization.OrganizationReqLogin;
 import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
 import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
@@ -28,6 +29,7 @@ import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
 import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateEvent;
+import com.phyder.paalan.payload.response.organization.OrganizationResLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResPublishEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
@@ -45,7 +47,10 @@ import retrofit2.http.POST;
 public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
-    Call<IndivitualResLogin> paalanLogin(@Body IndivitualReqLogin reqLoginPayload);
+    Call<IndivitualResLogin> paalanINDLogin(@Body IndividualReqLogin reqLoginPayload);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrganizationResLogin> paalanORGLogin(@Body OrganizationReqLogin reqLoginPayload);
 
     @POST("paalan/PaalanGateway")
     Call<IndivitualResUpdateProfile> indUpdateProfile(@Body IndivitualReqUpdateProfile indivitualReqProfile);
