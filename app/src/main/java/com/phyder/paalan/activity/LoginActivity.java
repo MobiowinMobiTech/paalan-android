@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mSignUPNGORegistration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
 //                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
 //                View registrationView = getLayoutInflater().inflate(R.layout.activity_ngo_registration, null);
 //                edtNGOName = (EditText) findViewById(R.id.edit_ngo_name);
@@ -192,6 +193,72 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                mBuilder.setView(registrationView);
 //                AlertDialog alertDialog = mBuilder.create();
 //                alertDialog.show();
+=======
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
+                View registrationView = getLayoutInflater().inflate(R.layout.activity_ngo_registration, null);
+                edtNGOName = (EditText) findViewById(R.id.edit_ngo_name);
+                edtemail = (EditText) findViewById(R.id.edit_ngo_email);
+                edtContactNumber = (EditText) findViewById(R.id.edit_ngo_contact_number);
+
+                mLayout = (LinearLayout) findViewById(R.id.linearLayout);
+
+
+                final String registrationNo = "sdfsdf";
+                final String isNewsLetter = "sdfsdf";
+                final String name = "sdfsdf";
+                final String mobile = "8879531264";
+                final String email = "sdfsdf";
+                final String password = "sdfsdf";
+                final String notificationID = "sdfsdf";
+                final String deviceID = "sdfsdf";
+                final String imeiNo = "sdajnf";
+                final String address = "sdajnf";
+                final String city = "sdfsdf";
+                final String state = "sdfsdf";
+                final String pincode = "sdfsdf";
+                final String country = "sdfsdf";
+
+                Button btnRegister;
+
+                Button btnSubmit;
+                btnSubmit = (Button) registrationView.findViewById(R.id.btn_register);
+                btnSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        OrganizationReqResistration organizationReqRegistration = OrganizationReqResistration.get(name, mobile, email, password, notificationID,
+                                deviceID, imeiNo, address, city, state, pincode, country);
+
+                        Log.d(TAG, "onClick: " + organizationReqRegistration);
+                        Device.newInstance(LoginActivity.this);
+
+                        Retrofit mRetrofit = NetworkUtil.getRetrofit();
+
+                        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+
+                        Call<OrganizationResRegistration> registrationCall = mPaalanServices.orgRegistration(organizationReqRegistration);
+                        registrationCall.enqueue(new Callback<OrganizationResRegistration>() {
+                            @Override
+                            public void onResponse(Call<OrganizationResRegistration> call, Response<OrganizationResRegistration> response) {
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getMessage());
+                                    Log.d(TAG, "onResponse: Registration Response" + response.body().getStatus() + "\n" + response.body().getData()[0]);
+                                } else {
+                                    Log.d(TAG, "onResponse: Registration Response" + response.errorBody());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<OrganizationResRegistration> call, Throwable t) {
+                                Log.d(TAG, "onFailure: " + t.getMessage());
+                            }
+                        });
+                    }
+                });
+
+                mBuilder.setView(registrationView);
+                AlertDialog alertDialog = mBuilder.create();
+                alertDialog.show();
+>>>>>>> UI
             }
         });
 
@@ -319,38 +386,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mPasswordView;
             cancel = true;
         } else {
+<<<<<<< HEAD
             String device_id = "123456789";
             Log.d(TAG, "attemptLogin: " + device_id);
             String userID = "7709642004";
             String indPassword = "c123";
+=======
+//            String device_id = "123456789";
+//            Log.d(TAG, "attemptLogin: " + device_id);
+//            String userID = "8879531264";
+//            String indPassword = "sdfsdf";
+//            String userID = edtemail.getText().toString();
+>>>>>>> UI
             Device.newInstance(LoginActivity.this);
 //            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(email, password, imoNumber);
-            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);
+//            IndivitualReqLogin indivitualReqLogin = IndivitualReqLogin.get(userID, device_id, indPassword);
 
-            Retrofit mRetrofit = NetworkUtil.getRetrofit();
-            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
-            Call<IndivitualResLogin> indivitualResLogin = mPaalanServices.paalanLogin(indivitualReqLogin);
-
-            indivitualResLogin.enqueue(new Callback<IndivitualResLogin>() {
-                @Override
-                public void onResponse(Call<IndivitualResLogin> call, Response<IndivitualResLogin> response) {
-
-                    if (response.isSuccessful()) {
-
-                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+//            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+//            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+//            Call<IndivitualResLogin> indivitualResLogin = mPaalanServices.paalanLogin(indivitualReqLogin);
+//
+//            indivitualResLogin.enqueue(new Callback<IndivitualResLogin>() {
+//                @Override
+//                public void onResponse(Call<IndivitualResLogin> call, Response<IndivitualResLogin> response) {
+//
+//                    if (response.isSuccessful()) {
+//
+//                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
 //                        if (response.body().){
 //
 //                        }
-                    }
+//                    }
 //                    Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
 //                    startActivity(singInIntent);
-                }
+//                }
 
-                @Override
-                public void onFailure(Call<IndivitualResLogin> call, Throwable t) {
-                    Log.d(TAG, "onFailure: " + t.getMessage());
-                }
-            });
+//                @Override
+//                public void onFailure(Call<IndivitualResLogin> call, Throwable t) {
+//                    Log.d(TAG, "onFailure: " + t.getMessage());
+//                }
+//            });
             Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
             startActivity(singInIntent);
         }

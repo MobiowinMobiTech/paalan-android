@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 # Built application files
+.gitignore
 *.apk
 *.ap_
 
@@ -79,10 +80,10 @@ socialauthandroid 3.2/libs/
 socialauthandroid 3.2/lint.xml
 socialauthandroid 3.2/src/
 .gradle/2.14.1/tasks/
-||||||| merged common ancestors
-/build
-=======
+.gitignore
+<<<<<<< HEAD
 # Built application files
+.gitignore
 *.apk
 *.ap_
 
@@ -118,6 +119,9 @@ captures/
 
 # Intellij
 *.iml
+build.gradle
+*.idea
+
 .idea/workspace.xml
 .idea/libraries
 
@@ -136,7 +140,7 @@ Not you.png
 RootShell/
 RootTools/
 Screenshot/
-app/Fullerton.apk
+
 app/fabric.properties
 app/google-services-old.json
 app/keystore/
@@ -159,4 +163,3 @@ socialauthandroid 3.2/libs/
 socialauthandroid 3.2/lint.xml
 socialauthandroid 3.2/src/
 .gradle/2.14.1/tasks/
->>>>>>> achievments
