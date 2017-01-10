@@ -2,6 +2,7 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +24,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="35dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/paalan_logo"
+        android:src="@drawable/d"
         android:id="@+id/imageview_dp_image"/>
 
         <TextView
@@ -140,7 +141,7 @@
             <Button
                 android:id="@+id/update"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textColor="#cccccc"
                 android:background="@drawable/background_button"
                 android:textSize="20dp"

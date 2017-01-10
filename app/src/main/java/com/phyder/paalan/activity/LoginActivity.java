@@ -33,11 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.fragments.FragmentDashBoard;
-import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
-import com.phyder.paalan.payload.request.organization.OrganizationReqRegistration;
+import com.phyder.paalan.fragments.DashBoardActivity;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
-import com.phyder.paalan.payload.response.individual.IndivitualResLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
@@ -343,7 +340,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //
 //                        }
 //                    }
-//                    Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
+//                    Intent singInIntent = new Intent(LoginActivity.this, DashBoardActivity.class);
 //                    startActivity(singInIntent);
 //                }
 
@@ -352,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                    Log.d(TAG, "onFailure: " + t.getMessage());
 //                }
 //            });
-            Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
+            Intent singInIntent = new Intent(LoginActivity.this, DashBoardActivity.class);
             startActivity(singInIntent);
         }
 

@@ -35,7 +35,7 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragments.FragmentDashBoard"
+            android:name=".fragments.DashBoardActivity"
             android:label="@string/title_activity_dash_borad"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.organization.OrgRegistrationActivity">

@@ -4,26 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="2"
-    tools:context=".fragments.FragmentDashBoard"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragments.DashBoardActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_weight="1">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewPageAndroid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:id="@+id/image_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="false">
+
+            <!-- Add as a direct child of your ViewPager -->
+            <com.itsronald.widget.ViewPagerIndicator
+                android:id="@+id/view_pager_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:gravity="center_vertical" />
+
+        </android.support.v4.view.ViewPager>
+
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5">
+
         <GridView
             android:id="@+id/gridView1"
             android:layout_width="wrap_content"
@@ -33,6 +47,6 @@
             android:gravity="center"
             android:numColumns="2"
 
-            android:stretchMode="columnWidth"/>
-    </LinearLayout>
+            android:stretchMode="columnWidth" />
+    </LinearLayout>s
 </LinearLayout>
