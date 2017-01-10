@@ -1,3 +1,4 @@
+
 package com.phyder.paalan.activity.testingActivity;
 
 import android.os.Bundle;
@@ -16,7 +17,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
-    private static final Integer[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
+    private static final Integer[] IMAGES = {R.drawable.d, R.drawable.a, R.drawable.a, R.drawable.a};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
 
     @Override

@@ -20,6 +20,7 @@ public class Social {
     public static final String IND_REGISTRATION_ENTITY = "ind";
     public static final String EVENT_CRETAE_ACTION = "create";
     public static final String EVENT_ACTION = "create";
+    public static final String SUBMIT_ACTION = "submit";
     public static final String EVENT_ACTION_CREATE = "create";
     public static final String ACTION_DELETE = "delete";
     public static final String EVENT_SYNC_ACTION = "sync";

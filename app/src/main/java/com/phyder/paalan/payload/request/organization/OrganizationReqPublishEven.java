@@ -1,7 +1,5 @@
 package com.phyder.paalan.payload.request.organization;
 
-import com.phyder.paalan.payload.request.individual.IndivitualReqLogin;
-
 /**
  * Created on 22/12/16.
  * Author Dharmendra
