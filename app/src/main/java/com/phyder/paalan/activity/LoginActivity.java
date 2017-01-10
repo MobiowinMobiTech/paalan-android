@@ -128,8 +128,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
-                            Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
-                            startActivity(singInIntent);
                         }
                     }
 
@@ -138,6 +136,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
                 });
+                Intent singInIntent = new Intent(LoginActivity.this, FragmentDashBoard.class);
+                startActivity(singInIntent);
             }
         });
 
@@ -448,4 +448,3 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .show();
     }
 }
-
