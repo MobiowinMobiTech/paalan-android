@@ -1,4 +1,4 @@
-package com.phyder.paalan.activity;
+package com.phyder.paalan.activity.organization;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -102,7 +102,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.individual.INDLoginActivity" />
-        <activity android:name=".activity.organization.ORGLoginActivity" />
         <activity android:name=".activity.organization.OrgCreateAchievementsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

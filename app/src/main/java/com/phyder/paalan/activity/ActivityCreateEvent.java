@@ -1,7 +1,7 @@
 package com.phyder.paalan.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +11,6 @@ import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
-import com.phyder.paalan.test.TestActivity;
 import com.phyder.paalan.utils.NetworkUtil;
 
 import retrofit2.Call;

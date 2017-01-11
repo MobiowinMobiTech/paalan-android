@@ -30,6 +30,12 @@ public class DashBoardActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_borad);
 
+     //   FragmentManager fragmentManager = getFragmentManager();
+       //     fragmentManager.beginTransaction().replace(R.id.imageview_username, new FragmentMyProfile()).commit();
+//
+//        Intent intent = new Intent(DashBoardActivity.this ,FragmentMyProfile.class);
+//        startActivity(intent);
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

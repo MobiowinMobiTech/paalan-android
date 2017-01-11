@@ -15,7 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.adapter.CustomGridViewAdapter;
@@ -51,7 +53,7 @@ public class FragmentDashBorad extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-         View view = inflater.inflate(R.layout.dashboard_framelayout, container, false);
+        View view = inflater.inflate(R.layout.dashboard_framelayout, container, false);
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         init();
 
@@ -67,6 +69,13 @@ public class FragmentDashBorad extends android.support.v4.app.Fragment {
         gridView = (GridView) view.findViewById(R.id.gridView1);
         customGridViewAdapter = new CustomGridViewAdapter(getActivity(), R.layout.row_grid, gridArray);
         gridView.setAdapter(customGridViewAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(),"Selected "+gridArray.get(position).getTitle(),Toast.LENGTH_LONG).show();
+            }
+        });
         return view;
 
     }
