@@ -31,7 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.organization.ORGLoginActivity;
 import com.phyder.paalan.activity.organization.OrgRegistrationActivity;
 import com.phyder.paalan.fragments.FragmentDashBoard;
 import com.phyder.paalan.payload.request.individual.IndividualReqLogin;
@@ -83,13 +82,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         btnLoginAsORG = (Button) findViewById(R.id.btn_log_in_organization);
         btnLoginAsIND = (Button) findViewById(R.id.btn_log_in_individual);
         btnLoginAsIND.setBackgroundColor(Color.parseColor("#c2c2c2"));
+
         btnLoginAsORG.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, ORGLoginActivity.class);
-                overridePendingTransition(R.anim.in, R.anim.out);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(LoginActivity.this, ORGLoginActivity.class);
+//                overridePendingTransition(R.anim.in, R.anim.out);
+//                startActivity(intent);
+//                finish();
             }
         });
 

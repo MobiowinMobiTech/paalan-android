@@ -22,18 +22,18 @@
 
         <activity
             android:name=".activity.PaalanSplashActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".activity.LoginActivity"
+                  android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        </activity>
+
         <activity
             android:name=".fragments.FragmentDashBoard"
             android:label="@string/title_activity_dash_borad"
@@ -51,7 +51,7 @@
         <activity android:name=".activity.organization.OrganizationProfile" /><!--<intent-filter>--><!--<action android:name="android.intent.action.MAIN" />--><!--<activity android:name=".activity.individual.UpdateProfileActivity"/>-->
 
         <!--<category android:name="android.intent.category.LAUNCHER" />--><!--</intent-filter>--><!--</activity>-->
-        <activity android:name=".activity.individual.INDUpdateProfileActivity" />
+
         <activity android:name=".activity.DeleteEventActivity" /><!--<activity android:name=".activity.individual.UpdateProfileActivity">-->
 
         <!--</activity>--><!--<activity android:name=".activity.ActivityCreateEvent">--><!--<intent-filter>--><!--<action android:name="android.intent.action.MAIN" />-->
@@ -78,8 +78,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.individual.INDLoginActivity" />
-        <activity android:name=".activity.organization.ORGLoginActivity" />
         <activity android:name=".activity.organization.OrgCreateAchievementsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
