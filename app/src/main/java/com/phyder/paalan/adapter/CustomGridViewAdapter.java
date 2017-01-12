@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.fragments.FragmentActivityDashBorad;
 
 import java.util.ArrayList;
 import java.util.List;

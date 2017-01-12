@@ -1,15 +1,12 @@
 package com.phyder.paalan.activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +21,8 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.organization.OrgRegistrationActivity;
-import com.phyder.paalan.fragments.FragmentDashBoard;
+import com.phyder.paalan.fragments.DashBoardActivity;
+import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.services.Device;
@@ -150,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e(TAG, "onResponse: ");
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, FragmentDashBoard.class);
+                            Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                             startActivity(intent);
                         }
                     }
@@ -163,8 +161,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 //            }
         });
-
-
     }
 
     private boolean requestPermission() {
