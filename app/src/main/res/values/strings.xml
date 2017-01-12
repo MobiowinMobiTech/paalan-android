@@ -60,11 +60,13 @@
     <string name="deletedata">DeleteData</string>
     <string name="postal_address">postal_address</string>
     <string name="country">Country</string>
-    <string name="ind_login">IND LOGIN</string>
-    <string name="org_login">ORG LOGIN</string>
+    <string name="ind_login">Individual</string>
+    <string name="org_login">Organisation</string>
     <string name="do_not_have_an_account_signup">Do not have an account?SignUp</string>
+    <string name="login_as">Login as</string>
     <string name="error_message">Error Message</string>
     <string name="state">State</string>
     <string name="city">City</string>
     <string name="pincode">Pincode</string>
+    <string name="login">Login</string>
 </resources>

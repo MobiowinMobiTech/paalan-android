@@ -3,7 +3,6 @@ package com.phyder.paalan.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.phyder.paalan.R;
 
@@ -16,13 +15,23 @@ public class PaalanSplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paalan_splash);
 
-        new Handler().postDelayed(new Runnable() {
+        Thread timer = new Thread(){
             @Override
             public void run() {
-                Intent intent = new Intent(PaalanSplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                try{
+                    sleep(SPLASH_TIME_OUT);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    Intent intent = new Intent(PaalanSplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
-        }, SPLASH_TIME_OUT);
+        };timer.start();
+
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

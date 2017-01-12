@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.onesignal.OneSignal;
 
-import static com.google.android.gms.wearable.DataMap.TAG;
 
 /**
  * Created on 22/12/16.

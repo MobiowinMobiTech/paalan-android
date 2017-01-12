@@ -17,9 +17,6 @@ import com.phyder.paalan.payload.response.organization.OrganizationResRegistrati
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.NetworkUtil;
-import com.phyder.paalan.utils.Util;
-
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,7 +75,7 @@ public class OrgRegistrationActivity extends AppCompatActivity {
                 country = edtCountry.getText().toString();
 
                 Log.d(TAG, "onClick: " + name + "\n" + mobileNo + "\n" + emailId + "\n" + password + "\n" + address + "\n" + city + "\n" + state + "\n" + pincode + "\n" + country);
-                if (Util.checkInternet(OrgRegistrationActivity.this)) {
+                if (NetworkUtil.checkInternet(OrgRegistrationActivity.this)) {
                     OrganizationReqResistration reqResistration = OrganizationReqResistration.get(name, mobileNo, emailId, password, notificationId, deviceId, imeiNo, address, city, state, pincode, country);
 
                     Device.newInstance(OrgRegistrationActivity.this);
@@ -100,7 +97,7 @@ public class OrgRegistrationActivity extends AppCompatActivity {
 
                                 } else if (response.body().getStatus().equals("error")) {
                                     String reserrorMsg = response.body().getMessage();
-                                    Log.d(TAG, "onResponse: " + reserrorMsg);
+                                    Log.e(TAG, "onResponse: " + reserrorMsg);
                                     ErrorDialog(reserrorMsg);
                                 }
                             } else {

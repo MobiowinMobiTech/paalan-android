@@ -1,6 +1,5 @@
 package com.phyder.paalan.payload.request.organization;
 
-import com.google.android.gms.games.achievement.Achievement;
 import com.phyder.paalan.social.Social;
 
 import java.util.ArrayList;
