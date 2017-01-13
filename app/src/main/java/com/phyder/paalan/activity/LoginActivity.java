@@ -1,13 +1,14 @@
 package com.phyder.paalan.activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,27 +19,25 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.organization.OrgRegistrationActivity;
-import com.phyder.paalan.fragments.FragmentDashBoard;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
+import com.phyder.paalan.utils.PreferenceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static android.Manifest.permission.READ_PHONE_STATE;
-
 
 /**
  * A login screen that offers login via email/password.
@@ -50,11 +49,15 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private TextView txtSignUp;
-    private RadioGroup radioGroupLoginAS;
     private Button btnSignIn;
     private String loginType = "org";
     private static final int PERMISSION_READ_STATE = 1;
+    private String deviceID = "", email = "", password = "";
+    private PreferenceUtils pref;
 
+    private TextView txtLoginAsOrg,txtLoginAsInd;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initializations();
         clickEventFire();
-        requestPermission();
 
     }
 
@@ -72,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void initializations() {
 
+        pref = new PreferenceUtils(LoginActivity.this);
         txtSignUp = (TextView) findViewById(R.id.txt_sign_up_organization);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -90,8 +93,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        radioGroupLoginAS = (RadioGroup) findViewById(R.id.radioGroupLoginAs);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
+        txtLoginAsInd = (TextView) findViewById(R.id.btnLoginAsIND);
+        txtLoginAsOrg = (TextView) findViewById(R.id.btnLoginAsORG);
+
+        txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
+        txtLoginAsOrg.setTextColor(getResources().getColor(R.color.WHITE));
+
+        txtLoginAsInd.setBackgroundResource(R.drawable.shape_rounded_borderwhite_ind);
+        txtLoginAsInd.setTextColor(getResources().getColor(R.color.colorPrimary));
 
     }
 
@@ -99,16 +110,6 @@ public class LoginActivity extends AppCompatActivity {
      * clicking action event fire here
      */
     private void clickEventFire() {
-
-        radioGroupLoginAS.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // find which radio button is selected
-                loginType = (checkedId == R.id.rb_org_login ? "org" : "individual");
-            }
-        });
-
 
         txtSignUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -122,8 +123,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = mEmailView.getText().toString();
-                String password = mPasswordView.getText().toString();
+                email = mEmailView.getText().toString();
+                password = mPasswordView.getText().toString();
 
 //                if(TextUtils.isEmpty(email)){
 //                    mEmailView.setError(getString(R.string.error_field_required));
@@ -135,50 +136,66 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
+//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+//                startActivity(intent);
+//                finish();
 
-                Device.newInstance(LoginActivity.this);
-                RequestLogin reqLogin = RequestLogin.get(CommanUtils.getImeiNo(LoginActivity.this), email, password, loginType);
-
-                Retrofit mRetrofit = NetworkUtil.getRetrofit();
-                PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
-
-                Call<ResponseLogin> resLogin = mPaalanServices.paalanLogin(reqLogin);
-
-                resLogin.enqueue(new Callback<ResponseLogin>() {
-                    @Override
-                    public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                        Log.e(TAG, "onResponse: ");
-                        if (response.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, FragmentDashBoard.class);
-                            startActivity(intent);
-                        }
+                    if (requestPermission()) {
+                        deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+                        getRetrofitCall();
                     }
-
-                    @Override
-                    public void onFailure(Call<ResponseLogin> call, Throwable t) {
-                        Log.e(TAG, "onFailure: " + t.getMessage());
-                    }
-                });
+//                }
             }
 //            }
         });
 
 
+        txtLoginAsInd.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_borderwhite_org);
+                txtLoginAsOrg.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                txtLoginAsInd.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
+                txtLoginAsInd.setTextColor(getResources().getColor(R.color.WHITE));
+
+                loginType = "individual";
+            }
+        });
+        txtLoginAsOrg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                txtLoginAsInd.setBackgroundResource(R.drawable.shape_rounded_borderwhite_ind);
+                txtLoginAsInd.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
+                txtLoginAsOrg.setTextColor(getResources().getColor(R.color.WHITE));
+
+                loginType = "org";
+            }
+        });
+
+
+
     }
+
 
     private boolean requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        if (checkSelfPermission(READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+
+        if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) ==
+                PackageManager.PERMISSION_GRANTED) {
             return true;
+        } else {
+            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},
+                    PERMISSION_READ_STATE);
         }
-
-        ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSION_READ_STATE);
-
         return false;
     }
+
 
     /**
      * Callback received when a permissions request has been completed.
@@ -190,15 +207,55 @@ public class LoginActivity extends AppCompatActivity {
             case PERMISSION_READ_STATE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission granted!
-                    // you may now do the action that requires this permission
+                    //permission is granted
+                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+                    getRetrofitCall();
                 } else {
-                    // permission denied
+                    //permission is not granted
+                    Toast.makeText(LoginActivity.this, "not granted : " + grantResults[0], Toast.LENGTH_LONG).show();
                 }
                 return;
             }
 
         }
+    }
+
+
+    public void getRetrofitCall() {
+        Device.newInstance(LoginActivity.this);
+        RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
+
+        Retrofit mRetrofit = NetworkUtil.getRetrofit();
+        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+
+        final Call<ResponseLogin> resLogin = mPaalanServices.paalanLogin(reqLogin);
+
+        resLogin.enqueue(new Callback<ResponseLogin>() {
+            @Override
+            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                Log.e(TAG, "onResponse: " + response.body());
+                if (response.isSuccessful()) {
+
+                    if(!response.body().getStatus().equals("error")){
+                        ResponseLogin.Data[] data = new ResponseLogin.Data[0];
+                        Log.e(TAG," ===== "+data[0].getOrgregdata());
+                        //pref.setOrgID(response.getOrgId());
+                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG)
+                                .show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
 }

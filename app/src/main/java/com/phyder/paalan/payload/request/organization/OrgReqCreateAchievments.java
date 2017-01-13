@@ -21,12 +21,8 @@ public class OrgReqCreateAchievments {
 
     private String type;
 
-    public static OrgReqCreateAchievments get(String orgs, ArrayList<String> imgs, String description, String others, String subTitle, String title) {
-
-        Data data = new Data();
-
-        data.setOrgid(orgs);
-//        data.setAchievementid(achievementID);
+    public static OrgReqCreateAchievments get(String orgs, ArrayList<String> imgs, String description, String others,
+                                              String subTitle, String title) {
 
         Achievementimg[] achievements = new Achievementimg[imgs.size()];
         for (int i = 0; i < achievements.length; i++) {
@@ -34,17 +30,21 @@ public class OrgReqCreateAchievments {
             achivementimg.setImg(imgs.get(i));
             achievements[i] = achivementimg;
         }
-        data.setAchievementimg(achievements);
+
+        Data data = new Data();
+        data.setOrgid(orgs);
         data.setDiscription(description);
         data.setOthers(others);
         data.setSubtitle(subTitle);
         data.setTitle(title);
+        data.setAchievementimg(achievements);
 
         OrgReqCreateAchievments createAchievments = new OrgReqCreateAchievments();
         createAchievments.setData(data);
         createAchievments.setAction(Social.EVENT_ACTION);
         createAchievments.setEntity(Social.ORG_ENTITY);
         createAchievments.setType(Social.ACHIEVEMENT_TYPE);
+
         return createAchievments;
     }
 

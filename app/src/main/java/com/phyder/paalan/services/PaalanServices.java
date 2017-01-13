@@ -46,9 +46,6 @@ public interface PaalanServices {
     @POST("paalan/PaalanGateway")
     Call<ResponseLogin> paalanLogin(@Body RequestLogin reqLoginPayload);
 
-//    @POST("paalan/PaalanGateway")
-//    Call<ResponseLogin> paalanORGLogin(@Body RequestLogin reqLoginPayload);
-
     @POST("paalan/PaalanGateway")
     Call<IndivitualResUpdateProfile> indUpdateProfile(@Body IndivitualReqUpdateProfile indivitualReqProfile);
 
@@ -60,7 +57,6 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<OrganizationResProfile> orgProfile(@Body OrganisationReqProfile organizationReqProfile);
-//    Call<OrganizationResProfile> orgProfile(@Body OrganizationReqProfile organizationReqProfile);
 
     @POST("paalan/PaalanGateway")
     Call<OrganizationReqPublishEven> orgEventPublish(@Body OrganizationResPublishEvent organizationResPublishEvent);
@@ -70,8 +66,6 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<OrgResDeleteEvent> orgDeleteEvent(@Body OrgReqDeleteEvent reqLoginPayload);
-
-//    Call<OrganizationResRegistration> orgRegistration(@Body OrganizationReqRegistration organizationResRegistration);
 
     @POST("paalan/PaalanGateway")
     Call<OrgResCreateEvent> orgCreateEvent(@Body OrgReqCreateEvent orgResCreateEvent);

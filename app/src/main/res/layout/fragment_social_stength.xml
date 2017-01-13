@@ -6,5 +6,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/social_strength" />
+        android:text="social_strength" />
 </FrameLayout>
