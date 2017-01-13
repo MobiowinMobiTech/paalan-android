@@ -2,154 +2,154 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.dharmendra.requestpermission.MainActivity"
-        android:weightSum="1">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="35dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/paalan_logo"
-        android:id="@+id/imageview_dp_image"/>
-
-        <TextView
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_profile"
-            android:text="My Profile"
-            android:layout_below="@+id/imageview_dp_image"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:context="com.dharmendra.requestpermission.MainActivity">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview_dp_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="35dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/d" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/org_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Organization Id" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/role"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Role in Organization" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/registration_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Registration No" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <EditText
-        android:id="@+id/fb_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Facebook Id" />
-
-    </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/linkedin_link"
+            <TextView
+                android:id="@+id/my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Linkedin Id" />
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/imageview_dp_image"
+                android:gravity="center"
+                android:text="@string/name"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/website_link"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Website Id" />
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/edt_org_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/organization_id" />
+            </android.support.design.widget.TextInputLayout>
 
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/twitter_link"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Twitter Id" />
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/edit_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/role_in_organization" />
+            </android.support.design.widget.TextInputLayout>
 
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/presence_area"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Presence Area" />
+                android:layout_height="wrap_content">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/registration_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/registration_no" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/fb_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Facebook Id" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/linkedin_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Linkedin Id" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/website_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Website Id" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/twitter_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Twitter Id" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/presence_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Presence Area" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/update"
+                android:id="@+id/btn_profile_update"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#cccccc"
-                android:background="@drawable/background_button"
-                android:textSize="20dp"
-                android:hint="Update"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_button"
+                android:hint="Update"
+                android:textColor="#cccccc"
+                android:textSize="20dp" />
 
 
-    </LinearLayout>
+        </LinearLayout>
     </ScrollView>
-    
+
 </FrameLayout>

@@ -20,6 +20,8 @@ public class OrganisationReqProfile {
 
     private String type;
 
+    private String action;
+
     public static OrganisationReqProfile get(String orgid, String role, String imeino, String isnewsletter, String isregisterd, String registrationno, String dpimage, String fblink, String linkedinlink, String websitelink, String twitterlink, String presencearea) {
 
         Data data = new Data();
@@ -40,6 +42,7 @@ public class OrganisationReqProfile {
         reqProfile.setData(data);
         reqProfile.setEntity(Social.ORG_ENTITY);
         reqProfile.setType(Social.PROFILE_TYPE);
+        reqProfile.setAction(Social.UPDATE_ACTION);
         return reqProfile;
     }
 
@@ -67,12 +70,21 @@ public class OrganisationReqProfile {
         this.type = type;
     }
 
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
     @Override
     public String toString() {
         return "OrganisationReqProfile{" +
                 "entity='" + entity + '\'' +
                 ", data=" + data +
                 ", type='" + type + '\'' +
+                ", action='" + action + '\'' +
                 '}';
     }
 
