@@ -3,6 +3,7 @@ package com.phyder.paalan.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +24,14 @@ import java.util.List;
 
 public class ListsAdapter extends  ArrayAdapter<String> {
 
-    private ArrayList<String> itemsList;
+    private final static String TAG = ListsAdapter.class.getCanonicalName();
+    private String[] itemsList;
     private Context context;
 
-    public ListsAdapter(Context context, int resource, List<String> objects) {
+    public ListsAdapter(Context context, int resource, String[] objects) {
         super(context, resource, objects);
-        itemsList= (ArrayList<String>) objects;
-        this.context=context;
+        itemsList = objects;
+        this.context = context;
     }
 
 
@@ -49,9 +51,14 @@ public class ListsAdapter extends  ArrayAdapter<String> {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.txtAchievements.setText(""+itemsList.get(position));
 
-        return convertView;
+        Log.e(TAG,"itemsList : "+itemsList);
+        try {
+            viewHolder.txtAchievements.setText("" + itemsList[position]);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+         return convertView;
     }
 
 

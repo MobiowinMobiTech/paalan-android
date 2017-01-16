@@ -82,7 +82,7 @@ public class ResponseLogin {
 
         private String id;
 
-        private String orgId;
+        public String orgId;
 
         private String notificationId;
 
