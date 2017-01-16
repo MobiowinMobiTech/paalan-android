@@ -229,9 +229,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     if (!response.body().getStatus().equals("error")) {
-                        ResponseLogin.Data[] data = new ResponseLogin.Data[0];
-                        Log.e(TAG, " ===== " + data[0].getOrgregdata());
-                        //pref.setOrgID(response.getOrgId());
+                        pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
                         Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                         startActivity(intent);
