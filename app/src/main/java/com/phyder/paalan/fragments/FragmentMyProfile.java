@@ -86,7 +86,7 @@ public class FragmentMyProfile extends Fragment {
         Social social = new Social();
         dpImage = social.DP_IMG;
 
-        Log.d(TAG, "onCreateView: " + strOrgId + "\n" + strRole + "\n" + strRegNo + "\n" + strfblink + "\n" + strlinkedin + "\n" + strWeblink + "\n" + strtwitter + "\n" + strPresenceArea + "\n");
+      //  Log.d(TAG, "onCreateView: " + strOrgId + "\n" + strRole + "\n" + strRegNo + "\n" + strfblink + "\n" + strlinkedin + "\n" + strWeblink + "\n" + strtwitter + "\n" + strPresenceArea + "\n");
 
         profileImage = (ImageView) view.findViewById(R.id.imageview_dp_image);
 

@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
-import com.phyder.paalan.fragments.FragmentDashborad;
+import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentUpdateAchievement;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 
@@ -68,7 +68,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setAdapter(listAdapter);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.platform, new FragmentDashborad());
+        transaction.replace(R.id.platform, new FragmentDashBorad());
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -257,7 +257,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         if(mDrawerLayout.isDrawerOpen(mDrawerList)){
             mDrawerLayout.closeDrawers();
-        }else if(getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashborad){
+        }else if(getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad){
                 finish();
         }else{
             super.onBackPressed();
