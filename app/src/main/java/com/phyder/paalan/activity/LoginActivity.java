@@ -79,8 +79,8 @@ public class LoginActivity extends AppCompatActivity {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        mEmailView.setText("962383731");
-        mPasswordView.setText("123456789");
+        mEmailView.setText("7709642004");
+        mPasswordView.setText("cmss");
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -237,12 +237,20 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     if(!response.body().getStatus().equals("error")){
-                        ResponseLogin.Data[] data = new ResponseLogin.Data[0];
-                        Log.e(TAG," ===== "+data[0].getOrgregdata());
-                        //pref.setOrgID(response.getOrgId());
-                        Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                        startActivity(intent);
+
+                        if(response.body().getData().length<2){
+                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                            intent.putExtra("LOGIN", loginType);
+                            startActivity(intent);
+                        }else {
+                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
+                            Log.e(TAG, "org id : " + pref.getOrgId());
+                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                            intent.putExtra("LOGIN", loginType);
+                            startActivity(intent);
+                        }
                     }else{
                         Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG)
                                 .show();

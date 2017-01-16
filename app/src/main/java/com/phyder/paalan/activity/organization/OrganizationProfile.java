@@ -1,10 +1,14 @@
 package com.phyder.paalan.activity.organization;
 
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -25,17 +29,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class OrganizationProfile extends AppCompatActivity {
+public class OrganizationProfile extends Fragment {
 
     Button btnOrgProfile;
     private String TAG = OrganizationProfile.class.getSimpleName();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organization_profile);
 
-        btnOrgProfile = (Button) findViewById(R.id.btnOrgProfile);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_organization_profile,null,false);
+        init(view);
+        return view;
+    }
+
+    private void init(View view) {
+
+        btnOrgProfile = (Button) view.findViewById(R.id.btnOrgProfile);
         btnOrgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +69,7 @@ public class OrganizationProfile extends AppCompatActivity {
 
 //                OrganizationReqProfile reqProfile = OrganizationReqProfile.get(pincode, dpimage, presence, memberid, registrationno, name, state, socialLink, mobileno, country, city);
                 OrganisationReqProfile reqProfile = OrganisationReqProfile.get(orgid,role,imeino,isnewsletter, isregisterd,registrationno, dpimage, fblink, linkedinlink, websitelink, twitterlink,preencearea );
-                Device.newInstance(OrganizationProfile.this);
+                Device.newInstance(getActivity());
 
 
                 Retrofit mRetrofit = NetworkUtil.getRetrofit();
@@ -74,10 +84,10 @@ public class OrganizationProfile extends AppCompatActivity {
                             if (response.body().getStatus().equals("success")) {
                                 Log.d(TAG, "onResponse: " + response.body().getData());
                             } else {
-                                Toast.makeText(OrganizationProfile.this, "Server error. Please try after sometime.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Server error. Please try after sometime.", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Server Not Available", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Server Not Available", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -89,4 +99,5 @@ public class OrganizationProfile extends AppCompatActivity {
             }
         });
     }
+
 }

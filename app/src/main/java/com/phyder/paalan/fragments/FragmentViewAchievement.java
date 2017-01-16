@@ -55,6 +55,16 @@ public class FragmentViewAchievement extends Fragment {
 
         dbAdapter.open();
         Cursor cursor = dbAdapter.getAllAchievements();
+        listOfAchievementIds =new String[cursor.getCount()];
+        listOfAchievementTitles =new String[cursor.getCount()];
+        listOfAchievementSubTitles =new String[cursor.getCount()];
+        listOfAchievementDescriptions =new String[cursor.getCount()];
+        listOfAchievementOthers =new String[cursor.getCount()];
+
+        listOfAchievementImage1 =new String[cursor.getCount()];
+        listOfAchievementImage2 =new String[cursor.getCount()];
+        listOfAchievementImage3 =new String[cursor.getCount()];
+        listOfAchievementImage4 =new String[cursor.getCount()];
         if(cursor !=null){
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
@@ -85,6 +95,7 @@ public class FragmentViewAchievement extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 
 
             }

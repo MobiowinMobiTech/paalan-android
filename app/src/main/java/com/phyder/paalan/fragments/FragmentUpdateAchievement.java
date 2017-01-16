@@ -3,6 +3,7 @@ package com.phyder.paalan.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.organization.OrganizationProfile;
 import com.phyder.paalan.adapter.ListsAdapter;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
@@ -55,6 +57,17 @@ public class FragmentUpdateAchievement extends Fragment {
 
         dbAdapter.open();
         Cursor cursor = dbAdapter.getAllAchievements();
+        listOfAchievementIds =new String[cursor.getCount()];
+        listOfAchievementTitles =new String[cursor.getCount()];
+        listOfAchievementSubTitles =new String[cursor.getCount()];
+        listOfAchievementDescriptions =new String[cursor.getCount()];
+        listOfAchievementOthers =new String[cursor.getCount()];
+
+        listOfAchievementImage1 =new String[cursor.getCount()];
+        listOfAchievementImage2 =new String[cursor.getCount()];
+        listOfAchievementImage3 =new String[cursor.getCount()];
+        listOfAchievementImage4 =new String[cursor.getCount()];
+
         if(cursor !=null){
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
@@ -85,6 +98,23 @@ public class FragmentUpdateAchievement extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Bundle bundle=new Bundle();
+                bundle.putBoolean("OPERATION_STATUS",true);
+                bundle.putString("ID",listOfAchievementIds[position]);
+                bundle.putString("TITLE",listOfAchievementTitles[position]);
+                bundle.putString("SUB_TITLE",listOfAchievementSubTitles[position]);
+                bundle.putString("DESCRIPTION",listOfAchievementDescriptions[position]);
+                bundle.putString("OTHER",listOfAchievementOthers[position]);
+                bundle.putString("IMAGE1",listOfAchievementImage1[position]);
+                bundle.putString("IMAGE2",listOfAchievementImage2[position]);
+                bundle.putString("IMAGE3",listOfAchievementImage3[position]);
+                bundle.putString("IMAGE4",listOfAchievementImage4[position]);
+                Fragment fragment = new FragmentCreateAchievement();
+                fragment.setArguments(bundle);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.platform, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 
             }
         });

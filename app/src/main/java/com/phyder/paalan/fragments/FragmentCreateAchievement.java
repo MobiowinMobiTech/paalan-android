@@ -21,10 +21,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.ActivityFragmentPlatform;
+import com.phyder.paalan.activity.LoginActivity;
+import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
@@ -58,6 +62,8 @@ public class FragmentCreateAchievement extends Fragment{
     private static final int PERMISSION_READ_EXTERNAL_STORAGE = 1;
 
     private PreferenceUtils pref;
+    private DBAdapter dbAdapter;
+    private boolean shouldBeUpdated = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +76,7 @@ public class FragmentCreateAchievement extends Fragment{
     private void init(View view) {
 
         pref = new PreferenceUtils(getActivity());
+        dbAdapter = new DBAdapter(getActivity());
         edtTitle = (EditText) view.findViewById(R.id.edt_title);
         edtSubTitle = (EditText) view.findViewById(R.id.edt_subtitle);
         edtDescription = (EditText) view.findViewById(R.id.edt_description);
@@ -83,6 +90,39 @@ public class FragmentCreateAchievement extends Fragment{
         btnSubmit = (Button) view.findViewById(R.id.btn_submit);
 
         listOfImages =new ArrayList<String>();
+
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+
+            shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
+
+            edtTitle.setText(bundle.getString("TITLE"));
+            edtSubTitle.setText(bundle.getString("SUB_TITLE"));
+            edtDescription.setText(bundle.getString("DESCRIPTION"));
+            edtOthers.setText(bundle.getString("OTHER"));
+
+            imgDecodableFirst=bundle.getString("IMAGE1");
+            imgDecodableSecond=bundle.getString("IMAGE2");
+            imgDecodableThird=bundle.getString("IMAGE3");
+            imgDecodableForth=bundle.getString("IMAGE4");
+
+            if(imgDecodableFirst != null && !imgDecodableFirst.isEmpty()){
+                imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
+                imgAchievementSecond.setVisibility(View.VISIBLE);
+            }
+            if(imgDecodableSecond != null && !imgDecodableSecond.isEmpty()){
+                imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
+                imgAchievementThird.setVisibility(View.VISIBLE);
+            }
+            if(imgDecodableThird != null && !imgDecodableThird.isEmpty()){
+                imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
+                imgAchievementForth.setVisibility(View.VISIBLE);
+            }
+            if(imgDecodableForth != null && !imgDecodableForth.isEmpty()){
+                imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
+            }
+
+        }
     }
 
 
@@ -264,8 +304,9 @@ public class FragmentCreateAchievement extends Fragment{
 
     public void getRetrofitCall(){
         Device.newInstance(getActivity());
+        String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
         OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
-                strSubTitle,strTitle);
+                strSubTitle,strTitle,action);
 
         Retrofit mRetrofit = NetworkUtil.getRetrofit();
         PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -275,8 +316,26 @@ public class FragmentCreateAchievement extends Fragment{
         resCreateAchievement.enqueue(new Callback<OrgResCreateAchievments>() {
             @Override
             public void onResponse(Call<OrgResCreateAchievments> call, Response<OrgResCreateAchievments> response) {
-                Log.e(TAG, "onResponse: ");
+                Log.e(TAG, "onResponse: " + response.body());
                 if (response.isSuccessful()) {
+
+                    if (!response.body().getStatus().equals("error")) {
+                        dbAdapter.open();
+
+                        if(shouldBeUpdated){
+                            dbAdapter.updateAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
+                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
+                            dbAdapter.close();
+                        }else {
+                            dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
+                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
+                            dbAdapter.close();
+                        }
+                        getClearFields();
+                    } else {
+                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
+                                .show();
+                    }
                 }
             }
 
@@ -285,6 +344,34 @@ public class FragmentCreateAchievement extends Fragment{
                 Log.e(TAG, "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    private void getClearFields(){
+
+        strTitle = "";
+        strSubTitle = "";
+        strDescription = "";
+        strOthers = "";
+        imgDecodableFirst = "";
+        imgDecodableSecond = "";
+        imgDecodableThird = "";
+        imgDecodableForth = "";
+
+        edtTitle.setText("");
+        edtSubTitle.setText("");
+        edtDescription.setText("");
+        edtOthers.setText("");
+
+        imgAchievementFirst.setImageResource(R.drawable.ic_add_circle_outline_black_24dp);
+        imgAchievementSecond.setImageResource(R.drawable.ic_add_circle_outline_black_24dp);
+        imgAchievementThird.setImageResource(R.drawable.ic_add_circle_outline_black_24dp);
+        imgAchievementForth.setImageResource(R.drawable.ic_add_circle_outline_black_24dp);
+
+        imgAchievementFirst.setVisibility(View.VISIBLE);
+        imgAchievementSecond.setVisibility(View.INVISIBLE);
+        imgAchievementThird.setVisibility(View.INVISIBLE);
+        imgAchievementForth.setVisibility(View.INVISIBLE);
+
     }
 
 }

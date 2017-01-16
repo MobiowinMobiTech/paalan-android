@@ -15,15 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.organization.OrganizationProfile;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
 import com.phyder.paalan.fragments.FragmentDashborad;
+import com.phyder.paalan.fragments.FragmentIndDashboard;
+import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentUpdateAchievement;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 
@@ -68,15 +73,44 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setAdapter(listAdapter);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.platform, new FragmentDashborad());
+
+        if(getIntent().getStringExtra("LOGIN").equals("org")){
+            transaction.replace(R.id.platform, new FragmentDashborad());
+        }else{
+            transaction.replace(R.id.platform, new FragmentIndDashboard());
+        }
+
         transaction.addToBackStack(null);
         transaction.commit();
+
+
+        // Listview Group click listener
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
+        {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,int groupPosition, long id)
+            {
+                if(groupPosition == 0){
+                    fragment = new OrganizationProfile();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.platform, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+
+                return false;
+
+            }
+        });
+
+
 
         expListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                switch (groupPosition){
+                  switch (groupPosition){
                     case 1:
                         switch (childPosition){
                             case 0:
@@ -223,7 +257,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         }
 
         @Override
-        public View getGroupView(int groupPosition, boolean isExpanded,
+        public View getGroupView(final int groupPosition, boolean isExpanded,
                                  View convertView, ViewGroup parent) {
             String headerTitle = (String) getGroup(groupPosition);
             if (convertView == null) {

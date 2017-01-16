@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 
 public class DBAdapter {
@@ -51,6 +52,7 @@ public class DBAdapter {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		Log.e(TAG,"ach id : "+achieve_id);
 		return sqLiteDatabase.insert(Attributes.Database.ACHIEVEMENT_TABLE_NAME, null, cv);
 	}
 

@@ -23,7 +23,7 @@ public class PreferenceUtils {
 
     public void setOrgID(String orgId){
         Editor editor = preferences.edit();
-        editor.putString("OGR_ID",orgId);
+        editor.putString("ORG_ID",orgId);
         editor.commit();
     }
 

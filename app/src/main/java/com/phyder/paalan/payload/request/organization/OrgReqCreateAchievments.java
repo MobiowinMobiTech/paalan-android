@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.request.organization;
 
+import android.util.Log;
+
 import com.phyder.paalan.social.Social;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class OrgReqCreateAchievments {
     private String type;
 
     public static OrgReqCreateAchievments get(String orgs, ArrayList<String> imgs, String description, String others,
-                                              String subTitle, String title) {
+                                              String subTitle, String title,String action) {
 
         Achievementimg[] achievements = new Achievementimg[imgs.size()];
         for (int i = 0; i < achievements.length; i++) {
@@ -41,7 +43,7 @@ public class OrgReqCreateAchievments {
 
         OrgReqCreateAchievments createAchievments = new OrgReqCreateAchievments();
         createAchievments.setData(data);
-        createAchievments.setAction(Social.EVENT_ACTION);
+        createAchievments.setAction(action);
         createAchievments.setEntity(Social.ORG_ENTITY);
         createAchievments.setType(Social.ACHIEVEMENT_TYPE);
 
