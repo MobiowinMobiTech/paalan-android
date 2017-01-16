@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.request.organization;
 
+import android.widget.EditText;
+
 import com.phyder.paalan.social.Social;
 
 /**
@@ -80,6 +82,8 @@ public class OrgReqCreateEvent {
                 ", type='" + type + '\'' +
                 '}';
     }
+
+
 
     public static class Data {
         private String title;

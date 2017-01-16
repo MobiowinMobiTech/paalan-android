@@ -1,8 +1,10 @@
 package com.phyder.paalan.fragments;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ public class FragmentEventHistory extends Fragment {
 
     private ListView eventsListView;
     private ArrayList<String> itemsList;
+    FragmentTransaction fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -39,6 +42,15 @@ public class FragmentEventHistory extends Fragment {
         eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        fragmentManager = getFragmentManager().beginTransaction();
+                        fragmentManager.replace(R.id.frame_dashboard,new FragmentPublishEventRequest()).commit();
+
+                    }
+                });
 
             }
         });
