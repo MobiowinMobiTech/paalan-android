@@ -130,10 +130,10 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-//                if (requestPermission()) {
-//                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
-//                    getRetrofitCall();
-//                }
+                if (requestPermission()) {
+                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+                    getRetrofitCall();
+                }
 
 //                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
 //                intent.putExtra("LOGIN", loginType);

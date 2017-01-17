@@ -129,10 +129,5 @@ public class FragmentUpdateAchievement extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPopulated();
-        getListIfDataInit(cursor.getCount());
-    }
+
 }

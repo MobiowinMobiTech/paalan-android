@@ -92,8 +92,10 @@ public class FragmentCreateAchievement extends Fragment{
         listOfImages =new ArrayList<String>();
 
         Bundle bundle = getArguments();
+
         if(bundle!=null){
 
+            Log.e(TAG,"bundle not null : "+bundle);
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
             edtTitle.setText(bundle.getString("TITLE"));
@@ -122,6 +124,8 @@ public class FragmentCreateAchievement extends Fragment{
                 imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
             }
 
+        }else{
+            Log.e(TAG,"bundle : "+bundle);
         }
     }
 

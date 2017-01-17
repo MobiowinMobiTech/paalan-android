@@ -92,12 +92,10 @@ public class FragmentViewAchievement extends Fragment {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles));
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return false;
             }
         });
     }
