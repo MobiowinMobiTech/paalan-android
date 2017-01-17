@@ -1,36 +1,25 @@
 package com.phyder.paalan.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created on 21/12/16.
- * Author Dharmendra
- * Company CmssPhyder
- */
 
 public class ListsAdapter extends  ArrayAdapter<String> {
 
     private final static String TAG = ListsAdapter.class.getCanonicalName();
-    private String[] itemsList;
+    private String[] titleItemsList,subTitleItemsList;
     private Context context;
 
-    public ListsAdapter(Context context, int resource, String[] objects) {
-        super(context, resource, objects);
-        itemsList = objects;
+    public ListsAdapter(Context context, int resource, String[] objects1,String[] objects2) {
+        super(context, resource, objects1);
+        titleItemsList = objects1;
+        subTitleItemsList = objects2;
         this.context = context;
     }
 
@@ -46,15 +35,16 @@ public class ListsAdapter extends  ArrayAdapter<String> {
         if(convertView==null){
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.fragment_achievement_row,null);
-            viewHolder.txtAchievements = (TextView) convertView.findViewById(R.id.txtRow);
+            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.txtPrimaryRow);
+            viewHolder.txtSubTitle = (TextView) convertView.findViewById(R.id.txtSecondaryRow);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Log.e(TAG,"itemsList : "+itemsList);
         try {
-            viewHolder.txtAchievements.setText("" + itemsList[position]);
+            viewHolder.txtTitle.setText("" + titleItemsList[position]);
+            viewHolder.txtSubTitle.setText("" + subTitleItemsList[position]);
         }catch (NullPointerException e){
             e.printStackTrace();
         }
@@ -64,6 +54,6 @@ public class ListsAdapter extends  ArrayAdapter<String> {
 
     class ViewHolder {
 
-        TextView txtAchievements;
+        TextView txtTitle,txtSubTitle;
     }
 }

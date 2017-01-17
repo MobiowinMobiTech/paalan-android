@@ -33,6 +33,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.organization.OrgRegistrationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.ActivityFragmentPlatform"
             android:theme="@style/AppTheme.NoActionBar" />
 </application>

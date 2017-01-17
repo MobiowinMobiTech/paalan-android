@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.adapter.ListsAdapter;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
@@ -54,7 +55,7 @@ public class FragmentViewAchievement extends Fragment {
         listView = (ListView) view.findViewById(R.id.listView);
 
         dbAdapter.open();
-        Cursor cursor = dbAdapter.getAllAchievements();
+        Cursor cursor = dbAdapter.getAllAchievements("F");
         listOfAchievementIds =new String[cursor.getCount()];
         listOfAchievementTitles =new String[cursor.getCount()];
         listOfAchievementSubTitles =new String[cursor.getCount()];
@@ -89,7 +90,7 @@ public class FragmentViewAchievement extends Fragment {
 
 
         if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles));
+            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles));
         }
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -98,5 +99,11 @@ public class FragmentViewAchievement extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[1]);
     }
 }

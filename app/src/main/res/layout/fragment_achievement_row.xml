@@ -2,14 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <TextView
-        android:id="@+id/txtRow"
+        android:id="@+id/txtPrimaryRow"
         android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:padding="10dp"
         android:textColor="@color/primary_text"/>
+
+    <TextView
+        android:id="@+id/txtSecondaryRow"
+        android:text="Sub Title"
+        android:layout_marginTop="-5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/secondary_text"/>
+
 </LinearLayout>

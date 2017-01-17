@@ -254,12 +254,9 @@ public class FragmentCreateAchievement extends Fragment{
                 }
                 cursor.close();
 
-            } else {
-                Toast.makeText(getActivity(), "You haven't picked Image",
-                        Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
+            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                     .show();;
         }
 
@@ -304,6 +301,7 @@ public class FragmentCreateAchievement extends Fragment{
 
 
     public void getRetrofitCall(){
+        CommanUtils.showDialog(getActivity());
         Device.newInstance(getActivity());
         String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
         OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
@@ -318,6 +316,7 @@ public class FragmentCreateAchievement extends Fragment{
             @Override
             public void onResponse(Call<OrgResCreateAchievments> call, Response<OrgResCreateAchievments> response) {
                 Log.e(TAG, "onResponse: " + response.body());
+                CommanUtils.hideDialog();
                 if (response.isSuccessful()) {
 
                     if (!response.body().getStatus().equals("error")) {
@@ -329,12 +328,12 @@ public class FragmentCreateAchievement extends Fragment{
                             dbAdapter.close();
                         }else {
                             dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
+                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
                             dbAdapter.close();
                         }
                         getClearFields();
                     } else {
-                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
+                        Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                                 .show();
                     }
                 }
@@ -343,6 +342,9 @@ public class FragmentCreateAchievement extends Fragment{
             @Override
             public void onFailure(Call<OrgResCreateAchievments> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
+                CommanUtils.hideDialog();
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
+                        .show();
             }
         });
     }

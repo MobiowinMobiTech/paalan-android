@@ -130,7 +130,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/background_button"
                 android:text="@string/submit"
-                android:textColor="@color/icons"
+                android:textColor="@drawable/button_text_color"
                 android:textSize="20dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"

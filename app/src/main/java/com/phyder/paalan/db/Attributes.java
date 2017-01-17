@@ -20,13 +20,14 @@ public class Attributes {
         public static final String ACHIEVEMENT_SECOND_IMAGE = "achievement_second_image";
         public static final String ACHIEVEMENT_THIRD_IMAGE = "achievement_third_image";
         public static final String ACHIEVEMENT_FORTH_IMAGE = "achievement_forth_image";
+        public static final String ACHIEVEMENT_IS_DELETED = "achievement_is_deleted";
 
         public static final String CREATE_ACHIEVEMENT_QUERY = "create table " + ACHIEVEMENT_TABLE_NAME +
                 " (_id integer primary key autoincrement, " + ACHIEVEMENT_ID + " text not null, " + ACHIEVEMENT_TITLE + " text not null, "
                 + ACHIEVEMENT_SUB_TITLE + " text not null, " + ACHIEVEMENT_DESCRIPTION + " text not null, "
                 + ACHIEVEMENT_OTHERS + " text not null, "+ ACHIEVEMENT_FIRST_IMAGE + " text not null, "
                 + ACHIEVEMENT_SECOND_IMAGE + " text not null, "+ ACHIEVEMENT_THIRD_IMAGE + " text not null, "
-                + ACHIEVEMENT_FORTH_IMAGE + " text not null);";
+                + ACHIEVEMENT_FORTH_IMAGE + " text not null, "+ ACHIEVEMENT_IS_DELETED + " text not null);";
     }
 
 

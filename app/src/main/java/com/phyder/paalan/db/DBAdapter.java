@@ -35,7 +35,7 @@ public class DBAdapter {
 	}
 	public long insertAchievement(String achieve_id,String achieve_title, String achieve_sub_title, String achieve_desc,
 								  String achieve_others, String achieve_img1, String achieve_img2, String achieve_img3,
-								  String achieve_img4)
+								  String achieve_img4,String isDeleted)
 	{
 		ContentValues cv=new ContentValues();
 		try{
@@ -48,11 +48,11 @@ public class DBAdapter {
 			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, achieve_img2);
 			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, achieve_img3);
 			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, achieve_img4);
+			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		Log.e(TAG,"ach id : "+achieve_id);
 		return sqLiteDatabase.insert(Attributes.Database.ACHIEVEMENT_TABLE_NAME, null, cv);
 	}
 
@@ -79,9 +79,22 @@ public class DBAdapter {
 				+" = '"+ achieve_id + "'",null);
 	}
 
+	public long deleteAchievement(String achieve_id,String isDeleted)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID
+				+" = '"+ achieve_id + "'",null);
+	}
 
-	public Cursor getAllAchievements(){
-		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME, null);
+	public Cursor getAllAchievements(String isDeleted){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME+" where "+
+				Attributes.Database.ACHIEVEMENT_IS_DELETED+" = '"+isDeleted+"'", null);
 	}
 
 

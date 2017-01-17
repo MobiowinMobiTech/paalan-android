@@ -51,32 +51,32 @@ public class FragmentDashBorad extends Fragment {
         list = (ListView) view.findViewById(R.id.list);
         list.setAdapter( new CustomListAdapter(getActivity(),0,itemname,imgid));
 
-//            for (int i = 0; i < IMAGES.length; i++)
-//                ImagesArray.add(IMAGES[i]);
-//
-//            mPager.setAdapter(new SlidingImageAdapter(getActivity(), ImagesArray));
-//
-//            final float density = getResources().getDisplayMetrics().density;
-//
-//            NUM_PAGES = IMAGES.length;
-//
-//            // Auto start of viewpager
-//            final Handler handler = new Handler();
-//            final Runnable Update = new Runnable() {
-//                public void run() {
-//                    if (currentPage == NUM_PAGES) {
-//                        currentPage = 0;
-//                    }
-//                    mPager.setCurrentItem(currentPage++, true);
-//                }
-//            };
-//            Timer swipeTimer = new Timer();
-//            swipeTimer.schedule(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    handler.post(Update);
-//                }
-//            }, 3000, 3000);
+            for (int i = 0; i < IMAGES.length; i++)
+                ImagesArray.add(IMAGES[i]);
+
+            mPager.setAdapter(new SlidingImageAdapter(getActivity(), ImagesArray));
+
+            final float density = getResources().getDisplayMetrics().density;
+
+            NUM_PAGES = IMAGES.length;
+
+            // Auto start of viewpager
+            final Handler handler = new Handler();
+            final Runnable Update = new Runnable() {
+                public void run() {
+                    if (currentPage == NUM_PAGES) {
+                        currentPage = 0;
+                    }
+                    mPager.setCurrentItem(currentPage++, true);
+                }
+            };
+            Timer swipeTimer = new Timer();
+            swipeTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(Update);
+                }
+            }, 3000, 3000);
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

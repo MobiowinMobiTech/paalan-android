@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:textSize="13dp"
-                    android:drawableLeft="@drawable/ic_file_upload_black_24dp"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
                     android:text="@string/ind_login"/>
 
 
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:textSize="13dp"
-                    android:drawableLeft="@drawable/ic_file_download_black_24dp"
+                    android:drawableLeft="@drawable/ic_people_black_24dp"
                     android:text="@string/org_login"/>
 
             </LinearLayout>
@@ -114,7 +114,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/background_button"
                 android:text="@string/action_sign_in"
-                android:textColor="@color/icons"
+                android:textColor="@drawable/button_text_color"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="30dp"
