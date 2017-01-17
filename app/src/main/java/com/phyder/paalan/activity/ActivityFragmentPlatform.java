@@ -1,7 +1,5 @@
 package com.phyder.paalan.activity;
 
-import java.util.HashMap;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,22 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.organization.OrganizationProfile;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
-import com.phyder.paalan.fragments.FragmentDashborad;
+import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
-import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentUpdateAchievement;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+
+import java.util.HashMap;
 
 /**
  * Created by cmss on 13/1/17.
@@ -73,9 +70,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setAdapter(listAdapter);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         if(getIntent().getStringExtra("LOGIN").equals("org")){
-            transaction.replace(R.id.platform, new FragmentDashborad());
+            transaction.replace(R.id.platform, new FragmentDashBorad());
         }else{
             transaction.replace(R.id.platform, new FragmentIndDashboard());
         }
@@ -291,7 +287,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         if(mDrawerLayout.isDrawerOpen(mDrawerList)){
             mDrawerLayout.closeDrawers();
-        }else if(getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashborad){
+        }else if(getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad){
                 finish();
         }else{
             super.onBackPressed();

@@ -37,7 +37,7 @@ public class FragmentUpdateAchievement extends Fragment {
 
     private int counter = 0;
 
-    private PreferenceUtils pref;
+    private Cursor cursor;
     private DBAdapter dbAdapter;
 
 
@@ -50,24 +50,42 @@ public class FragmentUpdateAchievement extends Fragment {
 
     private void init(View view) {
 
-        pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
 
+        getPopulated();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Bundle bundle=new Bundle();
+                bundle.putBoolean("OPERATION_STATUS",true);
+                bundle.putString("ID",listOfAchievementIds[position]);
+                bundle.putString("TITLE",listOfAchievementTitles[position]);
+                bundle.putString("SUB_TITLE",listOfAchievementSubTitles[position]);
+                bundle.putString("DESCRIPTION",listOfAchievementDescriptions[position]);
+                bundle.putString("OTHER",listOfAchievementOthers[position]);
+                bundle.putString("IMAGE1",listOfAchievementImage1[position]);
+                bundle.putString("IMAGE2",listOfAchievementImage2[position]);
+                bundle.putString("IMAGE3",listOfAchievementImage3[position]);
+                bundle.putString("IMAGE4",listOfAchievementImage4[position]);
+                Fragment fragment = new FragmentCreateAchievement();
+                fragment.setArguments(bundle);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.platform, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+    }
+
+
+    private void getPopulated(){
         dbAdapter.open();
-        Cursor cursor = dbAdapter.getAllAchievements();
-        listOfAchievementIds =new String[cursor.getCount()];
-        listOfAchievementTitles =new String[cursor.getCount()];
-        listOfAchievementSubTitles =new String[cursor.getCount()];
-        listOfAchievementDescriptions =new String[cursor.getCount()];
-        listOfAchievementOthers =new String[cursor.getCount()];
-
-        listOfAchievementImage1 =new String[cursor.getCount()];
-        listOfAchievementImage2 =new String[cursor.getCount()];
-        listOfAchievementImage3 =new String[cursor.getCount()];
-        listOfAchievementImage4 =new String[cursor.getCount()];
-
+        cursor = dbAdapter.getAllAchievements();
+        getListIfDataInit(cursor.getCount());
         if(cursor !=null){
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
@@ -90,33 +108,31 @@ public class FragmentUpdateAchievement extends Fragment {
         counter=0;
         dbAdapter.close();
 
-
         if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles));
         }
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    }
 
-                Bundle bundle=new Bundle();
-                bundle.putBoolean("OPERATION_STATUS",true);
-                bundle.putString("ID",listOfAchievementIds[position]);
-                bundle.putString("TITLE",listOfAchievementTitles[position]);
-                bundle.putString("SUB_TITLE",listOfAchievementSubTitles[position]);
-                bundle.putString("DESCRIPTION",listOfAchievementDescriptions[position]);
-                bundle.putString("OTHER",listOfAchievementOthers[position]);
-                bundle.putString("IMAGE1",listOfAchievementImage1[position]);
-                bundle.putString("IMAGE2",listOfAchievementImage2[position]);
-                bundle.putString("IMAGE3",listOfAchievementImage3[position]);
-                bundle.putString("IMAGE4",listOfAchievementImage4[position]);
-                Fragment fragment = new FragmentCreateAchievement();
-                fragment.setArguments(bundle);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.platform, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
 
-            }
-        });
+    private void getListIfDataInit(int size){
+
+        listOfAchievementIds =new String[size];
+        listOfAchievementTitles =new String[size];
+        listOfAchievementSubTitles =new String[size];
+        listOfAchievementDescriptions =new String[size];
+        listOfAchievementOthers =new String[size];
+
+        listOfAchievementImage1 =new String[size];
+        listOfAchievementImage2 =new String[size];
+        listOfAchievementImage3 =new String[size];
+        listOfAchievementImage4 =new String[size];
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPopulated();
+        getListIfDataInit(cursor.getCount());
     }
 }

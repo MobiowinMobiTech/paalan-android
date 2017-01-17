@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
-
 <!--<RelativeLayout-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="@dimen/nav_header_height"-->

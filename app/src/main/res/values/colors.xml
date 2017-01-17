@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <array name="colors">
+        <item>#E6EE9C</item>
+        <item>#FF8A65</item>
+        <item>#933EC5</item>
+        <item>#9EF2F7</item>
+        <item>#EDB45A</item>
+        <item>#CCFF90</item>
+        <item>#B388FF</item>
+        <item>#9EF2F7</item>
+    </array>
+
+    <color name="Purple">#933EC5</color>
     <color name="colorPrimary">#FF4522</color>
     <color name="colorPrimaryDark">#FF8569</color>
     <color name="colorAccent">#FF4081</color>
@@ -7,5 +19,7 @@
     <color name="BLACK">#000000</color>
     <color name="WHITE">#ffffff</color>
     <color name="GRAY_MIDDLE">#cccccc</color>
+
     <color name="GRAY_LIGHT">#F3EEED</color>
+
 </resources>

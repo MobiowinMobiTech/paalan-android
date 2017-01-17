@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".activity.TestOneSignal"
         android:allowBackup="true"
@@ -27,15 +26,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"
-                  android:theme="@style/AppTheme.NoActionBar"></activity>
-
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activity.ActivityFragmentPlatform"
             android:label="@string/title_activity_dash_borad"
             android:theme="@style/AppTheme.NoActionBar" /><!-- <activity android:name=".test.TestActivity" /> --><!-- <activity android:name=".activity.organization.OrganizationProfile"> --><!-- <intent-filter> --><!-- <action android:name="android.intent.action.MAIN" /> -->
-
-    </application>
-
+</application>
 </manifest>

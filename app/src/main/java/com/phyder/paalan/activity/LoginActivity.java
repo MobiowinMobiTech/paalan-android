@@ -3,14 +3,10 @@ package com.phyder.paalan.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,8 +15,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
 
-    private TextView txtLoginAsOrg,txtLoginAsInd;
+    private TextView txtLoginAsOrg, txtLoginAsInd;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -136,14 +130,14 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-//                startActivity(intent);
-//                finish();
+//                if (requestPermission()) {
+//                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+//                    getRetrofitCall();
+//                }
 
-                    if (requestPermission()) {
-                        deviceID = CommanUtils.getImeiNo(LoginActivity.this);
-                        getRetrofitCall();
-                    }
+//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+//                intent.putExtra("LOGIN", loginType);
+//                startActivity(intent);
 //                }
             }
 //            }
@@ -162,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginType = "individual";
             }
         });
+
         txtLoginAsOrg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,8 +170,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginType = "org";
             }
         });
-
-
 
     }
 
@@ -220,7 +213,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     public void getRetrofitCall() {
         Device.newInstance(LoginActivity.this);
         RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
@@ -235,7 +227,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
                 Log.e(TAG, "onResponse: " + response.body());
                 if (response.isSuccessful()) {
-
                     if(!response.body().getStatus().equals("error")){
 
                         if(response.body().getData().length<2){
@@ -245,17 +236,23 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                         }else {
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
-                            Log.e(TAG, "org id : " + pref.getOrgId());
                             Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
                         }
-                    }else{
-                        Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG)
-                                .show();
-                    }
+                    }else {
+                        if (!response.body().getStatus().equals("error")) {
+                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
+                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG)
+                                    .show();
+                        }
 
+                    }
                 }
             }
 
@@ -265,5 +262,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
 }

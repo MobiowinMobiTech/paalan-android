@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +15,11 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
-import com.phyder.paalan.payload.request.organization.OrganizationReqProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
-import com.phyder.paalan.test.TestActivity;
 import com.phyder.paalan.utils.NetworkUtil;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;

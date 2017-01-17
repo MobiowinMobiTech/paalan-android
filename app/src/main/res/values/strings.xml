@@ -65,6 +65,12 @@
     <string name="pincode">Pincode</string>
     <string name="login">Login</string>
 
+    <string name="sign_out">Sign Out</string>
+    <string name="name">Name</string>
+    <string name="role_in_organization">Role in Organization</string>
+    <string name="organization_id">Organization Id</string>
+    <string name="registration_no">Registration No</string>
+
 
     <!--submit text-->
     <string name="submit">Submit</string>
@@ -106,5 +112,19 @@
         <item>View Events</item>
     </string-array>
 
+
+
+    <string name="event_id">Event Id</string>
+    <string name="oraginization_id">Oraginization Id</string>
+
+    <string name="discription">Discription</string>
+    <string name="startdate">StartDate</string>
+    <string name="other">Other</string>
+    <string name="enddate">enddate</string>
+    <string name="EndDate">EndDate</string>
+    <string name="Oraginization_id">Organization Id</string>
+    <string name="Create">create</string>
+    <string name="View">View</string>
+    <string name="Upate">update</string>
 
 </resources>

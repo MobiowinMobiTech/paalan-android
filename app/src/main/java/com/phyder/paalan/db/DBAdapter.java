@@ -75,15 +75,14 @@ public class DBAdapter {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID +" = "
-				+achieve_id,null);
+		return sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID
+				+" = '"+ achieve_id + "'",null);
 	}
 
 
 	public Cursor getAllAchievements(){
 		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME, null);
 	}
-
 
 
 	public long updateAchievementTimeSpan(String timespan)
