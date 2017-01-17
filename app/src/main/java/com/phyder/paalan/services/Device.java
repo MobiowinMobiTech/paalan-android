@@ -3,6 +3,8 @@ package com.phyder.paalan.services;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 import java.util.Locale;
 
@@ -126,4 +128,15 @@ public class Device {
             mVersionCode = -1;
         }
     }
+
+    public static String getImeiNo(Context context){
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
+
+    public static String getDeviceId(Context context){
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+
 }

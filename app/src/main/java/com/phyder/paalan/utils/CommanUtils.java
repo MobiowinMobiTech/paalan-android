@@ -2,6 +2,7 @@ package com.phyder.paalan.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -60,6 +61,12 @@ public class CommanUtils {
         return output;
     }
 
+
+
+    public static String getFBRegId(Context context){
+        SharedPreferences pref = context.getSharedPreferences(Config.SHARED_PREF, 0);
+        return pref.getString("regId", null);
+    }
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)
     {

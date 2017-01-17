@@ -76,25 +76,24 @@ public class NetworkUtil {
         if (wifi.isConnected() || mobile.isConnected()) {
             return true;
         } else if (!mobile.isConnected() || !wifi.isConnected()) {
-            alert(mActivity);
+            alert(mActivity,"No Internet connection");
             return false;
         }
         return false;
     }
 
 
-    public static boolean alert(final Context context) {
+    public static boolean alert(final Context context, final String message) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         alertDialog.setTitle("No Internet Connection Found");
 
-        alertDialog.setMessage("Enable your internet connection");
+        alertDialog.setMessage(message);
 
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
-                Log.i("Please enable ", "internet connection");
+                Log.i("Please enable ", message);
             }
         });
         alertDialog.show();
