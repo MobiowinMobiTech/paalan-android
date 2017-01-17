@@ -33,43 +33,19 @@
 
 
     </LinearLayout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        tools:context="${relativePackage}.${activityClass}" >
+        tools:context="${relativePackage}.${activityClass}">
 
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.5"-->
-        <!--android:background="#ffffff">-->
-
-        <!--<ListView-->
-            <!--android:id="@+id/list"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" >-->
-        <!--</ListView>-->
-
-        <!--&lt;!&ndash;<GridView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/gridView1"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_margin="4dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:columnWidth="150dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:numColumns="2"&ndash;&gt;-->
-
-            <!--&lt;!&ndash;android:stretchMode="columnWidth" />&ndash;&gt;-->
-    <!--</LinearLayout>-->
 
 </LinearLayout>

@@ -87,4 +87,5 @@
     <string name="Create">create</string>
     <string name="View">View</string>
     <string name="Upate">update</string>
+    <string name="update">Update</string>
 </resources>
