@@ -11,15 +11,17 @@
         <item>#9EF2F7</item>
     </array>
 
-    <color name="Purple">#933EC5</color>
-    <color name="colorPrimary">#FF4522</color>
-    <color name="colorPrimaryDark">#FF8569</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="TRANSPARENT">#00000000</color>
-    <color name="BLACK">#000000</color>
-    <color name="WHITE">#ffffff</color>
-    <color name="GRAY_MIDDLE">#cccccc</color>
 
-    <color name="GRAY_LIGHT">#F3EEED</color>
+
+    <color name="primary">#00BCD4</color>
+    <color name="primary_dark">#0097A7</color>
+    <color name="primary_light">#B2EBF2</color>
+    <color name="accent">#00BCD4</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="transparent">#00000000</color>
 
 </resources>

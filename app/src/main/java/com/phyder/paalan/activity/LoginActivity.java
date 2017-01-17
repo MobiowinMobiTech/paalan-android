@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -56,10 +57,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        initToolBar();
         initializations();
         clickEventFire();
+    }
 
+
+    private void initToolBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.login);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.icons));
+        setSupportActionBar(toolbar);
     }
 
 
@@ -93,10 +101,10 @@ public class LoginActivity extends AppCompatActivity {
         txtLoginAsOrg = (TextView) findViewById(R.id.btnLoginAsORG);
 
         txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
-        txtLoginAsOrg.setTextColor(getResources().getColor(R.color.WHITE));
+        txtLoginAsOrg.setTextColor(getResources().getColor(R.color.icons));
 
         txtLoginAsInd.setBackgroundResource(R.drawable.shape_rounded_borderwhite_ind);
-        txtLoginAsInd.setTextColor(getResources().getColor(R.color.colorPrimary));
+        txtLoginAsInd.setTextColor(getResources().getColor(R.color.primary));
 
     }
 
@@ -130,14 +138,14 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-                if (requestPermission()) {
-                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
-                    getRetrofitCall();
-                }
+//                if (requestPermission()) {
+//                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+//                    getRetrofitCall();
+//                }
 
-//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-//                intent.putExtra("LOGIN", loginType);
-//                startActivity(intent);
+                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                intent.putExtra("LOGIN", loginType);
+                startActivity(intent);
 //                }
             }
 //            }
@@ -148,10 +156,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_borderwhite_org);
-                txtLoginAsOrg.setTextColor(getResources().getColor(R.color.colorPrimary));
+                txtLoginAsOrg.setTextColor(getResources().getColor(R.color.primary));
 
                 txtLoginAsInd.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
-                txtLoginAsInd.setTextColor(getResources().getColor(R.color.WHITE));
+                txtLoginAsInd.setTextColor(getResources().getColor(R.color.icons));
 
                 loginType = "individual";
             }
@@ -162,10 +170,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 txtLoginAsInd.setBackgroundResource(R.drawable.shape_rounded_borderwhite_ind);
-                txtLoginAsInd.setTextColor(getResources().getColor(R.color.colorPrimary));
+                txtLoginAsInd.setTextColor(getResources().getColor(R.color.primary));
 
                 txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
-                txtLoginAsOrg.setTextColor(getResources().getColor(R.color.WHITE));
+                txtLoginAsOrg.setTextColor(getResources().getColor(R.color.icons));
 
                 loginType = "org";
             }
@@ -214,6 +222,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void getRetrofitCall() {
+        CommanUtils.showDialog(LoginActivity.this);
         Device.newInstance(LoginActivity.this);
         RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
@@ -226,39 +235,41 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
                 Log.e(TAG, "onResponse: " + response.body());
+                CommanUtils.hideDialog();
                 if (response.isSuccessful()) {
                     if(!response.body().getStatus().equals("error")){
 
                         if(response.body().getData().length<2){
-                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
                         }else {
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
-                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
                         }
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
                     }else {
                         if (!response.body().getStatus().equals("error")) {
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
-                            Toast.makeText(getApplicationContext(), "You LoggedIn Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG)
+                            Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                                     .show();
                         }
-
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                CommanUtils.hideDialog();
                 Log.e(TAG, "onFailure: " + t.getMessage());
+                Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
+                        .show();
             }
         });
     }

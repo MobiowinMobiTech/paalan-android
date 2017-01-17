@@ -95,7 +95,6 @@ public class FragmentCreateAchievement extends Fragment{
 
         if(bundle!=null){
 
-            Log.e(TAG,"bundle not null : "+bundle);
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
             edtTitle.setText(bundle.getString("TITLE"));
@@ -124,8 +123,6 @@ public class FragmentCreateAchievement extends Fragment{
                 imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
             }
 
-        }else{
-            Log.e(TAG,"bundle : "+bundle);
         }
     }
 
@@ -376,6 +373,12 @@ public class FragmentCreateAchievement extends Fragment{
         imgAchievementThird.setVisibility(View.INVISIBLE);
         imgAchievementForth.setVisibility(View.INVISIBLE);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[0]);
     }
 
 }

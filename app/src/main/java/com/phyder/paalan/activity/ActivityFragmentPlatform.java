@@ -20,11 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.organization.OrganizationProfile;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
-import com.phyder.paalan.fragments.FragmentUpdateAchievement;
+import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 
 import java.util.HashMap;
@@ -41,14 +40,30 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private String[] listDataHeader;
     private Fragment fragment;
+    private static Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
+        initToolBar();
         setUpDrawer();
     }
 
+
+    private void initToolBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.dash_borad);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.icons));
+        setSupportActionBar(toolbar);
+    }
+
+    public static void getChangeToolbarTitle(Context context,String title) {
+        if(toolbar!=null) {
+            toolbar.setTitle(title);
+            toolbar.setTitleTextColor(context.getResources().getColor(R.color.icons));
+        }
+    }
 
     private void setUpDrawer() {
 
@@ -87,7 +102,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
             public boolean onGroupClick(ExpandableListView parent, View v,int groupPosition, long id)
             {
                 if(groupPosition == 0){
-                    fragment = new OrganizationProfile();
+                    fragment = new FragmentMyProfile();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.platform, fragment);
                     transaction.addToBackStack(null);
@@ -115,14 +130,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                                 break;
 
                             case 1:
-                                fragment = new FragmentUpdateAchievement();
-                                expListView.collapseGroup(1);
-                                break;
-
-                            case 2:
                                 fragment = new FragmentViewAchievement();
                                 expListView.collapseGroup(1);
                                 break;
+
                         }
                         break;
 
@@ -136,9 +147,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                                 expListView.collapseGroup(2);
                                 break;
 
-                            case 2:
-                                expListView.collapseGroup(2);
-                                break;
                         }
                         break;
 

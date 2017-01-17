@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.organization.OrganizationProfile;
 import com.phyder.paalan.adapter.ListsAdapter;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;

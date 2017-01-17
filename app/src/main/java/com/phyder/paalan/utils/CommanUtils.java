@@ -1,5 +1,6 @@
 package com.phyder.paalan.utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,9 @@ import java.io.ByteArrayOutputStream;
  */
 
 public class CommanUtils {
+
+
+    private static ProgressDialog mProgressDialog;
 
     public static boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
@@ -68,5 +72,18 @@ public class CommanUtils {
     {
         byte[] decodedBytes = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+    public static void showDialog(Context context) {
+
+        mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setMessage("Please wait...");
+        if(mProgressDialog != null && !mProgressDialog.isShowing())
+            mProgressDialog.show();
+    }
+
+    public static void hideDialog() {
+        if(mProgressDialog != null && mProgressDialog.isShowing())
+            mProgressDialog.dismiss();
     }
 }

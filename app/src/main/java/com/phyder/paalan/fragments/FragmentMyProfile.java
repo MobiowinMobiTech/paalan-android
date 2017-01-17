@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.services.Device;
@@ -34,15 +35,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.android.gms.wearable.DataMap.TAG;
 
-/**
- * Created on 21/12/16.
- * Author Dharmendra
- * Company CmssPhyder
- */
 
 public class FragmentMyProfile extends Fragment {
+
+    final static String TAG = FragmentMyProfile.class.getCanonicalName();
     final static int IMG_RESULT = 1;
     final int CAMERA_REQUEST = 1888;
     private ImageView profileImage;
@@ -60,7 +57,6 @@ public class FragmentMyProfile extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_org_profile, container, false);
-
         edtOrgID = (EditText) view.findViewById(R.id.edt_org_id);
         edtRole = (EditText) view.findViewById(R.id.edit_role);
         edtRegistrationNo = (EditText) view.findViewById(R.id.registration_no);
@@ -195,8 +191,9 @@ public class FragmentMyProfile extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getString(R.string.profile));
+    }
 }
-
-
-//
-

@@ -11,5 +11,5 @@
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:padding="10dp"
-        android:textColor="@color/BLACK"/>
+        android:textColor="@color/primary_text"/>
 </LinearLayout>

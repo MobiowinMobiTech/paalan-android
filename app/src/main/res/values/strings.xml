@@ -4,18 +4,21 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Mobile No / Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign IN</string>
+    <string name="action_sign_in">Sign In</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_empty_password">Password can not be empty</string>
     <string name="error_invalid_password">This password can not be less than 8</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_timeout">Time out, please try again</string>
+    <string name="error_went_wrong">Something went wrong</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="logggedIn">You loggedIn successfully</string>
     <string name="action_signup_button">SIGNUP</string>
-    <string name="title_activity_dash_borad">DashBoradActivity</string>
+    <string name="dash_borad">Dashboard</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -39,10 +42,9 @@
     <string name="testing">Testing</string>
     <string name="register">REGISTER</string>
     <string name="test_service">Test Service</string>
-    <string name="organization_profile">Organization Profile</string>
+
     <string name="login_as_organization">Login as Organization</string>
     <string name="login_as_Individual">Login as Individual</string>
-    <string name="delete_event">Delete Event</string>
     <string name="create_event">Create Event</string>
     <string name="ind">IND</string>
     <string name="org">ORG</string>
@@ -60,10 +62,13 @@
     <string name="do_not_have_an_account_signup">Do not have an account?SignUp</string>
     <string name="login_as">Login as</string>
     <string name="error_message">Error Message</string>
+
     <string name="state">State</string>
     <string name="city">City</string>
     <string name="pincode">Pincode</string>
     <string name="login">Login</string>
+
+    <string name="toolbar_title">Title</string>
 
     <string name="sign_out">Sign Out</string>
     <string name="name">Name</string>
@@ -87,7 +92,7 @@
     <string name="error_empty_others">Others can not be empty</string>
 
 
-
+    <!--drawer menu array-->
     <string-array name="drawer_array">
         <item>My Profile</item>
         <item>Achievements</item>
@@ -100,19 +105,23 @@
     </string-array>
 
 
+    <!--acheivement menu array-->
     <string-array name="achievements_array">
         <item>Create Achievement</item>
-        <item>Update Achievement</item>
         <item>View Achievement</item>
     </string-array>
 
+    <!--event menu array-->
     <string-array name="events_array">
         <item>Create Events</item>
-        <item>Update Events</item>
         <item>View Events</item>
     </string-array>
 
+    <string name="update_acheivement">Update Acheivement</string>
+    <string name="delete_acheivement">Delete Acheivement</string>
 
+    <string name="update_event">Update Event</string>
+    <string name="delete_event">Delete Event</string>
 
     <string name="event_id">Event Id</string>
     <string name="oraginization_id">Oraginization Id</string>
@@ -126,5 +135,9 @@
     <string name="Create">create</string>
     <string name="View">View</string>
     <string name="Upate">update</string>
+
+
+    <!--toolbar titles-->
+    <string name="profile">Profile</string>
 
 </resources>

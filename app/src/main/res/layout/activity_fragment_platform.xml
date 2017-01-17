@@ -10,20 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
+        <include layout="@layout/toolbar_shadow"/>
 
 
 <FrameLayout
@@ -41,18 +28,19 @@
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
         android:orientation="vertical"
-        android:background="@color/GRAY_LIGHT"
-        android:layout_marginTop="55dp">
+        android:background="@color/icons"
+        android:layout_marginTop="57dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:orientation="vertical"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+            android:background="@color/primary">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="15dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/paalan_logo"
@@ -63,9 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/icons"
                 android:text="@string/paalan_social_worker"
-                android:textSize="20dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
                 android:textStyle="bold"
                 android:gravity="center"/>
 
@@ -77,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
+
             >
         </ExpandableListView>
 

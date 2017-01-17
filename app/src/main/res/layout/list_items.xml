@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:textSize="17dip"
-        android:textColor="@color/BLACK"
+        android:textColor="@color/primary_text"
         android:text="asdfsf">
 
     </TextView>
