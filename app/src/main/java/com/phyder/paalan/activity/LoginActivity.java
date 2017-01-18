@@ -30,9 +30,14 @@ import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.utils.AutoCompleteTextViewNotoSansRegular;
+import com.phyder.paalan.utils.ButtonNotoSansBold;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.EditTextNotoSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextNotoSansBold;
+import com.phyder.paalan.utils.TextNotoSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,16 +51,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getCanonicalName();
 
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private TextView txtSignUp;
-    private Button btnSignIn;
+    private AutoCompleteTextViewNotoSansRegular mEmailView;
+    private EditTextNotoSansRegular mPasswordView;
+    private TextNotoSansBold txtSignUp;
+    private ButtonNotoSansBold btnSignIn;
     private String loginType = "org";
     private static final int PERMISSION_READ_STATE = 1;
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
 
-    private TextView txtLoginAsOrg, txtLoginAsInd;
+    private TextNotoSansRegular txtLoginAsOrg, txtLoginAsInd;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -82,9 +87,9 @@ public class LoginActivity extends AppCompatActivity {
     private void initializations() {
 
         pref = new PreferenceUtils(LoginActivity.this);
-        txtSignUp = (TextView) findViewById(R.id.txt_sign_up_organization);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        txtSignUp = (TextNotoSansBold) findViewById(R.id.txt_sign_up_organization);
+        mEmailView = (AutoCompleteTextViewNotoSansRegular) findViewById(R.id.email);
+        mPasswordView = (EditTextNotoSansRegular) findViewById(R.id.password);
 
         mEmailView.setText("7709642004");
         mPasswordView.setText("cmss");
@@ -100,10 +105,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        btnSignIn = (ButtonNotoSansBold) findViewById(R.id.btnSignIn);
 
-        txtLoginAsInd = (TextView) findViewById(R.id.btnLoginAsIND);
-        txtLoginAsOrg = (TextView) findViewById(R.id.btnLoginAsORG);
+        txtLoginAsInd = (TextNotoSansRegular) findViewById(R.id.btnLoginAsIND);
+        txtLoginAsOrg = (TextNotoSansRegular) findViewById(R.id.btnLoginAsORG);
 
         txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
         txtLoginAsOrg.setTextColor(getResources().getColor(R.color.icons));
@@ -143,14 +148,14 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-//                if (requestPermission()) {
-//                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
-//                    getRetrofitCall();
-//                }
+                if (requestPermission()) {
+                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+                    getRetrofitCall();
+                }
 
-                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                intent.putExtra("LOGIN", loginType);
-                startActivity(intent);
+//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+//                intent.putExtra("LOGIN", loginType);
+//                startActivity(intent);
 //                }
             }
 //            }
@@ -227,55 +232,60 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void getRetrofitCall() {
-        CommanUtils.showDialog(LoginActivity.this);
-        Device.newInstance(LoginActivity.this);
-        RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
-        Retrofit mRetrofit = NetworkUtil.getRetrofit();
-        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+        if(NetworkUtil.isInternetConnected(LoginActivity.this)) {
+            CommanUtils.showDialog(LoginActivity.this);
+            Device.newInstance(LoginActivity.this);
+            RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
-        final Call<ResponseLogin> resLogin = mPaalanServices.paalanLogin(reqLogin);
+            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-        resLogin.enqueue(new Callback<ResponseLogin>() {
-            @Override
-            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
-                if (response.isSuccessful()) {
-                    if(!response.body().getStatus().equals("error")){
+            final Call<ResponseLogin> resLogin = mPaalanServices.paalanLogin(reqLogin);
 
-                        if(response.body().getData().length<2){
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            intent.putExtra("LOGIN", loginType);
-                            startActivity(intent);
-                        }else {
-                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            intent.putExtra("LOGIN", loginType);
-                            startActivity(intent);
-                        }
-                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
-                    }else {
+            resLogin.enqueue(new Callback<ResponseLogin>() {
+                @Override
+                public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                    Log.e(TAG, "onResponse: " + response.body());
+                    CommanUtils.hideDialog();
+                    if (response.isSuccessful()) {
                         if (!response.body().getStatus().equals("error")) {
-                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
-                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            startActivity(intent);
+
+                            if (response.body().getData().length < 2) {
+                                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                                intent.putExtra("LOGIN", loginType);
+                                startActivity(intent);
+                            } else {
+                                pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
+                                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                                intent.putExtra("LOGIN", loginType);
+                                startActivity(intent);
+                            }
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                    .show();
+                            if (!response.body().getStatus().equals("error")) {
+                                pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
+                                        .show();
+                            }
                         }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseLogin> call, Throwable t) {
-                CommanUtils.hideDialog();
-                Log.e(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                    CommanUtils.hideDialog();
+                    Log.e(TAG, "onFailure: " + t.getMessage());
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+        }else{
+            CommanUtils.getInternetAlert(LoginActivity.this);
+        }
     }
 }

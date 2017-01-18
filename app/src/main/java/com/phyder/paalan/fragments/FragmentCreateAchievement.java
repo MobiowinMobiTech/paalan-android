@@ -29,7 +29,9 @@ import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.ButtonNotoSansBold;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.EditTextNotoSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 
@@ -49,9 +51,9 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentCreateAchievement extends Fragment{
 
     private static final String TAG = FragmentCreateAchievement.class.getCanonicalName();
-    private EditText edtTitle,edtSubTitle,edtDescription,edtOthers;
+    private EditTextNotoSansRegular edtTitle,edtSubTitle,edtDescription,edtOthers;
     private ImageView imgAchievementFirst,imgAchievementSecond,imgAchievementThird,imgAchievementForth;
-    private Button btnSubmit;
+    private ButtonNotoSansBold btnSubmit;
 
     final static int PICK_IMAGE_FROM_GALARY = 1;
 
@@ -77,17 +79,17 @@ public class FragmentCreateAchievement extends Fragment{
 
         pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
-        edtTitle = (EditText) view.findViewById(R.id.edt_title);
-        edtSubTitle = (EditText) view.findViewById(R.id.edt_subtitle);
-        edtDescription = (EditText) view.findViewById(R.id.edt_description);
-        edtOthers = (EditText) view.findViewById(R.id.edt_other);
+        edtTitle = (EditTextNotoSansRegular) view.findViewById(R.id.edt_title);
+        edtSubTitle = (EditTextNotoSansRegular) view.findViewById(R.id.edt_subtitle);
+        edtDescription = (EditTextNotoSansRegular) view.findViewById(R.id.edt_description);
+        edtOthers = (EditTextNotoSansRegular) view.findViewById(R.id.edt_other);
 
         imgAchievementFirst = (ImageView) view.findViewById(R.id.imgFirst);
         imgAchievementSecond = (ImageView) view.findViewById(R.id.imgSecond);
         imgAchievementThird = (ImageView) view.findViewById(R.id.imgThird);
         imgAchievementForth = (ImageView) view.findViewById(R.id.imgForth);
 
-        btnSubmit = (Button) view.findViewById(R.id.btn_submit);
+        btnSubmit = (ButtonNotoSansBold) view.findViewById(R.id.btn_submit);
 
         listOfImages =new ArrayList<String>();
 
@@ -301,52 +303,57 @@ public class FragmentCreateAchievement extends Fragment{
 
 
     public void getRetrofitCall(){
-        CommanUtils.showDialog(getActivity());
-        Device.newInstance(getActivity());
-        String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
-        OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
-                strSubTitle,strTitle,action);
 
-        Retrofit mRetrofit = NetworkUtil.getRetrofit();
-        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+        if(NetworkUtil.isInternetConnected(getActivity())){
+            CommanUtils.showDialog(getActivity());
+            Device.newInstance(getActivity());
+            String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
+            OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
+                    strSubTitle,strTitle,action);
 
-        Call<OrgResCreateAchievments> resCreateAchievement = mPaalanServices.orgCreateAchievements(orgReqCreateAchiement);
+            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-        resCreateAchievement.enqueue(new Callback<OrgResCreateAchievments>() {
-            @Override
-            public void onResponse(Call<OrgResCreateAchievments> call, Response<OrgResCreateAchievments> response) {
-                Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
-                if (response.isSuccessful()) {
+            Call<OrgResCreateAchievments> resCreateAchievement = mPaalanServices.orgCreateAchievements(orgReqCreateAchiement);
 
-                    if (!response.body().getStatus().equals("error")) {
-                        dbAdapter.open();
+            resCreateAchievement.enqueue(new Callback<OrgResCreateAchievments>() {
+                @Override
+                public void onResponse(Call<OrgResCreateAchievments> call, Response<OrgResCreateAchievments> response) {
+                    Log.e(TAG, "onResponse: " + response.body());
+                    CommanUtils.hideDialog();
+                    if (response.isSuccessful()) {
 
-                        if(shouldBeUpdated){
-                            dbAdapter.updateAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
-                            dbAdapter.close();
-                        }else {
-                            dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
-                            dbAdapter.close();
+                        if (!response.body().getStatus().equals("error")) {
+                            dbAdapter.open();
+
+                            if(shouldBeUpdated){
+                                dbAdapter.updateAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
+                                dbAdapter.close();
+                            }else {
+                                dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
+                                dbAdapter.close();
+                            }
+                            getClearFields();
+                        } else {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
+                                    .show();
                         }
-                        getClearFields();
-                    } else {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                .show();
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<OrgResCreateAchievments> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
-                CommanUtils.hideDialog();
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+                @Override
+                public void onFailure(Call<OrgResCreateAchievments> call, Throwable t) {
+                    Log.e(TAG, "onFailure: " + t.getMessage());
+                    CommanUtils.hideDialog();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+        }else{
+            CommanUtils.getInternetAlert(getActivity());
+        }
     }
 
     private void getClearFields(){

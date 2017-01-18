@@ -25,6 +25,7 @@ import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.utils.TextNotoSansRegular;
 
 import java.util.HashMap;
 
@@ -232,7 +233,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.list_items, null);
             }
 
-            TextView txtListChild = (TextView) convertView
+            TextNotoSansRegular txtListChild = (TextNotoSansRegular) convertView
                     .findViewById(R.id.lblListItem);
 
             txtListChild.setText(childText);
@@ -270,9 +271,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.list_group, null);
             }
 
-            TextView lblListHeader = (TextView) convertView
+            TextNotoSansRegular lblListHeader = (TextNotoSansRegular) convertView
                     .findViewById(R.id.lblListHeader);
-            lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
 
             return convertView;

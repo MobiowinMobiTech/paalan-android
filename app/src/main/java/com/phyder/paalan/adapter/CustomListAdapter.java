@@ -24,7 +24,6 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final String[] itemname;
     private final Integer[] imgid;
     private int colors[];
-    private Fragment fragment;
 
     public CustomListAdapter(FragmentActivity context, int resource, String[] objects, Integer[] image) {
         super(context, resource, objects);
@@ -44,8 +43,6 @@ public class CustomListAdapter extends ArrayAdapter<String> {
             view = inflater.inflate(R.layout.ind_dashbord_model, null);
             viewHolder.textView = (TextView) view.findViewById(R.id.item);
             viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
-            viewHolder.btnCreate = (Button) view.findViewById(R.id.btnCreate);
-            viewHolder.btnView = (Button) view.findViewById(R.id.btnView);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -56,33 +53,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         viewHolder.textView.setText(itemname[position]);
         viewHolder.imageView.setImageResource(imgid[position]);
 
-        viewHolder.btnCreate.setTag(position);
-        viewHolder.btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos=(Integer)v.getTag();
-                fragment = pos==0 ? new FragmentCreateAchievement() : new FragmentContactUs();
-                FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.platform, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
 
-
-        viewHolder.btnView.setTag(position);
-        viewHolder.btnView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos=(Integer)v.getTag();
-                fragment = pos==0 ? new FragmentViewAchievement() : new FragmentContactUs();
-                FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.platform, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-
-            }
-        });
         return view;
 
     }
@@ -90,6 +61,5 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     class ViewHolder {
         TextView textView;
         ImageView imageView;
-        Button btnCreate,btnView;
     }
 }
