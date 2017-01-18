@@ -26,17 +26,9 @@ public class FragmentViewAchievement extends Fragment {
     private String[] listOfAchievementIds;
     private String[] listOfAchievementTitles;
     private String[] listOfAchievementSubTitles;
-    private String[] listOfAchievementDescriptions;
-    private String[] listOfAchievementOthers;
-
-    private String[] listOfAchievementImage1;
-    private String[] listOfAchievementImage2;
-    private String[] listOfAchievementImage3;
-    private String[] listOfAchievementImage4;
 
     private int counter = 0;
 
-    private PreferenceUtils pref;
     private DBAdapter dbAdapter;
 
 
@@ -49,23 +41,36 @@ public class FragmentViewAchievement extends Fragment {
 
     private void init(View view) {
 
-        pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString("ID",listOfAchievementIds[position]);
+                bundle.putString("TITLE",listOfAchievementTitles[position]);
+                bundle.putString("SUB_TITLE",listOfAchievementSubTitles[position]);
+
+                Fragment fragment = new FragmentViewDetailsAchievement();
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().
+                        replace(R.id.platform,fragment).addToBackStack(null).commit();
+            }
+        });
+
+    }
+
+    public void getPopulated(){
 
         dbAdapter.open();
         Cursor cursor = dbAdapter.getAllAchievements("F");
         listOfAchievementIds =new String[cursor.getCount()];
         listOfAchievementTitles =new String[cursor.getCount()];
         listOfAchievementSubTitles =new String[cursor.getCount()];
-        listOfAchievementDescriptions =new String[cursor.getCount()];
-        listOfAchievementOthers =new String[cursor.getCount()];
 
-        listOfAchievementImage1 =new String[cursor.getCount()];
-        listOfAchievementImage2 =new String[cursor.getCount()];
-        listOfAchievementImage3 =new String[cursor.getCount()];
-        listOfAchievementImage4 =new String[cursor.getCount()];
         if(cursor !=null){
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
@@ -73,14 +78,6 @@ public class FragmentViewAchievement extends Fragment {
                     listOfAchievementIds[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_ID)));
                     listOfAchievementTitles[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_TITLE)));
                     listOfAchievementSubTitles[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_SUB_TITLE)));
-                    listOfAchievementDescriptions[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_DESCRIPTION)));
-                    listOfAchievementOthers[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_OTHERS)));
-
-                    listOfAchievementImage1[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE)));
-                    listOfAchievementImage2[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE)));
-                    listOfAchievementImage3[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE)));
-                    listOfAchievementImage4[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE)));
-
                     counter = counter+1;
                 }while(cursor.moveToNext());
             }
@@ -88,22 +85,17 @@ public class FragmentViewAchievement extends Fragment {
         counter=0;
         dbAdapter.close();
 
-
         if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles));
         }
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
-            }
-        });
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
         ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[1]);
+        getPopulated();
     }
 }

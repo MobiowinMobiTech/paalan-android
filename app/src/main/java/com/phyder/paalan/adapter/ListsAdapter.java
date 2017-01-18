@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.utils.TextNotoSansRegular;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 
 public class ListsAdapter extends  ArrayAdapter<String> {
@@ -36,8 +36,8 @@ public class ListsAdapter extends  ArrayAdapter<String> {
         if(convertView==null){
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.fragment_achievement_row,null);
-            viewHolder.txtTitle = (TextNotoSansRegular) convertView.findViewById(R.id.txtPrimaryRow);
-            viewHolder.txtSubTitle = (TextNotoSansRegular) convertView.findViewById(R.id.txtSecondaryRow);
+            viewHolder.txtTitle = (TextViewOpenSansRegular) convertView.findViewById(R.id.txtPrimaryRow);
+            viewHolder.txtSubTitle = (TextViewOpenSansRegular) convertView.findViewById(R.id.txtSecondaryRow);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
@@ -55,6 +55,6 @@ public class ListsAdapter extends  ArrayAdapter<String> {
 
     class ViewHolder {
 
-        TextNotoSansRegular txtTitle,txtSubTitle;
+        TextViewOpenSansRegular txtTitle,txtSubTitle;
     }
 }

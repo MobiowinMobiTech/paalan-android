@@ -1,7 +1,6 @@
 package com.phyder.paalan.activity;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +16,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
@@ -25,7 +23,7 @@ import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
-import com.phyder.paalan.utils.TextNotoSansRegular;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.HashMap;
 
@@ -233,7 +231,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.list_items, null);
             }
 
-            TextNotoSansRegular txtListChild = (TextNotoSansRegular) convertView
+            TextViewOpenSansRegular txtListChild = (TextViewOpenSansRegular) convertView
                     .findViewById(R.id.lblListItem);
 
             txtListChild.setText(childText);
@@ -271,7 +269,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.list_group, null);
             }
 
-            TextNotoSansRegular lblListHeader = (TextNotoSansRegular) convertView
+            TextViewOpenSansRegular lblListHeader = (TextViewOpenSansRegular) convertView
                     .findViewById(R.id.lblListHeader);
             lblListHeader.setText(headerTitle);
 

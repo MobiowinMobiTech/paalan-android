@@ -14,7 +14,7 @@
     android:layout_height="10dp"
     android:layout_margin="5dp"/>
 
-    <com.phyder.paalan.utils.TextNotoSansRegular
+    <com.phyder.paalan.utils.TextViewOpenSansRegular
 
         android:id="@+id/lblListItem"
         android:layout_width="wrap_content"
@@ -23,5 +23,5 @@
         android:textColor="@color/primary_text"
         >
 
-    </com.phyder.paalan.utils.TextNotoSansRegular>
+    </com.phyder.paalan.utils.TextViewOpenSansRegular>
 </LinearLayout>

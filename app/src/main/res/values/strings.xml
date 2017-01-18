@@ -13,6 +13,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_timeout">Time out, please try again</string>
     <string name="error_went_wrong">Something went wrong</string>
+    <string name="error_server">Server not responding</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
@@ -117,6 +118,7 @@
         <item>View Events</item>
     </string-array>
 
+    <string name="acheivement">Acheivement</string>
     <string name="update_acheivement">Update Acheivement</string>
     <string name="delete_acheivement">Delete Acheivement</string>
 
@@ -134,10 +136,18 @@
     <string name="Oraginization_id">Organization Id</string>
     <string name="Create">create</string>
     <string name="View">View</string>
-    <string name="Upate">update</string>
-
 
     <!--toolbar titles-->
     <string name="profile">Profile</string>
+
+    <!--View Achievements Strings  -->
+    <string name="view_achievement_title">Title : </string>
+    <string name="view_achievement_sub_title">Sub Title : </string>
+    <string name="view_achievement_desc">Description : </string>
+    <string name="view_achievement_Other">Others : </string>
+    <string name="attachment">Attachments</string>
+    <string name="delete">Delete</string>
+    <string name="upate">Update</string>
+
 
 </resources>

@@ -99,7 +99,7 @@ public class OrgReqDeleteAchievement {
         public String toString() {
             return "Data{" +
                     "orgid='" + orgid + '\'' +
-                    ", eventid='" + achievementid + '\'' +
+                    ", achievementid='" + achievementid + '\'' +
                     '}';
         }
     }

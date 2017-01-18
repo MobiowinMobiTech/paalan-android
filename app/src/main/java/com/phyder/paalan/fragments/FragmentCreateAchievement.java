@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,9 +27,9 @@ import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
-import com.phyder.paalan.utils.ButtonNotoSansBold;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
-import com.phyder.paalan.utils.EditTextNotoSansRegular;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 
@@ -51,9 +49,9 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentCreateAchievement extends Fragment{
 
     private static final String TAG = FragmentCreateAchievement.class.getCanonicalName();
-    private EditTextNotoSansRegular edtTitle,edtSubTitle,edtDescription,edtOthers;
+    private EditTextOpenSansRegular edtTitle,edtSubTitle,edtDescription,edtOthers;
     private ImageView imgAchievementFirst,imgAchievementSecond,imgAchievementThird,imgAchievementForth;
-    private ButtonNotoSansBold btnSubmit;
+    private ButtonOpenSansSemiBold btnSubmit;
 
     final static int PICK_IMAGE_FROM_GALARY = 1;
 
@@ -79,17 +77,17 @@ public class FragmentCreateAchievement extends Fragment{
 
         pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
-        edtTitle = (EditTextNotoSansRegular) view.findViewById(R.id.edt_title);
-        edtSubTitle = (EditTextNotoSansRegular) view.findViewById(R.id.edt_subtitle);
-        edtDescription = (EditTextNotoSansRegular) view.findViewById(R.id.edt_description);
-        edtOthers = (EditTextNotoSansRegular) view.findViewById(R.id.edt_other);
+        edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_title);
+        edtSubTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_subtitle);
+        edtDescription = (EditTextOpenSansRegular) view.findViewById(R.id.edt_description);
+        edtOthers = (EditTextOpenSansRegular) view.findViewById(R.id.edt_other);
 
         imgAchievementFirst = (ImageView) view.findViewById(R.id.imgFirst);
         imgAchievementSecond = (ImageView) view.findViewById(R.id.imgSecond);
         imgAchievementThird = (ImageView) view.findViewById(R.id.imgThird);
         imgAchievementForth = (ImageView) view.findViewById(R.id.imgForth);
 
-        btnSubmit = (ButtonNotoSansBold) view.findViewById(R.id.btn_submit);
+        btnSubmit = (ButtonOpenSansSemiBold) view.findViewById(R.id.btn_submit);
 
         listOfImages =new ArrayList<String>();
 
@@ -231,33 +229,39 @@ public class FragmentCreateAchievement extends Fragment{
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 
                 if(imgAchievementStatus == 1){
-                    imgAchievementFirst.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableFirst = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+                    imgDecodableFirst = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
                     imgAchievementSecond.setVisibility(View.VISIBLE);
+
                 } else if(imgAchievementStatus == 2){
-                    imgAchievementSecond.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableSecond = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+
+                    imgDecodableSecond = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
                     imgAchievementThird.setVisibility(View.VISIBLE);
+
                 } else if(imgAchievementStatus == 3){
-                    imgAchievementThird.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableThird = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+                    imgDecodableThird = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
                     imgAchievementForth.setVisibility(View.VISIBLE);
+
                 } else if(imgAchievementStatus == 4){
-                    imgAchievementForth.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableForth = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+                    imgDecodableForth = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
+
                 }
                 cursor.close();
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                     .show();;
         }
@@ -323,7 +327,7 @@ public class FragmentCreateAchievement extends Fragment{
                     CommanUtils.hideDialog();
                     if (response.isSuccessful()) {
 
-                        if (!response.body().getStatus().equals("error")) {
+                        if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
 
                             if(shouldBeUpdated){
@@ -340,6 +344,9 @@ public class FragmentCreateAchievement extends Fragment{
                             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                                     .show();
                         }
+                    }else if(response.body()==null){
+                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
+                                .show();
                     }
                 }
 

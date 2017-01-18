@@ -5,7 +5,7 @@
     android:padding="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.phyder.paalan.utils.TextNotoSansRegular
+    <com.phyder.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/lblListHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

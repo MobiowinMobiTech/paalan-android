@@ -16,7 +16,6 @@ import com.phyder.paalan.payload.request.organization.OrganizationReqResistratio
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
-import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 
 import retrofit2.Call;
@@ -98,7 +97,7 @@ public class OrgRegistrationActivity extends AppCompatActivity {
 
                                 } else if (response.body().getStatus().equals("error")) {
                                     String reserrorMsg = response.body().getMessage();
-                                    Log.e(TAG, "onResponse: " + reserrorMsg);
+                                    Log.d(TAG, "onResponse: " + reserrorMsg);
                                     ErrorDialog(reserrorMsg);
                                 }
                             } else {
@@ -113,8 +112,6 @@ public class OrgRegistrationActivity extends AppCompatActivity {
                             Log.d(TAG, "onFailure: " + errMsg);
                         }
                     });
-                }else{
-                    CommanUtils.getInternetAlert(OrgRegistrationActivity.this);
                 }
             }
         });

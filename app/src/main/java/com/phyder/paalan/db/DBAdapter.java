@@ -97,6 +97,11 @@ public class DBAdapter {
 				Attributes.Database.ACHIEVEMENT_IS_DELETED+" = '"+isDeleted+"'", null);
 	}
 
+	public Cursor getAchievementById(String id){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME+" where "+
+				Attributes.Database.ACHIEVEMENT_ID+" = '"+id+"'", null);
+	}
+
 
 	public long updateAchievementTimeSpan(String timespan)
 	{
