@@ -15,19 +15,39 @@ public class PreferenceUtils {
     private Context context;
     private SharedPreferences preferences;
 
-    public PreferenceUtils(Context context){
+    public PreferenceUtils(Context context) {
         this.context = context;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
 
-    public void setOrgID(String orgId){
+    public void setOrgID(String orgId) {
         Editor editor = preferences.edit();
-        editor.putString("ORG_ID",orgId);
+        editor.putString("ORG_ID", orgId);
         editor.commit();
     }
 
-    public String getOrgId(){
-        return preferences.getString("ORG_ID",null);
+    public String getOrgId() {
+        return preferences.getString("ORG_ID", null);
+    }
+
+    public void setProfileImg(String dp_img) {
+        Editor editor = preferences.edit();
+        editor.putString("DP_IMG", dp_img);
+        editor.commit();
+    }
+
+    public String getProfileImg() {
+        return preferences.getString("DP_IMG", null);
+    }
+
+    public void setUserName(String name) {
+        Editor editor = preferences.edit();
+        editor.putString("USER_NAME", name);
+        editor.commit();
+    }
+
+    public String getUserName() {
+        return preferences.getString("USER_NAME", null);
     }
 }

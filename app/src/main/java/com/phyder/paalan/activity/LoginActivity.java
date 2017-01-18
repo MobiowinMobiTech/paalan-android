@@ -143,14 +143,14 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-//                if (requestPermission()) {
-//                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
-//                    getRetrofitCall();
-//                }
+                if (requestPermission()) {
+                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+                    getRetrofitCall();
+                }
 
-                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                intent.putExtra("LOGIN", loginType);
-                startActivity(intent);
+//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+//                intent.putExtra("LOGIN", loginType);
+//                startActivity(intent);
 //                }
             }
 //            }
@@ -242,29 +242,17 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse: " + response.body());
                 CommanUtils.hideDialog();
                 if (response.isSuccessful()) {
-                    if(!response.body().getStatus().equals("error")){
+                    if(response.body().getStatus().equals("success")){
 
-                        if(response.body().getData().length<2){
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            intent.putExtra("LOGIN", loginType);
-                            startActivity(intent);
-                        }else {
-                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            intent.putExtra("LOGIN", loginType);
-                            startActivity(intent);
-                        }
+                        pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
+                        pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
+                        Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                        intent.putExtra("LOGIN", loginType);
+                        startActivity(intent);
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
-                    }else {
-                        if (!response.body().getStatus().equals("error")) {
-                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
-                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            startActivity(intent);
-                        } else {
+                    }else  {
                             Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                                     .show();
-                        }
                     }
                 }
             }

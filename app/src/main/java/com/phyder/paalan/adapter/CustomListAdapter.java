@@ -38,60 +38,84 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
 
     public View getView(int position, View view, ViewGroup parent) {
-        ViewHolder viewHolder = new ViewHolder();
+        ViewHolder viewHolder = null;
+
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (view == null) {
-
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.ind_dashbord_model, null);
-            viewHolder.textView = (TextView) view.findViewById(R.id.item);
-            viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
-            viewHolder.btnCreate = (Button) view.findViewById(R.id.btn_Create);
-            viewHolder.btnView = (Button) view.findViewById(R.id.btn_view);
+            viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        view.setBackgroundColor(colors[position]);
+        viewHolder.bind(position);
 
-        viewHolder.textView.setText(itemname[position]);
-        viewHolder.imageView.setImageResource(imgid[position]);
-
-        viewHolder.btnCreate.setTag(position);
-        viewHolder.btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = (Integer) v.getTag();
-                fragment = pos == 0 ? new FragmentCreateAchievement() : new FragmentContactUs();
-                FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.platform, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-
-        viewHolder.btnView.setTag(position);
-        viewHolder.btnView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = (Integer) v.getTag();
-                fragment = pos == 0 ? new FragmentViewAchievement() : new FragmentContactUs();
-                FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.platform, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-
-            }
-        });
         return view;
-
     }
 
     class ViewHolder {
-        TextView textView;
-        ImageView imageView;
-        Button btnCreate, btnView;
+
+        private View mView;
+
+        private TextView textView;
+        private ImageView imageView;
+        private Button btnCreate, btnView;
+
+        ViewHolder(View view) {
+            mView = view;
+
+            textView = (TextView) view.findViewById(R.id.item);
+            imageView = (ImageView) view.findViewById(R.id.icon);
+            btnCreate = (Button) view.findViewById(R.id.btn_Create);
+            btnView = (Button) view.findViewById(R.id.btn_view);
+//            view.setTag(this);
+
+            btnCreate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // check view type publish achivement
+                    String type = textView.getText().toString();
+                    if (type.equals("publish")) {
+
+                    } else if (type.equals("advertise")) {
+
+                    }
+
+                    int pos = (Integer) v.getTag();
+                    fragment = pos == 0 ? new FragmentCreateAchievement() : new FragmentContactUs();
+                    FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.platform, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
+
+
+            btnView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = (Integer) v.getTag();
+                    fragment = pos == 0 ? new FragmentViewAchievement() : new FragmentContactUs();
+                    FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.platform, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                }
+            });
+        }
+
+        void bind(int position) {
+            mView.setBackgroundColor(colors[position]);
+
+            textView.setText(itemname[position]);
+            imageView.setImageResource(imgid[position]);
+
+            btnCreate.setTag(position);
+            btnView.setTag(position);
+        }
     }
 }

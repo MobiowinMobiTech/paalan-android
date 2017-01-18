@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
@@ -25,8 +27,13 @@ import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by cmss on 13/1/17.
@@ -41,6 +48,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     private String[] listDataHeader;
     private Fragment fragment;
     private static Toolbar toolbar;
+    private RoundedImageView imgProfile;
+    private TextView txtUserName;
+    private PreferenceUtils pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +93,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
+
+        imgProfile = (RoundedImageView) findViewById(R.id.img_user_profile);
+        txtUserName = (TextView) findViewById(R.id.textView2);
+
+        pref = new PreferenceUtils(ActivityFragmentPlatform.this);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if(getIntent().getStringExtra("LOGIN").equals("org")){
@@ -299,6 +314,18 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 finish();
         }else{
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(pref.getProfileImg()!=null){
+            imgProfile.setImageBitmap(CommanUtils.decodeBase64(pref.getProfileImg()));
+        }
+
+        if(pref.getUserName()!=null){
+            txtUserName.setText(pref.getUserName());
         }
     }
 }
