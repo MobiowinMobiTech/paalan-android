@@ -1,6 +1,7 @@
 package com.phyder.paalan.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentContactUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.utils.RoundedImageView;
 
 public class CustomListAdapter extends ArrayAdapter<String> {
 
@@ -44,8 +46,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
             view = inflater.inflate(R.layout.ind_dashbord_model, null);
             viewHolder.textView = (TextView) view.findViewById(R.id.item);
             viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
-            viewHolder.btnCreate = (Button) view.findViewById(R.id.btnCreate);
-            viewHolder.btnView = (Button) view.findViewById(R.id.btnView);
+            viewHolder.btnCreate = (Button) view.findViewById(R.id.btn_Create);
+            viewHolder.btnView = (Button) view.findViewById(R.id.btn_view);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -60,8 +62,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         viewHolder.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos=(Integer)v.getTag();
-                fragment = pos==0 ? new FragmentCreateAchievement() : new FragmentContactUs();
+                int pos = (Integer) v.getTag();
+                fragment = pos == 0 ? new FragmentCreateAchievement() : new FragmentContactUs();
                 FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.platform, fragment);
                 transaction.addToBackStack(null);
@@ -74,8 +76,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         viewHolder.btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos=(Integer)v.getTag();
-                fragment = pos==0 ? new FragmentViewAchievement() : new FragmentContactUs();
+                int pos = (Integer) v.getTag();
+                fragment = pos == 0 ? new FragmentViewAchievement() : new FragmentContactUs();
                 FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.platform, fragment);
                 transaction.addToBackStack(null);
@@ -90,6 +92,6 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     class ViewHolder {
         TextView textView;
         ImageView imageView;
-        Button btnCreate,btnView;
+        Button btnCreate, btnView;
     }
 }

@@ -8,9 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
@@ -27,14 +25,17 @@ public class FragmentDashBorad extends Fragment {
     private ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
+  //  CustomListAdapter customListAdapter;
     private static final Integer[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     private ListView list;
     private String[] itemname = {"Publish event", "Achievements", "Event history", "Social Strength",
             "Social Request", "About us", "Contact us"};
 
-    private Integer[] imgid = {R.drawable.ic_publish_event, R.drawable.ic_achievments, R.drawable.event_history,
-            R.drawable.social_strength,R.drawable.ic_social_request, R.drawable.ic_about_us, R.drawable.contact_us};
+
+    private Integer[] imgid = {R.drawable.publish_event, R.drawable.achievement, R.drawable.event_req,
+            R.drawable.social_strength,R.drawable.event_req, R.drawable.about_us, R.drawable.contactus};
+
 
 
     @Override
@@ -50,6 +51,7 @@ public class FragmentDashBorad extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         list = (ListView) view.findViewById(R.id.list);
         list.setAdapter( new CustomListAdapter(getActivity(),0,itemname,imgid));
+
 
             for (int i = 0; i < IMAGES.length; i++)
                 ImagesArray.add(IMAGES[i]);
@@ -79,17 +81,8 @@ public class FragmentDashBorad extends Fragment {
             }, 3000, 3000);
 
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String Slecteditem = itemname[position];
-                Toast.makeText(getActivity(), Slecteditem, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
     }
+
 
     @Override
     public void onResume() {
