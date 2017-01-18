@@ -139,5 +139,8 @@
 
     <!--toolbar titles-->
     <string name="profile">Profile</string>
+    <string name="basic_info">Basic</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
 </resources>

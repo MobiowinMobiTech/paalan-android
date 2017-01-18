@@ -23,7 +23,7 @@ public class PaalanSplashActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
-                    Intent intent = new Intent(PaalanSplashActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(PaalanSplashActivity.this, RegisterUserActivity.class);
                     startActivity(intent);
                 }
             }

@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="3">
+
+    <TextView
+        android:id="@+id/txtInfoname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/basic_info"
+        android:textStyle="bold"
+        android:layout_weight="1"/>
+
+    <com.phyder.paalan.utils.NonSwipeableViewPager
+        android:id="@+id/registerUserWizard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"/>
 
 </LinearLayout>
