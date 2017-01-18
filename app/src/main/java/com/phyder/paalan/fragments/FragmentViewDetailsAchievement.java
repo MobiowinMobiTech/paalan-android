@@ -209,6 +209,7 @@ public class FragmentViewDetailsAchievement extends Fragment {
                             dbAdapter.open();
                             dbAdapter.deleteAchievement(achievementID,"T");
                             dbAdapter.close();
+                            getActivity().getSupportFragmentManager().popBackStack();
 
                         } else {
                             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
@@ -232,5 +233,13 @@ public class FragmentViewDetailsAchievement extends Fragment {
         }else{
             CommanUtils.getInternetAlert(getActivity());
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getString(R.string.update_delete_acheivement));
+        getPoulatedData();
     }
 }

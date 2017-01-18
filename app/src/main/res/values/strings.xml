@@ -86,7 +86,7 @@
     <string name="subtitle">Sub Title</string>
     <string name="descrition">Description</string>
     <string name="others">Others</string>
-    <string name="achievement_images">Add achievements</string>
+    <string name="achievement_images">Add attachments</string>
     <string name="error_empty_title">Title can not be empty</string>
     <string name="error_empty_sub_title">Sub title can not be empty</string>
     <string name="error_empty_description">Description can not be empty</string>
@@ -121,6 +121,7 @@
     <string name="acheivement">Acheivement</string>
     <string name="update_acheivement">Update Acheivement</string>
     <string name="delete_acheivement">Delete Acheivement</string>
+    <string name="update_delete_acheivement">Update/Delete Acheivement</string>
 
     <string name="update_event">Update Event</string>
     <string name="delete_event">Delete Event</string>

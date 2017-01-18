@@ -12,7 +12,7 @@ public class OrgResDeleteAchievement {
 
     private String status;
 
-    private String[] data;
+    private Data[] data;
 
     public String getMessage ()
     {
@@ -34,12 +34,12 @@ public class OrgResDeleteAchievement {
         this.status = status;
     }
 
-    public String[] getData ()
+    public Data[] getData ()
     {
         return data;
     }
 
-    public void setData (String[] data)
+    public void setData (Data[] data)
     {
         this.data = data;
     }
@@ -49,4 +49,29 @@ public class OrgResDeleteAchievement {
     {
         return "ClassPojo [message = "+message+", status = "+status+", data = "+data+"]";
     }
+
+
+    public class Data
+    {
+        private String[] data;
+
+        public String[] getData ()
+        {
+            return data;
+        }
+
+        public void setData (String[] data)
+        {
+            this.data = data;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "ClassPojo [data = "+data+"]";
+        }
+    }
+
 }
+
+
