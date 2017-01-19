@@ -132,10 +132,9 @@
     <string name="enddate">enddate</string>
     <string name="EndDate">EndDate</string>
     <string name="Oraginization_id">Organization Id</string>
-    <string name="Create">create</string>
-    <string name="View">View</string>
+    <string name="Create">CREATE</string>
+    <string name="View">VIEW</string>
     <string name="Upate">update</string>
-
 
 
     <!--toolbar titles-->
