@@ -40,7 +40,6 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
         viewHolder.tvSpecies.setText(dashBoardModel.get(i).getEvenName());
         viewHolder.imgThumbnail.setImageResource(dashBoardModel.get(i).getEventIcons());
 
-
         viewHolder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {

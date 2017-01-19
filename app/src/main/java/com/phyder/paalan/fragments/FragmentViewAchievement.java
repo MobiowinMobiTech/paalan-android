@@ -17,13 +17,10 @@ import com.phyder.paalan.adapter.ListsAdapter;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.helper.PaalanGetterSetter;
-import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncAchievement;
-import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
-import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
@@ -53,7 +50,7 @@ public class FragmentViewAchievement extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_update_view_achievement,null,false);
+            View view = inflater.inflate(R.layout.fragment_view_achievement,null,false);
             init(view);
             getRetrofitCall();
         return view;

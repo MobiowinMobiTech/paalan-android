@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:textColor="@color/primary_text"
+        android:textSize="18sp"
         >
 
     </com.phyder.paalan.utils.TextViewOpenSansRegular>

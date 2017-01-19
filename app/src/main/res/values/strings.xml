@@ -86,20 +86,20 @@
     <string name="subtitle">Sub Title</string>
     <string name="descrition">Description</string>
     <string name="others">Others</string>
+    <string name="location">Location</string>
     <string name="achievement_images">Add attachments</string>
     <string name="error_empty_title">Title can not be empty</string>
     <string name="error_empty_sub_title">Sub title can not be empty</string>
     <string name="error_empty_description">Description can not be empty</string>
     <string name="error_empty_others">Others can not be empty</string>
-
+    <string name="error_empty_location">Location can not be empty</string>
 
     <!--drawer menu array-->
     <string-array name="drawer_array">
         <item>My Profile</item>
         <item>Achievements</item>
         <item>Event History</item>
-        <item>Social Strength</item>
-        <item>Event Request</item>
+        <item>Request</item>
         <item>About Us</item>
         <item>Contact Us</item>
         <item>Sign Out</item>
@@ -116,6 +116,12 @@
     <string-array name="events_array">
         <item>Create Events</item>
         <item>View Events</item>
+    </string-array>
+
+    <!--event menu array-->
+    <string-array name="request_array">
+        <item>Create Request</item>
+        <item>View Request</item>
     </string-array>
 
     <string name="acheivement">Acheivement</string>
@@ -141,14 +147,20 @@
     <!--toolbar titles-->
     <string name="profile">Profile</string>
 
-    <!--View Achievements Strings  -->
-    <string name="view_achievement_title">Title : </string>
-    <string name="view_achievement_sub_title">Sub Title : </string>
-    <string name="view_achievement_desc">Description : </string>
-    <string name="view_achievement_Other">Others : </string>
+    <string name="view_title">Title : </string>
+    <string name="view_sub_title">Sub Title : </string>
+    <string name="view_desc">Description : </string>
+    <string name="view_Other">Others : </string>
+    <string name="view_Location">Location : </string>
     <string name="attachment">Attachments</string>
     <string name="delete">Delete</string>
     <string name="upate">Update</string>
 
+
+    <!--Request String -->
+    <string name="request">Request</string>
+    <string name="update_request">Update Request</string>
+    <string name="delete_request">Delete Request</string>
+    <string name="update_delete_request">Update/Delete Request</string>
 
 </resources>

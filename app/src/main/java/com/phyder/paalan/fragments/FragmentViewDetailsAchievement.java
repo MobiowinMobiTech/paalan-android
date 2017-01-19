@@ -211,6 +211,7 @@ public class FragmentViewDetailsAchievement extends Fragment {
                         if (response.body().getStatus().equals("success")) {
 
                             dbAdapter.open();
+                            dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
                             dbAdapter.deleteAchievement(achievementID,"T");
                             dbAdapter.close();
                             getActivity().getSupportFragmentManager().popBackStack();

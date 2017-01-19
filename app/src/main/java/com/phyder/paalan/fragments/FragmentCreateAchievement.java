@@ -108,19 +108,19 @@ public class FragmentCreateAchievement extends Fragment{
             imgDecodableThird=bundle.getString("IMAGE3");
             imgDecodableForth=bundle.getString("IMAGE4");
 
-            if(imgDecodableFirst != null && !imgDecodableFirst.isEmpty()){
+            if(imgDecodableFirst != null && !imgDecodableFirst.isEmpty() && !imgDecodableFirst.contains("http://localhost")){
                 imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
                 imgAchievementSecond.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableSecond != null && !imgDecodableSecond.isEmpty()){
+            if(imgDecodableSecond != null && !imgDecodableSecond.isEmpty() && !imgDecodableSecond.contains("http://localhost")){
                 imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
                 imgAchievementThird.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableThird != null && !imgDecodableThird.isEmpty()){
+            if(imgDecodableThird != null && !imgDecodableThird.isEmpty() && !imgDecodableThird.contains("http://localhost")){
                 imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
                 imgAchievementForth.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableForth != null && !imgDecodableForth.isEmpty()){
+            if(imgDecodableForth != null && !imgDecodableForth.isEmpty() && !imgDecodableForth.contains("http://localhost")){
                 imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
             }
 
@@ -330,7 +330,7 @@ public class FragmentCreateAchievement extends Fragment{
 
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
-
+                            dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
                             if(shouldBeUpdated){
                                 dbAdapter.updateAchievement(achievementID, strTitle, strSubTitle, strDescription, strOthers,
                                         imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
@@ -396,7 +396,11 @@ public class FragmentCreateAchievement extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[0]);
+        if(!shouldBeUpdated) {
+            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getStringArray(R.array.achievements_array)[0]);
+        }else{
+            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.update_acheivement));
+        }
     }
 
 }
