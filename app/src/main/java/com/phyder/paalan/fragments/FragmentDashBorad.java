@@ -1,7 +1,6 @@
 
 package com.phyder.paalan.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -24,16 +23,13 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.http.HEAD;
-
 
 public class FragmentDashBorad extends Fragment {
 
     private ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
-
-    private static final Integer[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
+    //  CustomListAdapter customListAdapter;
 
     ArrayList<DashboardModel> listitems = new ArrayList<>();
     RecyclerView MyRecyclerView;
@@ -69,126 +65,110 @@ public class FragmentDashBorad extends Fragment {
     private void init(View view) {
 
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
+        recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
+
+        recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+
+
+//        for (int i = 0; i < IMAGES.length; i++)
+//            ImagesArray.add(IMAGES[i]);
+
         mPager.setAdapter(new SlidingImageAdapter(getActivity(), IMAGES));
 
+        final float density = getResources().getDisplayMetrics().density;
 
-//
-//            for (int i = 0; i < IMAGES.length; i++)
-//                ImagesArray.add(IMAGES[i]);
-
+        NUM_PAGES = IMAGES.length;
 
         // Auto start of viewpager
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (currentPage == IMAGES.length) {
+                if (currentPage == NUM_PAGES) {
                     currentPage = 0;
                 }
                 mPager.setCurrentItem(currentPage++, true);
-                recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
-
-                recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
-
-
-                for (int i = 0; i < IMAGES.length; i++)
-                    ImagesArray.add(IMAGES[i]);
-
-                mPager.setAdapter(new SlidingImageAdapter(getActivity(), ImagesArray));
-
-                final float density = getResources().getDisplayMetrics().density;
-
-                NUM_PAGES = IMAGES.length;
-
-                // Auto start of viewpager
-                final Handler handler = new Handler();
-                final Runnable Update = new Runnable() {
-                    public void run() {
-                        if (currentPage == NUM_PAGES) {
-                            currentPage = 0;
-                        }
-                        mPager.setCurrentItem(currentPage++, true);
-                    }
-                };
-                Timer swipeTimer = new Timer();
-                swipeTimer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        handler.post(Update);
-                    }
-                }, 3000, 3000);
-
             }
         };
-
-        public class ORGDashboardAdapter extends RecyclerView.Adapter<MyViewHolder> {
-            private ArrayList<DashboardModel> list;
-
-            public ORGDashboardAdapter(ArrayList<DashboardModel> Data) {
-                list = Data;
-                colors = getActivity().getResources().getIntArray(R.array.colors);
-            }
-
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
             @Override
-            public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                // create a new view
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.recycle_items, parent, false);
-                MyViewHolder holder = new MyViewHolder(view);
-                return holder;
+            public void run() {
+                handler.post(Update);
             }
+        }, 3000, 3000);
 
-            @Override
-            public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-                holder.txteventname.setText(list.get(position).getDashboardContentName());
-                holder.txttagline.setText(list.get(position).getDashboardContentDescription());
-                holder.coverImageView.setImageResource(list.get(position).getImageResourceId());
-                holder.coverImageView.setTag(list.get(position).getImageResourceId());
-                holder.linearLayout.setBackgroundColor(colors[position]);
-            }
+    }
 
-            @Override
-            public int getItemCount() {
-                return list.size();
-            }
+    public class ORGDashboardAdapter extends RecyclerView.Adapter<MyViewHolder> {
+        private ArrayList<DashboardModel> list;
+
+        public ORGDashboardAdapter(ArrayList<DashboardModel> Data) {
+            list = Data;
+            colors = getActivity().getResources().getIntArray(R.array.colors);
         }
 
-        public class MyViewHolder extends RecyclerView.ViewHolder {
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            // create a new view
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.recycle_items, parent, false);
+            MyViewHolder holder = new MyViewHolder(view);
+            return holder;
+        }
 
-            public TextView txteventname, txttagline, txtCreate, txtView;
-            public RoundedImageView coverImageView;
-            LinearLayout linearLayout;
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-            public MyViewHolder(View v) {
+            holder.txteventname.setText(list.get(position).getDashboardContentName());
+            holder.txttagline.setText(list.get(position).getDashboardContentDescription());
+            holder.coverImageView.setImageResource(list.get(position).getImageResourceId());
+            holder.coverImageView.setTag(list.get(position).getImageResourceId());
+            holder.linearLayout.setBackgroundColor(colors[position]);
+        }
 
-                super(v);
-                linearLayout = (LinearLayout) v.findViewById(R.id.linear_view);
-                txteventname = (TextView) v.findViewById(R.id.event_name);
-                txttagline = (TextView) v.findViewById(R.id.tagline);
-                coverImageView = (RoundedImageView) v.findViewById(R.id.coverImageView);
-                txtCreate = (TextView) v.findViewById(R.id.text_create);
-                txtView = (TextView) v.findViewById(R.id.text_view);
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+    }
 
-                txtCreate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (txteventname.getText().equals("Publish Event")) {
-                            Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
-                        } else if (txteventname.getText().equals("Publish Event")) {
-                            Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
-                        } else if (txteventname.getText().equals("Achievements")) {
-                            Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
-                        } else if (txteventname.getText().equals("Social Strength")) {
-                            Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
-                        } else if (txteventname.getText().equals("Contact Us")) {
-                            Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
-                        } else if (txteventname.getText().equals("About Us")) {
-                            Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
-                        }
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView txteventname, txttagline, txtCreate, txtView;
+        public RoundedImageView coverImageView;
+        LinearLayout linearLayout;
+
+        public MyViewHolder(View v) {
+
+            super(v);
+            linearLayout = (LinearLayout) v.findViewById(R.id.linear_view);
+            txteventname = (TextView) v.findViewById(R.id.event_name);
+            txttagline = (TextView) v.findViewById(R.id.tagline);
+            coverImageView = (RoundedImageView) v.findViewById(R.id.coverImageView);
+            txtCreate = (TextView) v.findViewById(R.id.text_create);
+            txtView = (TextView) v.findViewById(R.id.text_view);
+
+            txtCreate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (txteventname.getText().equals("Publish Event")) {
+                        Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
+                    } else if (txteventname.getText().equals("Publish Event")) {
+                        Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
+                    } else if (txteventname.getText().equals("Achievements")) {
+                        Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
+                    } else if (txteventname.getText().equals("Social Strength")) {
+                        Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
+                    } else if (txteventname.getText().equals("Contact Us")) {
+                        Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
+                    } else if (txteventname.getText().equals("About Us")) {
+                        Toast.makeText(getActivity(), "You Clicked" + txteventname.getText(), Toast.LENGTH_LONG).show();
                     }
-                });
-            }
+                }
+            });
         }
+    }
 
     public void initializeList() {
         listitems.clear();
@@ -208,7 +188,6 @@ public class FragmentDashBorad extends Fragment {
         super.onResume();
         ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.dash_borad));
     }
+
 }
-}
-        }
 
