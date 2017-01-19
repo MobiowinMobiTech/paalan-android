@@ -1,5 +1,6 @@
 package com.phyder.paalan.fragments;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,16 +19,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
+import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
+import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.RoundedImageView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +48,8 @@ public class FragmentMyProfile extends Fragment {
     final static String TAG = FragmentMyProfile.class.getCanonicalName();
     final static int IMG_RESULT = 1;
     final int CAMERA_REQUEST = 1888;
-    private ImageView profileImage;
+    private RoundedImageView profileImage;
+    private TextView txtUserName;
     String ImageDecode;
 
     Intent intent;
@@ -52,11 +59,13 @@ public class FragmentMyProfile extends Fragment {
     String strOrgId, strRole, strRegNo, strfblink, strlinkedin, strWeblink, strtwitter, strPresenceArea, strImeiNo, isRegistered, isnewsletter,
             dpImage;
 
+    private PreferenceUtils pref;
 
     @Nullable
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_org_profile, container, false);
+        pref=new PreferenceUtils(getActivity());
         edtOrgID = (EditText) view.findViewById(R.id.edt_org_id);
         edtRole = (EditText) view.findViewById(R.id.edit_role);
         edtRegistrationNo = (EditText) view.findViewById(R.id.registration_no);
@@ -84,7 +93,18 @@ public class FragmentMyProfile extends Fragment {
 
       //  Log.d(TAG, "onCreateView: " + strOrgId + "\n" + strRole + "\n" + strRegNo + "\n" + strfblink + "\n" + strlinkedin + "\n" + strWeblink + "\n" + strtwitter + "\n" + strPresenceArea + "\n");
 
-        profileImage = (ImageView) view.findViewById(R.id.imageview_dp_image);
+        profileImage = (RoundedImageView) view.findViewById(R.id.imageview_dp_image);
+        txtUserName = (TextView) view.findViewById(R.id.my_profile);
+
+        if(pref.getProfileImg()!=null){
+            profileImage.setImageBitmap(CommanUtils.decodeBase64(pref.getProfileImg()));
+        }
+
+        if(pref.getUserName()!=null){
+            txtUserName.setText(pref.getUserName());
+        }
+
+
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +183,8 @@ public class FragmentMyProfile extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             profileImage.setImageBitmap(photo);
+            pref.setProfileImg(CommanUtils.encodeToBase64(photo,Bitmap.CompressFormat.JPEG, 100));
+
         } else if (requestCode == IMG_RESULT || requestCode == IMG_RESULT) {
             try {
 
@@ -182,7 +204,10 @@ public class FragmentMyProfile extends Fragment {
                     ImageDecode = cursor.getString(columnIndex);
                     profileImage.setImageBitmap(BitmapFactory
                             .decodeFile(ImageDecode));
+                    pref.setProfileImg(CommanUtils.encodeToBase64(BitmapFactory
+                            .decodeFile(ImageDecode),Bitmap.CompressFormat.JPEG, 100));
                     cursor.close();
+
                 }
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)

@@ -3,20 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="2"
     android:background="#ffffff"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1.1">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/image_pager"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
+
             android:layout_alignWithParentIfMissing="false">
 
             <!-- Add as a direct child of your ViewPager -->
@@ -24,6 +26,7 @@
                 android:id="@+id/view_pager_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:selectedDotColor="#ff0000"
                 android:layout_gravity="bottom|center_horizontal"
                 android:gravity="center_vertical" />
 
@@ -32,20 +35,17 @@
 
     </LinearLayout>
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5">
+        android:layout_weight="0.9">
 
-        <ListView
-            android:id="@+id/list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:dividerHeight="3dp" />
+            android:layout_height="wrap_content" />
 
-    </RelativeLayout>
-
-
+    </LinearLayout>
 </LinearLayout>
+

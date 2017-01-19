@@ -231,6 +231,7 @@ public class LoginActivity extends AppCompatActivity {
             Device.newInstance(LoginActivity.this);
             RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
+<<<<<<< HEAD
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
@@ -258,6 +259,25 @@ public class LoginActivity extends AppCompatActivity {
                     }else if(response.body()==null){
                         Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
                                 .show();
+=======
+        resLogin.enqueue(new Callback<ResponseLogin>() {
+            @Override
+            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                Log.e(TAG, "onResponse: " + response.body());
+                CommanUtils.hideDialog();
+                if (response.isSuccessful()) {
+                    if(response.body().getStatus().equals("success")){
+
+                        pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
+                        pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
+                        Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+                        intent.putExtra("LOGIN", loginType);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
+                    }else  {
+                            Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
+                                    .show();
+>>>>>>> DashboardDev
                     }
                 }
 
