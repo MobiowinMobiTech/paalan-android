@@ -28,6 +28,24 @@ public class Attributes {
                 + ACHIEVEMENT_OTHERS + " text not null, "+ ACHIEVEMENT_FIRST_IMAGE + " text not null, "
                 + ACHIEVEMENT_SECOND_IMAGE + " text not null, "+ ACHIEVEMENT_THIRD_IMAGE + " text not null, "
                 + ACHIEVEMENT_FORTH_IMAGE + " text not null, "+ ACHIEVEMENT_IS_DELETED + " text not null);";
+
+
+
+
+        public static final String REQUEST_TABLE_NAME = "request_table";
+        public static final String REQUEST_ID = "request_id";
+        public static final String REQUEST_TITLE = "request_title";
+        public static final String REQUEST_SUB_TITLE = "request_sub_title";
+        public static final String REQUEST_DESCRIPTION = "request_description";
+        public static final String REQUEST_OTHER = "request_others";
+        public static final String REQUEST_LOCATION = "request_location";
+        public static final String REQUEST_IS_DELETED = "request_is_deleted";
+
+        public static final String CREATE_REQUEST_QUERY = "create table " + REQUEST_TABLE_NAME +
+                " (_id integer primary key autoincrement, " + REQUEST_ID + " text not null, "
+                + REQUEST_TITLE + " text not null, " + REQUEST_SUB_TITLE + " text not null, "
+                + REQUEST_DESCRIPTION + " text not null, " + REQUEST_OTHER + " text not null, "
+                + REQUEST_LOCATION + " text not null, " +  REQUEST_IS_DELETED + " text not null);";
     }
 
 

@@ -22,13 +22,13 @@
             android:orientation="vertical">
 
 
-            <TextView
+            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/login_as"
                 android:textColor="@color/primary_text"
                 android:layout_marginLeft="15dp"
-                android:textSize="15sp"
+                android:textAppearance="@android:style/TextAppearance.Medium"
                 />
 
 
@@ -43,7 +43,8 @@
                 android:layout_gravity="center_horizontal">
 
 
-                <TextView android:id="@+id/btnLoginAsIND"
+                <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    android:id="@+id/btnLoginAsIND"
                     style="@style/style_login_as"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -53,7 +54,8 @@
                     android:text="@string/ind_login"/>
 
 
-                <TextView android:id="@+id/btnLoginAsORG"
+                <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    android:id="@+id/btnLoginAsORG"
                     style="@style/style_login_as"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -71,7 +73,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp">
 
-                <AutoCompleteTextView
+                <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,7 +92,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp">
 
-                <EditText
+                <com.phyder.paalan.utils.EditTextOpenSansRegular
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -107,7 +109,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <Button
+            <com.phyder.paalan.utils.ButtonOpenSansSemiBold
                 android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,9 +123,8 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="25dp"/>
 
-            <TextView
+            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                 android:id="@+id/txt_sign_up_organization"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
@@ -132,8 +133,7 @@
                 android:padding="10dp"
                 android:text="@string/do_not_have_an_account_signup"
                 android:textColor="@color/primary_text"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+               android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

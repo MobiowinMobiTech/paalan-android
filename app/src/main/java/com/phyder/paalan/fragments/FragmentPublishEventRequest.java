@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.ActivityCreateEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
 import com.phyder.paalan.services.Device;

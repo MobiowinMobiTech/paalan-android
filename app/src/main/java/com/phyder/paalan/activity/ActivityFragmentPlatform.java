@@ -1,7 +1,6 @@
 package com.phyder.paalan.activity;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,14 +16,17 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
+import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
+import com.phyder.paalan.fragments.FragmentPublishEventRequest;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.fragments.FragmentViewRequest;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.HashMap;
 
@@ -140,38 +142,51 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 2:
                         switch (childPosition){
                             case 0:
+                                fragment = new FragmentPublishEventRequest();
                                 expListView.collapseGroup(2);
                                 break;
 
                             case 1:
+                                fragment = new FragmentPublishEventRequest();
                                 expListView.collapseGroup(2);
                                 break;
 
                         }
                         break;
 
-                }
+                      case 3:
+                          switch (childPosition){
+                              case 0:
+                                  fragment = new FragmentCreateRequest();
+                                  expListView.collapseGroup(3);
+                                  break;
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.platform, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                              case 1:
+                                  fragment = new FragmentViewRequest();
+                                  expListView.collapseGroup(3);
+                                  break;
+
+                          }
+                          break;
+
+                  }
                 mDrawerLayout.closeDrawer(mDrawerList);
+                getSupportFragmentManager().beginTransaction().replace(R.id.platform, fragment).addToBackStack(null).commit();
                 return false;
             }
         });
     }
 
-    View.OnClickListener homeOnclickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(mDrawerLayout.isDrawerOpen(expListView)){
-                mDrawerLayout.closeDrawer(expListView);
-            }else{
-                mDrawerLayout.openDrawer(expListView);
-            }
-        }
-    };
+//    View.OnClickListener homeOnclickListener = new OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            if(mDrawerLayout.isDrawerOpen(expListView)){
+//                mDrawerLayout.closeDrawer(expListView);
+//            }else{
+//                mDrawerLayout.openDrawer(expListView);
+//            }
+//        }
+//    };
 
 
     private void prepareListData() {
@@ -182,16 +197,19 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
         // Adding child data
         String[] eventItems = getResources().getStringArray(R.array.events_array);
+
+        String[] requestItems = getResources().getStringArray(R.array.request_array);
+
         String emptyArray[] = new String[0];
+
         listDataChild =new HashMap<String,String[]>();
         listDataChild.put(listDataHeader[0], emptyArray);
         listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
         listDataChild.put(listDataHeader[2], eventItems);
-        listDataChild.put(listDataHeader[3], emptyArray);
+        listDataChild.put(listDataHeader[3], requestItems);
         listDataChild.put(listDataHeader[4], emptyArray);
         listDataChild.put(listDataHeader[5], emptyArray);
         listDataChild.put(listDataHeader[6], emptyArray);
-        listDataChild.put(listDataHeader[7], emptyArray);
 
     }
 
@@ -232,7 +250,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.list_items, null);
             }
 
-            TextView txtListChild = (TextView) convertView
+            TextViewOpenSansRegular txtListChild = (TextViewOpenSansRegular) convertView
                     .findViewById(R.id.lblListItem);
 
             txtListChild.setText(childText);
@@ -270,9 +288,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.list_group, null);
             }
 
-            TextView lblListHeader = (TextView) convertView
+            TextViewOpenSansRegular lblListHeader = (TextViewOpenSansRegular) convertView
                     .findViewById(R.id.lblListHeader);
-            lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeader.setText(headerTitle);
 
             return convertView;

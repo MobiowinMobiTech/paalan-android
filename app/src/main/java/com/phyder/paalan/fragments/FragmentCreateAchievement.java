@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,7 +27,9 @@ import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 
@@ -49,14 +49,14 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentCreateAchievement extends Fragment{
 
     private static final String TAG = FragmentCreateAchievement.class.getCanonicalName();
-    private EditText edtTitle,edtSubTitle,edtDescription,edtOthers;
+    private EditTextOpenSansRegular edtTitle,edtSubTitle,edtDescription,edtOthers;
     private ImageView imgAchievementFirst,imgAchievementSecond,imgAchievementThird,imgAchievementForth;
-    private Button btnSubmit;
+    private ButtonOpenSansSemiBold btnSubmit;
 
     final static int PICK_IMAGE_FROM_GALARY = 1;
 
     private String imgDecodableFirst = "",imgDecodableSecond = "",imgDecodableThird = "",imgDecodableForth = "";
-    private String strTitle = "",strSubTitle = "",strDescription = "",strOthers = "";
+    private String achievementID = "",strTitle = "",strSubTitle = "",strDescription = "",strOthers = "";
     private ArrayList<String> listOfImages;
     private int imgAchievementStatus = 1;
     private static final int PERMISSION_READ_EXTERNAL_STORAGE = 1;
@@ -77,17 +77,17 @@ public class FragmentCreateAchievement extends Fragment{
 
         pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
-        edtTitle = (EditText) view.findViewById(R.id.edt_title);
-        edtSubTitle = (EditText) view.findViewById(R.id.edt_subtitle);
-        edtDescription = (EditText) view.findViewById(R.id.edt_description);
-        edtOthers = (EditText) view.findViewById(R.id.edt_other);
+        edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_title);
+        edtSubTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_subtitle);
+        edtDescription = (EditTextOpenSansRegular) view.findViewById(R.id.edt_description);
+        edtOthers = (EditTextOpenSansRegular) view.findViewById(R.id.edt_other);
 
         imgAchievementFirst = (ImageView) view.findViewById(R.id.imgFirst);
         imgAchievementSecond = (ImageView) view.findViewById(R.id.imgSecond);
         imgAchievementThird = (ImageView) view.findViewById(R.id.imgThird);
         imgAchievementForth = (ImageView) view.findViewById(R.id.imgForth);
 
-        btnSubmit = (Button) view.findViewById(R.id.btn_submit);
+        btnSubmit = (ButtonOpenSansSemiBold) view.findViewById(R.id.btn_submit);
 
         listOfImages =new ArrayList<String>();
 
@@ -97,6 +97,7 @@ public class FragmentCreateAchievement extends Fragment{
 
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
+            achievementID = bundle.getString("ID");
             edtTitle.setText(bundle.getString("TITLE"));
             edtSubTitle.setText(bundle.getString("SUB_TITLE"));
             edtDescription.setText(bundle.getString("DESCRIPTION"));
@@ -107,19 +108,19 @@ public class FragmentCreateAchievement extends Fragment{
             imgDecodableThird=bundle.getString("IMAGE3");
             imgDecodableForth=bundle.getString("IMAGE4");
 
-            if(imgDecodableFirst != null && !imgDecodableFirst.isEmpty()){
+            if(imgDecodableFirst != null && !imgDecodableFirst.isEmpty() && !imgDecodableFirst.contains("http://localhost")){
                 imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
                 imgAchievementSecond.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableSecond != null && !imgDecodableSecond.isEmpty()){
+            if(imgDecodableSecond != null && !imgDecodableSecond.isEmpty() && !imgDecodableSecond.contains("http://localhost")){
                 imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
                 imgAchievementThird.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableThird != null && !imgDecodableThird.isEmpty()){
+            if(imgDecodableThird != null && !imgDecodableThird.isEmpty() && !imgDecodableThird.contains("http://localhost")){
                 imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
                 imgAchievementForth.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableForth != null && !imgDecodableForth.isEmpty()){
+            if(imgDecodableForth != null && !imgDecodableForth.isEmpty() && !imgDecodableForth.contains("http://localhost")){
                 imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
             }
 
@@ -229,33 +230,39 @@ public class FragmentCreateAchievement extends Fragment{
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 
                 if(imgAchievementStatus == 1){
-                    imgAchievementFirst.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableFirst = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+                    imgDecodableFirst = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
                     imgAchievementSecond.setVisibility(View.VISIBLE);
+
                 } else if(imgAchievementStatus == 2){
-                    imgAchievementSecond.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableSecond = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+
+                    imgDecodableSecond = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
                     imgAchievementThird.setVisibility(View.VISIBLE);
+
                 } else if(imgAchievementStatus == 3){
-                    imgAchievementThird.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableThird = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+                    imgDecodableThird = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
                     imgAchievementForth.setVisibility(View.VISIBLE);
+
                 } else if(imgAchievementStatus == 4){
-                    imgAchievementForth.setImageBitmap(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)));
-                    imgDecodableForth = CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(cursor.getString(columnIndex)),Bitmap.CompressFormat.JPEG, 100);
+
+                    imgDecodableForth = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
+                    imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
+
                 }
                 cursor.close();
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                     .show();;
         }
@@ -301,56 +308,65 @@ public class FragmentCreateAchievement extends Fragment{
 
 
     public void getRetrofitCall(){
-        CommanUtils.showDialog(getActivity());
-        Device.newInstance(getActivity());
-        String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
-        OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
-                strSubTitle,strTitle,action);
 
-        Retrofit mRetrofit = NetworkUtil.getRetrofit();
-        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+        if(NetworkUtil.isInternetConnected(getActivity())){
+            CommanUtils.showDialog(getActivity());
+            Device.newInstance(getActivity());
+            String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
+            OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
+                    strSubTitle,strTitle,action);
 
-        Call<OrgResCreateAchievments> resCreateAchievement = mPaalanServices.orgCreateAchievements(orgReqCreateAchiement);
+            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-        resCreateAchievement.enqueue(new Callback<OrgResCreateAchievments>() {
-            @Override
-            public void onResponse(Call<OrgResCreateAchievments> call, Response<OrgResCreateAchievments> response) {
-                Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
-                if (response.isSuccessful()) {
+            Call<OrgResCreateAchievments> resCreateAchievement = mPaalanServices.orgCreateAchievements(orgReqCreateAchiement);
 
-                    if (!response.body().getStatus().equals("error")) {
-                        dbAdapter.open();
+            resCreateAchievement.enqueue(new Callback<OrgResCreateAchievments>() {
+                @Override
+                public void onResponse(Call<OrgResCreateAchievments> call, Response<OrgResCreateAchievments> response) {
+                    Log.e(TAG, "onResponse: " + response.body());
+                    CommanUtils.hideDialog();
+                    if (response.isSuccessful()) {
 
-                        if(shouldBeUpdated){
-                            dbAdapter.updateAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
+                        if (response.body().getStatus().equals("success")) {
+                            dbAdapter.open();
+                            dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
+                            if(shouldBeUpdated){
+                                dbAdapter.updateAchievement(achievementID, strTitle, strSubTitle, strDescription, strOthers,
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
+                                getActivity().getSupportFragmentManager().popBackStack();
+                            }else {
+                                dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth, "F");
+                            }
                             dbAdapter.close();
-                        }else {
-                            dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                    imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
-                            dbAdapter.close();
+                            getClearFields();
+                        } else {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
+                                    .show();
                         }
-                        getClearFields();
-                    } else {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
+                    }else if(response.body()==null){
+                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
                                 .show();
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<OrgResCreateAchievments> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage());
-                CommanUtils.hideDialog();
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+                @Override
+                public void onFailure(Call<OrgResCreateAchievments> call, Throwable t) {
+                    Log.e(TAG, "onFailure: " + t.getMessage());
+                    CommanUtils.hideDialog();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+        }else{
+            CommanUtils.getInternetAlert(getActivity());
+        }
     }
 
     private void getClearFields(){
 
+        achievementID= "";
         strTitle = "";
         strSubTitle = "";
         strDescription = "";
@@ -380,7 +396,11 @@ public class FragmentCreateAchievement extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[0]);
+        if(!shouldBeUpdated) {
+            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getStringArray(R.array.achievements_array)[0]);
+        }else{
+            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.update_acheivement));
+        }
     }
 
 }

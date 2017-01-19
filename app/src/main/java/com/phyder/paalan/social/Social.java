@@ -14,6 +14,7 @@ public class Social {
     public static final String PROFILE_TYPE = "profile";
     public static final String IND_PROFILE_TYPE = "profile";
     public static final String ACHIEVEMENT_TYPE = "achievement";
+    public static final String REQUEST_TYPE = "request";
     public static final String ORG_REGISTRATION_ENTITY = "org";
     //    public static final String ORG_ENTITY = "org";
     public static final String ORG_PROFILE = "profile";

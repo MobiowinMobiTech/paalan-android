@@ -3,14 +3,9 @@ package com.phyder.paalan.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,9 +13,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +22,14 @@ import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,16 +43,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getCanonicalName();
 
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private TextView txtSignUp;
-    private Button btnSignIn;
+    private AutoCompleteTextViewOpenSansRegular mEmailView;
+    private EditTextOpenSansRegular mPasswordView;
+    private TextViewOpenSansSemiBold txtSignUp;
+    private ButtonOpenSansSemiBold btnSignIn;
     private String loginType = "org";
     private static final int PERMISSION_READ_STATE = 1;
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
 
-    private TextView txtLoginAsOrg, txtLoginAsInd;
+    private TextViewOpenSansRegular txtLoginAsOrg, txtLoginAsInd;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -82,9 +79,9 @@ public class LoginActivity extends AppCompatActivity {
     private void initializations() {
 
         pref = new PreferenceUtils(LoginActivity.this);
-        txtSignUp = (TextView) findViewById(R.id.txt_sign_up_organization);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        txtSignUp = (TextViewOpenSansSemiBold) findViewById(R.id.txt_sign_up_organization);
+        mEmailView = (AutoCompleteTextViewOpenSansRegular) findViewById(R.id.email);
+        mPasswordView = (EditTextOpenSansRegular) findViewById(R.id.password);
 
         mEmailView.setText("7709642004");
         mPasswordView.setText("cmss");
@@ -100,10 +97,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        btnSignIn = (ButtonOpenSansSemiBold) findViewById(R.id.btnSignIn);
 
-        txtLoginAsInd = (TextView) findViewById(R.id.btnLoginAsIND);
-        txtLoginAsOrg = (TextView) findViewById(R.id.btnLoginAsORG);
+        txtLoginAsInd = (TextViewOpenSansRegular) findViewById(R.id.btnLoginAsIND);
+        txtLoginAsOrg = (TextViewOpenSansRegular) findViewById(R.id.btnLoginAsORG);
 
         txtLoginAsOrg.setBackgroundResource(R.drawable.shape_rounded_border_white_bg);
         txtLoginAsOrg.setTextColor(getResources().getColor(R.color.icons));
@@ -143,14 +140,14 @@ public class LoginActivity extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-//                if (requestPermission()) {
-//                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
-//                    getRetrofitCall();
-//                }
+                if (requestPermission()) {
+                    deviceID = CommanUtils.getImeiNo(LoginActivity.this);
+                    getRetrofitCall();
+                }
 
-                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                intent.putExtra("LOGIN", loginType);
-                startActivity(intent);
+//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
+//                intent.putExtra("LOGIN", loginType);
+//                startActivity(intent);
 //                }
             }
 //            }
@@ -227,55 +224,53 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void getRetrofitCall() {
-        CommanUtils.showDialog(LoginActivity.this);
-        Device.newInstance(LoginActivity.this);
-        RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
-        Retrofit mRetrofit = NetworkUtil.getRetrofit();
-        PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+        if(NetworkUtil.isInternetConnected(LoginActivity.this)) {
 
-        final Call<ResponseLogin> resLogin = mPaalanServices.paalanLogin(reqLogin);
+            CommanUtils.showDialog(LoginActivity.this);
+            Device.newInstance(LoginActivity.this);
+            RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
-        resLogin.enqueue(new Callback<ResponseLogin>() {
-            @Override
-            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
-                if (response.isSuccessful()) {
-                    if(!response.body().getStatus().equals("error")){
+            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-                        if(response.body().getData().length<2){
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            intent.putExtra("LOGIN", loginType);
-                            startActivity(intent);
-                        }else {
+            final Call<ResponseLogin> resLogin = mPaalanServices.paalanLogin(reqLogin);
+
+            resLogin.enqueue(new Callback<ResponseLogin>() {
+                @Override
+                public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                    Log.e(TAG, "onResponse: " + response.body());
+                    CommanUtils.hideDialog();
+                    if (response.isSuccessful()) {
+                        if (response.body().getStatus().equals("success")) {
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.logggedIn),
+                                    Toast.LENGTH_SHORT).show();
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
-                        }
-                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
-                    }else {
-                        if (!response.body().getStatus().equals("error")) {
-                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId());
-                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.logggedIn), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            startActivity(intent);
+
                         } else {
-                            Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                    .show();
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_went_wrong),
+                                    Toast.LENGTH_LONG)
+                                        .show();
                         }
+                    }else if(response.body()==null){
+                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
+                                .show();
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseLogin> call, Throwable t) {
-                CommanUtils.hideDialog();
-                Log.e(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(LoginActivity.this,getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                    CommanUtils.hideDialog();
+                    Log.e(TAG, "onFailure: " + t.getMessage());
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+        }else{
+            CommanUtils.getInternetAlert(LoginActivity.this);
+        }
     }
 }

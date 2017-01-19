@@ -6,10 +6,13 @@ import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqCreateRequest;
 import com.phyder.paalan.payload.request.organization.OrgReqDeleteEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqDeleteAchievement;
+import com.phyder.paalan.payload.request.organization.OrgReqDeleteRequest;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncAchievement;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncEvent;
+import com.phyder.paalan.payload.request.organization.OrgReqSyncRequest;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
@@ -21,10 +24,13 @@ import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
 import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
+import com.phyder.paalan.payload.response.organization.OrgResCreateRequest;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteEvent;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteAchievement;
+import com.phyder.paalan.payload.response.organization.OrgResDeleteRequest;
 import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
 import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
+import com.phyder.paalan.payload.response.organization.OrgResSyncRequest;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
@@ -87,4 +93,16 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<OrgResSyncAchievement> orgSyncAchievements(@Body OrgReqSyncAchievement orgReqAchievements);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResCreateRequest> orgCreateRequest(@Body OrgReqCreateRequest orgReqRequest);
+
+//    @POST("paalan/PaalanGateway")
+//    Call<OrgResUpdateAchievments> orgUpdateRequest(@Body OrgReqUpdateRequest orgReqRequest);
+//
+    @POST("paalan/PaalanGateway")
+    Call<OrgResDeleteRequest> orgDeleteRequest(@Body OrgReqDeleteRequest orgReqRequest);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResSyncRequest> orgSyncRequest(@Body OrgReqSyncRequest orgReqRequest);
 }

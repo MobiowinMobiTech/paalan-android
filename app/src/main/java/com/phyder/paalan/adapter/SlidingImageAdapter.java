@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class SlidingImageAdapter extends PagerAdapter {
 
 
-    private ArrayList<Integer> IMAGES;
+    private Integer[] IMAGES;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public SlidingImageAdapter(Context context, ArrayList<Integer> IMAGES) {
+    public SlidingImageAdapter(Context context, Integer[] IMAGES) {
         this.context = context;
         this.IMAGES = IMAGES;
         inflater = LayoutInflater.from(context);
@@ -37,7 +37,7 @@ public class SlidingImageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return IMAGES.size();
+        return IMAGES.length;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class SlidingImageAdapter extends PagerAdapter {
                 .findViewById(R.id.image);
 
 
-        imageView.setImageResource(IMAGES.get(position));
+        imageView.setImageResource(IMAGES[position]);
         view.addView(imageLayout, 0);
         return imageLayout;
     }

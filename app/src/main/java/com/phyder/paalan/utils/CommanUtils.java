@@ -2,6 +2,8 @@ package com.phyder.paalan.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,10 +12,14 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by cmss on 11/1/17.
@@ -61,10 +67,16 @@ public class CommanUtils {
     }
 
 
-    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)
+
+    public static String getFBRegId(Context context){
+        SharedPreferences pref = context.getSharedPreferences(Config.SHARED_PREF, 0);
+        return pref.getString("regId", null);
+    }
+
+    public static String encodeToBase64(Bitmap image)
     {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
-        image.compress(compressFormat, quality, byteArrayOS);
+        image.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
 
@@ -72,6 +84,31 @@ public class CommanUtils {
     {
         byte[] decodedBytes = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+    public static Bitmap getSquareBitmap(Bitmap sourceBitmap){
+
+        if (sourceBitmap.getWidth() >= sourceBitmap.getHeight()){
+
+            return Bitmap.createBitmap(
+                    sourceBitmap,
+                    sourceBitmap.getWidth()/2 - sourceBitmap.getHeight()/2,
+                    0,
+                    sourceBitmap.getHeight(),
+                    sourceBitmap.getHeight()
+            );
+
+        }else{
+
+            return  Bitmap.createBitmap(
+                    sourceBitmap,
+                    0,
+                    sourceBitmap.getHeight()/2 - sourceBitmap.getWidth()/2,
+                    sourceBitmap.getWidth(),
+                    sourceBitmap.getWidth()
+            );
+        }
+
     }
 
     public static void showDialog(Context context) {
@@ -85,5 +122,22 @@ public class CommanUtils {
     public static void hideDialog() {
         if(mProgressDialog != null && mProgressDialog.isShowing())
             mProgressDialog.dismiss();
+    }
+
+
+    public static boolean getInternetAlert(final Context context) {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        alertDialog.setMessage("Enable your internet connection");
+
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                Log.i("Please enable ", "internet connection");
+            }
+        });
+        alertDialog.show();
+        return true;
     }
 }

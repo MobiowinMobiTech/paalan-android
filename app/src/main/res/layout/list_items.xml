@@ -2,30 +2,27 @@
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/icons"
     android:orientation="horizontal"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:paddingLeft="30dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_margin="5dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_brightness_1_black_24dp"
-        android:id="@+id/imageView" />
+    <View
+    android:layout_width="10dp"
+    android:layout_height="10dp"
+    android:layout_margin="5dp"/>
 
-    <TextView
+    <com.phyder.paalan.utils.TextViewOpenSansRegular
 
         android:id="@+id/lblListItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:textSize="17dip"
         android:textColor="@color/primary_text"
-        android:text="asdfsf">
+        android:textSize="18sp"
+        >
 
-    </TextView>
+    </com.phyder.paalan.utils.TextViewOpenSansRegular>
 </LinearLayout>

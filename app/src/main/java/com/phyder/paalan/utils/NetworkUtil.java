@@ -69,32 +69,29 @@ public class NetworkUtil {
     }
 
 
-    public static boolean checkInternet(Activity mActivity) {
+    public static boolean isInternetConnected(Activity mActivity) {
         ConnectivityManager connec = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
         android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         if (wifi.isConnected() || mobile.isConnected()) {
             return true;
         } else if (!mobile.isConnected() || !wifi.isConnected()) {
-            alert(mActivity);
             return false;
         }
         return false;
     }
 
-
-    public static boolean alert(final Context context) {
+    public static boolean alert(final Context context, final String message) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         alertDialog.setTitle("No Internet Connection Found");
 
-        alertDialog.setMessage("Enable your internet connection");
+        alertDialog.setMessage(message);
 
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
-                Log.i("Please enable ", "internet connection");
+                Log.i("Please enable ", message);
             }
         });
         alertDialog.show();
