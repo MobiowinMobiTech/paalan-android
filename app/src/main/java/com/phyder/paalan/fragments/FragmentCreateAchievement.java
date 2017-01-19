@@ -56,7 +56,7 @@ public class FragmentCreateAchievement extends Fragment{
     final static int PICK_IMAGE_FROM_GALARY = 1;
 
     private String imgDecodableFirst = "",imgDecodableSecond = "",imgDecodableThird = "",imgDecodableForth = "";
-    private String strTitle = "",strSubTitle = "",strDescription = "",strOthers = "";
+    private String achievementID = "",strTitle = "",strSubTitle = "",strDescription = "",strOthers = "";
     private ArrayList<String> listOfImages;
     private int imgAchievementStatus = 1;
     private static final int PERMISSION_READ_EXTERNAL_STORAGE = 1;
@@ -97,6 +97,7 @@ public class FragmentCreateAchievement extends Fragment{
 
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
+            achievementID = bundle.getString("ID");
             edtTitle.setText(bundle.getString("TITLE"));
             edtSubTitle.setText(bundle.getString("SUB_TITLE"));
             edtDescription.setText(bundle.getString("DESCRIPTION"));
@@ -331,14 +332,14 @@ public class FragmentCreateAchievement extends Fragment{
                             dbAdapter.open();
 
                             if(shouldBeUpdated){
-                                dbAdapter.updateAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
+                                dbAdapter.updateAchievement(achievementID, strTitle, strSubTitle, strDescription, strOthers,
                                         imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
-                                dbAdapter.close();
+                                getActivity().getSupportFragmentManager().popBackStack();
                             }else {
                                 dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
-                                dbAdapter.close();
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth, "F");
                             }
+                            dbAdapter.close();
                             getClearFields();
                         } else {
                             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
@@ -365,6 +366,7 @@ public class FragmentCreateAchievement extends Fragment{
 
     private void getClearFields(){
 
+        achievementID= "";
         strTitle = "";
         strSubTitle = "";
         strDescription = "";

@@ -17,6 +17,7 @@ import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.activity.LoginActivity;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.helper.PaalanGetterSetter;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.request.organization.OrgReqDeleteAchievement;
 import com.phyder.paalan.payload.response.ResponseLogin;
@@ -92,9 +93,9 @@ public class FragmentViewDetailsAchievement extends Fragment {
 
     private void getPoulatedData() {
 
-        achievementID = getArguments().getString("ID");
-        strTitle = getArguments().getString("TITLE");
-        strSubTitle = getArguments().getString("SUB_TITLE");
+        if(PaalanGetterSetter.getAchievementID()!=null) {
+            achievementID = PaalanGetterSetter.getAchievementID();
+        }
 
         dbAdapter.open();
         cursor = dbAdapter.getAchievementById(achievementID);
@@ -102,6 +103,8 @@ public class FragmentViewDetailsAchievement extends Fragment {
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
                 do{
+                    strTitle = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_TITLE));
+                    strSubTitle = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_SUB_TITLE));
                     strDescriptions = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_DESCRIPTION));
                     strOthers = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_OTHERS));
 
@@ -115,24 +118,24 @@ public class FragmentViewDetailsAchievement extends Fragment {
         }
         dbAdapter.close();
 
-        if(strFirstImage.isEmpty()) {
+        if(strFirstImage.isEmpty() || strFirstImage.contains("http://localhost")) {
             llAttachmentblock.setVisibility(View.GONE);
         }else{
 
             imgFirst.setVisibility(View.VISIBLE);
             imgFirst.setImageBitmap(CommanUtils.decodeBase64(strFirstImage));
 
-            if(!strSecondImage.isEmpty()){
+            if(!strSecondImage.isEmpty() || strSecondImage.contains("http://localhost")){
                 imgSecond.setVisibility(View.VISIBLE);
                 imgSecond.setImageBitmap(CommanUtils.decodeBase64(strSecondImage));
             }
 
-            if(!strThirdImage.isEmpty()){
+            if(!strThirdImage.isEmpty() || strThirdImage.contains("http://localhost")){
                 imgThird.setVisibility(View.VISIBLE);
                 imgThird.setImageBitmap(CommanUtils.decodeBase64(strThirdImage));
             }
 
-            if(!strForthImage.isEmpty()){
+            if(!strForthImage.isEmpty() || strForthImage.contains("http://localhost")){
                 imgForth.setVisibility(View.VISIBLE);
                 imgForth.setImageBitmap(CommanUtils.decodeBase64(strForthImage));
             }
@@ -156,6 +159,7 @@ public class FragmentViewDetailsAchievement extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("OPERATION_STATUS",true);
+                bundle.putString("ID",achievementID);
                 bundle.putString("TITLE",strTitle);
                 bundle.putString("SUB_TITLE",strSubTitle);
                 bundle.putString("DESCRIPTION",strDescriptions);

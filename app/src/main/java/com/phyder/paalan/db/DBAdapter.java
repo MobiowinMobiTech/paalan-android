@@ -40,14 +40,14 @@ public class DBAdapter {
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.Database.ACHIEVEMENT_ID, achieve_id);
-			cv.put(Attributes.Database.ACHIEVEMENT_TITLE, achieve_title);
-			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, achieve_sub_title);
-			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, achieve_desc);
-			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, achieve_others);
-			cv.put(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE, achieve_img1);
-			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, achieve_img2);
-			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, achieve_img3);
-			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, achieve_img4);
+			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, (achieve_others!=null ? achieve_others : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE, (achieve_img1!=null ? achieve_img1 : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, (achieve_img2!=null ? achieve_img2 : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, (achieve_img3!=null ? achieve_img3 : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, (achieve_img4!=null ? achieve_img4 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
 		}
 		catch (Exception e) {
@@ -103,6 +103,47 @@ public class DBAdapter {
 	}
 
 
+	public boolean isAchievementExist(String id){
+		boolean isExist = false;
+		 Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME+" where "+
+				Attributes.Database.ACHIEVEMENT_ID+" = '"+id+"'", null);
+		if(cursor !=null){
+			cursor.moveToFirst();
+			if(cursor.moveToFirst()){
+				do{
+					if(cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_TITLE))!=null){
+						isExist = true;
+						break;
+					}
+				}while (cursor.moveToNext());
+			}
+		}
+		return isExist;
+	}
+
+	public int getMasterTableCount(){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.MasterDatabase.MASTER_TABLE, null).getCount();
+	}
+
+	public Cursor getMasterTableData(){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.MasterDatabase.MASTER_TABLE, null);
+	}
+
+	public long insertTimeSpan(String achieve_time_span,String event_time_span, String request_time_span)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.MasterDatabase.ACHIEVEMENT_TIMESPAN, achieve_time_span);
+			cv.put(Attributes.MasterDatabase.EVENT_TIMESPAN,event_time_span);
+			cv.put(Attributes.MasterDatabase.REQUEST_TIMESPAN, request_time_span);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.insert(Attributes.MasterDatabase.MASTER_TABLE, null, cv);
+	}
+
+
 	public long updateAchievementTimeSpan(String timespan)
 	{
 		ContentValues cv=new ContentValues();
@@ -112,7 +153,7 @@ public class DBAdapter {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,null,null);
+		return sqLiteDatabase.update(Attributes.MasterDatabase.MASTER_TABLE,cv,null,null);
 	}
 
 
@@ -125,7 +166,7 @@ public class DBAdapter {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.update(Attributes.MasterDatabase.EVENT_TIMESPAN,cv,null,null);
+		return sqLiteDatabase.update(Attributes.MasterDatabase.MASTER_TABLE,cv,null,null);
 	}
 
 	public long updateRequestTimeSpan(String timespan)
@@ -137,7 +178,7 @@ public class DBAdapter {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.update(Attributes.MasterDatabase.REQUEST_TIMESPAN,cv,null,null);
+		return sqLiteDatabase.update(Attributes.MasterDatabase.MASTER_TABLE,cv,null,null);
 	}
 
 
