@@ -141,11 +141,12 @@
     <string name="enddate">enddate</string>
     <string name="EndDate">EndDate</string>
     <string name="Oraginization_id">Organization Id</string>
-    <string name="Create">create</string>
+    <string name="Create">Create</string>
     <string name="View">View</string>
 
     <!--toolbar titles-->
     <string name="profile">Profile</string>
+    <string name="test">Test</string>
 
     <string name="view_title">Title : </string>
     <string name="view_sub_title">Sub Title : </string>

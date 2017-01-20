@@ -31,33 +31,41 @@
         android:background="@color/icons"
         android:layout_marginTop="@dimen/side_drawer_margin">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:orientation="vertical"
             android:background="@color/primary">
 
-            <com.phyder.paalan.utils.RoundedImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/paalan_logo"
-                android:id="@+id/imageview_username"/>
-
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textColor="@color/icons"
-                android:text="@string/paalan_social_worker"
-                android:textAppearance="@android:style/TextAppearance.Large"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
 
-        </LinearLayout>
+                <com.phyder.paalan.utils.RoundedImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/paalan_logo"
+                    android:id="@+id/img_user_profile"/>
+
+                <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/icons"
+                    android:text="@string/paalan_social_worker"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+        </RelativeLayout>
 
 
         <ExpandableListView

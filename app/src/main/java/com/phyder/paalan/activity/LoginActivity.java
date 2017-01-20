@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.organization.OrgRegistrationActivity;
+import com.phyder.paalan.activity.RegistrationActivity;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.services.Device;
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, OrgRegistrationActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(intent);
             }
         });
@@ -246,6 +246,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.logggedIn),
                                     Toast.LENGTH_SHORT).show();
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
+                            pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
@@ -253,7 +254,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_went_wrong),
                                     Toast.LENGTH_LONG)
-                                        .show();
+                                    .show();
                         }
                     }else if(response.body()==null){
                         Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_server), Toast.LENGTH_LONG)

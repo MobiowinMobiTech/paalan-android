@@ -10,12 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
@@ -26,6 +26,9 @@ import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentPublishEventRequest;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 import com.phyder.paalan.fragments.FragmentViewRequest;
+import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.HashMap;
@@ -43,6 +46,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     private String[] listDataHeader;
     private Fragment fragment;
     private static Toolbar toolbar;
+    private RoundedImageView imgProfile;
+    private TextView txtUserName;
+    private PreferenceUtils pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +66,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    public static void getChangeToolbarTitle(Context context,String title) {
-        if(toolbar!=null) {
+    public static void getChangeToolbarTitle(Context context, String title) {
+        if (toolbar != null) {
             toolbar.setTitle(title);
             toolbar.setTitleTextColor(context.getResources().getColor(R.color.icons));
         }
@@ -86,10 +92,15 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
+        imgProfile = (RoundedImageView) findViewById(R.id.img_user_profile);
+        txtUserName = (TextView) findViewById(R.id.textView2);
+
+        pref = new PreferenceUtils(ActivityFragmentPlatform.this);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if(getIntent().getStringExtra("LOGIN").equals("org")){
+        if (getIntent().getStringExtra("LOGIN").equals("org")) {
             transaction.replace(R.id.platform, new FragmentDashBorad());
-        }else{
+        } else {
             transaction.replace(R.id.platform, new FragmentIndDashboard());
         }
 
@@ -98,12 +109,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
 
         // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
-        {
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,int groupPosition, long id)
-            {
-                if(groupPosition == 0){
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (groupPosition == 0) {
                     fragment = new FragmentMyProfile();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.platform, fragment);
@@ -118,14 +127,13 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         });
 
 
-
         expListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                  switch (groupPosition){
+                switch (groupPosition) {
                     case 1:
-                        switch (childPosition){
+                        switch (childPosition) {
                             case 0:
                                 fragment = new FragmentCreateAchievement();
                                 expListView.collapseGroup(1);
@@ -140,7 +148,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                         break;
 
                     case 2:
-                        switch (childPosition){
+                        switch (childPosition) {
                             case 0:
                                 fragment = new FragmentPublishEventRequest();
                                 expListView.collapseGroup(2);
@@ -154,22 +162,22 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                         }
                         break;
 
-                      case 3:
-                          switch (childPosition){
-                              case 0:
-                                  fragment = new FragmentCreateRequest();
-                                  expListView.collapseGroup(3);
-                                  break;
+                    case 3:
+                        switch (childPosition) {
+                            case 0:
+                                fragment = new FragmentCreateRequest();
+                                expListView.collapseGroup(3);
+                                break;
 
-                              case 1:
-                                  fragment = new FragmentViewRequest();
-                                  expListView.collapseGroup(3);
-                                  break;
+                            case 1:
+                                fragment = new FragmentViewRequest();
+                                expListView.collapseGroup(3);
+                                break;
 
-                          }
-                          break;
+                        }
+                        break;
 
-                  }
+                }
                 mDrawerLayout.closeDrawer(mDrawerList);
                 getSupportFragmentManager().beginTransaction().replace(R.id.platform, fragment).addToBackStack(null).commit();
                 return false;
@@ -202,7 +210,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         String emptyArray[] = new String[0];
 
-        listDataChild =new HashMap<String,String[]>();
+        listDataChild = new HashMap<String, String[]>();
         listDataChild.put(listDataHeader[0], emptyArray);
         listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
         listDataChild.put(listDataHeader[2], eventItems);
@@ -310,12 +318,24 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if(mDrawerLayout.isDrawerOpen(mDrawerList)){
+        if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
             mDrawerLayout.closeDrawers();
-        }else if(getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad){
-                finish();
-        }else{
+        } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
+            finish();
+        } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pref.getProfileImg() != null) {
+            imgProfile.setImageBitmap(CommanUtils.decodeBase64(pref.getProfileImg()));
+        }
+
+        if (pref.getUserName() != null) {
+            txtUserName.setText(pref.getUserName());
         }
     }
 }
