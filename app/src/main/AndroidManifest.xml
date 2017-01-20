@@ -34,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.organization.OrgRegistrationActivity"
+            android:name=".activity.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

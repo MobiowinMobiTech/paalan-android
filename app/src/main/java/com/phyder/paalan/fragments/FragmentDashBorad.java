@@ -30,7 +30,6 @@ public class FragmentDashBorad extends Fragment {
     private ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
-    //  CustomListAdapter customListAdapter;
 
     ArrayList<DashboardModel> listitems = new ArrayList<>();
     RecyclerView MyRecyclerView;
@@ -41,7 +40,6 @@ public class FragmentDashBorad extends Fragment {
             R.drawable.social_strength, R.drawable.event_req, R.drawable.about_us, R.drawable.contactus};
     private int colors[];
     private static final Integer[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
-    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     RecyclerView recyclerView;
 
 
@@ -56,13 +54,11 @@ public class FragmentDashBorad extends Fragment {
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         if (listitems.size() > 0 & MyRecyclerView != null) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR_MR1) {
-                MyRecyclerView.setAdapter(new ORGDashboardAdapter(listitems));
-            }
+            MyRecyclerView.setAdapter(new ORGDashboardAdapter(listitems));
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR_MR1) {
+
             MyRecyclerView.setLayoutManager(MyLayoutManager);
-        }
+
         initializeList();
         init(view);
         return view;
@@ -73,17 +69,9 @@ public class FragmentDashBorad extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR_MR1) {
-            recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
-        }
+        recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
 
-
-//        for (int i = 0; i < IMAGES.length; i++)
-//            ImagesArray.add(IMAGES[i]);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
-            mPager.setAdapter(new SlidingImageAdapter(getActivity(), IMAGES));
-        }
+        mPager.setAdapter(new SlidingImageAdapter(getActivity(), IMAGES));
 
         final float density = getResources().getDisplayMetrics().density;
 
@@ -96,9 +84,8 @@ public class FragmentDashBorad extends Fragment {
                 if (currentPage == NUM_PAGES) {
                     currentPage = 0;
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
-                    mPager.setCurrentItem(currentPage++, true);
-                }
+            mPager.setCurrentItem(currentPage++, true);
+
             }
         };
         Timer swipeTimer = new Timer();

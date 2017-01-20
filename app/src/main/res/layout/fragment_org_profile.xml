@@ -25,7 +25,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/d" />
+                android:src="@drawable/paalan_logo" />
 
             <TextView
                 android:id="@+id/my_profile"
