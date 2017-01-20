@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.adapter.SlidingImageAdapter;
+import com.phyder.paalan.model.DashboardModel;
 import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.ArrayList;

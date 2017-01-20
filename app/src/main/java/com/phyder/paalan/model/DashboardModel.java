@@ -1,4 +1,4 @@
-package com.phyder.paalan.fragments;
+package com.phyder.paalan.model;
 
 /**
  * Created by Yashica on 1/15/16.
@@ -10,27 +10,27 @@ public class DashboardModel {
     private String dashboardContentDescription;
     private int imageResourceId;
 
-    int getImageResourceId() {
+    public int getImageResourceId() {
         return imageResourceId;
     }
 
-    String getDashboardContentName() {
+    public String getDashboardContentName() {
         return dashboardContentName;
     }
 
-    void setDashboardContentName(String dashboardContentName) {
+    public void setDashboardContentName(String dashboardContentName) {
         this.dashboardContentName = dashboardContentName;
     }
 
-    String getDashboardContentDescription() {
+    public String getDashboardContentDescription() {
         return dashboardContentDescription;
     }
 
-    void setDashboardContentDescription(String dashboardContentDescription) {
+    public void setDashboardContentDescription(String dashboardContentDescription) {
         this.dashboardContentDescription = dashboardContentDescription;
     }
 
-    void setImageResourceId(int imageResourceId) {
+    public void setImageResourceId(int imageResourceId) {
         this.imageResourceId = imageResourceId;
     }
 }
