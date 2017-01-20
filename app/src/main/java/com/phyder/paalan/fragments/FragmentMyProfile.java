@@ -65,7 +65,7 @@ public class FragmentMyProfile extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_org_profile, container, false);
-        pref=new PreferenceUtils(getActivity());
+        pref = new PreferenceUtils(getActivity());
         edtOrgID = (EditText) view.findViewById(R.id.edt_org_id);
         edtRole = (EditText) view.findViewById(R.id.edit_role);
         edtRegistrationNo = (EditText) view.findViewById(R.id.registration_no);
@@ -91,19 +91,18 @@ public class FragmentMyProfile extends Fragment {
         Social social = new Social();
         dpImage = social.DP_IMG;
 
-      //  Log.d(TAG, "onCreateView: " + strOrgId + "\n" + strRole + "\n" + strRegNo + "\n" + strfblink + "\n" + strlinkedin + "\n" + strWeblink + "\n" + strtwitter + "\n" + strPresenceArea + "\n");
+        //  Log.d(TAG, "onCreateView: " + strOrgId + "\n" + strRole + "\n" + strRegNo + "\n" + strfblink + "\n" + strlinkedin + "\n" + strWeblink + "\n" + strtwitter + "\n" + strPresenceArea + "\n");
 
         profileImage = (RoundedImageView) view.findViewById(R.id.imageview_dp_image);
         txtUserName = (TextView) view.findViewById(R.id.my_profile);
 
-        if(pref.getProfileImg()!=null){
+        if (pref.getProfileImg() != null) {
             profileImage.setImageBitmap(CommanUtils.decodeBase64(pref.getProfileImg()));
         }
 
-        if(pref.getUserName()!=null){
+        if (pref.getUserName() != null) {
             txtUserName.setText(pref.getUserName());
         }
-
 
 
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +182,7 @@ public class FragmentMyProfile extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             profileImage.setImageBitmap(photo);
-            pref.setProfileImg(CommanUtils.encodeToBase64(photo,Bitmap.CompressFormat.JPEG, 100));
+            pref.setProfileImg(CommanUtils.encodeToBase64(photo, Bitmap.CompressFormat.JPEG, 100));
 
         } else if (requestCode == IMG_RESULT || requestCode == IMG_RESULT) {
             try {
@@ -205,7 +204,7 @@ public class FragmentMyProfile extends Fragment {
                     profileImage.setImageBitmap(BitmapFactory
                             .decodeFile(ImageDecode));
                     pref.setProfileImg(CommanUtils.encodeToBase64(BitmapFactory
-                            .decodeFile(ImageDecode),Bitmap.CompressFormat.JPEG, 100));
+                            .decodeFile(ImageDecode), Bitmap.CompressFormat.JPEG, 100));
                     cursor.close();
 
                 }
@@ -219,6 +218,6 @@ public class FragmentMyProfile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getString(R.string.profile));
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.profile));
     }
 }

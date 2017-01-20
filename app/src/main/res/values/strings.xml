@@ -140,5 +140,6 @@
     <!--toolbar titles-->
     <string name="profile">Profile</string>
     <string name="test">Test</string>
+    <string name="update">Update</string>
 
 </resources>
