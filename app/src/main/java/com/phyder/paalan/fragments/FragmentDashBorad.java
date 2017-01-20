@@ -1,6 +1,7 @@
 
 package com.phyder.paalan.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -52,12 +53,17 @@ public class FragmentDashBorad extends Fragment {
         LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         MyRecyclerView = (RecyclerView) view.findViewById(R.id.cardView);
-        MyRecyclerView.setHasFixedSize(true);
+//        MyRecyclerView.setHasFixedSize(true);
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         if (listitems.size() > 0 & MyRecyclerView != null) {
-            MyRecyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR_MR1) {
+                MyRecyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+            }
         }
-        MyRecyclerView.setLayoutManager(MyLayoutManager);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR_MR1) {
+            MyRecyclerView.setLayoutManager(MyLayoutManager);
+        }
         initializeList();
         init(view);
         return view;
@@ -68,13 +74,17 @@ public class FragmentDashBorad extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
 
-        recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR_MR1) {
+            recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+        }
 
 
 //        for (int i = 0; i < IMAGES.length; i++)
 //            ImagesArray.add(IMAGES[i]);
 
-        mPager.setAdapter(new SlidingImageAdapter(getActivity(), IMAGES));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            mPager.setAdapter(new SlidingImageAdapter(getActivity(), IMAGES));
+        }
 
         final float density = getResources().getDisplayMetrics().density;
 
@@ -87,7 +97,9 @@ public class FragmentDashBorad extends Fragment {
                 if (currentPage == NUM_PAGES) {
                     currentPage = 0;
                 }
-                mPager.setCurrentItem(currentPage++, true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+                    mPager.setCurrentItem(currentPage++, true);
+                }
             }
         };
         Timer swipeTimer = new Timer();

@@ -1,4 +1,4 @@
-package com.phyder.paalan.activity.organization;
+package com.phyder.paalan.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.LoginActivity;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
 import com.phyder.paalan.services.Device;
@@ -23,9 +22,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class OrgRegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
-    private static final String TAG = OrgRegistrationActivity.class.getSimpleName();
+    private static final String TAG = RegistrationActivity.class.getSimpleName();
 
     Button btnRegister;
 
@@ -75,10 +74,10 @@ public class OrgRegistrationActivity extends AppCompatActivity {
                 country = edtCountry.getText().toString();
 
                 Log.d(TAG, "onClick: " + name + "\n" + mobileNo + "\n" + emailId + "\n" + password + "\n" + address + "\n" + city + "\n" + state + "\n" + pincode + "\n" + country);
-                if (NetworkUtil.isInternetConnected(OrgRegistrationActivity.this)) {
+                if (NetworkUtil.isInternetConnected(RegistrationActivity.this)) {
                     OrganizationReqResistration reqResistration = OrganizationReqResistration.get(name, mobileNo, emailId, password, notificationId, deviceId, imeiNo, address, city, state, pincode, country);
 
-                    Device.newInstance(OrgRegistrationActivity.this);
+                    Device.newInstance(RegistrationActivity.this);
                     Retrofit mRetrofit = NetworkUtil.getRetrofit();
                     PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
@@ -92,7 +91,7 @@ public class OrgRegistrationActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 if (response.body().getStatus().equals("success")) {
                                     String successmsg = response.body().getMessage();
-                                    Intent intent = new Intent(OrgRegistrationActivity.this, LoginActivity.class);
+                                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                                     startActivity(intent);
 
                                 } else if (response.body().getStatus().equals("error")) {
@@ -118,7 +117,7 @@ public class OrgRegistrationActivity extends AppCompatActivity {
     }
 
     public void ErrorDialog(String reserrorMsg) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrgRegistrationActivity.this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistrationActivity.this);
 
         alertDialog.setTitle("Server Error");
         alertDialog.setMessage(reserrorMsg);

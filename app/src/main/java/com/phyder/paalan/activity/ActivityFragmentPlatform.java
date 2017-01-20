@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.fragments.FragmentAboutUs;
+import com.phyder.paalan.fragments.FragmentContactUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
 import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
@@ -45,10 +47,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private String[] listDataHeader;
     private Fragment fragment;
-    private static Toolbar toolbar;
     private RoundedImageView imgProfile;
     private TextView txtUserName;
     private PreferenceUtils pref;
+
+    private static Toolbar TOOLBAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +63,16 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
 
     private void initToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.dash_borad);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.icons));
-        setSupportActionBar(toolbar);
+        TOOLBAR = (Toolbar) findViewById(R.id.toolbar);
+        TOOLBAR.setTitle(R.string.dash_borad);
+        TOOLBAR.setTitleTextColor(getResources().getColor(R.color.icons));
+        setSupportActionBar(TOOLBAR);
     }
 
     public static void getChangeToolbarTitle(Context context, String title) {
-        if (toolbar != null) {
-            toolbar.setTitle(title);
-            toolbar.setTitleTextColor(context.getResources().getColor(R.color.icons));
+        if (TOOLBAR != null) {
+            TOOLBAR.setTitle(title);
+            TOOLBAR.setTitleTextColor(context.getResources().getColor(R.color.icons));
         }
     }
 
@@ -113,11 +116,13 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 if (groupPosition == 0) {
-                    fragment = new FragmentMyProfile();
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.platform, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    getFragmentTransaction(new FragmentMyProfile());
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }else if(groupPosition == 4){
+                    getFragmentTransaction(new FragmentAboutUs());
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }else if(groupPosition == 5){
+                    getFragmentTransaction(new FragmentContactUs());
                     mDrawerLayout.closeDrawer(mDrawerList);
                 }
 
@@ -179,22 +184,20 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
                 }
                 mDrawerLayout.closeDrawer(mDrawerList);
-                getSupportFragmentManager().beginTransaction().replace(R.id.platform, fragment).addToBackStack(null).commit();
+                getFragmentTransaction(fragment);
                 return false;
             }
         });
     }
 
-//    View.OnClickListener homeOnclickListener = new OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            if(mDrawerLayout.isDrawerOpen(expListView)){
-//                mDrawerLayout.closeDrawer(expListView);
-//            }else{
-//                mDrawerLayout.openDrawer(expListView);
-//            }
-//        }
-//    };
+
+    private void getFragmentTransaction(Fragment fragment){
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.platform, fragment)
+                .addToBackStack(null).commit();
+    }
+
 
 
     private void prepareListData() {
