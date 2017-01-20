@@ -65,7 +65,7 @@ public interface PaalanServices {
     Call<OrganizationResProfile> orgProfile(@Body OrganisationReqProfile organizationReqProfile);
 
     @POST("paalan/PaalanGateway")
-    Call<OrganizationReqPublishEven> orgEventPublish(@Body OrganizationResPublishEvent organizationResPublishEvent);
+    Call<OrgReqUpdateEvent> orgEventPublish(@Body OrganizationResPublishEvent organizationResPublishEvent);
 
     @POST("paalan/PaalanGateway")
     Call<OrganizationResRegistration> orgRegistration(@Body OrganizationReqResistration reqLoginPayload);

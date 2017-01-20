@@ -93,6 +93,9 @@ public class FragmentCreateRequest extends Fragment{
             edtLocation.setText(bundle.getString("LOCATION"));
 
         }
+
+        btnSubmit.setText(shouldBeUpdated ? getResources().getString(R.string.Update) :
+                getResources().getString(R.string.Create));
     }
 
 

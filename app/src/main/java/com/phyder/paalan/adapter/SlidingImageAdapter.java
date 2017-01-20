@@ -49,7 +49,7 @@ public class SlidingImageAdapter extends PagerAdapter {
                 .findViewById(R.id.image);
 
 
-        //imageView.setImageResource(IMAGES[position]);
+        imageView.setImageResource(IMAGES[position]);
         view.addView(imageLayout, 0);
         return imageLayout;
     }

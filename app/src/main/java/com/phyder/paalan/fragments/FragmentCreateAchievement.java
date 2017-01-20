@@ -93,7 +93,7 @@ public class FragmentCreateAchievement extends Fragment{
 
         Bundle bundle = getArguments();
 
-        if(bundle!=null){
+        if(bundle!=null) {
 
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
@@ -103,28 +103,31 @@ public class FragmentCreateAchievement extends Fragment{
             edtDescription.setText(bundle.getString("DESCRIPTION"));
             edtOthers.setText(bundle.getString("OTHER"));
 
-            imgDecodableFirst=bundle.getString("IMAGE1");
-            imgDecodableSecond=bundle.getString("IMAGE2");
-            imgDecodableThird=bundle.getString("IMAGE3");
-            imgDecodableForth=bundle.getString("IMAGE4");
+            imgDecodableFirst = bundle.getString("IMAGE1");
+            imgDecodableSecond = bundle.getString("IMAGE2");
+            imgDecodableThird = bundle.getString("IMAGE3");
+            imgDecodableForth = bundle.getString("IMAGE4");
 
-            if(imgDecodableFirst != null && !imgDecodableFirst.isEmpty() && !imgDecodableFirst.contains("http://localhost")){
+            if (imgDecodableFirst != null && !imgDecodableFirst.isEmpty() && !imgDecodableFirst.contains("http://localhost")) {
                 imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
                 imgAchievementSecond.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableSecond != null && !imgDecodableSecond.isEmpty() && !imgDecodableSecond.contains("http://localhost")){
+            if (imgDecodableSecond != null && !imgDecodableSecond.isEmpty() && !imgDecodableSecond.contains("http://localhost")) {
                 imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
                 imgAchievementThird.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableThird != null && !imgDecodableThird.isEmpty() && !imgDecodableThird.contains("http://localhost")){
+            if (imgDecodableThird != null && !imgDecodableThird.isEmpty() && !imgDecodableThird.contains("http://localhost")) {
                 imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
                 imgAchievementForth.setVisibility(View.VISIBLE);
             }
-            if(imgDecodableForth != null && !imgDecodableForth.isEmpty() && !imgDecodableForth.contains("http://localhost")){
+            if (imgDecodableForth != null && !imgDecodableForth.isEmpty() && !imgDecodableForth.contains("http://localhost")) {
                 imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
             }
 
         }
+
+        btnSubmit.setText(shouldBeUpdated ? getResources().getString(R.string.Update) :
+                getResources().getString(R.string.Create));
     }
 
 

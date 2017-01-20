@@ -5,18 +5,17 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1"
-            tools:context="com.dharmendra.requestpermission.MainActivity">
+            android:padding="10dp"
+            android:weightSum="1">
 
             <com.phyder.paalan.utils.RoundedImageView
                 android:id="@+id/imageview_dp_image"
@@ -25,9 +24,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/paalan_logo" />
+                android:src="@drawable/d" />
 
-            <TextView
+            <com.phyder.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,114 +38,263 @@
                 android:textStyle="bold" />
 
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/edt_org_id"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/org_id"/>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:hint="@string/organization_id" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_weight="1">
 
-            <android.support.design.widget.TextInputLayout
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/edt_org_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/organization_id" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/edit_role"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/org_role" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/role_in_organization" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/edit_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:hint="@string/role_in_organization" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/registration_no"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/registration_id" />
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/registration_no" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/registration_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/registration_no" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/fb_link"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/facebook" />
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Facebook Id" />
+                    android:layout_height="wrap_content">
 
-            </android.support.design.widget.TextInputLayout>
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/fb_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Facebook Id" />
 
-            <android.support.design.widget.TextInputLayout
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/linkedin_link"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/linkedin"
+                    />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Linkedin Id" />
+                    android:layout_height="wrap_content">
+
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/linkedin_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Linkedin Id" />
 
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
 
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/website_link"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/orgid"/>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Website Id" />
+                    android:layout_height="wrap_content">
 
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/website_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Website Id" />
+                </android.support.design.widget.TextInputLayout>
 
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/twitter_link"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/twitter"/>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Twitter Id" />
+                    android:layout_height="wrap_content">
 
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/twitter_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Twitter Id" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/presence_area"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:src="@drawable/location"/>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Presence Area" />
+                    android:layout_height="wrap_content">
 
-            </android.support.design.widget.TextInputLayout>
+                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                        android:id="@+id/presence_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Presence Area" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
-            <Button
+
+            <com.phyder.paalan.utils.ButtonOpenSansSemiBold
                 android:id="@+id/btn_profile_update"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:background="@drawable/background_button"
-                android:hint="Update"
-                android:textColor="#cccccc"
-                android:textSize="20dp" />
+                android:text="@string/Update"
+                android:textColor="@drawable/button_text_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="25dp"/>
 
 
         </LinearLayout>

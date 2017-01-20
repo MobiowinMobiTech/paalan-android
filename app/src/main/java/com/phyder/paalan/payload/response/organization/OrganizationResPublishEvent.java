@@ -7,4 +7,5 @@ package com.phyder.paalan.payload.response.organization;
  */
 
 public class OrganizationResPublishEvent {
+    
 }

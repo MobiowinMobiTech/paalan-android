@@ -30,10 +30,13 @@ import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,12 +52,12 @@ public class FragmentMyProfile extends Fragment {
     final static int IMG_RESULT = 1;
     final int CAMERA_REQUEST = 1888;
     private RoundedImageView profileImage;
-    private TextView txtUserName;
+    private TextViewOpenSansRegular txtUserName;
     String ImageDecode;
 
     Intent intent;
-    Button btnUpdateProfile;
-    EditText edtOrgID, edtRole, edtRegistrationNo, edtFacebookLink, edtTwitterLink, edtLinkedInLink, edtWebsiteLink, edtPresenceArea;
+    ButtonOpenSansSemiBold btnUpdateProfile;
+    EditTextOpenSansRegular edtOrgID, edtRole, edtRegistrationNo, edtFacebookLink, edtTwitterLink, edtLinkedInLink, edtWebsiteLink, edtPresenceArea;
     String[] FILE;
     String strOrgId, strRole, strRegNo, strfblink, strlinkedin, strWeblink, strtwitter, strPresenceArea, strImeiNo, isRegistered, isnewsletter,
             dpImage;
@@ -64,17 +67,17 @@ public class FragmentMyProfile extends Fragment {
     @Nullable
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_org_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_org_profile, null, false);
         pref = new PreferenceUtils(getActivity());
-        edtOrgID = (EditText) view.findViewById(R.id.edt_org_id);
-        edtRole = (EditText) view.findViewById(R.id.edit_role);
-        edtRegistrationNo = (EditText) view.findViewById(R.id.registration_no);
-        edtFacebookLink = (EditText) view.findViewById(R.id.fb_link);
-        edtLinkedInLink = (EditText) view.findViewById(R.id.linkedin_link);
-        edtWebsiteLink = (EditText) view.findViewById(R.id.website_link);
-        edtTwitterLink = (EditText) view.findViewById(R.id.twitter_link);
-        edtPresenceArea = (EditText) view.findViewById(R.id.presence_area);
-        btnUpdateProfile = (Button) view.findViewById(R.id.btn_profile_update);
+        edtOrgID = (EditTextOpenSansRegular) view.findViewById(R.id.edt_org_id);
+        edtRole = (EditTextOpenSansRegular) view.findViewById(R.id.edit_role);
+        edtRegistrationNo = (EditTextOpenSansRegular) view.findViewById(R.id.registration_no);
+        edtFacebookLink = (EditTextOpenSansRegular) view.findViewById(R.id.fb_link);
+        edtLinkedInLink = (EditTextOpenSansRegular) view.findViewById(R.id.linkedin_link);
+        edtWebsiteLink = (EditTextOpenSansRegular) view.findViewById(R.id.website_link);
+        edtTwitterLink = (EditTextOpenSansRegular) view.findViewById(R.id.twitter_link);
+        edtPresenceArea = (EditTextOpenSansRegular) view.findViewById(R.id.presence_area);
+        btnUpdateProfile = (ButtonOpenSansSemiBold) view.findViewById(R.id.btn_profile_update);
 
         strOrgId = edtOrgID.getText().toString();
         strRole = edtRole.getText().toString();
@@ -94,7 +97,7 @@ public class FragmentMyProfile extends Fragment {
         //  Log.d(TAG, "onCreateView: " + strOrgId + "\n" + strRole + "\n" + strRegNo + "\n" + strfblink + "\n" + strlinkedin + "\n" + strWeblink + "\n" + strtwitter + "\n" + strPresenceArea + "\n");
 
         profileImage = (RoundedImageView) view.findViewById(R.id.imageview_dp_image);
-        txtUserName = (TextView) view.findViewById(R.id.my_profile);
+        txtUserName = (TextViewOpenSansRegular) view.findViewById(R.id.my_profile);
 
         if (pref.getProfileImg() != null) {
             profileImage.setImageBitmap(CommanUtils.decodeBase64(pref.getProfileImg()));
@@ -182,7 +185,9 @@ public class FragmentMyProfile extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             profileImage.setImageBitmap(photo);
+
             pref.setProfileImg(CommanUtils.encodeToBase64(photo));
+
 
         } else if (requestCode == IMG_RESULT || requestCode == IMG_RESULT) {
             try {
@@ -204,7 +209,9 @@ public class FragmentMyProfile extends Fragment {
                     profileImage.setImageBitmap(BitmapFactory
                             .decodeFile(ImageDecode));
                     pref.setProfileImg(CommanUtils.encodeToBase64(BitmapFactory
+
                             .decodeFile(ImageDecode)));
+
                     cursor.close();
 
                 }
