@@ -18,10 +18,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 
 import java.util.Calendar;
@@ -33,23 +36,23 @@ import retrofit2.Retrofit;
 
 public class FragmentPublishEventRequest extends Fragment implements View.OnClickListener {
 
-    EditText edtTitle, edtSubtitle, edtDescription, edtStartDate, edtOther, edtEndDate;
-    Button btnCreateEvent;
+    private EditTextOpenSansRegular edtTitle, edtSubtitle, edtDescription, edtStartDate, edtOther, edtEndDate;
+    private ButtonOpenSansSemiBold btnCreateEvent;
     private int mYear, mMonth, mDay;
     // Button btnStartDate, btnEnddate;
-    ImageView imgstartdate, imgenddate;
+    private ImageView imgstartdate, imgenddate;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_request, container, false);
 
-        edtTitle = (EditText) view.findViewById(R.id.edt_event_title);
-        edtSubtitle = (EditText) view.findViewById(R.id.edt_event_subtitle);
-        edtDescription = (EditText) view.findViewById(R.id.edt_event_discripn);
-        edtStartDate = (EditText) view.findViewById(R.id.edt_event_startdate);
-        edtOther = (EditText) view.findViewById(R.id.edt_event_other);
-        edtEndDate = (EditText) view.findViewById(R.id.edt_event_enddate);
+        edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_event_title);
+        edtSubtitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_event_subtitle);
+        edtDescription = (EditTextOpenSansRegular) view.findViewById(R.id.edt_event_discripn);
+        edtStartDate = (EditTextOpenSansRegular) view.findViewById(R.id.edt_event_startdate);
+        edtOther = (EditTextOpenSansRegular) view.findViewById(R.id.edt_event_other);
+        edtEndDate = (EditTextOpenSansRegular) view.findViewById(R.id.edt_event_enddate);
         imgstartdate = (ImageView) view.findViewById(R.id.img_start_date);
         imgenddate = (ImageView) view.findViewById(R.id.img_enddate_calender);
 
@@ -57,7 +60,7 @@ public class FragmentPublishEventRequest extends Fragment implements View.OnClic
 //        btnEnddate = (Button) view.findViewById(R.id.btn_end_date);
         //  btnDatePicker=(Button)view.findViewById(R.id.btn_start_date);
         //  txtDate=(EditText)view.findViewById(R.id.edt_event_startdate);
-        btnCreateEvent = (Button) view.findViewById(R.id.btn_create_event);
+        btnCreateEvent = (ButtonOpenSansSemiBold) view.findViewById(R.id.btn_create_event);
 
 
         btnCreateEvent.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +165,12 @@ public class FragmentPublishEventRequest extends Fragment implements View.OnClic
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.create_event));
     }
 }
 
