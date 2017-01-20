@@ -15,4 +15,5 @@
     <dimen name="icon_padding">8dp</dimen>
     <dimen name="card_height">250dip</dimen>
     <dimen name="text_size">18sp</dimen>
+    <dimen name="text_size2">16sp</dimen>
 </resources>
