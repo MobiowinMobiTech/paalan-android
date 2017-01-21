@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:padding="10dp"
             android:weightSum="1"
             tools:context="com.dharmendra.requestpermission.MainActivity">
 
@@ -39,113 +40,274 @@
                 android:textStyle="bold" />
 
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/edt_org_id"
+                <ImageView
+                    android:id="@+id/img_start_date"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/org_id"
+                    android:text="SELECT DATE" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:hint="@string/organization_id" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_weight="1">
 
-            <android.support.design.widget.TextInputLayout
+                    <EditText
+                        android:id="@+id/edt_org_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="@string/organization_id" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/edit_role"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/org_role"
+                    android:text="SELECT DATE" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/role_in_organization" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+                    <EditText
+                        android:id="@+id/edit_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:hint="@string/role_in_organization" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/registration_no"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/registration_id"
+                    android:text="SELECT DATE" />
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/registration_no" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+                    <EditText
+                        android:id="@+id/registration_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/registration_no" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/fb_link"
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/facebook"
+                    android:text="SELECT DATE" />
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Facebook Id" />
+                    android:layout_height="wrap_content">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/fb_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Facebook Id" />
 
-            <android.support.design.widget.TextInputLayout
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/linkedin_link"
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/linkedin"
+                    android:text="SELECT DATE" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Linkedin Id" />
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/linkedin_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Linkedin Id" />
 
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
 
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/website_link"
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/orgid"
+                    android:text="SELECT DATE" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Website Id" />
+                    android:layout_height="wrap_content">
 
+                    <EditText
+                        android:id="@+id/website_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Website Id" />
+                </android.support.design.widget.TextInputLayout>
 
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/twitter_link"
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/twitter"
+                    android:text="SELECT DATE" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Twitter Id" />
+                    android:layout_height="wrap_content">
 
+                    <EditText
+                        android:id="@+id/twitter_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Twitter Id" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/presence_area"
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/location"
+                    android:text="SELECT DATE" />
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Presence Area" />
+                    android:layout_height="wrap_content">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/presence_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Presence Area" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_profile_update"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/background_button"
-                android:hint="Update"
-                android:textColor="#cccccc"
+                android:text="@string/update"
+                android:textColor="#ffffff"
                 android:textSize="20dp" />
 
 

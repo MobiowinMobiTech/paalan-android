@@ -25,8 +25,9 @@ import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
-import com.phyder.paalan.fragments.FragmentPublishEventRequest;
+import com.phyder.paalan.fragments.FragmentCreateEventRequest;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
@@ -155,12 +156,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 2:
                         switch (childPosition) {
                             case 0:
-                                fragment = new FragmentPublishEventRequest();
+                                fragment = new FragmentCreateEventRequest();
                                 expListView.collapseGroup(2);
                                 break;
 
                             case 1:
-                                fragment = new FragmentPublishEventRequest();
+                                fragment = new FragmentViewEvent();
                                 expListView.collapseGroup(2);
                                 break;
 

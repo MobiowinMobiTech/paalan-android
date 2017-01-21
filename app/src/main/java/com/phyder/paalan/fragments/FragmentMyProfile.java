@@ -182,7 +182,9 @@ public class FragmentMyProfile extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             profileImage.setImageBitmap(photo);
+
             pref.setProfileImg(CommanUtils.encodeToBase64(photo));
+
 
         } else if (requestCode == IMG_RESULT || requestCode == IMG_RESULT) {
             try {
@@ -204,7 +206,9 @@ public class FragmentMyProfile extends Fragment {
                     profileImage.setImageBitmap(BitmapFactory
                             .decodeFile(ImageDecode));
                     pref.setProfileImg(CommanUtils.encodeToBase64(BitmapFactory
+
                             .decodeFile(ImageDecode)));
+
                     cursor.close();
 
                 }

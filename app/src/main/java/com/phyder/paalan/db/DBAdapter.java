@@ -276,4 +276,91 @@ public class DBAdapter {
 	}
 
 
+	//	Database methods for event insertion,updation,deletion,selection operations
+
+	public long insertEvent(String event_id,String event_title, String event_sub_title, String event_desc,
+							  String event_others, String event_startdate,String event_enddate, String event_is_Deleted)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.EVENT_ID, event_id);
+			cv.put(Attributes.Database.EVENT_TITLE,(event_title!=null ? event_title : ""));
+			cv.put(Attributes.Database.EVENT_SUB_TITLE, (event_sub_title!=null ? event_sub_title : ""));
+			cv.put(Attributes.Database.EVENT_DESCRIPTION, (event_desc!=null ? event_desc : ""));
+			cv.put(Attributes.Database.EVENT_OTHERS, (event_others!=null ? event_others : ""));
+			cv.put(Attributes.Database.EVENT_START_DATE, (event_startdate!=null ? event_startdate : ""));
+			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate!=null ? event_enddate : ""));
+			cv.put(Attributes.Database.EVENT_IS_DELETED,event_is_Deleted);
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.insert(Attributes.Database.EVENT_TABLE_NAME, null, cv);
+	}
+
+
+	public long updateEvent(String event_id,String event_title, String event_sub_title, String event_desc,
+							  String event_others, String event_startdate,String event_enddate)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.EVENT_ID, event_id);
+			cv.put(Attributes.Database.EVENT_TITLE,event_title);
+			cv.put(Attributes.Database.EVENT_SUB_TITLE,event_sub_title);
+			cv.put(Attributes.Database.EVENT_DESCRIPTION,event_desc);
+			cv.put(Attributes.Database.EVENT_OTHERS,event_others);
+			cv.put(Attributes.Database.EVENT_START_DATE,event_startdate);
+			cv.put(Attributes.Database.EVENT_END_DATE,event_enddate);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.update(Attributes.Database.EVENT_TABLE_NAME,cv,Attributes.Database.EVENT_ID
+				+" = '"+ event_id + "'",null);
+	}
+
+	public long deleteEvent(String event_id,String isDeleted)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.EVENT_IS_DELETED, isDeleted);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.update(Attributes.Database.EVENT_TABLE_NAME,cv,Attributes.Database.EVENT_ID
+				+" = '"+ event_id + "'",null);
+	}
+
+	public Cursor getAllEvent(String isDeleted){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.EVENT_TABLE_NAME+" where "+
+				Attributes.Database.EVENT_IS_DELETED+" = '"+isDeleted+"'", null);
+	}
+
+	public Cursor getEventById(String id){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.EVENT_TABLE_NAME+" where "+
+				Attributes.Database.EVENT_ID+" = '"+id+"'", null);
+	}
+
+
+	public boolean isEventExist(String id){
+		boolean isExist = false;
+		Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.EVENT_TABLE_NAME+" where "+
+				Attributes.Database.EVENT_ID+" = '"+id+"'", null);
+		if(cursor !=null){
+			cursor.moveToFirst();
+			if(cursor.moveToFirst()){
+				do{
+					if(cursor.getString(cursor.getColumnIndex(Attributes.Database.EVENT_TABLE_NAME))!=null){
+						isExist = true;
+						break;
+					}
+				}while (cursor.moveToNext());
+			}
+		}
+		return isExist;
+	}
+
+
 }
