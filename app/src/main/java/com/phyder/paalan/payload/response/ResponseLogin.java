@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.response;
 
+import java.util.Arrays;
+
 /**
  * Created by cmss on 11/1/17.
  */
@@ -41,15 +43,15 @@ public class ResponseLogin {
     }
 
     public class Data {
-        private String[] orgprofiledata;
+        private Orgprofiledata[] orgprofiledata;
 
         private Orgregdata[] orgregdata;
 
-        public String[] getOrgprofiledata() {
+        public Orgprofiledata[] getOrgprofiledata() {
             return orgprofiledata;
         }
 
-        public void setOrgprofiledata(String[] orgprofiledata) {
+        public void setOrgprofiledata(Orgprofiledata[] orgprofiledata) {
             this.orgprofiledata = orgprofiledata;
         }
 
@@ -63,7 +65,10 @@ public class ResponseLogin {
 
         @Override
         public String toString() {
-            return "ClassPojo [orgprofiledata = " + orgprofiledata + ", orgregdata = " + orgregdata + "]";
+            return "Data{" +
+                    "orgprofiledata=" + Arrays.toString(orgprofiledata) +
+                    ", orgregdata=" + Arrays.toString(orgregdata) +
+                    '}';
         }
     }
 
@@ -82,7 +87,7 @@ public class ResponseLogin {
 
         private String id;
 
-        public String orgId;
+        private String orgId;
 
         private String notificationId;
 
@@ -260,7 +265,233 @@ public class ResponseLogin {
 
         @Override
         public String toString() {
-            return "ClassPojo [modifiedBy = " + modifiedBy + ", state = " + state + ", password = " + password + ", country = " + country + ", city = " + city + ", pincode = " + pincode + ", id = " + id + ", orgId = " + orgId + ", notificationId = " + notificationId + ", emailId = " + emailId + ", createdBy = " + createdBy + ", address = " + address + ", name = " + name + ", imeiNo = " + imeiNo + ", deleteFlag = " + deleteFlag + ", modifyDt = " + modifyDt + ", createDt = " + createDt + ", mobileNo = " + mobileNo + ", deviceId = " + deviceId + "]";
+            return "Orgregdata{" +
+                    "modifiedBy='" + modifiedBy + '\'' +
+                    ", state='" + state + '\'' +
+                    ", password='" + password + '\'' +
+                    ", country='" + country + '\'' +
+                    ", city='" + city + '\'' +
+                    ", pincode='" + pincode + '\'' +
+                    ", id='" + id + '\'' +
+                    ", orgId='" + orgId + '\'' +
+                    ", notificationId='" + notificationId + '\'' +
+                    ", emailId='" + emailId + '\'' +
+                    ", createdBy='" + createdBy + '\'' +
+                    ", address='" + address + '\'' +
+                    ", name='" + name + '\'' +
+                    ", imeiNo='" + imeiNo + '\'' +
+                    ", deleteFlag='" + deleteFlag + '\'' +
+                    ", modifyDt='" + modifyDt + '\'' +
+                    ", createDt='" + createDt + '\'' +
+                    ", mobileNo='" + mobileNo + '\'' +
+                    ", deviceId='" + deviceId + '\'' +
+                    '}';
+        }
+    }
+
+    public class Orgprofiledata {
+        private String isGovtRegister;
+
+        private String dpImgLink;
+
+        private String modifiedBy;
+
+        private String registrationNo;
+
+        private String id;
+
+        private String orgId;
+
+        private String fbLink;
+
+        private String websiteLink;
+
+        private String createdBy;
+
+        private String twitterLink;
+
+        private String presenceArea;
+
+        private String role;
+
+        private String imeiNo;
+
+        private String deleteFlag;
+
+        private String modifyDt;
+
+        private String linkedinLink;
+
+        private String createDt;
+
+        private String isNewsLetter;
+
+        public String getIsGovtRegister() {
+            return isGovtRegister;
+        }
+
+        public void setIsGovtRegister(String isGovtRegister) {
+            this.isGovtRegister = isGovtRegister;
+        }
+
+        public String getDpImgLink() {
+            return dpImgLink;
+        }
+
+        public void setDpImgLink(String dpImgLink) {
+            this.dpImgLink = dpImgLink;
+        }
+
+        public String getModifiedBy() {
+            return modifiedBy;
+        }
+
+        public void setModifiedBy(String modifiedBy) {
+            this.modifiedBy = modifiedBy;
+        }
+
+        public String getRegistrationNo() {
+            return registrationNo;
+        }
+
+        public void setRegistrationNo(String registrationNo) {
+            this.registrationNo = registrationNo;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getOrgId() {
+            return orgId;
+        }
+
+        public void setOrgId(String orgId) {
+            this.orgId = orgId;
+        }
+
+        public String getFbLink() {
+            return fbLink;
+        }
+
+        public void setFbLink(String fbLink) {
+            this.fbLink = fbLink;
+        }
+
+        public String getWebsiteLink() {
+            return websiteLink;
+        }
+
+        public void setWebsiteLink(String websiteLink) {
+            this.websiteLink = websiteLink;
+        }
+
+        public String getCreatedBy() {
+            return createdBy;
+        }
+
+        public void setCreatedBy(String createdBy) {
+            this.createdBy = createdBy;
+        }
+
+        public String getTwitterLink() {
+            return twitterLink;
+        }
+
+        public void setTwitterLink(String twitterLink) {
+            this.twitterLink = twitterLink;
+        }
+
+        public String getPresenceArea() {
+            return presenceArea;
+        }
+
+        public void setPresenceArea(String presenceArea) {
+            this.presenceArea = presenceArea;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getImeiNo() {
+            return imeiNo;
+        }
+
+        public void setImeiNo(String imeiNo) {
+            this.imeiNo = imeiNo;
+        }
+
+        public String getDeleteFlag() {
+            return deleteFlag;
+        }
+
+        public void setDeleteFlag(String deleteFlag) {
+            this.deleteFlag = deleteFlag;
+        }
+
+        public String getModifyDt() {
+            return modifyDt;
+        }
+
+        public void setModifyDt(String modifyDt) {
+            this.modifyDt = modifyDt;
+        }
+
+        public String getLinkedinLink() {
+            return linkedinLink;
+        }
+
+        public void setLinkedinLink(String linkedinLink) {
+            this.linkedinLink = linkedinLink;
+        }
+
+        public String getCreateDt() {
+            return createDt;
+        }
+
+        public void setCreateDt(String createDt) {
+            this.createDt = createDt;
+        }
+
+        public String getIsNewsLetter() {
+            return isNewsLetter;
+        }
+
+        public void setIsNewsLetter(String isNewsLetter) {
+            this.isNewsLetter = isNewsLetter;
+        }
+
+        @Override
+        public String toString() {
+            return "Orgprofiledata{" +
+                    "isGovtRegister='" + isGovtRegister + '\'' +
+                    ", dpImgLink='" + dpImgLink + '\'' +
+                    ", modifiedBy='" + modifiedBy + '\'' +
+                    ", registrationNo='" + registrationNo + '\'' +
+                    ", id='" + id + '\'' +
+                    ", orgId='" + orgId + '\'' +
+                    ", fbLink='" + fbLink + '\'' +
+                    ", websiteLink='" + websiteLink + '\'' +
+                    ", createdBy='" + createdBy + '\'' +
+                    ", twitterLink='" + twitterLink + '\'' +
+                    ", presenceArea='" + presenceArea + '\'' +
+                    ", role='" + role + '\'' +
+                    ", imeiNo='" + imeiNo + '\'' +
+                    ", deleteFlag='" + deleteFlag + '\'' +
+                    ", modifyDt='" + modifyDt + '\'' +
+                    ", linkedinLink='" + linkedinLink + '\'' +
+                    ", createDt='" + createDt + '\'' +
+                    ", isNewsLetter='" + isNewsLetter + '\'' +
+                    '}';
         }
     }
 }

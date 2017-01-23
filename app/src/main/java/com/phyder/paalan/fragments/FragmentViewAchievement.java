@@ -24,6 +24,7 @@ import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +42,9 @@ public class FragmentViewAchievement extends Fragment {
     private String[] listOfAchievementIds;
     private String[] listOfAchievementTitles;
     private String[] listOfAchievementSubTitles;
+    String[] startDate;
+
+    TextViewOpenSansRegular txtStartDate;
 
     private int counter = 0;
 
@@ -50,9 +54,9 @@ public class FragmentViewAchievement extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_view_achievement,null,false);
-            init(view);
-            getRetrofitCall();
+        View view = inflater.inflate(R.layout.fragment_view_achievement, null, false);
+        init(view);
+        getRetrofitCall();
         return view;
     }
 
@@ -71,45 +75,44 @@ public class FragmentViewAchievement extends Fragment {
                 PaalanGetterSetter.setAchivementID(listOfAchievementIds[position]);
 
                 getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.platform,new FragmentViewDetailsAchievement()).addToBackStack(null).commit();
+                        replace(R.id.platform, new FragmentViewDetailsAchievement()).addToBackStack(null).commit();
             }
         });
 
     }
 
-    public void getPopulated(){
+    public void getPopulated() {
 
         dbAdapter.open();
         Cursor cursor = dbAdapter.getAllAchievements("F");
-        listOfAchievementIds =new String[cursor.getCount()];
-        listOfAchievementTitles =new String[cursor.getCount()];
-        listOfAchievementSubTitles =new String[cursor.getCount()];
+        listOfAchievementIds = new String[cursor.getCount()];
+        listOfAchievementTitles = new String[cursor.getCount()];
+        listOfAchievementSubTitles = new String[cursor.getCount()];
 
-        if(cursor !=null){
+        if (cursor != null) {
             cursor.moveToFirst();
-            if(cursor.moveToFirst()){
-                do{
+            if (cursor.moveToFirst()) {
+                do {
                     listOfAchievementIds[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_ID)));
                     listOfAchievementTitles[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_TITLE)));
                     listOfAchievementSubTitles[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_SUB_TITLE)));
-                    counter = counter+1;
-                }while(cursor.moveToNext());
+                    counter = counter + 1;
+                } while (cursor.moveToNext());
             }
         }
-        counter=0;
+        counter = 0;
         dbAdapter.close();
 
-        if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles));
+        if (listOfAchievementTitles != null && listOfAchievementTitles.length > 0) {
+            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles, listOfAchievementSubTitles, startDate));
         }
 
     }
 
 
+    public void getRetrofitCall() {
 
-    public void getRetrofitCall(){
-
-        if(NetworkUtil.isInternetConnected(getActivity())){
+        if (NetworkUtil.isInternetConnected(getActivity())) {
 
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
@@ -131,10 +134,10 @@ public class FragmentViewAchievement extends Fragment {
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
 
-                            for(int i=0;i<response.body().getData()[0].getOrglist().length;i++) {
+                            for (int i = 0; i < response.body().getData()[0].getOrglist().length; i++) {
 
-                                if(!dbAdapter.isAchievementExist(response.body().getData()[0].
-                                        getOrglist()[i].getAchievementId()))    {
+                                if (!dbAdapter.isAchievementExist(response.body().getData()[0].
+                                        getOrglist()[i].getAchievementId())) {
 
                                     dbAdapter.insertAchievement(response.body().getData()[0].getOrglist()[i].getAchievementId(),
                                             response.body().getData()[0].getOrglist()[i].getTitle(),
@@ -155,7 +158,7 @@ public class FragmentViewAchievement extends Fragment {
                             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
                                     Toast.LENGTH_LONG).show();
                         }
-                    }else if(response.body()==null){
+                    } else if (response.body() == null) {
                         Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
                                 .show();
                     }
@@ -169,20 +172,16 @@ public class FragmentViewAchievement extends Fragment {
                             .show();
                 }
             });
-        }else{
+        } else {
             CommanUtils.getInternetAlert(getActivity());
         }
     }
 
 
-
-
-
-
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[1]);
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getStringArray(R.array.achievements_array)[1]);
         getPopulated();
         PaalanGetterSetter.setAchivementID(null);
     }

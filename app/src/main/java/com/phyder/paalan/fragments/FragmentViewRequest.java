@@ -43,6 +43,7 @@ public class FragmentViewRequest extends Fragment {
     private String[] listOfRequestIds;
     private String[] listOfRequestTitles;
     private String[] listOfRequestSubTitles;
+    String[] startDate;
 
     private int counter = 0;
 
@@ -52,9 +53,9 @@ public class FragmentViewRequest extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_view_achievement,null,false);
-            init(view);
-            getRetrofitCall();
+        View view = inflater.inflate(R.layout.fragment_view_achievement, null, false);
+        init(view);
+        getRetrofitCall();
         return view;
     }
 
@@ -73,45 +74,44 @@ public class FragmentViewRequest extends Fragment {
                 PaalanGetterSetter.setRequestID(listOfRequestIds[position]);
 
                 getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.platform,new FragmentViewDetailsRequest()).addToBackStack(null).commit();
+                        replace(R.id.platform, new FragmentViewDetailsRequest()).addToBackStack(null).commit();
             }
         });
 
     }
 
-    public void getPopulated(){
+    public void getPopulated() {
 
         dbAdapter.open();
         Cursor cursor = dbAdapter.getAllRequests("F");
-        listOfRequestIds =new String[cursor.getCount()];
-        listOfRequestTitles =new String[cursor.getCount()];
-        listOfRequestSubTitles =new String[cursor.getCount()];
+        listOfRequestIds = new String[cursor.getCount()];
+        listOfRequestTitles = new String[cursor.getCount()];
+        listOfRequestSubTitles = new String[cursor.getCount()];
 
-        if(cursor !=null){
+        if (cursor != null) {
             cursor.moveToFirst();
-            if(cursor.moveToFirst()){
-                do{
+            if (cursor.moveToFirst()) {
+                do {
                     listOfRequestIds[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_ID)));
                     listOfRequestTitles[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_TITLE)));
                     listOfRequestSubTitles[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_SUB_TITLE)));
-                    counter = counter+1;
-                }while(cursor.moveToNext());
+                    counter = counter + 1;
+                } while (cursor.moveToNext());
             }
         }
-        counter=0;
+        counter = 0;
         dbAdapter.close();
 
-        if(listOfRequestTitles!=null && listOfRequestTitles.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfRequestTitles,listOfRequestSubTitles));
+        if (listOfRequestTitles != null && listOfRequestTitles.length > 0) {
+            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfRequestTitles, listOfRequestSubTitles, startDate));
         }
 
     }
 
 
+    public void getRetrofitCall() {
 
-    public void getRetrofitCall(){
-
-        if(NetworkUtil.isInternetConnected(getActivity())){
+        if (NetworkUtil.isInternetConnected(getActivity())) {
 
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
@@ -134,10 +134,10 @@ public class FragmentViewRequest extends Fragment {
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
 
-                            for(int i=0;i<response.body().getData()[0].getOrgreqlist().length;i++) {
+                            for (int i = 0; i < response.body().getData()[0].getOrgreqlist().length; i++) {
 
-                                if(!dbAdapter.isRequestExist(response.body().getData()[0].
-                                        getOrgreqlist()[i].getRequestId()))    {
+                                if (!dbAdapter.isRequestExist(response.body().getData()[0].
+                                        getOrgreqlist()[i].getRequestId())) {
 
                                     dbAdapter.insertRequest(response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
                                             response.body().getData()[0].getOrgreqlist()[i].getTitle(),
@@ -155,7 +155,7 @@ public class FragmentViewRequest extends Fragment {
                             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
                                     Toast.LENGTH_LONG).show();
                         }
-                    }else if(response.body()==null){
+                    } else if (response.body() == null) {
                         Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
                                 .show();
                     }
@@ -169,20 +169,16 @@ public class FragmentViewRequest extends Fragment {
                             .show();
                 }
             });
-        }else{
+        } else {
             CommanUtils.getInternetAlert(getActivity());
         }
     }
 
 
-
-
-
-
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.request_array)[1]);
+        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getStringArray(R.array.request_array)[1]);
         getPopulated();
         PaalanGetterSetter.setRequestID(null);
     }

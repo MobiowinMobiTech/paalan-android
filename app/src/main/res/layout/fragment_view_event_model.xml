@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.phyder.paalan.utils.TextViewOpenSansRegular
+            android:id="@+id/txtstartdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/date_circulweview"
+            android:gravity="center"
+            android:text="@string/eventdate"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/cardview_light_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.phyder.paalan.utils.TextViewOpenSansRegular
+                android:id="@+id/txtPrimaryRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/title"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary_text" />
+
+            <com.phyder.paalan.utils.TextViewOpenSansRegular
+                android:id="@+id/txtSecondaryRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:padding="4dp"
+                android:text="@string/subtitle"
+                android:textAppearance="@android:style/TextAppearance"
+                android:textColor="@color/secondary_text" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

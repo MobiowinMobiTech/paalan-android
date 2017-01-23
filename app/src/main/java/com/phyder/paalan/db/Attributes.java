@@ -61,7 +61,7 @@ public class Attributes {
                 + EVENT_TITLE + " text not null, " + EVENT_SUB_TITLE + " text not null, "
                 + EVENT_DESCRIPTION + " text not null, " + EVENT_OTHERS + " text not null, "
                 + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, " +
-                EVENT_IS_DELETED + " text not null);";
+                EVENT_IS_DELETED + " text not null,";
     }
 
     public static class MasterDatabase {

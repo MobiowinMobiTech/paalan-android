@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int PERMISSION_READ_STATE = 1;
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
-
+    String lastSyncData;
     private TextViewOpenSansRegular txtLoginAsOrg, txtLoginAsInd;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 email = mEmailView.getText().toString();
+                lastSyncData = "1484850600000";
                 password = mPasswordView.getText().toString();
 
 //                if(TextUtils.isEmpty(email)){
@@ -225,12 +226,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getRetrofitCall() {
 
-        if(NetworkUtil.isInternetConnected(LoginActivity.this)) {
+        if (NetworkUtil.isInternetConnected(LoginActivity.this)) {
 
             CommanUtils.showDialog(LoginActivity.this);
             Device.newInstance(LoginActivity.this);
             RequestLogin reqLogin = RequestLogin.get(deviceID, email, password, loginType);
 
+            Log.d(TAG, "getRetrofitCall: "+reqLogin.toString());
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
@@ -245,8 +247,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.body().getStatus().equals("success")) {
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.logggedIn),
                                     Toast.LENGTH_SHORT).show();
-                            pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
-                            pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
+//                            pref.setOrgID(response.body().getData()[0].getOrgprofiledata()[0]);
+//                            pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
@@ -256,7 +258,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG)
                                     .show();
                         }
-                    }else if(response.body()==null){
+                    } else if (response.body() == null) {
                         Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
                                 .show();
                     }
@@ -270,7 +272,7 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                 }
             });
-        }else{
+        } else {
             CommanUtils.getInternetAlert(LoginActivity.this);
         }
     }

@@ -19,6 +19,14 @@ public class PaalanGetterSetter {
         return ACHIEVEMENT_ID;
     }
 
+    public static void setEventId(String id){
+        EVENT_ID = id;
+    }
+
+    public static String getEventId(){
+        return EVENT_ID;
+    }
+
 
     public static void setRequestID(String id){
         REQUEST_ID = id;
