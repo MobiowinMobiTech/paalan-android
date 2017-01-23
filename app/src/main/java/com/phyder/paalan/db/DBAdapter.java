@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import org.w3c.dom.Attr;
+
 
 public class DBAdapter {
 
@@ -83,16 +85,9 @@ public class DBAdapter {
 				+" = '"+ achieve_id + "'",null);
 	}
 
-	public long deleteAchievement(String achieve_id,String isDeleted)
+	public long deleteAchievement(String achieve_id)
 	{
-		ContentValues cv=new ContentValues();
-		try{
-			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID
+		return sqLiteDatabase.delete(Attributes.Database.ACHIEVEMENT_TABLE_NAME,Attributes.Database.ACHIEVEMENT_ID
 				+" = '"+ achieve_id + "'",null);
 	}
 
@@ -276,4 +271,66 @@ public class DBAdapter {
 	}
 
 
+	//	Database methods for profile insertion,updation,deletion,selection operations
+
+	public long insertProfile(String image,String role,String regNo, String fbLink, String linkedIn,
+								  String webLink, String twitter, String presenceArea)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.PROFILE_IMAGE, (image!=null ? image : ""));
+			cv.put(Attributes.Database.PROFILE_ROLE,(role!=null ? role : ""));
+			cv.put(Attributes.Database.PROFILE_REGISTER_NO,(regNo!=null ? regNo : ""));
+			cv.put(Attributes.Database.PROFILE_FB_LINK, (fbLink!=null ? fbLink : ""));
+			cv.put(Attributes.Database.PROFILE_LINKED_IN_LINK, (linkedIn!=null ? linkedIn : ""));
+			cv.put(Attributes.Database.PROFILE_WEB_LINK, (webLink!=null ? webLink : ""));
+			cv.put(Attributes.Database.PROFILE_TWITTER_LINK, (twitter!=null ? twitter : ""));
+			cv.put(Attributes.Database.PROFILE_PRESENCE_AREA, (presenceArea!=null ? presenceArea : ""));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.insert(Attributes.Database.PROFILE_TABLE_NAME, null, cv);
+	}
+
+	public int deleteProfile(){
+		return sqLiteDatabase.delete(Attributes.Database.PROFILE_TABLE_NAME, null,null);
+	}
+
+
+	public Cursor getProfile(){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.PROFILE_TABLE_NAME, null);
+	}
+
+	public String getProfileDP(){
+		String encodedDp = "";
+		Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.PROFILE_TABLE_NAME, null);
+		if(cursor!=null)
+			cursor.moveToFirst();
+		if(cursor.moveToFirst()){
+			do{
+				encodedDp = cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_IMAGE));
+			}while(cursor.moveToNext());
+		}
+		return encodedDp;
+	}
+
+	public String getlastSyncdate(String status) {
+		String date = "0";
+		Cursor cursor = sqLiteDatabase.rawQuery("Select * from " + Attributes.MasterDatabase.MASTER_TABLE, null);
+		if(cursor!=null)
+			cursor.moveToFirst();
+		if(cursor.moveToFirst()){
+			do{
+				if(status.equals("Achievement")){
+					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.ACHIEVEMENT_TIMESPAN));
+				}else if(status.equals("Event")){
+					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.EVENT_TIMESPAN));
+				}else if(status.equals("Request")){
+					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.REQUEST_TIMESPAN));
+				}
+			}while (cursor.moveToNext());
+		}
+		return date;
+	}
 }

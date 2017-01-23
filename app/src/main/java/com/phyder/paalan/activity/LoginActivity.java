@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.RegistrationActivity;
+import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.services.Device;
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int PERMISSION_READ_STATE = 1;
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
+    private DBAdapter dbAdapter;
 
     private TextViewOpenSansRegular txtLoginAsOrg, txtLoginAsInd;
 
@@ -59,18 +61,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initToolBar();
         initializations();
         clickEventFire();
     }
 
-
-    private void initToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.login);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.icons));
-        setSupportActionBar(toolbar);
-    }
 
 
     /**
@@ -78,7 +72,9 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void initializations() {
 
+        getSupportActionBar().setTitle(getResources().getString(R.string.login));
         pref = new PreferenceUtils(LoginActivity.this);
+        dbAdapter = new DBAdapter(LoginActivity.this);
         txtSignUp = (TextViewOpenSansSemiBold) findViewById(R.id.txt_sign_up_organization);
         mEmailView = (AutoCompleteTextViewOpenSansRegular) findViewById(R.id.email);
         mPasswordView = (EditTextOpenSansRegular) findViewById(R.id.password);
@@ -247,6 +243,17 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
                             pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
+                            dbAdapter.open();
+                            dbAdapter.insertProfile(
+                                    response.body().getData()[0].getOrgprofiledata()[0].getDpImgLink(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getRole(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getRegistrationNo(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getFbLink(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getLinkedinLink(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getWebsiteLink(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getTwitterLink(),
+                                    response.body().getData()[0].getOrgprofiledata()[0].getPresenceArea());
+                            dbAdapter.close();
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
                             intent.putExtra("LOGIN", loginType);
                             startActivity(intent);

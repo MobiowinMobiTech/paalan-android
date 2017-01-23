@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/light_grey"
     tools:context="com.phyder.paalan.activity.LoginActivity">
 
-    <include layout="@layout/toolbar_shadow"/>
+    <!--<include layout="@layout/toolbar_shadow"/>-->
 
        <ScrollView
         android:id="@+id/login_form"

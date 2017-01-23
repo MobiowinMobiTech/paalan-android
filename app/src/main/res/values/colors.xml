@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="colors">
-        <item>#FF8400</item>
-        <item>#A2C922</item>
         <item>#CE93D8</item>
+        <item>#F05050</item>
         <item>#FFF59D</item>
         <item>#64B5F6</item>
-        <item>#F05050</item>
+        <item>#A2C922</item>
         <item>#CCFF90</item>
 
     </array>
@@ -19,8 +18,9 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
+
     <color name="divider">#BDBDBD</color>
 
     <color name="transparent">#00000000</color>
-
+    <color name="light_grey">#E9E7E7</color>
 </resources>

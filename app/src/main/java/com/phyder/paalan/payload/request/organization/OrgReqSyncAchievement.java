@@ -18,9 +18,10 @@ public class OrgReqSyncAchievement {
 
     private String type;
 
-    public static OrgReqSyncAchievement get(String orgId) {
+    public static OrgReqSyncAchievement get(String orgId,String lastsyncdate) {
         Data data = new Data();
         data.setOrgid(orgId);
+        data.setLastsyncdate(lastsyncdate);
 
         OrgReqSyncAchievement syncAchievement = new OrgReqSyncAchievement();
         syncAchievement.setData(data);
@@ -73,7 +74,9 @@ public class OrgReqSyncAchievement {
     }
 
     public static class Data {
+
         private String orgid;
+        private String lastsyncdate;
 
         public String getOrgid() {
             return orgid;
@@ -83,10 +86,20 @@ public class OrgReqSyncAchievement {
             this.orgid = orgid;
         }
 
+        public String getlLastsyncdate() {
+            return lastsyncdate;
+        }
+
+        public void setLastsyncdate(String lastsyncdate) {
+            this.lastsyncdate = lastsyncdate;
+        }
+
+
         @Override
         public String toString() {
             return "Data{" +
                     "orgid='" + orgid + '\'' +
+                    "lastsyncdate='" + lastsyncdate + '\'' +
                     '}';
         }
     }

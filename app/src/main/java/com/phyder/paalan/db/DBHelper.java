@@ -22,6 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(Attributes.Database.CREATE_ACHIEVEMENT_QUERY);
         db.execSQL(Attributes.Database.CREATE_REQUEST_QUERY);
         db.execSQL(Attributes.Database.CREATE_EVENT_QUERY);
+        db.execSQL(Attributes.Database.CREATE_PROFILE_QUERY);
         Log.i(TAG, "Database created");
     }
 
@@ -31,6 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXIST " + Attributes.Database.REQUEST_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXIST " + Attributes.Database.EVENT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXIST " + Attributes.MasterDatabase.MASTER_TABLE);
+        db.execSQL("DROP TABLE IF EXIST " + Attributes.Database.PROFILE_TABLE_NAME);
     }
 
 }

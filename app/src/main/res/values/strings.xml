@@ -77,6 +77,18 @@
     <string name="organization_id">Organization Id</string>
     <string name="registration_no">Registration No</string>
 
+    <string name="profile_up_to_date">Profile up-to-date</string>
+    <string name="achievement_created">Achievement Created</string>
+    <string name="event_created">Event Created</string>
+    <string name="request_created">Social Request Created</string>
+
+    <string name="achievement_updated">Achievement Updated</string>
+    <string name="event_updated">Event Updated</string>
+    <string name="request_updated">Social Request Updated</string>
+
+    <string name="achievement_deleted">Achievement Deleted</string>
+    <string name="event_deleted">Event Deleted</string>
+    <string name="request_deleted">Social Request Deleted</string>
 
     <!--submit text-->
     <string name="submit">Submit</string>
@@ -94,12 +106,16 @@
     <string name="error_empty_others">Others can not be empty</string>
     <string name="error_empty_location">Location can not be empty</string>
 
+    <string name="error_empty_role">Role can not be empty</string>
+    <string name="error_empty_regNo">Register no can not be empty</string>
+    <string name="error_empty_presence">Presence area can not be empty</string>
+
     <!--drawer menu array-->
     <string-array name="drawer_array">
         <item>My Profile</item>
         <item>Achievements</item>
-        <item>Event History</item>
-        <item>Request</item>
+        <item>Publish Event</item>
+        <item>Social Request</item>
         <item>About Us</item>
         <item>Contact Us</item>
         <item>Sign Out</item>
@@ -120,8 +136,8 @@
 
     <!--event menu array-->
     <string-array name="request_array">
-        <item>Create Request</item>
-        <item>View Request</item>
+        <item>Create Social Request</item>
+        <item>View Social Request</item>
     </string-array>
 
     <string name="acheivement">Acheivement</string>
@@ -162,9 +178,13 @@
 
 
     <!--Request String -->
-    <string name="request">Request</string>
-    <string name="update_request">Update Request</string>
-    <string name="delete_request">Delete Request</string>
-    <string name="update_delete_request">Update/Delete Request</string>
+    <string name="request">Social Request</string>
+    <string name="update_request">Update Social Request</string>
+    <string name="delete_request">Delete Social Request</string>
+    <string name="update_delete_request">Update/Delete Social Request</string>
+
+    <string name="oops">Oops!</string>
+    <string name="no_data">No Data Availables</string>
+    <string name="page_not_found">Page not found</string>
 
 </resources>

@@ -155,7 +155,6 @@ public class FragmentCreateRequest extends Fragment{
 
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
-                            dbAdapter.updateRequestTimeSpan(response.body().getMessage());
                             if(shouldBeUpdated){
                                 dbAdapter.updateRequest(requestID, strTitle, strSubTitle, strDescription, strOthers,
                                         strLocation);
@@ -210,9 +209,9 @@ public class FragmentCreateRequest extends Fragment{
     public void onResume() {
         super.onResume();
         if(!shouldBeUpdated) {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getStringArray(R.array.request_array)[0]);
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.request_array)[0]);
         }else{
-            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.update_request));
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_request));
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.ActivityFragmentPlatform;
 
 public class FragmentContactUs extends Fragment {
 
@@ -16,4 +17,12 @@ public class FragmentContactUs extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_contactus, container, false);
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.drawer_array)[5]);
+    }
+
 }

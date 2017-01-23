@@ -62,7 +62,27 @@ public class Attributes {
                 + EVENT_DESCRIPTION + " text not null, " + EVENT_OTHERS + " text not null, "
                 + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, " +
                 EVENT_IS_DELETED + " text not null);";
+
+
+        public static final String PROFILE_TABLE_NAME = "profile_table";
+        public static final String PROFILE_IMAGE = "profile_image";
+        public static final String PROFILE_ROLE = "profile_role";
+        public static final String PROFILE_REGISTER_NO = "profile_reg_no";
+        public static final String PROFILE_FB_LINK = "profile_fb_link";
+        public static final String PROFILE_LINKED_IN_LINK = "profile_linkedIn";
+        public static final String PROFILE_WEB_LINK = "profile_web_link";
+        public static final String PROFILE_TWITTER_LINK = "profile_twitter_link";
+        public static final String PROFILE_PRESENCE_AREA = "profile_presence_area";
+
+        public static final String CREATE_PROFILE_QUERY = "create table " + PROFILE_TABLE_NAME +
+                " (_id integer primary key autoincrement, "
+                + PROFILE_IMAGE + " text not null, " + PROFILE_ROLE + " text not null, "
+                + PROFILE_REGISTER_NO + " text not null, " + PROFILE_FB_LINK + " text not null, "
+                + PROFILE_LINKED_IN_LINK + " text not null, " + PROFILE_WEB_LINK + " text not null, "
+                + PROFILE_TWITTER_LINK + " text not null, " + PROFILE_PRESENCE_AREA + " text not null);";
     }
+
+
 
     public static class MasterDatabase {
 

@@ -14,9 +14,10 @@ public class OrgReqSyncRequest {
 
     private String type;
 
-    public static OrgReqSyncRequest get(String orgId) {
+    public static OrgReqSyncRequest get(String orgId,String lastsyncdate) {
         Data data = new Data();
         data.setOrgid(orgId);
+        data.setLastsyncdate(lastsyncdate);
 
         OrgReqSyncRequest syncAchievement = new OrgReqSyncRequest();
         syncAchievement.setData(data);
@@ -69,7 +70,9 @@ public class OrgReqSyncRequest {
     }
 
     public static class Data {
+
         private String orgid;
+        private String lastsyncdate;
 
         public String getOrgid() {
             return orgid;
@@ -79,10 +82,21 @@ public class OrgReqSyncRequest {
             this.orgid = orgid;
         }
 
+
+        public String getlLastsyncdate() {
+            return lastsyncdate;
+        }
+
+        public void setLastsyncdate(String lastsyncdate) {
+            this.lastsyncdate = lastsyncdate;
+        }
+
+
         @Override
         public String toString() {
             return "Data{" +
                     "orgid='" + orgid + '\'' +
+                    "lastsyncdate='" + lastsyncdate + '\'' +
                     '}';
         }
     }

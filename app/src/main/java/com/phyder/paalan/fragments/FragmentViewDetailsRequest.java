@@ -169,7 +169,6 @@ public class FragmentViewDetailsRequest extends Fragment {
                         if (response.body().getStatus().equals("success")) {
 
                             dbAdapter.open();
-                            dbAdapter.updateRequestTimeSpan(response.body().getMessage());
                             dbAdapter.deleteRequest(requestID,"T");
                             dbAdapter.close();
                             getActivity().getSupportFragmentManager().popBackStack();
@@ -202,7 +201,7 @@ public class FragmentViewDetailsRequest extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getString(R.string.update_delete_request));
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_request));
         getPoulatedData();
     }
 }

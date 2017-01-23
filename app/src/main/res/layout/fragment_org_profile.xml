@@ -3,7 +3,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_grey">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,20 +15,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:weightSum="1">
+
 
             <com.phyder.paalan.utils.RoundedImageView
                 android:id="@+id/imageview_dp_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/d" />
+                android:background="@color/light_grey"
+                app:border="true"
+                app:border_color="@color/primary"
+                app:border_width="4dp"
+                app:selector="true"
+                app:selector_color="#4403a9f4"
+                app:selector_stroke_color="@color/icons"
+                app:selector_stroke_width="4dp"
+                app:shadow="true"
+                android:src="@drawable/unknown" />
 
             <com.phyder.paalan.utils.TextViewOpenSansRegular
-                android:id="@+id/my_profile"
+                android:id="@+id/txtProfileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -37,53 +47,31 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/primary_dark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="2"
-                    android:padding="2dp"
-                    android:src="@drawable/org_id"/>
+                android:layout_width="90dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:padding="2dp"
+                android:src="@drawable/org_role"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
-                        android:id="@+id/edt_org_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/organization_id" />
-
-                </android.support.design.widget.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="2"
-                    android:padding="2dp"
-                    android:src="@drawable/org_role" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -104,7 +92,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="90dp"
@@ -135,7 +125,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="90dp"
@@ -166,7 +158,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="90dp"
@@ -199,7 +193,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="90dp"
@@ -228,7 +224,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="90dp"
@@ -258,7 +256,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="90dp"

@@ -170,7 +170,7 @@ public class FragmentPublishEventRequest extends Fragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.create_event));
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.create_event));
     }
 }
 

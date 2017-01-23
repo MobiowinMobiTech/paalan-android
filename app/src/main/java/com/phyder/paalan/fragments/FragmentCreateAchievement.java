@@ -333,17 +333,21 @@ public class FragmentCreateAchievement extends Fragment{
 
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
-                            dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
                             if(shouldBeUpdated){
                                 dbAdapter.updateAchievement(achievementID, strTitle, strSubTitle, strDescription, strOthers,
                                         imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
                                 getActivity().getSupportFragmentManager().popBackStack();
+                                Toast.makeText(getActivity(), getResources().getString(R.string.achievement_updated), Toast.LENGTH_LONG)
+                                        .show();
                             }else {
                                 dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
                                         imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth, "F");
+                                Toast.makeText(getActivity(), getResources().getString(R.string.achievement_created), Toast.LENGTH_LONG)
+                                        .show();
                             }
                             dbAdapter.close();
                             getClearFields();
+
                         } else {
                             Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
                                     .show();
@@ -400,9 +404,9 @@ public class FragmentCreateAchievement extends Fragment{
     public void onResume() {
         super.onResume();
         if(!shouldBeUpdated) {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getStringArray(R.array.achievements_array)[0]);
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.achievements_array)[0]);
         }else{
-            ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(), getResources().getString(R.string.update_acheivement));
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_acheivement));
         }
     }
 

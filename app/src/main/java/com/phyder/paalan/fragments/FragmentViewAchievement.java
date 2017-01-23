@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class FragmentViewAchievement extends Fragment {
 
     private static final String TAG = FragmentViewAchievement.class.getCanonicalName();
     private ListView listView;
+    private LinearLayout llNoData;
     private String[] listOfAchievementIds;
     private String[] listOfAchievementTitles;
     private String[] listOfAchievementSubTitles;
@@ -62,7 +64,7 @@ public class FragmentViewAchievement extends Fragment {
         pref = new PreferenceUtils(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
-
+        llNoData = (LinearLayout) view.findViewById(R.id.llStatus) ;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,6 +103,11 @@ public class FragmentViewAchievement extends Fragment {
 
         if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles));
+            listView.setVisibility(View.VISIBLE);
+            llNoData.setVisibility(View.GONE);
+        }else{
+            listView.setVisibility(View.GONE);
+            llNoData.setVisibility(View.VISIBLE);
         }
 
     }
@@ -114,7 +121,10 @@ public class FragmentViewAchievement extends Fragment {
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
 
-            OrgReqSyncAchievement orgReqSyncAchiement = OrgReqSyncAchievement.get(pref.getOrgId());
+            dbAdapter.open();
+            OrgReqSyncAchievement orgReqSyncAchiement = OrgReqSyncAchievement.get(pref.getOrgId(),
+                    dbAdapter.getlastSyncdate("Achievement"));
+            dbAdapter.close();
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -182,7 +192,7 @@ public class FragmentViewAchievement extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.achievements_array)[1]);
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.achievements_array)[1]);
         getPopulated();
         PaalanGetterSetter.setAchivementID(null);
     }

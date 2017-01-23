@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_shadow"/>
+        <!--<include layout="@layout/toolbar_shadow"/>-->
 
 
 <FrameLayout
@@ -28,8 +28,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
         android:orientation="vertical"
-        android:background="@color/icons"
-        android:layout_marginTop="@dimen/side_drawer_margin">
+        android:background="@color/light_grey"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,12 +45,22 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true">
 
+
                 <com.phyder.paalan.utils.RoundedImageView
+                    android:id="@+id/img_user_profile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/paalan_logo"
-                    android:id="@+id/img_user_profile"/>
+                    android:background="@color/primary"
+                    app:border="true"
+                    app:border_color="@color/primary"
+                    app:border_width="4dp"
+                    app:selector="true"
+                    app:selector_color="#4403a9f4"
+                    app:selector_stroke_color="@color/icons"
+                    app:selector_stroke_width="4dp"
+                    app:shadow="true"
+                    android:src="@drawable/unknown" />
 
                 <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                     android:id="@+id/textView2"
@@ -67,6 +77,10 @@
 
         </RelativeLayout>
 
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@drawable/toolbar_shadow"/>
 
         <ExpandableListView
             android:id="@+id/lvExp"

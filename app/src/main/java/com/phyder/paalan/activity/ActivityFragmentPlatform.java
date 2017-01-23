@@ -4,11 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -18,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentContactUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
@@ -32,6 +36,7 @@ import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -47,47 +52,42 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private String[] listDataHeader;
     private Fragment fragment;
-    private RoundedImageView imgProfile;
-    private TextView txtUserName;
-    private PreferenceUtils pref;
+    private static RoundedImageView IMG_PROFILE;
+    private static TextView TXT_USER_NAME;
+    private static PreferenceUtils PREF;
+    private static DBAdapter DB_ADAPTER;
 
-    private static Toolbar TOOLBAR;
+    private static ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
-        initToolBar();
+       // initToolBar();
         setUpDrawer();
     }
 
+    public static void getChangeToolbarTitle(String title) {
 
-    private void initToolBar() {
-        TOOLBAR = (Toolbar) findViewById(R.id.toolbar);
-        TOOLBAR.setTitle(R.string.dash_borad);
-        TOOLBAR.setTitleTextColor(getResources().getColor(R.color.icons));
-        setSupportActionBar(TOOLBAR);
-    }
-
-    public static void getChangeToolbarTitle(Context context, String title) {
-        if (TOOLBAR != null) {
-            TOOLBAR.setTitle(title);
-            TOOLBAR.setTitleTextColor(context.getResources().getColor(R.color.icons));
+        if (actionBar != null) {
+            actionBar.setTitle(title);
         }
     }
 
     private void setUpDrawer() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
+
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         prepareListData();
@@ -95,10 +95,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
-        imgProfile = (RoundedImageView) findViewById(R.id.img_user_profile);
-        txtUserName = (TextView) findViewById(R.id.textView2);
+        IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
+        TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
 
-        pref = new PreferenceUtils(ActivityFragmentPlatform.this);
+        PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
+        DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (getIntent().getStringExtra("LOGIN").equals("org")) {
@@ -189,6 +190,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     private void getFragmentTransaction(Fragment fragment){
@@ -333,12 +336,41 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (pref.getProfileImg() != null) {
-            imgProfile.setImageBitmap(CommanUtils.decodeBase64(pref.getProfileImg()));
-        }
+        getProfileUpdate(ActivityFragmentPlatform.this);
+    }
 
-        if (pref.getUserName() != null) {
-            txtUserName.setText(pref.getUserName());
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+                    mDrawerLayout.closeDrawers();  // CLOSE DRAWER
+                else
+                    mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+                return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static void getProfileUpdate(Context context){
+        DB_ADAPTER.open();
+        String encodedImage = DB_ADAPTER.getProfileDP();
+        if(!encodedImage.isEmpty() && !encodedImage.contains("http://")){
+            IMG_PROFILE.setImageBitmap(CommanUtils.decodeBase64(encodedImage));
+
+        }else if(!encodedImage.isEmpty() && encodedImage.contains("http://")){
+            Picasso.with(context)
+                    .load(encodedImage)
+                    .placeholder(R.drawable.unknown)   // optional
+                    .error(R.drawable.unknown)      // optional
+                    .into(IMG_PROFILE);
+        }
+        DB_ADAPTER.close();
+
+        if (PREF.getUserName() != null) {
+            TXT_USER_NAME.setText(PREF.getUserName());
         }
     }
 }

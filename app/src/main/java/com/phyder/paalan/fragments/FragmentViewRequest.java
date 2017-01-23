@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class FragmentViewRequest extends Fragment {
 
     private static final String TAG = FragmentViewRequest.class.getCanonicalName();
     private ListView listView;
+    private LinearLayout llNoData;
     private String[] listOfRequestIds;
     private String[] listOfRequestTitles;
     private String[] listOfRequestSubTitles;
@@ -64,7 +66,7 @@ public class FragmentViewRequest extends Fragment {
         pref = new PreferenceUtils(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
-
+        llNoData = (LinearLayout) view.findViewById(R.id.llStatus) ;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,6 +105,11 @@ public class FragmentViewRequest extends Fragment {
 
         if(listOfRequestTitles!=null && listOfRequestTitles.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfRequestTitles,listOfRequestSubTitles));
+            listView.setVisibility(View.VISIBLE);
+            llNoData.setVisibility(View.GONE);
+        }else{
+            listView.setVisibility(View.GONE);
+            llNoData.setVisibility(View.VISIBLE);
         }
 
     }
@@ -116,7 +123,9 @@ public class FragmentViewRequest extends Fragment {
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
 
-            OrgReqSyncRequest orgReqSyncRequest = OrgReqSyncRequest.get(pref.getOrgId());
+            dbAdapter.open();
+            OrgReqSyncRequest orgReqSyncRequest = OrgReqSyncRequest.get(pref.getOrgId(),dbAdapter.getlastSyncdate("Request"));
+            dbAdapter.close();
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -182,7 +191,7 @@ public class FragmentViewRequest extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getStringArray(R.array.request_array)[1]);
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.request_array)[1]);
         getPopulated();
         PaalanGetterSetter.setRequestID(null);
     }

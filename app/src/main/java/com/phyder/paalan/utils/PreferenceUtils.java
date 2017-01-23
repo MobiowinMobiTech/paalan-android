@@ -31,15 +31,6 @@ public class PreferenceUtils {
         return preferences.getString("ORG_ID", null);
     }
 
-    public void setProfileImg(String dp_img) {
-        Editor editor = preferences.edit();
-        editor.putString("DP_IMG", dp_img);
-        editor.commit();
-    }
-
-    public String getProfileImg() {
-        return preferences.getString("DP_IMG", null);
-    }
 
     public void setUserName(String name) {
         Editor editor = preferences.edit();

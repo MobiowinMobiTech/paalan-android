@@ -211,9 +211,10 @@ public class FragmentViewDetailsAchievement extends Fragment {
                         if (response.body().getStatus().equals("success")) {
 
                             dbAdapter.open();
-                            dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
-                            dbAdapter.deleteAchievement(achievementID,"T");
+                            dbAdapter.deleteAchievement(achievementID);
                             dbAdapter.close();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.achievement_deleted), Toast.LENGTH_LONG)
+                                    .show();
                             getActivity().getSupportFragmentManager().popBackStack();
 
                         } else {
@@ -244,7 +245,7 @@ public class FragmentViewDetailsAchievement extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getActivity(),getResources().getString(R.string.update_delete_acheivement));
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_acheivement));
         getPoulatedData();
     }
 }

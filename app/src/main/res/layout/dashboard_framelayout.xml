@@ -4,46 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff"
+    android:background="@color/icons"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/image_pager"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignWithParentIfMissing="false">
-
-            <!-- Add as a direct child of your ViewPager -->
-            <com.itsronald.widget.ViewPagerIndicator
-                android:id="@+id/view_pager_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:selectedDotColor="#ff0000"
-                android:layout_gravity="bottom|center_horizontal"
-                android:gravity="center_vertical" />
-
-        </android.support.v4.view.ViewPager>
+        android:layout_weight="3.5"
+        android:layout_marginTop="-2dp"
+        android:layout_marginRight="-3dp"
+        android:layout_marginLeft="-3dp">
 
 
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/image_pager"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_height="match_parent"
+        />
 
-        <android.support.v7.widget.RecyclerView
+    <com.phyder.paalan.helper.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        app:ci_animator="@animator/indicator_no_animator"
+        app:ci_drawable="@drawable/white_radius"
+        app:ci_drawable_unselected="@drawable/black_radius"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp"
+            android:background="@color/light_grey"
+            android:layout_margin="-5dp"
+            android:layout_weight="6.5"/>
 
-    </LinearLayout>
 </LinearLayout>
 
