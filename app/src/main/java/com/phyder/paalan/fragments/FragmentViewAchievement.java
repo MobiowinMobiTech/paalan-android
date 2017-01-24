@@ -52,9 +52,9 @@ public class FragmentViewAchievement extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_list_view,null,false);
-            init(view);
-            getRetrofitCall();
+        View view = inflater.inflate(R.layout.fragment_list_view,null,false);
+        init(view);
+        getRetrofitCall();
         return view;
     }
 

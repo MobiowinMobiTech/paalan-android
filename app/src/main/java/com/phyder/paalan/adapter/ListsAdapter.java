@@ -68,7 +68,7 @@ public class ListsAdapter extends  ArrayAdapter<String> {
         }catch (NullPointerException e){
             e.printStackTrace();
         }
-         return convertView;
+        return convertView;
     }
 
 

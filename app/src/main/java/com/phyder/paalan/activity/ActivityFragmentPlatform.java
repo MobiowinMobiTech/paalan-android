@@ -335,7 +335,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
             finish();
         } else {
-          super.onBackPressed();
+            super.onBackPressed();
         }
     }
 

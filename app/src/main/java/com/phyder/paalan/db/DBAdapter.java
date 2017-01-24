@@ -20,9 +20,9 @@ public class DBAdapter {
 
 	public DBAdapter(Context c) {
 		context=c;
-		
+
 	}
-	
+
 	public DBAdapter open(){
 		sqLiteHelper = new DBHelper(context, Attributes.Database.DB_NAME, null,1);
 		sqLiteDatabase = sqLiteHelper.getWritableDatabase();
@@ -32,7 +32,7 @@ public class DBAdapter {
 	public void close(){
 		if(sqLiteDatabase!=null && sqLiteDatabase.isOpen())
 			sqLiteDatabase.close();
-			if(sqLiteHelper!=null)
+		if(sqLiteHelper!=null)
 			sqLiteHelper.close();
 	}
 
@@ -104,7 +104,7 @@ public class DBAdapter {
 
 	public boolean isAchievementExist(String id){
 		boolean isExist = false;
-		 Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME+" where "+
+		Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME+" where "+
 				Attributes.Database.ACHIEVEMENT_ID+" = '"+id+"'", null);
 		if(cursor !=null){
 			cursor.moveToFirst();
@@ -269,7 +269,7 @@ public class DBAdapter {
 //	Database methods for request insertion,updation,deletion,selection operations
 
 	public long insertRequest(String request_id,String request_title, String request_sub_title, String request_desc,
-								  String request_others, String request_location, String isDeleted)
+							  String request_others, String request_location, String isDeleted)
 	{
 		ContentValues cv=new ContentValues();
 		try{
@@ -289,7 +289,7 @@ public class DBAdapter {
 
 
 	public long updateRequest(String request_id,String request_title, String request_sub_title, String request_desc,
-								  String request_others, String request_location)
+							  String request_others, String request_location)
 	{
 		ContentValues cv=new ContentValues();
 		try{
@@ -353,7 +353,7 @@ public class DBAdapter {
 	//	Database methods for profile insertion,updation,deletion,selection operations
 
 	public long insertProfile(String image,String role,String regNo, String fbLink, String linkedIn,
-								  String webLink, String twitter, String presenceArea)
+							  String webLink, String twitter, String presenceArea)
 	{
 		ContentValues cv=new ContentValues();
 		try{

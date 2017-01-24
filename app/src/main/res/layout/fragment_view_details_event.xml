@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             >
 
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/primary_text"
-            android:text="@string/view_title"/>
+            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:text="@string/view_title"/>
 
         </LinearLayout>
 
@@ -44,12 +44,12 @@
             android:layout_height="wrap_content"
             >
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
-            android:id="@+id/txtTitleValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/secondary_text"
-            />
+            <com.phyder.paalan.utils.TextViewOpenSansRegular
+                android:id="@+id/txtTitleValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary_text"
+                />
 
         </LinearLayout>
 
@@ -283,43 +283,43 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp"
-        android:padding="10dp">
-
-        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
-            android:id="@+id/btnUpdateEvent"
-            android:layout_width="0dp"
-            android:layout_weight="5"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:background="@drawable/background_button"
-            android:text="@string/upate"
-            android:textColor="@drawable/button_text_color"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp"
+            android:padding="10dp">
 
-        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
-            android:id="@+id/btnDeleteEvent"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:background="@drawable/background_button"
-            android:text="@string/delete"
-            android:textColor="@drawable/button_text_color"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+                android:id="@+id/btnUpdateEvent"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:background="@drawable/background_button"
+                android:text="@string/upate"
+                android:textColor="@drawable/button_text_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+                android:id="@+id/btnDeleteEvent"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:background="@drawable/background_button"
+                android:text="@string/delete"
+                android:textColor="@drawable/button_text_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
 </LinearLayout>
-    </LinearLayout>
