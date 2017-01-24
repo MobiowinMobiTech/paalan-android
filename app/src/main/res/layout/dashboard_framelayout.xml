@@ -33,9 +33,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="2dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/shadow"/>
+            android:background="@color/primary"/>
 
     </RelativeLayout>
 
