@@ -2,11 +2,6 @@ package com.phyder.paalan.payload.request.organization;
 
 import com.phyder.paalan.social.Social;
 
-/**
- * Created on 6/1/17.
- * Author Dharmendra
- * Company CmssPhyder
- */
 
 public class OrgReqSyncAchievement {
 

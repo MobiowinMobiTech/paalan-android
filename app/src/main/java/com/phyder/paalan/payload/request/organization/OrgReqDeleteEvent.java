@@ -25,7 +25,7 @@ public class OrgReqDeleteEvent {
         OrgReqDeleteEvent deleteEvent= new OrgReqDeleteEvent();
         deleteEvent.setData(data);
         deleteEvent.setEntity(Social.ORG_ENTITY);
-        deleteEvent.setAction(Social.EVENT_ACTION);
+        deleteEvent.setAction(Social.ACTION_DELETE);
         deleteEvent.setType(Social.EVENT_TYPE);
         return deleteEvent;
 

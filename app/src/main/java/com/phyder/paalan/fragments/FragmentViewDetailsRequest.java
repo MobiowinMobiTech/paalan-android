@@ -171,6 +171,8 @@ public class FragmentViewDetailsRequest extends Fragment {
                             dbAdapter.open();
                             dbAdapter.deleteRequest(requestID,"T");
                             dbAdapter.close();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.request_deleted), Toast.LENGTH_LONG)
+                                    .show();
                             getActivity().getSupportFragmentManager().popBackStack();
 
                         } else {
@@ -193,7 +195,7 @@ public class FragmentViewDetailsRequest extends Fragment {
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 

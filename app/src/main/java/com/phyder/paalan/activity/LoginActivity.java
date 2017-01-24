@@ -254,9 +254,11 @@ public class LoginActivity extends AppCompatActivity {
                                     response.body().getData()[0].getOrgprofiledata()[0].getTwitterLink(),
                                     response.body().getData()[0].getOrgprofiledata()[0].getPresenceArea());
                             dbAdapter.close();
+                            pref.setLogin(true);
+                            pref.setLoginType(loginType);
                             Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-                            intent.putExtra("LOGIN", loginType);
                             startActivity(intent);
+                            finish();
 
                         } else {
                             Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_went_wrong),
@@ -278,7 +280,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(LoginActivity.this);
+            CommanUtils.showAlertDialog(LoginActivity.this,getResources().getString(R.string.error_internet));
         }
     }
 }

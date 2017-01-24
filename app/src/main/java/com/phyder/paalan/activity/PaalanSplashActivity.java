@@ -9,12 +9,14 @@ import android.util.Log;
 import com.phyder.paalan.R;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.utils.PreferenceUtils;
 
 public class PaalanSplashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
 
     private DBAdapter dbAdapter;
+    private PreferenceUtils pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,8 @@ public class PaalanSplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paalan_splash);
 
         dbAdapter = new DBAdapter(PaalanSplashActivity.this);
+        pref = new PreferenceUtils(PaalanSplashActivity.this);
+
         dbAdapter.open();
         if(dbAdapter.getMasterTableCount()<1){
             dbAdapter.insertTimeSpan("0","0","0");
@@ -36,7 +40,12 @@ public class PaalanSplashActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
-                    Intent intent = new Intent(PaalanSplashActivity.this, LoginActivity.class);
+                    Intent intent = null;
+                    if(pref.isLoggedIn()){
+                        intent = new Intent(PaalanSplashActivity.this, ActivityFragmentPlatform.class);
+                    }else{
+                        intent = new Intent(PaalanSplashActivity.this, LoginActivity.class);
+                    }
                     startActivity(intent);
                 }
             }

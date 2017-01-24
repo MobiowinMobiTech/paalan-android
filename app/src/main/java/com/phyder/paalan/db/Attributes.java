@@ -52,6 +52,7 @@ public class Attributes {
         public static final String EVENT_SUB_TITLE = "event_sub_title";
         public static final String EVENT_DESCRIPTION = "event_description";
         public static final String EVENT_OTHERS = "event_others";
+        public static final String EVENT_CATEGORY = "event_category";
         public static final String EVENT_START_DATE = "event_start_date";
         public static final String EVENT_END_DATE = "event_end_date";
         public static final String EVENT_IS_DELETED = "event_is_deleted";
@@ -60,8 +61,8 @@ public class Attributes {
                 " (_id integer primary key autoincrement, " + EVENT_ID + " text not null, "
                 + EVENT_TITLE + " text not null, " + EVENT_SUB_TITLE + " text not null, "
                 + EVENT_DESCRIPTION + " text not null, " + EVENT_OTHERS + " text not null, "
-                + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, " +
-                EVENT_IS_DELETED + " text not null);";
+                + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, "
+                + EVENT_CATEGORY + " text not null, "+ EVENT_IS_DELETED + " text not null);";
 
 
         public static final String PROFILE_TABLE_NAME = "profile_table";

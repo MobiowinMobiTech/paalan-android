@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<include layout="@layout/toolbar_shadow"/>-->
+        <!--<include layout="@layout/shadow"/>-->
 
 
 <FrameLayout
@@ -80,7 +80,7 @@
 <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="@drawable/toolbar_shadow"/>
+    android:background="@drawable/shadow"/>
 
         <ExpandableListView
             android:id="@+id/lvExp"

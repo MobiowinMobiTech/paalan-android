@@ -20,7 +20,9 @@ public class OrgReqCreateEvent {
 
     private String type;
 
-    public static OrgReqCreateEvent get(String orgId, String eventId, String title, String subTitle, String description, String startDate, String endDate, String location, String other) {
+    public static OrgReqCreateEvent get(String orgId, String eventId, String title, String subTitle,
+                                        String description, String startDate, String endDate,
+                                        String other, String action) {
 
         Data data = new Data();
         data.setOrgid(orgId);
@@ -28,15 +30,14 @@ public class OrgReqCreateEvent {
         data.setTitle(title);
         data.setSubtitle(subTitle);
         data.setDiscription(description);
+        data.setOthers(other);
         data.setStartdate(startDate);
         data.setEnddate(endDate);
-        data.setLocation(location);
-        data.setOthers(other);
 
         OrgReqCreateEvent createEvent = new OrgReqCreateEvent();
         createEvent.setData(data);
         createEvent.setEntity(Social.ORG_ENTITY);
-        createEvent.setAction(Social.EVENT_ACTION);
+        createEvent.setAction(action);
         createEvent.setType(Social.ACTION_TYPE);
         return createEvent;
     }

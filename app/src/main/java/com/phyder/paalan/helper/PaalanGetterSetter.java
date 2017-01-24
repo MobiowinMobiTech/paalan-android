@@ -20,6 +20,14 @@ public class PaalanGetterSetter {
     }
 
 
+    public static void setEventID(String id){
+        EVENT_ID = id;
+    }
+
+    public static String getEventID(){
+        return EVENT_ID;
+    }
+
     public static void setRequestID(String id){
         REQUEST_ID = id;
     }

@@ -18,9 +18,7 @@ import com.phyder.paalan.adapter.ListsAdapter;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.helper.PaalanGetterSetter;
-import com.phyder.paalan.payload.request.organization.OrgReqSyncAchievement;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncRequest;
-import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
 import com.phyder.paalan.payload.response.organization.OrgResSyncRequest;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
@@ -54,7 +52,7 @@ public class FragmentViewRequest extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_view_achievement,null,false);
+            View view = inflater.inflate(R.layout.fragment_list_view,null,false);
             init(view);
             getRetrofitCall();
         return view;
@@ -104,7 +102,7 @@ public class FragmentViewRequest extends Fragment {
         dbAdapter.close();
 
         if(listOfRequestTitles!=null && listOfRequestTitles.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfRequestTitles,listOfRequestSubTitles));
+            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfRequestTitles,listOfRequestSubTitles,null));
             listView.setVisibility(View.VISIBLE);
             llNoData.setVisibility(View.GONE);
         }else{
@@ -179,7 +177,7 @@ public class FragmentViewRequest extends Fragment {
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 

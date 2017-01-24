@@ -112,15 +112,15 @@ public class FragmentCreateRequest extends Fragment{
                 strLocation = edtLocation.getText().toString();
 
                 if(strTitle.isEmpty()){
-                    edtTitle.setError(getResources().getString(R.string.error_empty_title));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_title));
                 } else if(strSubTitle.isEmpty()){
-                    edtSubTitle.setError(getResources().getString(R.string.error_empty_sub_title));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_sub_title));
                 } else if(strDescription.isEmpty()){
-                    edtDescription.setError(getResources().getString(R.string.error_empty_description));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_description));
                 } else if(strOthers.isEmpty()){
-                    edtOthers.setError(getResources().getString(R.string.error_empty_others));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_others));
                 } else if(strLocation.isEmpty()){
-                    edtLocation.setError(getResources().getString(R.string.error_empty_location));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_location));
                 } else{
 
                     getRetrofitCall();
@@ -138,7 +138,9 @@ public class FragmentCreateRequest extends Fragment{
             Device.newInstance(getActivity());
 
             String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
-            OrgReqCreateRequest orgReqCreateRequest = OrgReqCreateRequest.get(pref.getOrgId(),
+            String reqId = shouldBeUpdated ? requestID : "";
+
+            OrgReqCreateRequest orgReqCreateRequest = OrgReqCreateRequest.get(pref.getOrgId(),reqId,
                     strTitle,strSubTitle,strDescription,strOthers,strLocation,action);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
@@ -158,10 +160,14 @@ public class FragmentCreateRequest extends Fragment{
                             if(shouldBeUpdated){
                                 dbAdapter.updateRequest(requestID, strTitle, strSubTitle, strDescription, strOthers,
                                         strLocation);
+                                Toast.makeText(getActivity(), getResources().getString(R.string.request_updated), Toast.LENGTH_LONG)
+                                        .show();
                                 getActivity().getSupportFragmentManager().popBackStack();
                             }else {
                                 dbAdapter.insertRequest(response.body().getData()[0].getRequestid(), strTitle, strSubTitle,
                                         strDescription, strOthers,strLocation,"F");
+                                Toast.makeText(getActivity(), getResources().getString(R.string.request_created), Toast.LENGTH_LONG)
+                                        .show();
                             }
                             dbAdapter.close();
                             getClearFields();
@@ -184,7 +190,7 @@ public class FragmentCreateRequest extends Fragment{
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 

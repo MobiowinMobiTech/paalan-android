@@ -125,16 +125,15 @@ public class CommanUtils {
     }
 
 
-    public static boolean getInternetAlert(final Context context) {
+    public static boolean showAlertDialog(final Context context,String message) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        alertDialog.setMessage("Enable your internet connection");
+        alertDialog.setMessage(message);
 
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                Log.i("Please enable ", "internet connection");
             }
         });
         alertDialog.show();

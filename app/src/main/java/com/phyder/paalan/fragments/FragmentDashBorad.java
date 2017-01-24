@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
@@ -23,30 +21,24 @@ import com.phyder.paalan.model.DashboardModel;
 import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class FragmentDashBorad extends Fragment {
 
     private ViewPager mPager;
     private CircleIndicator mCircleIndicator;
-
-    private ArrayList<DashboardModel> listitems = new ArrayList<>();
-    private RecyclerView MyRecyclerView;
-
-    private String dashboardContent[] = {"Publish Event", "Achievements", "Social Request", "About Us", "Contact Us"};
-    private String dashboardDescription[] = {"Testing for Publish Event", "Testing for Achievements",
-            "Testing for Social Request", "Testing for About Us", "Testing for Contact Us"};
-
-    private int Images[] = {R.drawable.publish_event, R.drawable.achievement,R.drawable.social_strength,
-            R.drawable.about_us, R.drawable.contactus};
-    private int colors[];
-    private static final Integer[] IMAGES = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d};
     private RecyclerView recyclerView;
-
+    private RecyclerView MyRecyclerView;
     private Handler handler = new Handler();
     private Runnable refresh;
+    private int itemPos = 0;
+
+    private ArrayList<DashboardModel> listitems = new ArrayList<>();
+
+    private Integer dashboardIcons[] = {R.drawable.publish_event,R.drawable.achievement,R.drawable.social_strength,
+            R.drawable.about_us,R.drawable.contactus};
+    private Integer dashboardSlideShowIcons[] = {R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d};
+
 
 
     @Override
@@ -74,6 +66,9 @@ public class FragmentDashBorad extends Fragment {
 
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         mCircleIndicator = (CircleIndicator) view.findViewById(R.id.indicator);
+        mPager.setAdapter(new SlidingImageAdapter(getActivity(),dashboardSlideShowIcons));
+        mCircleIndicator.setViewPager(mPager);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
     }
@@ -83,7 +78,6 @@ public class FragmentDashBorad extends Fragment {
 
         public ORGDashboardAdapter(ArrayList<DashboardModel> Data) {
             list = Data;
-            colors = getActivity().getResources().getIntArray(R.array.colors);
         }
 
         @Override
@@ -104,7 +98,7 @@ public class FragmentDashBorad extends Fragment {
             holder.txttagline.setTag(position);
             holder.coverImageView.setImageResource(list.get(position).getImageResourceId());
             holder.coverImageView.setTag(list.get(position).getImageResourceId());
-            holder.layout.setBackgroundColor(colors[position]);
+            holder.layout.setBackgroundColor(getActivity().getResources().getIntArray(R.array.colors)[position]);
 
             if(position == 3 || position == 4){
                 holder.txtCreate.setVisibility(View.GONE);
@@ -147,7 +141,7 @@ public class FragmentDashBorad extends Fragment {
                     int pos = (Integer)txteventname.getTag();
 
                     if(pos==0){
-                        fragment =new FragmentPublishEventRequest();
+                        fragment =new FragmentCreateEvent();
                     }else if(pos==1){
                         fragment =new FragmentCreateAchievement();
                     }else if(pos==2){
@@ -166,7 +160,7 @@ public class FragmentDashBorad extends Fragment {
 
                     int pos = (Integer)txttagline.getTag();
                     if(pos==0){
-                        fragment =new FragmentPublishEventRequest();
+                        fragment =new FragmentViewEvent();
                     }else if(pos==1){
                         fragment =new FragmentViewAchievement();
                     }else if(pos==2){
@@ -188,9 +182,9 @@ public class FragmentDashBorad extends Fragment {
 
         for (int i = 0; i < 5; i++) {
             DashboardModel item = new DashboardModel();
-            item.setDashboardContentName(dashboardContent[i]);
-            item.setDashboardContentDescription(dashboardDescription[i]);
-            item.setImageResourceId(Images[i]);
+            item.setDashboardContentName(getResources().getStringArray(R.array.dashboard_content_array)[i]);
+            item.setDashboardContentDescription(getResources().getStringArray(R.array.dashboard_descrition_array)[i]);
+            item.setImageResourceId(dashboardIcons[i]);
             listitems.add(item);
         }
     }
@@ -206,20 +200,24 @@ public class FragmentDashBorad extends Fragment {
 
     public void initializeTimer(){
 
-        mPager.setAdapter(new SlidingImageAdapter(getActivity(),IMAGES));
-        mCircleIndicator.setViewPager(mPager);
-        mPager.setCurrentItem(0);
-        handler = new Handler();
+        itemPos = 0;
 
+        if(handler!=null){
+            handler.removeCallbacks(refresh);
+        }
+
+        handler = new Handler();
 
         refresh = new Runnable() {
             public void run() {
-                handler.postDelayed(refresh, 4000);
-                if (mPager.getCurrentItem() < IMAGES.length-1) {
-                    mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+                if (mPager.getCurrentItem() < dashboardSlideShowIcons.length-1) {
+                    mPager.setCurrentItem(itemPos, true);
+                    itemPos = itemPos + 1;
                 }else{
-                    mPager.setCurrentItem(0, true);
+                    itemPos = 0;
+                    mPager.setCurrentItem(itemPos, true);
                 }
+                handler.postDelayed(refresh, 4000);
             }
         };
         handler.post(refresh);

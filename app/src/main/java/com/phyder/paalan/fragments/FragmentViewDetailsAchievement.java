@@ -28,7 +28,9 @@ import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,27 +120,22 @@ public class FragmentViewDetailsAchievement extends Fragment {
         }
         dbAdapter.close();
 
-        if(strFirstImage.isEmpty() || strFirstImage.contains("http://localhost")) {
+        if(strFirstImage.isEmpty()){
             llAttachmentblock.setVisibility(View.GONE);
-        }else{
+        }else {
+            llAttachmentblock.setVisibility(View.VISIBLE);
 
-            imgFirst.setVisibility(View.VISIBLE);
-            imgFirst.setImageBitmap(CommanUtils.decodeBase64(strFirstImage));
+            if (!strFirstImage.isEmpty())
+                loadAchievementAttachments(imgFirst, strFirstImage);
 
-            if(!strSecondImage.isEmpty() || strSecondImage.contains("http://localhost")){
-                imgSecond.setVisibility(View.VISIBLE);
-                imgSecond.setImageBitmap(CommanUtils.decodeBase64(strSecondImage));
-            }
+            if (!strSecondImage.isEmpty())
+                loadAchievementAttachments(imgSecond, strSecondImage);
 
-            if(!strThirdImage.isEmpty() || strThirdImage.contains("http://localhost")){
-                imgThird.setVisibility(View.VISIBLE);
-                imgThird.setImageBitmap(CommanUtils.decodeBase64(strThirdImage));
-            }
+            if (!strThirdImage.isEmpty())
+                loadAchievementAttachments(imgThird, strThirdImage);
 
-            if(!strForthImage.isEmpty() || strForthImage.contains("http://localhost")){
-                imgForth.setVisibility(View.VISIBLE);
-                imgForth.setImageBitmap(CommanUtils.decodeBase64(strForthImage));
-            }
+            if (!strForthImage.isEmpty())
+                loadAchievementAttachments(imgForth, strForthImage);
         }
 
         txtTitle.setText(strTitle);
@@ -237,7 +234,7 @@ public class FragmentViewDetailsAchievement extends Fragment {
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 
@@ -247,5 +244,16 @@ public class FragmentViewDetailsAchievement extends Fragment {
         super.onResume();
         ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_acheivement));
         getPoulatedData();
+    }
+
+    private void loadAchievementAttachments(ImageView imgView,String imgData){
+        imgView.setVisibility(View.VISIBLE);
+        if(imgData.contains("http://")) {
+            Picasso.with(getActivity())
+                    .load(imgData)
+                    .into(imgView);
+        }else{
+            imgView.setImageBitmap(CommanUtils.decodeBase64(imgData));
+        }
     }
 }

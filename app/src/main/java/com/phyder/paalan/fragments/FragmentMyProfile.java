@@ -132,7 +132,6 @@ public class FragmentMyProfile extends Fragment {
                 }while(cursor.moveToNext());
             }
 
-        Log.e(TAG,"profile : "+strEncodedDp);
         dbAdapter.close();
 
         if (pref.getUserName() != null) {
@@ -186,11 +185,11 @@ public class FragmentMyProfile extends Fragment {
                 strPresenceArea = edtPresenceArea.getText().toString();
 
                 if(strRole.isEmpty()){
-                    edtRole.setError(getResources().getString(R.string.error_empty_role));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_role));
                 }else if(strRegNo.isEmpty()){
-                    edtRegistrationNo.setError(getResources().getString(R.string.error_empty_regNo));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_regNo));
                 }else if(strPresenceArea.isEmpty()){
-                    edtPresenceArea.setError(getResources().getString(R.string.error_empty_presence));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_presence));
                 }else{
                     getRetrofitCall();
                 }
@@ -288,7 +287,7 @@ public class FragmentMyProfile extends Fragment {
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 

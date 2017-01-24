@@ -1,6 +1,7 @@
 package com.phyder.paalan.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -9,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,12 +25,13 @@ import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentContactUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
+import com.phyder.paalan.fragments.FragmentCreateEvent;
 import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
-import com.phyder.paalan.fragments.FragmentPublishEventRequest;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
@@ -63,7 +64,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
-       // initToolBar();
+        // initToolBar();
         setUpDrawer();
     }
 
@@ -76,6 +77,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
     private void setUpDrawer() {
 
+        PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
+        DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
@@ -98,11 +101,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
         TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
 
-        PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
-        DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (getIntent().getStringExtra("LOGIN").equals("org")) {
+        if (PREF.getLoginType().equals("org")) {
             transaction.replace(R.id.platform, new FragmentDashBorad());
         } else {
             transaction.replace(R.id.platform, new FragmentIndDashboard());
@@ -125,6 +125,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 }else if(groupPosition == 5){
                     getFragmentTransaction(new FragmentContactUs());
                     mDrawerLayout.closeDrawer(mDrawerList);
+                }else if(groupPosition == 6){
+                    PREF.setLogin(false);
+                    PREF.setLoginType(null);
+                    finish();
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                    startActivity(new Intent(ActivityFragmentPlatform.this, LoginActivity.class));
                 }
 
                 return false;
@@ -156,12 +162,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 2:
                         switch (childPosition) {
                             case 0:
-                                fragment = new FragmentPublishEventRequest();
+                                fragment = new FragmentCreateEvent();
                                 expListView.collapseGroup(2);
                                 break;
 
                             case 1:
-                                fragment = new FragmentPublishEventRequest();
+                                fragment = new FragmentViewEvent();
                                 expListView.collapseGroup(2);
                                 break;
 
@@ -329,7 +335,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
             finish();
         } else {
-            super.onBackPressed();
+          super.onBackPressed();
         }
     }
 
@@ -374,3 +380,4 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         }
     }
 }
+

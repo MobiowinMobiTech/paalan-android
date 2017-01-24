@@ -105,10 +105,13 @@
     <string name="error_empty_description">Description can not be empty</string>
     <string name="error_empty_others">Others can not be empty</string>
     <string name="error_empty_location">Location can not be empty</string>
+    <string name="error_empty_startdate">Start date can not be empty</string>
+    <string name="error_empty_enddate">End date can not be empty</string>
 
     <string name="error_empty_role">Role can not be empty</string>
-    <string name="error_empty_regNo">Register no can not be empty</string>
+    <string name="error_empty_regNo">Registration no can not be empty</string>
     <string name="error_empty_presence">Presence area can not be empty</string>
+    <string name="error_internet">Enable your internet connection</string>
 
     <!--drawer menu array-->
     <string-array name="drawer_array">
@@ -119,6 +122,24 @@
         <item>About Us</item>
         <item>Contact Us</item>
         <item>Sign Out</item>
+    </string-array>
+
+    <!--dashboard array-->
+    <string-array name="dashboard_content_array">
+        <item>Publish Event</item>
+        <item>Achievements</item>
+        <item>Social Request</item>
+        <item>About Us</item>
+        <item>Contact Us</item>
+    </string-array>
+
+    <!--dashboard sub array-->
+    <string-array name="dashboard_descrition_array">
+        <item>Testing for Publish Event</item>
+        <item>Testing for Achievements</item>
+        <item>Testing for Social Request</item>
+        <item>Testing for About Us</item>
+        <item>Testing for Contact Us</item>
     </string-array>
 
 
@@ -145,17 +166,15 @@
     <string name="delete_acheivement">Delete Acheivement</string>
     <string name="update_delete_acheivement">Update/Delete Acheivement</string>
 
-    <string name="update_event">Update Event</string>
-    <string name="delete_event">Delete Event</string>
 
     <string name="event_id">Event Id</string>
     <string name="oraginization_id">Oraginization Id</string>
 
     <string name="discription">Discription</string>
-    <string name="startdate">StartDate</string>
+    <string name="startdate">Start Date</string>
     <string name="other">Other</string>
     <string name="enddate">enddate</string>
-    <string name="EndDate">EndDate</string>
+    <string name="EndDate">End Date</string>
     <string name="Oraginization_id">Organization Id</string>
 
 
@@ -171,6 +190,7 @@
     <string name="view_sub_title">Sub Title : </string>
     <string name="view_desc">Description : </string>
     <string name="view_Other">Others : </string>
+    <string name="view_Category">Category : </string>
     <string name="view_Location">Location : </string>
     <string name="attachment">Attachments</string>
     <string name="delete">Delete</string>
@@ -182,6 +202,12 @@
     <string name="update_request">Update Social Request</string>
     <string name="delete_request">Delete Social Request</string>
     <string name="update_delete_request">Update/Delete Social Request</string>
+
+    <!--Request String -->
+    <string name="event">Publish Event</string>
+    <string name="update_event">Update Event</string>
+    <string name="delete_event">Delete Event</string>
+    <string name="update_delete_event">Update/Delete Event</string>
 
     <string name="oops">Oops!</string>
     <string name="no_data">No Data Availables</string>

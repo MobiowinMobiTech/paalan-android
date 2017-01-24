@@ -21,11 +21,12 @@ public class OrgReqCreateRequest {
 
     private String type;
 
-    public static OrgReqCreateRequest get(String orgs, String title, String subTitle,String description,
+    public static OrgReqCreateRequest get(String orgs, String reqId,String title, String subTitle,String description,
                                           String others,String location, String action) {
 
         Data data = new Data();
         data.setOrgid(orgs);
+        data.setReqid(reqId);
         data.setTitle(title);
         data.setSubtitle(subTitle);
         data.setDiscription(description);
@@ -92,6 +93,8 @@ public class OrgReqCreateRequest {
 
         private String orgid;
 
+        private String requestid;
+
         private String location;
 
         private String subtitle;
@@ -128,6 +131,16 @@ public class OrgReqCreateRequest {
             this.orgid = orgid;
         }
 
+        public String getReqid ()
+        {
+            return requestid;
+        }
+
+        public void setReqid (String requestid)
+        {
+            this.requestid = requestid;
+        }
+
         public String getLocation ()
         {
             return location;
@@ -159,9 +172,16 @@ public class OrgReqCreateRequest {
         }
 
         @Override
-        public String toString()
-        {
-            return "ClassPojo [title = "+title+", others = "+others+", orgid = "+orgid+", location = "+location+", subtitle = "+subtitle+", discription = "+discription+"]";
+        public String toString() {
+            return "Data{" +
+                    "title='" + title + '\'' +
+                    ", others='" + others + '\'' +
+                    ", orgid='" + orgid + '\'' +
+                    ", requestid='" + requestid + '\'' +
+                    ", location='" + location + '\'' +
+                    ", subtitle='" + subtitle + '\'' +
+                    ", discription='" + discription + '\'' +
+                    '}';
         }
     }
 

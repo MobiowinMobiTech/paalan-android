@@ -32,6 +32,7 @@ import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -108,20 +109,21 @@ public class FragmentCreateAchievement extends Fragment{
             imgDecodableThird = bundle.getString("IMAGE3");
             imgDecodableForth = bundle.getString("IMAGE4");
 
-            if (imgDecodableFirst != null && !imgDecodableFirst.isEmpty() && !imgDecodableFirst.contains("http://localhost")) {
-                imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
+
+            if (imgDecodableFirst != null && !imgDecodableFirst.isEmpty()) {
+                loadAchievementAttachments(imgAchievementFirst,imgDecodableFirst);
                 imgAchievementSecond.setVisibility(View.VISIBLE);
             }
-            if (imgDecodableSecond != null && !imgDecodableSecond.isEmpty() && !imgDecodableSecond.contains("http://localhost")) {
-                imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
+            if (imgDecodableSecond != null && !imgDecodableSecond.isEmpty()) {
+                loadAchievementAttachments(imgAchievementSecond,imgDecodableSecond);
                 imgAchievementThird.setVisibility(View.VISIBLE);
             }
-            if (imgDecodableThird != null && !imgDecodableThird.isEmpty() && !imgDecodableThird.contains("http://localhost")) {
-                imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
+            if (imgDecodableThird != null && !imgDecodableThird.isEmpty()) {
+                loadAchievementAttachments(imgAchievementThird,imgDecodableThird);
                 imgAchievementForth.setVisibility(View.VISIBLE);
             }
-            if (imgDecodableForth != null && !imgDecodableForth.isEmpty() && !imgDecodableForth.contains("http://localhost")) {
-                imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
+            if (imgDecodableForth != null && !imgDecodableForth.isEmpty()) {
+                loadAchievementAttachments(imgAchievementForth,imgDecodableForth);
             }
 
         }
@@ -190,13 +192,13 @@ public class FragmentCreateAchievement extends Fragment{
                 strOthers = edtOthers.getText().toString();
 
                 if(strTitle.isEmpty()){
-                    edtTitle.setError(getResources().getString(R.string.error_empty_title));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_title));
                 } else if(strSubTitle.isEmpty()){
-                    edtSubTitle.setError(getResources().getString(R.string.error_empty_sub_title));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_sub_title));
                 } else if(strDescription.isEmpty()){
-                    edtDescription.setError(getResources().getString(R.string.error_empty_description));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_description));
                 } else if(strOthers.isEmpty()){
-                    edtOthers.setError(getResources().getString(R.string.error_empty_others));
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_others));
                 } else {
 
                     listOfImages.add(imgDecodableFirst);
@@ -234,32 +236,26 @@ public class FragmentCreateAchievement extends Fragment{
 
                 if(imgAchievementStatus == 1){
 
-                    imgDecodableFirst = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
-                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
-                    imgAchievementFirst.setImageBitmap(CommanUtils.decodeBase64(imgDecodableFirst));
+                    imgDecodableFirst = getImageData(cursor,columnIndex);
+                    loadAchievementAttachments(imgAchievementFirst,imgDecodableFirst);
                     imgAchievementSecond.setVisibility(View.VISIBLE);
 
                 } else if(imgAchievementStatus == 2){
 
-
-                    imgDecodableSecond = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
-                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
-                    imgAchievementSecond.setImageBitmap(CommanUtils.decodeBase64(imgDecodableSecond));
+                    imgDecodableSecond = getImageData(cursor,columnIndex);
+                    loadAchievementAttachments(imgAchievementSecond,imgDecodableSecond);
                     imgAchievementThird.setVisibility(View.VISIBLE);
 
                 } else if(imgAchievementStatus == 3){
 
-                    imgDecodableThird = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
-                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
-                    imgAchievementThird.setImageBitmap(CommanUtils.decodeBase64(imgDecodableThird));
+                    imgDecodableThird = getImageData(cursor,columnIndex);
+                    loadAchievementAttachments(imgAchievementThird,imgDecodableThird);
                     imgAchievementForth.setVisibility(View.VISIBLE);
 
                 } else if(imgAchievementStatus == 4){
 
-                    imgDecodableForth = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
-                            BitmapFactory.decodeFile(cursor.getString(columnIndex))));
-                    imgAchievementForth.setImageBitmap(CommanUtils.decodeBase64(imgDecodableForth));
-
+                    imgDecodableForth = getImageData(cursor,columnIndex);
+                    loadAchievementAttachments(imgAchievementForth,imgDecodableForth);
                 }
                 cursor.close();
 
@@ -316,8 +312,10 @@ public class FragmentCreateAchievement extends Fragment{
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
             String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
-            OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),listOfImages,strDescription,strOthers,
-                    strSubTitle,strTitle,action);
+            String achiId = shouldBeUpdated ? achievementID : "";
+
+            OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),achiId,
+                    listOfImages,strDescription,strOthers,strSubTitle,strTitle,action);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -367,7 +365,7 @@ public class FragmentCreateAchievement extends Fragment{
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 
@@ -408,6 +406,22 @@ public class FragmentCreateAchievement extends Fragment{
         }else{
             ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_acheivement));
         }
+    }
+
+    private void loadAchievementAttachments(ImageView imgView,String imgData){
+
+        if(imgData.contains("http://")) {
+            Picasso.with(getActivity())
+                    .load(imgData)
+                    .into(imgView);
+        }else{
+            imgView.setImageBitmap(CommanUtils.decodeBase64(imgData));
+        }
+    }
+
+    private String getImageData(Cursor cursor,int columnIndex){
+        return  CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(
+                BitmapFactory.decodeFile(cursor.getString(columnIndex))));
     }
 
 }

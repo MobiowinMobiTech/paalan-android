@@ -52,7 +52,7 @@ public class FragmentViewAchievement extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_view_achievement,null,false);
+            View view = inflater.inflate(R.layout.fragment_list_view,null,false);
             init(view);
             getRetrofitCall();
         return view;
@@ -64,7 +64,7 @@ public class FragmentViewAchievement extends Fragment {
         pref = new PreferenceUtils(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
-        llNoData = (LinearLayout) view.findViewById(R.id.llStatus) ;
+        llNoData = (LinearLayout) view.findViewById(R.id.llStatus);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class FragmentViewAchievement extends Fragment {
         dbAdapter.close();
 
         if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles));
+            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles,null));
             listView.setVisibility(View.VISIBLE);
             llNoData.setVisibility(View.GONE);
         }else{
@@ -180,7 +180,7 @@ public class FragmentViewAchievement extends Fragment {
                 }
             });
         }else{
-            CommanUtils.getInternetAlert(getActivity());
+            CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
 
