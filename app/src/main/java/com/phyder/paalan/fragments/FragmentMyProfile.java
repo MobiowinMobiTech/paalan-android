@@ -296,6 +296,5 @@ public class FragmentMyProfile extends Fragment {
     public void onResume() {
         super.onResume();
         ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.profile));
-        populatingData();
     }
 }
