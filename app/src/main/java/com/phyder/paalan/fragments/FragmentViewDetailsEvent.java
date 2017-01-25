@@ -24,6 +24,7 @@ import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
+import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +36,7 @@ public class FragmentViewDetailsEvent extends Fragment {
     private final static String TAG = FragmentViewDetailsEvent.class.getCanonicalName();
 
     private TextViewOpenSansRegular txtTitle,txtSubTitle,txtDesc,txtOther,txtCategory,txtStartdate,txtEnddate;
+    private TextViewOpenSansSemiBold txtStartDateDay,txtEndDateDay;
     private ButtonOpenSansSemiBold btnUpdate,btnDelete;
 
     private DBAdapter dbAdapter;
@@ -65,8 +67,11 @@ public class FragmentViewDetailsEvent extends Fragment {
         txtDesc = (TextViewOpenSansRegular) view.findViewById(R.id.txtDescValue);
         txtOther = (TextViewOpenSansRegular) view.findViewById(R.id.txtOtherValue);
         txtCategory =(TextViewOpenSansRegular)view.findViewById(R.id.txtCategoryValue);
-        txtStartdate =(TextViewOpenSansRegular)view.findViewById(R.id.txtstartdate);
-        txtEnddate =(TextViewOpenSansRegular)view.findViewById(R.id.txtEnddate);
+        txtStartdate =(TextViewOpenSansRegular)view.findViewById(R.id.txtStartDate);
+        txtEnddate =(TextViewOpenSansRegular)view.findViewById(R.id.txtEndDate);
+
+        txtStartDateDay =(TextViewOpenSansSemiBold) view.findViewById(R.id.txtStartDateDay);
+        txtEndDateDay =(TextViewOpenSansSemiBold) view.findViewById(R.id.txtEndDateDay);
 
         btnUpdate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnUpdateEvent);
         btnDelete = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDeleteEvent);
@@ -106,6 +111,13 @@ public class FragmentViewDetailsEvent extends Fragment {
         txtStartdate.setText(strStartdate);
         txtEnddate.setText(strEnddate);
         txtCategory.setText(strCategory);
+
+        try{
+            txtStartDateDay.setText(strStartdate.substring(0,2));
+            txtEndDateDay.setText(strEnddate.substring(0,2));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

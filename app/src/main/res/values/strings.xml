@@ -78,17 +78,17 @@
     <string name="registration_no">Registration No</string>
 
     <string name="profile_up_to_date">Profile up-to-date</string>
-    <string name="achievement_created">Achievement Created</string>
-    <string name="event_created">Event Created</string>
-    <string name="request_created">Social Request Created</string>
+    <string name="achievement_created">Achievement Created Successfully</string>
+    <string name="event_created">Event Created Successfully</string>
+    <string name="request_created">Social Request Created Successfully</string>
 
-    <string name="achievement_updated">Achievement Updated</string>
-    <string name="event_updated">Event Updated</string>
-    <string name="request_updated">Social Request Updated</string>
+    <string name="achievement_updated">Achievement Updated Successfully</string>
+    <string name="event_updated">Event Updated Successfully</string>
+    <string name="request_updated">Social Request Updated Successfully</string>
 
-    <string name="achievement_deleted">Achievement Deleted</string>
-    <string name="event_deleted">Event Deleted</string>
-    <string name="request_deleted">Social Request Deleted</string>
+    <string name="achievement_deleted">Achievement Deleted Successfully</string>
+    <string name="event_deleted">Event Deleted Successfully</string>
+    <string name="request_deleted">Social Request Deleted Successfully</string>
 
     <!--submit text-->
     <string name="submit">Submit</string>
@@ -99,7 +99,7 @@
     <string name="descrition">Description</string>
     <string name="others">Others</string>
     <string name="location">Location</string>
-    <string name="achievement_images">Add attachments</string>
+    <string name="achievement_images">Add Achievements</string>
     <string name="error_empty_title">Title can not be empty</string>
     <string name="error_empty_sub_title">Sub title can not be empty</string>
     <string name="error_empty_description">Description can not be empty</string>
@@ -161,11 +161,13 @@
         <item>View Social Request</item>
     </string-array>
 
-    <string name="acheivement">Acheivement</string>
+    <string name="acheivements">Acheivements</string>
+    <string name="acheivement_details">Acheivement Details</string>
     <string name="update_acheivement">Update Acheivement</string>
     <string name="delete_acheivement">Delete Acheivement</string>
     <string name="update_delete_acheivement">Update/Delete Acheivement</string>
 
+    <string name="event_details">Event Details</string>
     <string name="update_event">Update Event</string>
     <string name="delete_event">Delete Event</string>
     <string name="update_delete_event">Update/Delete Event</string>
@@ -189,18 +191,20 @@
     <string name="View">View</string>
 
 
-    <string name="view_title">Title : </string>
-    <string name="view_sub_title">Sub Title : </string>
-    <string name="view_desc">Description : </string>
-    <string name="view_Other">Others : </string>
-    <string name="view_Category">Category : </string>
-    <string name="view_Location">Location : </string>
-    <string name="attachment">Attachments</string>
+    <string name="view_title">TITLE</string>
+    <string name="view_sub_title">SUB TITLE</string>
+    <string name="view_desc">DESCRIPTION</string>
+    <string name="view_Other">OTHER</string>
+    <string name="view_Category">CATEGORY</string>
+    <string name="view_Location">LOCATION</string>
+    <string name="view_dates">START DATE / END DATE</string>
+
     <string name="delete">Delete</string>
     <string name="upate">Update</string>
 
 
     <!--Request String -->
+    <string name="request_details">Social Request Details</string>
     <string name="request">Social Request</string>
     <string name="update_request">Update Social Request</string>
     <string name="delete_request">Delete Social Request</string>

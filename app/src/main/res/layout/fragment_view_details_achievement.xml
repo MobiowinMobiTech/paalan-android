@@ -9,234 +9,217 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textColor="@color/primary_text"
-        android:background="@color/primary_light"
-        android:text="@string/acheivement"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:textColor="@color/icons"
+        android:background="@color/primary"
+        android:text="@string/acheivement_details"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"/>
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
 
-    <LinearLayout
+    <ScrollView
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2.5"
-            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_grey"
             >
-
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/primary_text"
-            android:text="@string/view_title"/>
-
-        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="7.5"
-            android:layout_height="wrap_content"
-            >
-
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
-            android:id="@+id/txtTitleValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/secondary_text"
-            />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2.5"
-            android:layout_height="wrap_content"
-            >
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_grey"
+            android:padding="20dp">
 
             <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/view_title"/>
+
+            <View
+                android:id="@+id/viewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/primary_more_dark"/>
+
+            <com.phyder.paalan.utils.TextViewOpenSansRegular
+                android:id="@+id/txtTitleValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_margin="10dp"
+                />
+
+
+
+
+
+            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/view_sub_title"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="7.5"
-            android:layout_height="wrap_content"
-            >
+            <View
+                android:id="@+id/viewSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/primary_more_dark"/>
 
             <com.phyder.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtSubTitleValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_margin="10dp"
                 />
 
-        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2.5"
-            android:layout_height="wrap_content"
-            >
 
             <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/view_desc"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="7.5"
-            android:layout_height="wrap_content"
-            >
+            <View
+                android:id="@+id/viewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/primary_more_dark"/>
 
             <com.phyder.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtDescValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_margin="10dp"
                 />
 
-        </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2.5"
-            android:layout_height="wrap_content"
-            >
 
             <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/view_Other"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="7.5"
-            android:layout_height="wrap_content"
-            >
+            <View
+                android:id="@+id/viewOther"
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/primary_more_dark"/>
 
             <com.phyder.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtOtherValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_margin="10dp"
                 />
+
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/llAttachmentSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        <LinearLayout
+            android:id="@+id/llAttachmentSection"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textColor="@color/primary_text"
-        android:background="@color/primary_light"
-        android:text="@string/attachment"
+        android:textColor="@color/icons"
+        android:background="@color/primary"
+        android:text="@string/acheivements"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="30dp"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:id="@+id/imgFirstView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:visibility="invisible"
-            android:src="@drawable/ic_add_circle_outline_black_24dp"
-            />
-
-        <ImageView
-            android:id="@+id/imgSecondView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:visibility="invisible"
-            android:src="@drawable/ic_add_circle_outline_black_24dp"
-            />
-
-        <ImageView
-            android:id="@+id/imgThirdView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:visibility="invisible"
-            android:src="@drawable/ic_add_circle_outline_black_24dp"/>
-
-        <ImageView
-            android:id="@+id/imgForthView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:visibility="invisible"
-            android:src="@drawable/ic_add_circle_outline_black_24dp"/>
-
-    </LinearLayout>
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
 
 
-    </LinearLayout>
 
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:padding="20dp">
 
+                <ImageView
+                    android:id="@+id/imgFirstView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_add_circle_outline_black_24dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/imgSecondView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_add_circle_outline_black_24dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/imgThirdView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_add_circle_outline_black_24dp"/>
+
+                <ImageView
+                    android:id="@+id/imgForthView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_add_circle_outline_black_24dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
 
         <com.phyder.paalan.utils.ButtonOpenSansSemiBold
@@ -268,6 +251,10 @@
             android:layout_marginRight="10dp"/>
 
     </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

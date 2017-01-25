@@ -115,6 +115,7 @@ public class CommanUtils {
 
         mProgressDialog = new ProgressDialog(context);
         mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.setCancelable(false);
         if(mProgressDialog != null && !mProgressDialog.isShowing())
             mProgressDialog.show();
     }

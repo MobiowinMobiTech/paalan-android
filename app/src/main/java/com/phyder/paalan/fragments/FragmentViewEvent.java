@@ -51,11 +51,16 @@ public class FragmentViewEvent extends Fragment {
     private DBAdapter dbAdapter;
     private PreferenceUtils pref;
 
+    private boolean isFetched = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_view, null, false);
         init(view);
-        getRetrofitCall();
+
+        if(!isFetched)
+            getRetrofitCall();
+
         return view;
     }
 
@@ -117,7 +122,7 @@ public class FragmentViewEvent extends Fragment {
 
 
     public void getRetrofitCall() {
-
+        isFetched = true;
         if (NetworkUtil.isInternetConnected(getActivity())) {
 
             CommanUtils.showDialog(getActivity());

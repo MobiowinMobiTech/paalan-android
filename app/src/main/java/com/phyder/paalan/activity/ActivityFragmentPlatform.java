@@ -128,6 +128,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                 }else if(groupPosition == 6){
                     PREF.setLogin(false);
                     PREF.setLoginType(null);
+                    DB_ADAPTER.open();
+                    DB_ADAPTER.deleteProfile();
+                    DB_ADAPTER.close();
                     finish();
                     mDrawerLayout.closeDrawer(mDrawerList);
                     startActivity(new Intent(ActivityFragmentPlatform.this, LoginActivity.class));
