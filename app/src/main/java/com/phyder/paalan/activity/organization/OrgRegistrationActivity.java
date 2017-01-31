@@ -23,7 +23,6 @@ import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.Config;
 import com.phyder.paalan.utils.NetworkUtil;
-import com.phyder.paalan.utils.NotificationUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -218,7 +217,6 @@ public class OrgRegistrationActivity extends AppCompatActivity implements View.O
     @Override
     protected void onResume() {
         super.onResume();
-
         // register GCM registration complete receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Config.REGISTRATION_COMPLETE));
@@ -227,9 +225,6 @@ public class OrgRegistrationActivity extends AppCompatActivity implements View.O
         // by doing this, the activity will be notified each time a new message arrives
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Config.PUSH_NOTIFICATION));
-
-        // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
     }
 
     @Override

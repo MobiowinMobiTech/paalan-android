@@ -1,13 +1,14 @@
 package com.phyder.paalan.services;
 
 import com.phyder.paalan.payload.request.RequestLogin;
+import com.phyder.paalan.payload.request.RequestInitialData;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateEvent;
-import com.phyder.paalan.payload.request.organization.OrgReqDeleteEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqDeleteAchievement;
+import com.phyder.paalan.payload.request.organization.OrgReqDeleteEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncAchievement;
 import com.phyder.paalan.payload.request.organization.OrgReqSyncEvent;
 import com.phyder.paalan.payload.request.organization.OrgReqUpdateAchievments;
@@ -15,14 +16,15 @@ import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
+import com.phyder.paalan.payload.response.ResponseInitialData;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
 import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResCreateEvent;
-import com.phyder.paalan.payload.response.organization.OrgResDeleteEvent;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteAchievement;
+import com.phyder.paalan.payload.response.organization.OrgResDeleteEvent;
 import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
 import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
 import com.phyder.paalan.payload.response.organization.OrgResUpdateAchievments;
@@ -44,13 +46,17 @@ import retrofit2.http.POST;
 public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
+    Call<ResponseInitialData> appSyncBanner(@Body RequestInitialData slidingBanner);
+
+
+    @POST("paalan/PaalanGateway")
     Call<ResponseLogin> paalanLogin(@Body RequestLogin reqLoginPayload);
 
     @POST("paalan/PaalanGateway")
     Call<IndivitualResUpdateProfile> indUpdateProfile(@Body IndivitualReqUpdateProfile indivitualReqProfile);
 
     @POST("paalan/PaalanGateway")
-    Call<IndivitualReqRegistration> indRegistration(@Body IndivitualResRegistration indivitualResRegistration);
+    Call<IndivitualResRegistration> indRegistration(@Body IndivitualReqRegistration indivitualReqRegistration);
 
     @POST("paalan/PaalanGateway")
     Call<IndivitualReqPublishEvent> indEventPublish(@Body IndivitualResPublishEvent indivitualResPublishEvent);

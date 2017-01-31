@@ -1,8 +1,13 @@
 package com.phyder.paalan.services;
 
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+
+import com.phyder.paalan.R;
+import com.phyder.paalan.activity.PaalanSplashActivity;
 
 /**
  * Created by Gouresh on 25/1/17
@@ -12,6 +17,8 @@ import android.content.Intent;
 
 
 public class NotificationReciever extends BroadcastReceiver {
+
+    private Bitmap remote_picture;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -23,49 +30,60 @@ public class NotificationReciever extends BroadcastReceiver {
         String body = intent.getStringExtra("body");
         String imageurl = intent.getStringExtra("imageurl");
 
-          // Using RemoteViews to bind custom layouts into Notification
+//        imageurl = "";
+
+        // Using RemoteViews to bind custom layouts into Notification
         android.widget.RemoteViews remoteViews = new android.widget.RemoteViews(context.getPackageName(),
                 R.layout.customnotification);
 
+        //// TODO: 30/1/17
         // Open NotificationView Class on Notification Click
-        Intent intent2 = new Intent(context, PostLoginActivity.class);
+        Intent intent2 = new Intent(context, PaalanSplashActivity.class);
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, intent2,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Locate and set the Image into customnotificationtext.xml ImageViews
         remoteViews.setImageViewResource(R.id.leftimageicon,R.drawable.fteam);
+
         // Locate and set the Text into customnotificationtext.xml TextViews
         remoteViews.setTextViewText(R.id.title ,title);
         remoteViews.setTextViewText(R.id.body ,body);
 
 
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat.Builder(context)
-                .setPriority(android.app.Notification.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .setTicker(title)
-                .setCustomContentView(remoteViews)
-                .setCustomBigContentView(remoteViews)
-                .setContentIntent(pIntent)
-                .setDefaults(android.app.Notification.DEFAULT_SOUND)
-                .setSmallIcon(R.mipmap.ic_launcher);
+        Notification builder =
+                new android.support.v4.app.NotificationCompat.Builder(context)
+                        .setPriority(Notification.PRIORITY_HIGH)
+                        .setAutoCancel(true)
+                        .setTicker(title)
+                        .setCustomContentView(remoteViews)
+                        .setCustomBigContentView(remoteViews)
+                        .setContentIntent(pIntent)
+                        .setDefaults(Notification.DEFAULT_SOUND)
+                        .setSmallIcon(R.mipmap.ic_launcher).build();
 
         int notificationId = (int) android.os.SystemClock.currentThreadTimeMillis();
 
-        //set Image Using picasso
+//        NotificationTarget notificationTarget = new NotificationTarget(
+//                context,
+//                remoteViews,
+//                R.id.leftimageicon,
+//                builder,
+//                notificationId);
+//
+//
+//                Glide.with( context.getApplicationContext() ) // safer!
+//                .load( imageurl )
+//                .asBitmap()
+//                .into( notificationTarget );
+//
 
-
-    /*    com.squareup.picasso.Picasso.with(context)
-                .load(imageurl)
-                .into(remoteViews, R.id.imagenotileft, notificationId, builder.build());*/
-
-        //MainActivity.displayNotification(getApplicationContext(),imageurl,remoteViews,R.id.imagenotileft,notificationId,builder.build());
 
         // Create Notification Manager
-        android.app.NotificationManager notificationmanager = (android.app.NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
+        android.app.NotificationManager notificationmanager = (android.app.NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
         // Build Notification with Notification Manager
-        notificationmanager.notify(notificationId , builder.build());
-
+        notificationmanager.notify(notificationId , builder);
 
     }
 

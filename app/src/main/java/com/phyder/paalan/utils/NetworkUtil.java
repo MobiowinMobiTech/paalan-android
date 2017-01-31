@@ -82,6 +82,17 @@ public class NetworkUtil {
         return false;
     }
 
+    public static boolean isInternetConnected(Activity mActivity) {
+        ConnectivityManager connec = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifi.isConnected() || mobile.isConnected()) {
+            return true;
+        } else if (!mobile.isConnected() || !wifi.isConnected()) {
+            return false;
+        }
+        return false;
+    }
 
     public static boolean alert(final Context context, final String message) {
 

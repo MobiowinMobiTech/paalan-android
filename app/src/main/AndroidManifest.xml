@@ -28,12 +28,17 @@
             </intent-filter>
         </activity>
 
+
+        <activity android:name=".activity.RegisterUserActivity"/>
+
+        <activity android:name=".activity.RegisterUser"/>
+
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.organization.OrgRegistrationActivity"
+            android:name=".activity.WhatsNew"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
@@ -41,19 +46,32 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
 
-        <activity android:name=".activity.RegisterUserActivity"/>
+        <!--<activity android:name=".activity.RegisterUserActivity"/>-->
         <!-- Firebase Notifications -->
-        <service android:name=".utils.MyFirebaseMessagingService">
+        <service android:name=".services.NotificationRecieverService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
+            <intent-filter>
+                <action android:name=".NotificationRecieverService" />
 
-        <service android:name=".utils.MyFirebaseInstanceIDService">
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.FCMTokenGeneratorService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+
+        <receiver android:name=".services.NotificationReciever">
+            <intent-filter>
+                <action android:name="com.phyder.paalan.SendBroadcast" >
+                </action>
+            </intent-filter>
+        </receiver>
+
         <!-- ./Firebase Notifications -->
 
 

@@ -1,5 +1,7 @@
 package com.phyder.paalan.payload.request.individual;
 
+import com.phyder.paalan.social.Social;
+
 /**
  * Created on 22/12/16.
  * Author Dharmendra
@@ -8,11 +10,44 @@ package com.phyder.paalan.payload.request.individual;
 
 public class IndivitualReqRegistration {
 
+
     private String entity;
 
     private Data data;
 
     private String type;
+    private String action;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public static IndivitualReqRegistration get(String name, String email, String contactNo, String password,
+                                                String imeiNo, String newsletter, String notificationId) {
+
+        Data data = new Data();
+        data.setName(name);
+        data.setEmailid(email);
+        data.setPassword(password);
+        data.setImeino(imeiNo);
+        data.setMobileno(contactNo);
+        data.setIsnewsletter(newsletter);
+        data.setNotificationid(notificationId);
+
+
+        IndivitualReqRegistration indivitualReqRegistration = new IndivitualReqRegistration();
+        indivitualReqRegistration.setData(data);
+        indivitualReqRegistration.setEntity(Social.IND_REGISTRATION_ENTITY);
+        indivitualReqRegistration.setType(Social.REGISTRATION_TYPE);
+        indivitualReqRegistration.setAction(Social.SUBMIT_ACTION);
+
+        return indivitualReqRegistration;
+
+    }
 
     public String getEntity() {
         return entity;
@@ -47,16 +82,22 @@ public class IndivitualReqRegistration {
                 '}';
     }
 
-    public class Data {
+    public static class Data {
         private String imeino;
 
         private String isnewsletter;
 
         private String name;
 
-        private String longitude;
+        private String notificationid;
 
-        private String latitude;
+        public String getNotificationid() {
+            return notificationid;
+        }
+
+        public void setNotificationid(String notificationid) {
+            this.notificationid = notificationid;
+        }
 
         private String password;
 
@@ -86,22 +127,6 @@ public class IndivitualReqRegistration {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public String getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(String longitude) {
-            this.longitude = longitude;
-        }
-
-        public String getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(String latitude) {
-            this.latitude = latitude;
         }
 
         public String getPassword() {
@@ -134,8 +159,6 @@ public class IndivitualReqRegistration {
                     "imeino='" + imeino + '\'' +
                     ", isnewsletter='" + isnewsletter + '\'' +
                     ", name='" + name + '\'' +
-                    ", longitude='" + longitude + '\'' +
-                    ", latitude='" + latitude + '\'' +
                     ", password='" + password + '\'' +
                     ", emailid='" + emailid + '\'' +
                     ", mobileno='" + mobileno + '\'' +

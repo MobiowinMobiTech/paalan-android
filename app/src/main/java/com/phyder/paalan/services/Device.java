@@ -1,6 +1,7 @@
 package com.phyder.paalan.services;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -24,6 +25,7 @@ public class Device {
     private String mModel;
     private String mVersionName;
     private int mVersionCode;
+    private static Context context;
 
     public Device(Context context) {
         initAppName(context);
@@ -39,6 +41,7 @@ public class Device {
     public static Device newInstance(Context context) {
         if (ourInstance == null) {
             ourInstance = new Device(context);
+            Device.context = context;
         }
         return ourInstance;
     }
@@ -139,4 +142,23 @@ public class Device {
     }
 
 
+    /**
+     * Function to set notification token
+     * @param token : token to save
+     */
+    public static void setNotificationId(String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("notification",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("regId",token);
+        editor.apply();
+    }
+
+    /**
+     * Function to get notification token
+     * @return : token
+     */
+    public String getNotificationId() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("notification",Context.MODE_PRIVATE);
+        return sharedPreferences.getString("regId","");
+    }
 }

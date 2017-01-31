@@ -25,13 +25,44 @@ public class Attributes {
         public static final String CREATE_ACHIEVEMENT_QUERY = "create table " + ACHIEVEMENT_TABLE_NAME +
                 " (_id integer primary key autoincrement, " + ACHIEVEMENT_ID + " text not null, " + ACHIEVEMENT_TITLE + " text not null, "
                 + ACHIEVEMENT_SUB_TITLE + " text not null, " + ACHIEVEMENT_DESCRIPTION + " text not null, "
-                + ACHIEVEMENT_OTHERS + " text not null, "+ ACHIEVEMENT_FIRST_IMAGE + " text not null, "
-                + ACHIEVEMENT_SECOND_IMAGE + " text not null, "+ ACHIEVEMENT_THIRD_IMAGE + " text not null, "
-                + ACHIEVEMENT_FORTH_IMAGE + " text not null, "+ ACHIEVEMENT_IS_DELETED + " text not null);";
+                + ACHIEVEMENT_OTHERS + " text not null, " + ACHIEVEMENT_FIRST_IMAGE + " text not null, "
+                + ACHIEVEMENT_SECOND_IMAGE + " text not null, " + ACHIEVEMENT_THIRD_IMAGE + " text not null, "
+                + ACHIEVEMENT_FORTH_IMAGE + " text not null, " + ACHIEVEMENT_IS_DELETED + " text not null);";
+
+
+        public static final String REQUEST_TABLE_NAME = "request_table";
+        public static final String REQUEST_ID = "request_id";
+        public static final String REQUEST_TITLE = "request_title";
+        public static final String REQUEST_SUB_TITLE = "request_sub_title";
+        public static final String REQUEST_DESCRIPTION = "request_description";
+        public static final String REQUEST_OTHER = "request_others";
+        public static final String REQUEST_LOCATION = "request_location";
+        public static final String REQUEST_IS_DELETED = "request_is_deleted";
+
+        public static final String CREATE_REQUEST_QUERY = "create table " + REQUEST_TABLE_NAME +
+                " (_id integer primary key autoincrement, " + REQUEST_ID + " text not null, "
+                + REQUEST_TITLE + " text not null, " + REQUEST_SUB_TITLE + " text not null, "
+                + REQUEST_DESCRIPTION + " text not null, " + REQUEST_OTHER + " text not null, "
+                + REQUEST_LOCATION + " text not null, " + REQUEST_IS_DELETED + " text not null);";
+
+
+        public static final String EVENT_TABLE_NAME = "event_table";
+        public static final String EVENT_ID = "event_id";
+        public static final String EVENT_TITLE = "event_title";
+        public static final String EVENT_SUB_TITLE = "event_sub_title";
+        public static final String EVENT_DESCRIPTION = "event_description";
+        public static final String EVENT_OTHERS = "event_others";
+        public static final String EVENT_START_DATE = "event_start_date";
+        public static final String EVENT_END_DATE = "event_end_date";
+        public static final String EVENT_IS_DELETED = "event_is_deleted";
+
+        public static final String CREATE_EVENT_QUERY = "create table " + EVENT_TABLE_NAME +
+                " (_id integer primary key autoincrement, " + EVENT_ID + " text not null, "
+                + EVENT_TITLE + " text not null, " + EVENT_SUB_TITLE + " text not null, "
+                + EVENT_DESCRIPTION + " text not null, " + EVENT_OTHERS + " text not null, "
+                + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, " +
+                EVENT_IS_DELETED + " text not null);";
     }
-
-
-
 
     public static class MasterDatabase {
 
@@ -45,7 +76,6 @@ public class Attributes {
                 " (_id integer primary key autoincrement, " + ACHIEVEMENT_TIMESPAN + " text not null, "
                 + EVENT_TIMESPAN + " text not null, " + REQUEST_TIMESPAN + " text not null);";
     }
-
 
 
 }

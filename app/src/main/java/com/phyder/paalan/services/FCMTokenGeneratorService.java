@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * Created by Gouresh on 22/11/16
@@ -21,7 +20,9 @@ public class FCMTokenGeneratorService extends FirebaseInstanceIdService {
 
         String token = FirebaseInstanceId.getInstance().getToken();
         try {
-            Device.getInstance().setmNotificationId(token);
+            Log.d(TAG, "onTokenRefresh: "+token);
+            Device.newInstance(this);
+            Device.setNotificationId(token);
         } catch (Exception e) {
             e.printStackTrace();
         }

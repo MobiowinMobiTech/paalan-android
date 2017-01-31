@@ -142,5 +142,27 @@
     <string name="basic_info">Basic</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="notification_message" >Notification From Paalan</string>
+    <string name="fields_cannot_be_empty">Fields can not be Empty.</string>
+    <string name="enter_confirm_password">Confirm password</string>
+    <string name="user_credential">Credentials</string>
+    <string name="user_address">Address</string>
+    <string name="email_validation_id">Email</string>
+    <string name="email_validation_mesasage">Please enter valid email address.</string>
+    <string name="password_validation_id">Password</string>
+    <string name="password_validation_mesasage">Password not matched!</string>
+    <string name="register_validation_title">Register</string>
+    <string name="mobile_validation_mesasage">Mobile no should be 10 digits</string>
+    <string name="addess_cannot_be_empty">Please enter address</string>
+    <string name="city_cannot_be_empty">Please enter city</string>
+    <string name="state_cannot_be_empty">Please enter state</string>
+    <string name="country_cannot_be_empty">Please enter country</string>
+    <string name="pincode_cannot_be_empty">Please enter pincode</string>
+    <string name="network_connectivity">No network connection found. \n Please enable network connections.</string>
+    <string name="register_error">Unable to register. \nPlease try again.</string>
+    <string name="enter_name">Enter name</string>
+    <string name="register_success">Registered Success</string>
+    <string name="screent_title">Screen Title</string>
+    <string name="dataNotFound">Data not found</string>
 
 </resources>

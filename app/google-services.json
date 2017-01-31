@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:903340737615:android:1323229dd69ea651",
         "android_client_info": {
-          "package_name": "phyder.cmss.com.androidfirebasetopicmessaging"
+          "package_name": "com.phyder.paalan"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "903340737615-almqi7ecrkpni1shcr0nkp9qs7s6nn1u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "phyder.cmss.com.androidfirebasetopicmessaging",
+            "package_name": "com.phyder.paalan",
             "certificate_hash": "43A1422F1078F09DB8FC294E7A5A651ECA898DAA"
           }
         },

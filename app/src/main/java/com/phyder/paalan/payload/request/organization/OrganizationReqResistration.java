@@ -1,7 +1,5 @@
 package com.phyder.paalan.payload.request.organization;
 
-import android.util.Log;
-
 import com.phyder.paalan.social.Social;
 
 /**
@@ -37,7 +35,7 @@ public class OrganizationReqResistration {
         OrganizationReqResistration reqResistration = new OrganizationReqResistration();
         reqResistration.setData(data);
         reqResistration.setEntity(Social.ORG_REGISTRATION_ENTITY);
-        reqResistration.setType(Social.ORG_REQ_TYPE);
+        reqResistration.setType(Social.REGISTRATION_TYPE);
         reqResistration.setAction(Social.SUBMIT_ACTION);
         return reqResistration;
 

@@ -10,20 +10,38 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
-
-import java.util.Calendar;
+import com.phyder.paalan.utils.WhatsNewScreenModel;
 
 /**
  * Created by yashika on 31/1/17.
  */
 public class WhatsNewSlide extends Fragment {
-    View view;
+    WhatsNewScreenModel whatsNewScreenModel;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // get data from calling activity
+        whatsNewScreenModel = new WhatsNewScreenModel();
+
+        Bundle bundle = getArguments();
+        whatsNewScreenModel.setTitle(bundle.getString("title"));
+        whatsNewScreenModel.setMessage(bundle.getString("message"));
+        whatsNewScreenModel.setImageLink(bundle.getString("imageLink"));
+
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_whats_new,null);
+        View view = inflater.inflate(R.layout.fragment_whats_new,null);
         view.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        TextView textView = (TextView)view.findViewById(R.id.txtWhatsNew);
-        textView.setText("Time is: "+ Calendar.getInstance().getTimeInMillis());
+        TextView txtTitle = (TextView)view.findViewById(R.id.txtScreenTitle);
+        TextView txtMessage = (TextView)view.findViewById(R.id.txtScreenDescription);
+
+        txtTitle.setText(whatsNewScreenModel.getTitle());
+        txtMessage.setText(whatsNewScreenModel.getMessage());
+
         return view;
     }
 
