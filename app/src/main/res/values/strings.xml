@@ -139,7 +139,7 @@
 
     <!--toolbar titles-->
     <string name="profile">Profile</string>
-    <string name="basic_info">Basic</string>
+    <string name="basic_info">Basic Information</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="notification_message" >Notification From Paalan</string>
@@ -164,5 +164,6 @@
     <string name="register_success">Registered Success</string>
     <string name="screent_title">Screen Title</string>
     <string name="dataNotFound">Data not found</string>
+    <string name="address_info">Address Information</string>
 
 </resources>

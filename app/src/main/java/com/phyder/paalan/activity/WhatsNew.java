@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,13 +41,6 @@ public class WhatsNew extends AppIntro {
         screensToRender = new ArrayList<WhatsNewScreenModel>();
         screensToRender = CommanUtils.getScreens(this);
         Collections.sort(screensToRender);
-        for (int screenIndex = 0 ; screenIndex < screensToRender.size() ; screenIndex ++){
-            Log.d(TAG, "getScreensList:  "+screenIndex+" seq "+screensToRender.get(screenIndex).getSequence());
-            Log.d(TAG, "getScreensList:  "+screenIndex+" title "+screensToRender.get(screenIndex).getTitle());
-            Log.d(TAG, "getScreensList:  "+screenIndex+" message "+screensToRender.get(screenIndex).getMessage());
-            Log.d(TAG, "getScreensList:  "+screenIndex+" imagelink "+screensToRender.get(screenIndex).getImageLink());
-        }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -72,6 +64,8 @@ public class WhatsNew extends AppIntro {
         setBarColor(Color.parseColor("#00BCD4"));
         setSeparatorColor(Color.parseColor("#FFFFFF"));
 
+        setFadeAnimation();
+
         setDoneText("Ok got it");
 
     }
@@ -80,6 +74,7 @@ public class WhatsNew extends AppIntro {
         //// TODO: 31/1/17
         Intent intent = new Intent(this, RegisterUser.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

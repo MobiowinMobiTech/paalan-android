@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.utils.WhatsNewScreenModel;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by yashika on 31/1/17.
@@ -41,6 +43,15 @@ public class WhatsNewSlide extends Fragment {
 
         txtTitle.setText(whatsNewScreenModel.getTitle());
         txtMessage.setText(whatsNewScreenModel.getMessage());
+
+        ImageView imageScreen = (ImageView)view.findViewById(R.id.imageScreen);
+
+        Picasso.with(getActivity())
+                .load(whatsNewScreenModel.getImageLink())
+                .placeholder(R.drawable.paalan_logo)
+                .error(R.drawable.paalan_logo)
+                .into(imageScreen);
+
 
         return view;
     }

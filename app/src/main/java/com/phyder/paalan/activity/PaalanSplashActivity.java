@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.payload.request.RequestInitialData;
 import com.phyder.paalan.payload.response.ResponseInitialData;
 import com.phyder.paalan.services.Device;
@@ -26,7 +27,7 @@ public class PaalanSplashActivity extends AppCompatActivity {
 
     private static final String TAG = PaalanSplashActivity.class.getSimpleName();
     private static int SPLASH_TIME_OUT = 3000;
-
+    private boolean isScreensAvailable = false;
     private DBAdapter dbAdapter;
 
     Set<String> bannerList = new HashSet<>();
@@ -37,6 +38,10 @@ public class PaalanSplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paalan_splash);
 
         getInitialAppData();
+
+        Log.d(TAG, "onCreate: notification Id:"+CommanUtils.getFBRegId(this));
+
+
         dbAdapter = new DBAdapter(PaalanSplashActivity.this);
         dbAdapter.open();
         if (dbAdapter.getMasterTableCount() < 1) {
@@ -52,7 +57,12 @@ public class PaalanSplashActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(PaalanSplashActivity.this, WhatsNew.class);
+                    Intent intent;
+                    if (isScreensAvailable)
+                        intent = new Intent(PaalanSplashActivity.this, WhatsNew.class);
+                    else
+                        //todo change landing page
+                        intent = new Intent(PaalanSplashActivity.this, FragmentDashBorad.class);
                     startActivity(intent);
                 }
             }
@@ -80,22 +90,20 @@ public class PaalanSplashActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseInitialData> call, Response<ResponseInitialData> response) {
                     CommanUtils.hideDialog();
 
-
 //                    ResponseInitialData.Bannerlist[] banners = response.body().getData()[0].getBannerlist();
 //
 //                    CommanUtils.setDataInSharedPrefs(PaalanSplashActivity.this, "bannerUrlLength", banners);
 
-
                     ResponseInitialData.Screenlist[] screenlist = response.body().getData()[0].getScreenlist();
-                    Log.d(TAG, "onResponse: screen length "+screenlist.length);
-                    Log.d(TAG, "onResponse: screen name "+screenlist[0].getScreenName());
-                    Log.d(TAG, "onResponse: screen screen link "+screenlist[0].getScreenImgLink());
-                    Log.d(TAG, "onResponse: screen info "+screenlist[0].toString());
+                    if (screenlist.length > 0) {
+                        isScreensAvailable = true;
+                        Log.d(TAG, "onResponse: screen length " + screenlist.length);
+                        Log.d(TAG, "onResponse: screen name " + screenlist[0].getScreenName());
+                        Log.d(TAG, "onResponse: screen screen link " + screenlist[0].getScreenImgLink());
+                        Log.d(TAG, "onResponse: screen info " + screenlist[0].toString());
 
-                    CommanUtils.setDataForScreens(PaalanSplashActivity.this,screenlist);
-
-
-
+                        CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
+                    }
                 }
 
                 @Override
