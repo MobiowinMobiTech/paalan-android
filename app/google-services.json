@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "731672168225",
-    "firebase_url": "https://just-turbine-121709.firebaseio.com",
-    "project_id": "just-turbine-121709",
-    "storage_bucket": "just-turbine-121709.appspot.com"
+    "project_number": "903340737615",
+    "firebase_url": "https://messagingtopic.firebaseio.com",
+    "project_id": "messagingtopic",
+    "storage_bucket": "messagingtopic.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:731672168225:android:3ea9ec5830da748d",
+        "mobilesdk_app_id": "1:903340737615:android:1323229dd69ea651",
         "android_client_info": {
-          "package_name": "com.phyder.paalan"
+          "package_name": "phyder.cmss.com.androidfirebasetopicmessaging"
         }
       },
       "oauth_client": [
         {
-          "client_id": "731672168225-j25jf0um3bp1oganlu7tesd0ldus69lu.apps.googleusercontent.com",
+          "client_id": "903340737615-almqi7ecrkpni1shcr0nkp9qs7s6nn1u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.phyder.paalan",
-            "certificate_hash": "59A9D6FA687379BD0715A0540572514AE8FF599B"
+            "package_name": "phyder.cmss.com.androidfirebasetopicmessaging",
+            "certificate_hash": "43A1422F1078F09DB8FC294E7A5A651ECA898DAA"
           }
         },
         {
-          "client_id": "731672168225-90ahh66fepdfsbl0ukrfeaaild8b4bpc.apps.googleusercontent.com",
+          "client_id": "903340737615-4dbq7pi31nis00dnv408ot6l10tna2s5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBswrVjm8EhAVdS3oTduEuOs_BCTtkjl0U"
+          "current_key": "AIzaSyAQsYXu-4J4N75WSAJCpnCWRnZzMhHMYY4"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "731672168225-90ahh66fepdfsbl0ukrfeaaild8b4bpc.apps.googleusercontent.com",
+              "client_id": "903340737615-4dbq7pi31nis00dnv408ot6l10tna2s5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
