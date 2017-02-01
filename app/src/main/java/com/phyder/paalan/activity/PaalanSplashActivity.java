@@ -1,9 +1,10 @@
 package com.phyder.paalan.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
+import com.crashlytics.android.Crashlytics;
 import com.phyder.paalan.R;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.payload.request.organization.RequestInitialData;
@@ -17,6 +18,7 @@ import com.phyder.paalan.utils.PreferenceUtils;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +38,7 @@ public class PaalanSplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_paalan_splash);
 
         dbAdapter = new DBAdapter(com.phyder.paalan.activity.PaalanSplashActivity.this);

@@ -15,7 +15,9 @@
             android:textStyle="bold"
             android:padding="7dp"
             android:layout_margin="7dp"
-            android:text="@string/address_info"/>
+            style="@style/NewTaskHeaderText"
+            android:text="@string/address_info"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
         <android.support.design.widget.TextInputLayout
