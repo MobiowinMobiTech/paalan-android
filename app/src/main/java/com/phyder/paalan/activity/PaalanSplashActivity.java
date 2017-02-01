@@ -62,7 +62,7 @@ public class PaalanSplashActivity extends AppCompatActivity {
                         intent = new Intent(PaalanSplashActivity.this, WhatsNew.class);
                     else
                         //todo change landing page
-                        intent = new Intent(PaalanSplashActivity.this, FragmentDashBorad.class);
+                        intent = new Intent(PaalanSplashActivity.this, RegisterUser.class);
                     startActivity(intent);
                 }
             }
@@ -97,11 +97,6 @@ public class PaalanSplashActivity extends AppCompatActivity {
                     ResponseInitialData.Screenlist[] screenlist = response.body().getData()[0].getScreenlist();
                     if (screenlist.length > 0) {
                         isScreensAvailable = true;
-                        Log.d(TAG, "onResponse: screen length " + screenlist.length);
-                        Log.d(TAG, "onResponse: screen name " + screenlist[0].getScreenName());
-                        Log.d(TAG, "onResponse: screen screen link " + screenlist[0].getScreenImgLink());
-                        Log.d(TAG, "onResponse: screen info " + screenlist[0].toString());
-
                         CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
                     }
                 }
