@@ -198,6 +198,8 @@ public class CommanUtils {
     public static void updateImage(Context context, ImageView img, String imgUrl) {
        Picasso.with(context)
                 .load(imgUrl)
+                .placeholder(R.drawable.paalan_logo)
+                .error(R.drawable.paalan_logo)
                 .into(img);
     }
 

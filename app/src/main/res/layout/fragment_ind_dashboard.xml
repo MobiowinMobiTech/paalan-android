@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_grey"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -49,9 +50,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:background="@color/light_grey"
                 android:orientation="vertical"
@@ -66,21 +67,23 @@
                     android:padding="4dp"
                     >
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="@string/event"
                         android:layout_alignParentLeft="true"
-                        android:textStyle="bold" />
+                        android:textColor="@color/icons"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtEventSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
-                        android:textStyle="bold" />
+                        />
+
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
@@ -96,8 +99,7 @@
                     android:orientation="vertical"
                     android:visibility="gone"
                     android:gravity="center"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true">
+                    android:layout_gravity="center_horizontal">
 
                     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
@@ -110,16 +112,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_data"/>
+                        android:text="@string/no_events"/>
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:background="@color/light_grey"
                 android:orientation="vertical">
@@ -131,23 +133,24 @@
                     android:orientation="horizontal"
                     android:padding="5dp"
                     android:background="@color/primary"
-                    >
+                    android:layout_marginTop="10dp">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_alignParentLeft="true"
                         android:text="@string/request"
-                        android:textStyle="bold" />
+                        android:textColor="@color/icons"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtSocialSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
-                        android:textStyle="bold" />
+                        />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
@@ -163,8 +166,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true">
+                    android:layout_gravity="center">
 
                     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
@@ -177,14 +179,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_data"/>
+                        android:text="@string/no_requests"/>
 
                 </LinearLayout>
-            </RelativeLayout>
 
-            <RelativeLayout
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:orientation="vertical"
                 android:background="@color/light_grey">
@@ -195,23 +198,25 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@color/primary"
-                    android:padding="5dp">
+                    android:padding="5dp"
+                    android:layout_marginTop="10dp">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_alignParentLeft="true"
                         android:text="@string/acheivements"
-                        android:textStyle="bold" />
+                        android:textColor="@color/icons" />
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtAchievementSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
@@ -227,8 +232,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="gone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true">
+                    android:layout_gravity="center_horizontal">
 
                     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
@@ -241,31 +245,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_data"/>
+                        android:text="@string/no_achievements"/>
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <com.phyder.paalan.utils.TextViewOpenSansRegular
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/icons"
+            android:gravity="center"
+            android:background="@color/primary"
             android:text="@string/donate"/>
 
         <com.phyder.paalan.utils.TextViewOpenSansRegular
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/icons"
+            android:gravity="center"
+            android:background="@color/primary_more_dark"
             android:text="@string/date_with_paalan"/>
 
 

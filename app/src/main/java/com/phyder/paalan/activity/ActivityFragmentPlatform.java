@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewRequest;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
@@ -94,15 +96,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         prepareListData();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
 
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
         TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (PREF.getLoginType().equals("IND")) {
+        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
             transaction.replace(R.id.platform, new FragmentIndDashboard());
         } else {
             transaction.replace(R.id.platform, new FragmentDashBorad());
@@ -117,33 +116,48 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 if (groupPosition == 0) {
-                    if(!PREF.getLoginType().equals("IND")) {
-                        getFragmentTransaction(new FragmentMyProfile());
+
+                    fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
+                            new FragmentViewEvent();
+                    getFragmentTransaction(fragment);
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }else if(groupPosition == 1){
+                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
+                        getFragmentTransaction(new FragmentViewRequest());
+                        mDrawerLayout.closeDrawer(mDrawerList);
+                    }
+                }else if(groupPosition == 2){
+                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
+
+                        mDrawerLayout.closeDrawer(mDrawerList);
+                    }
+                }else if(groupPosition == 3){
+                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
+                        getFragmentTransaction(new FragmentViewAchievement());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
                 }else if(groupPosition == 4){
-                    if(!PREF.getLoginType().equals("IND")) {
+                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                         getFragmentTransaction(new FragmentAboutUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
                 }else if(groupPosition == 5){
-                    if(!PREF.getLoginType().equals("IND")) {
+                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                         getFragmentTransaction(new FragmentContactUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
                 }else if(groupPosition == 6){
-                    if(!PREF.getLoginType().equals("IND")) {
+                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                         PREF.setLogin(false);
-                        PREF.setLoginType("IND");
+                        PREF.setLoginType(Social.IND_ENTITY);
                         DB_ADAPTER.open();
                         DB_ADAPTER.deleteProfile();
                         DB_ADAPTER.close();
-                        finish();
+                        prepareListData();
+                        getFragmentTransaction(new FragmentIndDashboard());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
-
                 }
-
                 return false;
 
             }
@@ -158,36 +172,39 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 1:
                         switch (childPosition) {
                             case 0:
-                                if(!PREF.getLoginType().equals("IND")) {
+                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                                     fragment = new FragmentCreateAchievement();
+                                    getFragmentTransaction(fragment);
+                                    expListView.collapseGroup(1);
                                 }
-                                expListView.collapseGroup(1);
                                 break;
 
                             case 1:
-                                if(!PREF.getLoginType().equals("IND")) {
+                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                                     fragment = new FragmentViewAchievement();
+                                    getFragmentTransaction(fragment);
+                                    expListView.collapseGroup(1);
                                 }
-                                expListView.collapseGroup(1);
                                 break;
-
                         }
                         break;
 
                     case 2:
                         switch (childPosition) {
                             case 0:
-                                if(!PREF.getLoginType().equals("IND")) {
+                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                                     fragment = new FragmentViewAchievement();
+                                    getFragmentTransaction(fragment);
+                                    expListView.collapseGroup(2);
                                 }
-                                expListView.collapseGroup(2);
                                 break;
 
                             case 1:
-                                if(!PREF.getLoginType().equals("IND")) {
+                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                                     fragment = new FragmentViewEvent();
+                                    getFragmentTransaction(fragment);
+                                    expListView.collapseGroup(2);
                                 }
-                                expListView.collapseGroup(2);
                                 break;
 
                         }
@@ -196,39 +213,38 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 3:
                         switch (childPosition) {
                             case 0:
-                                if(!PREF.getLoginType().equals("IND")) {
+                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                                     fragment = new FragmentCreateRequest();
+                                    getFragmentTransaction(fragment);
+                                    expListView.collapseGroup(3);
                                 }
-                                expListView.collapseGroup(3);
                                 break;
 
                             case 1:
-                                if(!PREF.getLoginType().equals("IND")) {
+                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                                     fragment = new FragmentViewRequest();
+                                    getFragmentTransaction(fragment);
+                                    expListView.collapseGroup(3);
                                 }
-                                expListView.collapseGroup(3);
                                 break;
-
                         }
                         break;
 
                     case 6:
                         switch (childPosition) {
                             case 0:
-                                if(PREF.getLoginType().equals("IND")) {
-                                   // fragment = new Login();
+                                if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
+                                    Intent intent = new Intent(ActivityFragmentPlatform.this,Login.class);
+                                    startActivity(intent);
                                 }
-                                getFragmentTransaction(fragment);
                                 expListView.collapseGroup(6);
                                 break;
 
                             case 1:
-                                if(PREF.getLoginType().equals("IND")) {
-//                                    fragment = new Login();
+                                if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
+                                   Intent intent = new Intent(ActivityFragmentPlatform.this,RegisterUser.class);
+                                   startActivity(intent);
                                 }
-//                                getFragmentTransaction(fragment);
-                                Intent intent = new Intent(ActivityFragmentPlatform.this,RegisterUser.class);
-                                startActivity(intent);
                                 expListView.collapseGroup(6);
                                 break;
 
@@ -258,7 +274,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         String emptyArray[] = new String[0];
 
-        if (PREF.getLoginType().equals("IND")) {
+        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
 
             listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
             String[] loginItems = getResources().getStringArray(R.array.login_array);
@@ -296,6 +312,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
             listDataChild.put(listDataHeader[5], emptyArray);
             listDataChild.put(listDataHeader[6], emptyArray);
         }
+
+        listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
+        expListView.setAdapter(listAdapter);
+
     }
 
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -397,9 +417,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
             mDrawerLayout.closeDrawers();
-        } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentIndDashboard) {
-            finish();
-        } else {
+        } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentIndDashboard ) {
+            ActivityFragmentPlatform.this.finish();
+        } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
+            ActivityFragmentPlatform.this.finish();
+        } else{
             super.onBackPressed();
         }
     }

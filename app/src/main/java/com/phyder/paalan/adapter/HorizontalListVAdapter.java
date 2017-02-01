@@ -18,12 +18,14 @@ import java.util.ArrayList;
 public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListVAdapter.ViewHolder> {
 
     ArrayList<String> titlesItems;
+    int image;
     Context context;
 
-    public HorizontalListVAdapter(Context context, ArrayList<String> titlesItems) {
+    public HorizontalListVAdapter(Context context, ArrayList<String> titlesItems,int image) {
         super();
         this.context = context;
         this.titlesItems = titlesItems;
+        this.image=image;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.tvSpecies.setText(titlesItems.get(i));
-        viewHolder.imgThumbnail.setImageResource(R.drawable.cheesy);
+        viewHolder.imgThumbnail.setImageResource(image);
 
         viewHolder.setClickListener(new ItemClickListener() {
             @Override

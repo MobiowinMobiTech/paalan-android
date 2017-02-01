@@ -32,6 +32,7 @@ import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,6 @@ public class FragmentIndDashboard extends Fragment{
     private RecyclerView.Adapter mAdapter, mAchievementAdapter, mEventAdapter;
 
     List<String> images;
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
     private DBAdapter dbAdapter;
     private PreferenceUtils pref;
 
@@ -73,6 +72,11 @@ public class FragmentIndDashboard extends Fragment{
     private Cursor eventCursor,achievementCursor,requestCursor;
     private ArrayList<String> eventLists,achievementLists,requestLists;
 
+    private Handler handler = new Handler();
+    private Runnable refresh;
+    private int itemPos = 0;
+
+    private TextViewOpenSansRegular txtEventSeeMore,txtAchievementsSeeMore,txtSocialSeeMore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,9 +102,58 @@ public class FragmentIndDashboard extends Fragment{
         llRequests = (LinearLayout) view.findViewById(R.id.llRequestStatus);
         llAchievements = (LinearLayout) view.findViewById(R.id.llAchievementStatus);
 
+        txtEventSeeMore = (TextViewOpenSansRegular) view.findViewById(R.id.txtEventSeeMore);
+        txtSocialSeeMore = (TextViewOpenSansRegular) view.findViewById(R.id.txtSocialSeeMore);
+        txtAchievementsSeeMore = (TextViewOpenSansRegular) view.findViewById(R.id.txtAchievementSeeMore);
+
         eventLists = new ArrayList<String>();
         achievementLists = new ArrayList<String>();
         requestLists = new ArrayList<String>();
+
+
+        txtEventSeeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(eventLists.size()>0) {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.platform, new FragmentViewEvent())
+                            .addToBackStack(null).commit();
+                }else{
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_events));
+                }
+            }
+        });
+
+
+        txtSocialSeeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(requestLists.size()>0) {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.platform, new FragmentViewRequest())
+                            .addToBackStack(null).commit();
+                }else{
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_requests));
+                }
+            }
+        });
+
+
+        txtAchievementsSeeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(achievementLists.size()>0) {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.platform, new FragmentViewAchievement())
+                            .addToBackStack(null).commit();
+                }else{
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_achievements));
+                }
+            }
+        });
     }
 
     private void initSlider(View view) {
@@ -113,31 +166,15 @@ public class FragmentIndDashboard extends Fragment{
                 String bannerImageURL = CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrl" + i);
                 images.add(bannerImageURL);
             }
+        }else{
+            for(int i=0;i<4;i++){
+                images.add("Drawables");
+            }
         }
 
         mPager.setAdapter(new SlidingImageAdapter(getActivity(), images));
         mCircleIndicator.setViewPager(mPager);
 
-        NUM_PAGES = images.size();
-
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
-
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 2000, 2000);
     }
 
     private boolean requestPermission() {
@@ -246,27 +283,22 @@ public class FragmentIndDashboard extends Fragment{
         }
         dbAdapter.close();
 
-
-        Log.e(TAG," eventLists : "+eventLists.size());
-        Log.e(TAG," achievementLists : "+achievementLists.size());
-        Log.e(TAG," requestLists : "+requestLists.size());
-
         mrecycleEventList.setHasFixedSize(true);
         mLayoutManagerEvent = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mrecycleEventList.setLayoutManager(mLayoutManagerEvent);
-        mAdapter = new HorizontalListVAdapter(getActivity(), eventLists);
+        mAdapter = new HorizontalListVAdapter(getActivity(), eventLists,R.drawable.publish_event);
         mrecycleEventList.setAdapter(mAdapter);
 
 
         mLayoutManagerAchievement = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mrecycleAchievementsList.setLayoutManager(mLayoutManagerAchievement);
-        mAchievementAdapter = new HorizontalListVAdapter(getActivity(), achievementLists);
+        mAchievementAdapter = new HorizontalListVAdapter(getActivity(), achievementLists,R.drawable.achievement);
         mrecycleAchievementsList.setAdapter(mAchievementAdapter);
 
 
         mLayoutManagerSocial = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mrecycleSocialList.setLayoutManager(mLayoutManagerSocial);
-        mEventAdapter = new HorizontalListVAdapter(getActivity(), requestLists);
+        mEventAdapter = new HorizontalListVAdapter(getActivity(), requestLists,R.drawable.social_strength);
         mrecycleSocialList.setAdapter(mEventAdapter);
 
         if(eventLists.size()>0){
@@ -304,7 +336,7 @@ public class FragmentIndDashboard extends Fragment{
             Device.newInstance(getActivity());
 
             dbAdapter.open();
-            RequestIndDashboard reqIndDash = RequestIndDashboard.get(""+latitude,""+longitude,dbAdapter.getlastSyncdate("IND"));
+            RequestIndDashboard reqIndDash = RequestIndDashboard.get("19.1863001","72.8358083",dbAdapter.getlastSyncdate("IND"));
             dbAdapter.close();
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
@@ -366,9 +398,9 @@ public class FragmentIndDashboard extends Fragment{
 //                            for(int i=0;i<response.body().getData()[0].getOrgreqlist().length;i++) {
 //
 //                                if(!dbAdapter.isRequestExist(response.body().getData()[0].
-//                                        getOrgreqlist()[i].getRequestId()))    {
+//                                        getOrglist()[i].getRequestId()))    {
 //
-//                                    dbAdapter.insertRequest(response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
+//                                    dbAdapter.insertRequest(response.body().getData()[0].getOrglist()[i].getRequestId(),
 //                                            response.body().getData()[0].getOrgreqlist()[i].getTitle(),
 //                                            response.body().getData()[0].getOrgreqlist()[i].getSubTitle(),
 //                                            response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
@@ -404,11 +436,40 @@ public class FragmentIndDashboard extends Fragment{
     }
 
 
+    public void initializeTimer(){
+
+        itemPos = mPager.getCurrentItem();
+
+        if(handler!=null){
+            handler.removeCallbacks(refresh);
+        }
+
+        handler = new Handler();
+
+        refresh = new Runnable() {
+            public void run() {
+                if (mPager.getCurrentItem() < images.size()-1) {
+                    mPager.setCurrentItem(itemPos, true);
+                    itemPos = itemPos + 1;
+                }else{
+                    itemPos = 0;
+                    mPager.setCurrentItem(itemPos, true);
+                }
+                handler.postDelayed(refresh, 4000);
+            }
+        };
+        handler.post(refresh);
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
+
         ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.dash_borad));
+        initializeTimer();
         getPopulated();
+
         if (requestPermission()) {
             if(!isFetched)
                 getRetrofitCall();
