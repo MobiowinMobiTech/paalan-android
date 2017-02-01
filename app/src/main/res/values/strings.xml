@@ -272,9 +272,10 @@
     <string name="register_error">Unable to register. \nPlease try again.</string>
     <string name="register_success">Registered Success</string>
     <string name="address_info">Address Information</string>
-    <string name="basic_info">Basic Information</string>
+    <string name="organisation_info">Organisation Information</string>
     <string name="enter_name">Enter name</string>
     <string name="screent_title">Screen Title</string>
+    <string name="fabric_id">815125c9312f62bd30e41300a5c1738d3d6cb349</string>
 
 
 </resources>

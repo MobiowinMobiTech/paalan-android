@@ -1,5 +1,6 @@
 package com.phyder.paalan.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +11,7 @@ import android.util.Log;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.phyder.paalan.R;
 import com.phyder.paalan.fragments.AddressRegistrationInfo;
-import com.phyder.paalan.fragments.BasicRegistrationInfo;
+import com.phyder.paalan.fragments.OrganisationInformation;
 import com.phyder.paalan.model.OrgAddressInfo;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
@@ -19,7 +20,6 @@ import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +33,7 @@ import retrofit2.Retrofit;
 public class RegisterUser extends AppIntro {
 
     private static final String TAG = RegisterUser.class.getSimpleName();
-    BasicRegistrationInfo basicRegistrationInfo;
+    OrganisationInformation organisationInformation;
     AddressRegistrationInfo addressRegistrationInfo;
     private IndivitualReqRegistration indivitualResRegistration;
     boolean isIndividualFieldsEmpty = true;
@@ -43,7 +43,7 @@ public class RegisterUser extends AppIntro {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        basicRegistrationInfo = new BasicRegistrationInfo();
+        organisationInformation = new OrganisationInformation();
         addressRegistrationInfo = new AddressRegistrationInfo();
     }
 
@@ -51,7 +51,7 @@ public class RegisterUser extends AppIntro {
     public void init(@Nullable Bundle savedInstanceState) {
         super.init(savedInstanceState);
 
-        addSlide(basicRegistrationInfo);
+        addSlide(organisationInformation);
         addSlide(addressRegistrationInfo);
 
         showSkipButton(false);
@@ -66,7 +66,7 @@ public class RegisterUser extends AppIntro {
     @Override
     public void onNextPressed() {
         super.onNextPressed();
-        indivitualResRegistration = basicRegistrationInfo.setIndividualInfo();
+        indivitualResRegistration = organisationInformation.setIndividualInfo();
     }
 
     @Override
@@ -176,7 +176,7 @@ public class RegisterUser extends AppIntro {
                 return false;
             }
 
-            boolean isValidEmailId = basicRegistrationInfo.isValidEmailId(emailId);
+            boolean isValidEmailId = organisationInformation.isValidEmailId(emailId);
 
             Log.d(TAG, "isBasicInfoFilled: valid email "+isValidEmailId);
 
@@ -192,7 +192,7 @@ public class RegisterUser extends AppIntro {
                 return  false;
             }
 
-            boolean isPasswordMatched = basicRegistrationInfo.isValidPassword();
+            boolean isPasswordMatched = organisationInformation.isValidPassword();
 
             Log.d(TAG, "isBasicInfoFilled: valid password "+isPasswordMatched);
 
@@ -246,7 +246,7 @@ public class RegisterUser extends AppIntro {
                         Log.d(TAG, "onResponse: status success");
                         CommanUtils.showAlert(RegisterUser.this,getString(R.string.register_validation_title),
                                 getString(R.string.register_success));
-                        //// TODO: 24/1/17 jump to dashboard
+                        launchDashboard();
 
                     } else if (response.body().getStatus().equals("error")) {
                         String reserrorMsg = response.body().getData()[0].getErrmsg();
@@ -267,6 +267,15 @@ public class RegisterUser extends AppIntro {
                 CommanUtils.showAlert(RegisterUser.this,getString(R.string.register_validation_title),resFailedMsg);
             }
         });
+    }
+
+    /**
+     * Function used to call dashboard
+     */
+    private void launchDashboard() {
+        Intent intent = new Intent(this,ActivityFragmentPlatform.class);
+        startActivity(intent);
+        finish();
     }
 
 }
