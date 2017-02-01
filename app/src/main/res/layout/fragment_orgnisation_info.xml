@@ -12,12 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textStyle="bold"
             android:padding="7dp"
             android:layout_margin="7dp"
             style="@style/NewTaskHeaderText"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="@string/organisation_info"/>
+            android:text="@string/organisation_info"
+            android:textSize="@dimen/dp_25"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

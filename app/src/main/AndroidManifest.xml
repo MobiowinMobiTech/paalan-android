@@ -5,46 +5,43 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!--android:name=".activity.TestOneSignal"-->
-
+    <!-- android:name=".activity.TestOneSignal" -->
     <application
         android:name=".utils.Application"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/paalan_logo"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activity.PaalanSplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:label="@string/app_name"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.WhatsNew"
-            android:theme="@style/AppTheme.NoActionBar"/>
-           />
-
-        <activity android:name=".activity.RegisterUser"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".activity.WhatsNew"
+            android:theme="@style/AppTheme.NoActionBar" />
+        />
+        <activity
+            android:name=".activity.RegisterUser"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ActivityFragmentPlatform"
             android:theme="@style/AppTheme" />
 
-        <!--<activity android:name=".activity.RegisterUserActivity"/>-->
+        <!-- <activity android:name=".activity.RegisterUserActivity"/> -->
         <!-- Firebase Notifications -->
         <service android:name=".services.NotificationRecieverService">
             <intent-filter>
@@ -62,11 +59,9 @@
             </intent-filter>
         </service>
 
-
         <receiver android:name=".services.NotificationReciever">
             <intent-filter>
-                <action android:name="com.phyder.paalan.SendBroadcast" >
-                </action>
+                <action android:name="com.phyder.paalan.SendBroadcast"></action>
             </intent-filter>
         </receiver>
 
@@ -74,7 +69,9 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="@string/fabric_id" />
+            android:value="815125c9312f62bd30e41300a5c1738d3d6cb349" />
+
 
     </application>
+
 </manifest>

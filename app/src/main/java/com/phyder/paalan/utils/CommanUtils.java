@@ -21,14 +21,11 @@ import android.widget.ImageView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.model.WhatsNewScreenModel;
-import com.phyder.paalan.payload.response.ResponseSlidingBanner;
 import com.phyder.paalan.payload.response.organization.ResponseInitialData;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-
-import static android.R.attr.bitmap;
 
 /**
  * Created by cmss on 11/1/17.
@@ -246,4 +243,26 @@ public class CommanUtils {
     }
 
 
+    /**
+     * Function to check if user first time visitor
+     * @param context : current context
+     * @return :
+     */
+    public static boolean isNewUser(Context context) {
+        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
+        return sharedPref.getBoolean("isNewUser",true);
+    }
+
+    /**
+     * Function used to set new user status
+     * whether is 1st time visitor or not
+     * @param context
+     * @param status : 1st time visiting status
+     */
+    public static void setNewUserStatus(Context context, boolean status) {
+        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("isNewUser",true);
+        editor.apply();
+    }
 }

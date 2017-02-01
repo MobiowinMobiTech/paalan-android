@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -116,6 +117,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Log.d("", "onGroupClick: "+groupPosition);
                 if (groupPosition == 0) {
                     if(!PREF.getLoginType().equals("IND")) {
                         getFragmentTransaction(new FragmentMyProfile());
@@ -153,7 +155,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
                 switch (groupPosition) {
                     case 1:
                         switch (childPosition) {

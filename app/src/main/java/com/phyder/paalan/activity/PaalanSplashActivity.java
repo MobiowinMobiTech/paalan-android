@@ -1,8 +1,11 @@
 package com.phyder.paalan.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.phyder.paalan.R;
@@ -52,30 +55,29 @@ public class PaalanSplashActivity extends AppCompatActivity {
 
         getRetrofitCallBannerSlider();
 
-        Thread timer = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    sleep(SPLASH_TIME_OUT);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    Intent intent;
-                    if (isScreensAvailable)
-                        intent = new Intent(com.phyder.paalan.activity.PaalanSplashActivity.this, WhatsNew.class);
-                    else
-                        //todo change landing page
-                        intent = new Intent(com.phyder.paalan.activity.PaalanSplashActivity.this, RegisterUser.class);
-                    startActivity(intent);
-                }
-            }
-        };
-        timer.start();
+//        Thread timer = new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    sleep(SPLASH_TIME_OUT);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    Intent intent;
+//                    if (isScreensAvailable)
+//                        intent = new Intent(PaalanSplashActivity.this, WhatsNew.class);
+//                    else
+//                        //todo change landing page
+//                        intent = new Intent(PaalanSplashActivity.this, ActivityFragmentPlatform.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        };
+//        timer.start();
 
     }
 
     public void getRetrofitCallBannerSlider() {
-
         if (NetworkUtil.isInternetConnected(PaalanSplashActivity.this)) {
             CommanUtils.showDialog(PaalanSplashActivity.this);
             Device.newInstance(PaalanSplashActivity.this);
@@ -96,12 +98,13 @@ public class PaalanSplashActivity extends AppCompatActivity {
 
 
                     ResponseInitialData.Screenlist[] screenlist = response.body().getData()[0].getScreenlist();
+                    Log.d(TAG, "onResponse: "+screenlist.length);
                     if (screenlist.length > 0) {
                         isScreensAvailable = true;
                         CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
                     }
 
-
+                    launchDashboard(!isScreensAvailable);
                 }
 
                 @Override
@@ -109,7 +112,41 @@ public class PaalanSplashActivity extends AppCompatActivity {
                     CommanUtils.hideDialog();
                 }
             });
+        }else {
+            if (CommanUtils.isNewUser(PaalanSplashActivity.this)){
+                showExitAlert();
+            }else{
+                launchDashboard(true);
+            }
         }
+    }
+
+    /**
+     * Function used to exit app
+     */
+    private void showExitAlert() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getString(R.string.connection_error));
+        alert.setMessage(getString(R.string.first_time_user_without_network));
+        alert.setCancelable(false);
+        alert.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        alert.show();
+    }
+
+
+    private void launchDashboard(boolean status) {
+        Intent intent;
+        if (status)
+            intent = new Intent(PaalanSplashActivity.this, ActivityFragmentPlatform.class);
+        else
+            intent = new Intent(PaalanSplashActivity.this, WhatsNew.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

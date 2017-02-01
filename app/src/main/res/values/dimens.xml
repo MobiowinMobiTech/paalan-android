@@ -16,5 +16,6 @@
     <dimen name="card_height">250dip</dimen>
     <dimen name="text_size">18sp</dimen>
     <dimen name="text_size2">16sp</dimen>
+    <dimen name="dp_25">25dp</dimen>
     <dimen name="dp_20">20dp</dimen>
 </resources>

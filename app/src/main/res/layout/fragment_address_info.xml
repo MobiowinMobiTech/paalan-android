@@ -12,11 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textStyle="bold"
             android:padding="7dp"
             android:layout_margin="7dp"
             style="@style/NewTaskHeaderText"
             android:text="@string/address_info"
+            android:textSize="@dimen/dp_25"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
