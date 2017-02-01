@@ -10,35 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1b13961-44b6-4f89-868b-5b943a9c1a1c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/a.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/b.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/c.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cheesy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/d.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/WhatsNew.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/WhatsNew.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/HorizontalListVAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/HorizontalListVAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentDashBorad.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentDashBorad.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/CommanUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/CommanUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/PreferenceUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/PreferenceUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ind_dashboard.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ind_dashboard.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_details_event.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_details_event.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="android-paalan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,8 +68,8 @@
                 <element signature="e#16561#16562#0" expanded="true" />
                 <element signature="e#18566#18567#0" expanded="true" />
                 <element signature="e#18598#18599#0" expanded="true" />
-                <marker date="1485954035400" expanded="false" signature="3352:3383" ph="&quot;Open navigation drawer&quot;" />
-                <marker date="1485954035400" expanded="false" signature="3385:3417" ph="&quot;Close navigation drawer&quot;" />
+                <marker date="1485954616740" expanded="false" signature="3352:3383" ph="&quot;Open navigation drawer&quot;" />
+                <marker date="1485954616740" expanded="false" signature="3385:3417" ph="&quot;Close navigation drawer&quot;" />
               </folding>
             </state>
           </provider>
@@ -116,8 +88,8 @@
       <file leaf-file-name="NetworkUtil.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="60" column="43" selection-start-line="60" selection-start-column="43" selection-end-line="60" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -3010,7 +2982,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="-3" width="1317" height="771" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -3030,7 +3002,7 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5443038" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5443038" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24941176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -3380,11 +3352,11 @@
           <caret line="205" column="64" selection-start-line="205" selection-start-column="64" selection-end-line="205" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1485953889284" expanded="true" signature="6582:6626" ph="&quot;You loggedIn successfully&quot;" />
-            <marker date="1485953889284" expanded="true" signature="8389:8440" ph="&quot;Something went wrong&quot;" />
-            <marker date="1485953889284" expanded="true" signature="8672:8719" ph="&quot;Server not responding&quot;" />
-            <marker date="1485953889284" expanded="true" signature="9084:9132" ph="&quot;Time out, please try again&quot;" />
-            <marker date="1485953889284" expanded="true" signature="9290:9339" ph="&quot;Enable your internet connection&quot;" />
+            <marker date="1485954616740" expanded="true" signature="6582:6626" ph="&quot;You loggedIn successfully&quot;" />
+            <marker date="1485954616740" expanded="true" signature="8389:8440" ph="&quot;Something went wrong&quot;" />
+            <marker date="1485954616740" expanded="true" signature="8672:8719" ph="&quot;Server not responding&quot;" />
+            <marker date="1485954616740" expanded="true" signature="9084:9132" ph="&quot;Time out, please try again&quot;" />
+            <marker date="1485954616740" expanded="true" signature="9290:9339" ph="&quot;Enable your internet connection&quot;" />
           </folding>
         </state>
       </provider>
@@ -3572,8 +3544,8 @@
             <element signature="e#16561#16562#0" expanded="true" />
             <element signature="e#18566#18567#0" expanded="true" />
             <element signature="e#18598#18599#0" expanded="true" />
-            <marker date="1485954035400" expanded="false" signature="3352:3383" ph="&quot;Open navigation drawer&quot;" />
-            <marker date="1485954035400" expanded="false" signature="3385:3417" ph="&quot;Close navigation drawer&quot;" />
+            <marker date="1485954616740" expanded="false" signature="3352:3383" ph="&quot;Open navigation drawer&quot;" />
+            <marker date="1485954616740" expanded="false" signature="3385:3417" ph="&quot;Close navigation drawer&quot;" />
           </folding>
         </state>
       </provider>
@@ -3588,8 +3560,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="60" column="43" selection-start-line="60" selection-start-column="43" selection-end-line="60" selection-end-column="43" />
           <folding />
         </state>
       </provider>
