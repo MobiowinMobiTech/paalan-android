@@ -252,7 +252,7 @@
     <string name="date_with_paalan">Date with Paalan</string>
     <string name="dataNotFound">Data not found</string>
 
-    <string name="notification_message" >Notification From Paalan</string>
+    <string name="notification_message">Notification From Paalan</string>
     <string name="fields_cannot_be_empty">Fields can not be Empty.</string>
     <string name="enter_confirm_password">Confirm password</string>
     <string name="user_credential">Credentials</string>
@@ -276,6 +276,8 @@
     <string name="enter_name">Enter name</string>
     <string name="screent_title">Screen Title</string>
     <string name="fabric_id">815125c9312f62bd30e41300a5c1738d3d6cb349</string>
-
+    <string name="first_time_user_without_network">There is no network connection. Please connect to the network to use Paalan.</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
 </resources>

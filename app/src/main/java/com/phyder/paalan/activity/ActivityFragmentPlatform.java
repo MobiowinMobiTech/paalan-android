@@ -115,6 +115,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Log.d("", "onGroupClick: "+groupPosition);
                 if (groupPosition == 0) {
 
                     fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
@@ -167,7 +168,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
                 switch (groupPosition) {
                     case 1:
                         switch (childPosition) {

@@ -34,7 +34,7 @@ public class OrganisationInformation extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_basic_info,null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_orgnisation_info,null);
         view.setBackgroundColor(Color.parseColor("#FFFFFF"));
         edtName = (EditText)view.findViewById(R.id.edtName);
         edtEmail = (EditText)view.findViewById(R.id.edtEmail);
