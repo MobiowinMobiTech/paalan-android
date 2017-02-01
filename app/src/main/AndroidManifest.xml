@@ -78,8 +78,8 @@
 
 
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="@string/fabric_id" />
+        <!--<meta-data-->
+            <!--android:name="io.fabric.ApiKey"-->
+            <!--android:value="@string/fabric_id" />-->
     </application>
 </manifest>
