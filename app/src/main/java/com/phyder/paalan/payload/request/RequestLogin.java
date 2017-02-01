@@ -19,12 +19,11 @@ public class RequestLogin {
     private String action;
 
 
-    public static RequestLogin get(String imeino, String userId, String password, String loginType) {
+    public static RequestLogin get(String imeino, String userId, String password) {
 
         Log.e("TAG","imeino : "+imeino);
         Log.e("TAG","userId : "+userId);
         Log.e("TAG","password : "+password);
-        Log.e("TAG","loginType : "+loginType);
         Data data = new Data();
         data.setImeino(imeino);
         data.setUserid(userId);
@@ -33,8 +32,8 @@ public class RequestLogin {
         RequestLogin reqLogin = new RequestLogin();
         reqLogin.setData(data);
         reqLogin.setAction(Social.SUBMIT_ACTION);
-        reqLogin.setType(Social.ORG_LOGIN_TYPE);
-        reqLogin.setEntity(loginType);
+        reqLogin.setType(Social.LOGIN_TYPE);
+        reqLogin.setEntity(Social.ORG_ENTITY);
         return reqLogin;
     }
 

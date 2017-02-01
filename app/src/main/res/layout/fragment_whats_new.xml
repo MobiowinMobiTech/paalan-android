@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/txtScreenTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="@string/screent_title"
+        android:textSize="@dimen/dp_20"
+        android:padding="7dp"
+        android:layout_margin="7dp"
+        android:layout_weight="1"/>
+
+
+    <ImageView
+        android:id="@+id/imageScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/paalan_logo"
+        android:layout_gravity="center_horizontal"
+        android:padding="7dp"
+        android:layout_margin="7dp"
+        android:layout_weight="5"/>
+
+    <TextView
+        android:id="@+id/txtScreenDescription"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/dataNotFound"
+        android:textSize="@dimen/dp_20"
+        android:padding="7dp"
+        android:layout_margin="7dp"
+        android:layout_weight="4"/>
+
+
+</LinearLayout>

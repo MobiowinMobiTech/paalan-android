@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
-import com.phyder.paalan.activity.LoginActivity;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;

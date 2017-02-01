@@ -46,6 +46,7 @@ public class Attributes {
                 + REQUEST_LOCATION + " text not null, " + REQUEST_IS_DELETED + " text not null);";
 
 
+
         public static final String EVENT_TABLE_NAME = "event_table";
         public static final String EVENT_ID = "event_id";
         public static final String EVENT_TITLE = "event_title";
@@ -55,6 +56,7 @@ public class Attributes {
         public static final String EVENT_CATEGORY = "event_category";
         public static final String EVENT_START_DATE = "event_start_date";
         public static final String EVENT_END_DATE = "event_end_date";
+        public static final String EVENT_LOCATION = "event_location";
         public static final String EVENT_IS_DELETED = "event_is_deleted";
 
         public static final String CREATE_EVENT_QUERY = "create table " + EVENT_TABLE_NAME +
@@ -62,7 +64,8 @@ public class Attributes {
                 + EVENT_TITLE + " text not null, " + EVENT_SUB_TITLE + " text not null, "
                 + EVENT_DESCRIPTION + " text not null, " + EVENT_OTHERS + " text not null, "
                 + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, "
-                + EVENT_CATEGORY + " text not null, "+ EVENT_IS_DELETED + " text not null);";
+                + EVENT_CATEGORY + " text not null, " + EVENT_LOCATION + " text not null, "
+                + EVENT_IS_DELETED + " text not null);";
 
 
         public static final String PROFILE_TABLE_NAME = "profile_table";
@@ -91,11 +94,13 @@ public class Attributes {
         public static final String ACHIEVEMENT_TIMESPAN = "achievement_timespan";
         public static final String EVENT_TIMESPAN = "event_timespan";
         public static final String REQUEST_TIMESPAN = "request_timespan";
+        public static final String IND_DASH_TIMESPAN = "ind_dash_timespan";
 
 
         public static final String CREATE_MASTER_QUERY = "create table " + MASTER_TABLE +
                 " (_id integer primary key autoincrement, " + ACHIEVEMENT_TIMESPAN + " text not null, "
-                + EVENT_TIMESPAN + " text not null, " + REQUEST_TIMESPAN + " text not null);";
+                + EVENT_TIMESPAN + " text not null, "+ REQUEST_TIMESPAN + " text not null, "
+                + IND_DASH_TIMESPAN + " text not null);";
     }
 
 

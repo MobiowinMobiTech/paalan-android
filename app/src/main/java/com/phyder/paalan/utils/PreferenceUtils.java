@@ -48,7 +48,7 @@ public class PreferenceUtils {
     }
 
     public String getLoginType() {
-        return preferences.getString("LOGIN_TYPE", null);
+        return preferences.getString("LOGIN_TYPE", "IND");
     }
 
     public void setUserName(String name) {
@@ -59,5 +59,15 @@ public class PreferenceUtils {
 
     public String getUserName() {
         return preferences.getString("USER_NAME", null);
+    }
+
+    public void setLocation(String location) {
+        Editor editor = preferences.edit();
+        editor.putString("LOCATION", location);
+        editor.commit();
+    }
+
+    public String getLocation() {
+        return preferences.getString("LOCATION", null);
     }
 }

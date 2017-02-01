@@ -1,6 +1,8 @@
 package com.phyder.paalan.services;
 
+import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.request.RequestLogin;
+import com.phyder.paalan.payload.request.RequestSlidingBanner;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.payload.request.individual.IndivitualReqUpdateProfile;
@@ -18,7 +20,10 @@ import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqPublishEven;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
+import com.phyder.paalan.payload.request.organization.RequestInitialData;
+import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.payload.response.ResponseLogin;
+import com.phyder.paalan.payload.response.ResponseSlidingBanner;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
@@ -36,6 +41,7 @@ import com.phyder.paalan.payload.response.organization.OrgResUpdateEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.payload.response.organization.OrganizationResPublishEvent;
 import com.phyder.paalan.payload.response.organization.OrganizationResRegistration;
+import com.phyder.paalan.payload.response.organization.ResponseInitialData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -105,4 +111,10 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<OrgResSyncRequest> orgSyncRequest(@Body OrgReqSyncRequest orgReqRequest);
+
+    @POST("paalan/PaalanGateway")
+    Call<ResponseInitialData> appSyncBanner(@Body RequestInitialData slidingBanner);
+
+    @POST("paalan/PaalanGateway")
+    Call<ResponseIndDashboard> appIndDashborad(@Body RequestIndDashboard reqIndDash);
 }

@@ -20,9 +20,9 @@ android {
     }
     defaultConfig {
         multiDexEnabled true
-        manifestPlaceholders = [onesignal_app_id               : "a4b23c45-801e-4f2e-bc40-3b3b2b16f568",
-                                // Project number pulled from dashboard, local value is ignored.
-                                onesignal_google_project_number: "165334093563"]
+//        manifestPlaceholders = [onesignal_app_id               : "a4b23c45-801e-4f2e-bc40-3b3b2b16f568",
+//                                // Project number pulled from dashboard, local value is ignored.
+//                                onesignal_google_project_number: "165334093563"]
     }
 }
 
@@ -45,7 +45,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-
+    compile 'com.github.paolorotolo:appintro:4.1.0'
     compile 'com.google.firebase:firebase-messaging:9.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
 

@@ -158,7 +158,7 @@ public class FragmentViewEvent extends Fragment {
                                             response.body().getData()[0].getEventlist()[i].getOthers(),
                                             response.body().getData()[0].getEventlist()[i].getStartDt(),
                                             response.body().getData()[0].getEventlist()[i].getEndDt(),
-                                            response.body().getData()[0].getEventlist()[i].getDeleteFlag(),"");
+                                            response.body().getData()[0].getEventlist()[i].getDeleteFlag(),"","");
                                 }
                             }
                             dbAdapter.updateEventTimeSpan(response.body().getData()[0].getLastsyncdate());

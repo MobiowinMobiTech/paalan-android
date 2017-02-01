@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!--android:name=".activity.TestOneSignal"-->
 
@@ -31,16 +33,46 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.LoginActivity"
-            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.WhatsNew"
+            android:theme="@style/AppTheme.NoActionBar"/>
+           />
 
-        <activity
-            android:name=".activity.RegistrationActivity"
-            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.RegisterUser"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".activity.ActivityFragmentPlatform"
             android:theme="@style/AppTheme" />
-</application>
+
+        <!--<activity android:name=".activity.RegisterUserActivity"/>-->
+        <!-- Firebase Notifications -->
+        <service android:name=".services.NotificationRecieverService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name=".NotificationRecieverService" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.FCMTokenGeneratorService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <receiver android:name=".services.NotificationReciever">
+            <intent-filter>
+                <action android:name="com.phyder.paalan.SendBroadcast" >
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <!-- ./Firebase Notifications -->
+
+
+
+    </application>
 </manifest>

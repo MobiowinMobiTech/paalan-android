@@ -125,7 +125,7 @@ public class DBAdapter {
 
 	public long insertEvent(String event_id, String event_title, String event_sub_title, String event_desc,
 							String event_others, String event_startdate, String event_enddate,
-							String event_is_Deleted,String event_category) {
+							String event_is_Deleted,String event_category,String location) {
 		ContentValues cv = new ContentValues();
 		try {
 			cv.put(Attributes.Database.EVENT_ID, event_id);
@@ -136,6 +136,7 @@ public class DBAdapter {
 			cv.put(Attributes.Database.EVENT_START_DATE, (event_startdate != null ? event_startdate : ""));
 			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate != null ? event_enddate : ""));
 			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : ""));
+			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : ""));
 			cv.put(Attributes.Database.EVENT_IS_DELETED, event_is_Deleted);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -146,7 +147,8 @@ public class DBAdapter {
 
 
 	public long updateEvent(String event_id, String event_title, String event_sub_title, String event_desc,
-							String event_others, String event_startdate, String event_enddate,String event_category) {
+							String event_others, String event_startdate, String event_enddate,String event_category,
+							String location) {
 		ContentValues cv = new ContentValues();
 		try {
 			cv.put(Attributes.Database.EVENT_ID, event_id);
@@ -157,6 +159,7 @@ public class DBAdapter {
 			cv.put(Attributes.Database.EVENT_START_DATE, event_startdate);
 			cv.put(Attributes.Database.EVENT_END_DATE, event_enddate);
 			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : ""));
+			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : ""));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -211,13 +214,15 @@ public class DBAdapter {
 		return sqLiteDatabase.rawQuery("Select * from "+Attributes.MasterDatabase.MASTER_TABLE, null);
 	}
 
-	public long insertTimeSpan(String achieve_time_span,String event_time_span, String request_time_span)
+	public long insertTimeSpan(String achieve_time_span,String event_time_span, String request_time_span,
+							   String ind_time_span)
 	{
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.MasterDatabase.ACHIEVEMENT_TIMESPAN, achieve_time_span);
 			cv.put(Attributes.MasterDatabase.EVENT_TIMESPAN,event_time_span);
 			cv.put(Attributes.MasterDatabase.REQUEST_TIMESPAN, request_time_span);
+			cv.put(Attributes.MasterDatabase.IND_DASH_TIMESPAN, ind_time_span);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -256,6 +261,18 @@ public class DBAdapter {
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.MasterDatabase.REQUEST_TIMESPAN, timespan);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.update(Attributes.MasterDatabase.MASTER_TABLE,cv,null,null);
+	}
+
+	public long updateIndDashTimeSpan(String timespan)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.MasterDatabase.IND_DASH_TIMESPAN, timespan);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -407,6 +424,8 @@ public class DBAdapter {
 					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.EVENT_TIMESPAN));
 				}else if(status.equals("Request")){
 					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.REQUEST_TIMESPAN));
+				}else if(status.equals("IND")){
+					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.IND_DASH_TIMESPAN));
 				}
 			}while (cursor.moveToNext());
 		}

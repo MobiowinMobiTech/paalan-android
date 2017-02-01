@@ -221,13 +221,13 @@ public class FragmentCreateEvent extends Fragment {
 
                             if (shouldBeUpdated) {
                                 dbAdapter.updateEvent(eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate, strEndDate,
-                                        strCategory);
+                                        strCategory,"mumbai");
                                 getActivity().getSupportFragmentManager().popBackStack();
                                 Toast.makeText(getActivity(), getResources().getString(R.string.event_updated), Toast.LENGTH_LONG)
                                         .show();
                             } else {
                                 dbAdapter.insertEvent(response.body().getData()[0].getEventid(), strTitle, strSubtitle, strDescription, strOther,
-                                        strStartDate, strEndDate, "F",strCategory);
+                                        strStartDate, strEndDate, "F",strCategory,"mumbai");
                                 Toast.makeText(getActivity(), getResources().getString(R.string.event_created), Toast.LENGTH_LONG)
                                         .show();
                             }

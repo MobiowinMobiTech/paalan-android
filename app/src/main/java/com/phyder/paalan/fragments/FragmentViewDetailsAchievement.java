@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
-import com.phyder.paalan.activity.LoginActivity;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.helper.PaalanGetterSetter;

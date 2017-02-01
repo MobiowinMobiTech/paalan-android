@@ -5,8 +5,8 @@ package com.phyder.paalan.social;
 public class Social {
 
     public static final String ORG_ENTITY = "org";
-    public static final String IND_PROFILE_ENTITY = "individual";
-    public static final String ORG_LOGIN_TYPE = "login";
+    public static final String IND_ENTITY = "individual";
+    public static final String LOGIN_TYPE = "login";
     public static final String PROFILE_TYPE = "profile";
     public static final String ACHIEVEMENT_TYPE = "achievement";
     public static final String REQUEST_TYPE = "request";
@@ -21,5 +21,10 @@ public class Social {
     public static final String ACTION_SYNC_TYPE = "sync";
     public static final String ORG_REQ_TYPE = "registration";
     public static final String EVENT_TYPE = "event";
+    public static final String ENTITY_APP = "app";
+    public static final String APP_INIT_TYPE = "init";
+    public static final String IND_REGISTRATION_ENTITY = "individual";
+    public static final String REGISTRATION_TYPE = "registration";
+
 
 }

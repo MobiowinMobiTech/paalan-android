@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.social.DashBoardModel;
 import com.phyder.paalan.utils.ItemClickListener;
 import com.phyder.paalan.utils.RoundedImageView;
 
@@ -18,13 +17,13 @@ import java.util.ArrayList;
 
 public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListVAdapter.ViewHolder> {
 
-    ArrayList<DashBoardModel> dashBoardModel;
+    ArrayList<String> titlesItems;
     Context context;
 
-    public HorizontalListVAdapter(Context context, ArrayList<DashBoardModel> dashBoardModels) {
+    public HorizontalListVAdapter(Context context, ArrayList<String> titlesItems) {
         super();
         this.context = context;
-        this.dashBoardModel = dashBoardModels;
+        this.titlesItems = titlesItems;
     }
 
     @Override
@@ -37,24 +36,20 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.tvSpecies.setText(dashBoardModel.get(i).getEvenName());
-        viewHolder.imgThumbnail.setImageResource(dashBoardModel.get(i).getEventIcons());
+        viewHolder.tvSpecies.setText(titlesItems.get(i));
+        viewHolder.imgThumbnail.setImageResource(R.drawable.cheesy);
 
         viewHolder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                if (isLongClick) {
-                    Toast.makeText(context, "#" + position + " - " + dashBoardModel.get(position) + " (Long click)", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "#" + position + " - " + dashBoardModel.get(position), Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return dashBoardModel.size();
+        return titlesItems.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

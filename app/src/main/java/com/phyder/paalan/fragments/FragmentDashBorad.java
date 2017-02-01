@@ -66,7 +66,7 @@ public class FragmentDashBorad extends Fragment {
 
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         mCircleIndicator = (CircleIndicator) view.findViewById(R.id.indicator);
-        mPager.setAdapter(new SlidingImageAdapter(getActivity(),dashboardSlideShowIcons));
+       // mPager.setAdapter(new SlidingImageAdapter(getActivity(),dashboardSlideShowIcons));
         mCircleIndicator.setViewPager(mPager);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);

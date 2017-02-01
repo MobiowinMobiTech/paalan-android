@@ -112,6 +112,7 @@
     <string name="error_empty_regNo">Registration no can not be empty</string>
     <string name="error_empty_presence">Presence area can not be empty</string>
     <string name="error_internet">Enable your internet connection</string>
+    <string name="error_location">Failed to fetch location,please turn on wifi also</string>
 
     <!--drawer menu array-->
     <string-array name="drawer_array">
@@ -123,6 +124,21 @@
         <item>Contact Us</item>
         <item>Sign Out</item>
     </string-array>
+
+
+    <!--drawer menu array for individual-->
+    <string-array name="ind_drawer_array">
+        <item>Events</item>
+        <item>Social Request</item>
+        <item>Groups</item>
+        <item>Achievements</item>
+        <item>Donate</item>
+        <item>Date with Paalan</item>
+        <item>Login with Paalan</item>
+        <item>About Us</item>
+        <item>Contact Us</item>
+    </string-array>
+
 
     <!--dashboard array-->
     <string-array name="dashboard_content_array">
@@ -159,6 +175,12 @@
     <string-array name="request_array">
         <item>Create Social Request</item>
         <item>View Social Request</item>
+    </string-array>
+
+    <!--event menu array-->
+    <string-array name="login_array">
+        <item>Login</item>
+        <item>Registration</item>
     </string-array>
 
     <string name="acheivements">Acheivements</string>
@@ -212,6 +234,7 @@
 
     <!--Request String -->
     <string name="event">Publish Event</string>
+    <string name="more">More</string>
 
     <string name="oops">Oops!</string>
     <string name="no_data">No Data Availables</string>
@@ -220,5 +243,33 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="eventdate">EventDate</string>
+
+    <string name="donate">Donate</string>
+    <string name="date_with_paalan">Date with Paalan</string>
+    <string name="dataNotFound">Data not found</string>
+
+    <string name="notification_message" >Notification From Paalan</string>
+    <string name="fields_cannot_be_empty">Fields can not be Empty.</string>
+    <string name="enter_confirm_password">Confirm password</string>
+    <string name="user_credential">Credentials</string>
+    <string name="user_address">Address</string>
+    <string name="email_validation_id">Email</string>
+    <string name="email_validation_mesasage">Please enter valid email address.</string>
+    <string name="password_validation_id">Password</string>
+    <string name="password_validation_mesasage">Password not matched!</string>
+    <string name="register_validation_title">Register</string>
+    <string name="mobile_validation_mesasage">Mobile no should be 10 digits</string>
+    <string name="addess_cannot_be_empty">Please enter address</string>
+    <string name="city_cannot_be_empty">Please enter city</string>
+    <string name="state_cannot_be_empty">Please enter state</string>
+    <string name="country_cannot_be_empty">Please enter country</string>
+    <string name="pincode_cannot_be_empty">Please enter pincode</string>
+    <string name="network_connectivity">No network connection found. \n Please enable network connections.</string>
+    <string name="register_error">Unable to register. \nPlease try again.</string>
+    <string name="register_success">Registered Success</string>
+    <string name="address_info">Address Information</string>
+    <string name="basic_info">Basic Information</string>
+    <string name="enter_name">Enter name</string>
+    <string name="screent_title">Screen Title</string>
 
 </resources>

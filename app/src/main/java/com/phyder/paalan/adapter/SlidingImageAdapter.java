@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.utils.CommanUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dharmedra Gupta
@@ -18,13 +20,12 @@ import java.util.ArrayList;
  */
 public class SlidingImageAdapter extends PagerAdapter {
 
-
-    private Integer[] IMAGES;
+    private List<String> IMAGES;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public SlidingImageAdapter(Context context, Integer[] IMAGES) {
+    public SlidingImageAdapter(Context context, List<String> IMAGES) {
         this.context = context;
         this.IMAGES = IMAGES;
         inflater = LayoutInflater.from(context);
@@ -37,7 +38,7 @@ public class SlidingImageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return IMAGES.length;
+        return IMAGES.size();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class SlidingImageAdapter extends PagerAdapter {
                 .findViewById(R.id.image);
 
 
-        imageView.setImageResource(IMAGES[position]);
+        CommanUtils.updateImage(context, imageView, IMAGES.get(position));
         view.addView(imageLayout, 0);
         return imageLayout;
     }

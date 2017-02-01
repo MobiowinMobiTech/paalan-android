@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,7 +26,6 @@ import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentContactUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
-import com.phyder.paalan.fragments.FragmentCreateEvent;
 import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
@@ -102,10 +102,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (PREF.getLoginType().equals("org")) {
-            transaction.replace(R.id.platform, new FragmentDashBorad());
-        } else {
+        if (PREF.getLoginType().equals("IND")) {
             transaction.replace(R.id.platform, new FragmentIndDashboard());
+        } else {
+            transaction.replace(R.id.platform, new FragmentDashBorad());
         }
 
         transaction.addToBackStack(null);
@@ -117,23 +117,31 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 if (groupPosition == 0) {
-                    getFragmentTransaction(new FragmentMyProfile());
-                    mDrawerLayout.closeDrawer(mDrawerList);
+                    if(!PREF.getLoginType().equals("IND")) {
+                        getFragmentTransaction(new FragmentMyProfile());
+                        mDrawerLayout.closeDrawer(mDrawerList);
+                    }
                 }else if(groupPosition == 4){
-                    getFragmentTransaction(new FragmentAboutUs());
-                    mDrawerLayout.closeDrawer(mDrawerList);
+                    if(!PREF.getLoginType().equals("IND")) {
+                        getFragmentTransaction(new FragmentAboutUs());
+                        mDrawerLayout.closeDrawer(mDrawerList);
+                    }
                 }else if(groupPosition == 5){
-                    getFragmentTransaction(new FragmentContactUs());
-                    mDrawerLayout.closeDrawer(mDrawerList);
+                    if(!PREF.getLoginType().equals("IND")) {
+                        getFragmentTransaction(new FragmentContactUs());
+                        mDrawerLayout.closeDrawer(mDrawerList);
+                    }
                 }else if(groupPosition == 6){
-                    PREF.setLogin(false);
-                    PREF.setLoginType(null);
-                    DB_ADAPTER.open();
-                    DB_ADAPTER.deleteProfile();
-                    DB_ADAPTER.close();
-                    finish();
-                    mDrawerLayout.closeDrawer(mDrawerList);
-                    startActivity(new Intent(ActivityFragmentPlatform.this, LoginActivity.class));
+                    if(!PREF.getLoginType().equals("IND")) {
+                        PREF.setLogin(false);
+                        PREF.setLoginType("IND");
+                        DB_ADAPTER.open();
+                        DB_ADAPTER.deleteProfile();
+                        DB_ADAPTER.close();
+                        finish();
+                        mDrawerLayout.closeDrawer(mDrawerList);
+                    }
+
                 }
 
                 return false;
@@ -150,12 +158,16 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 1:
                         switch (childPosition) {
                             case 0:
-                                fragment = new FragmentCreateAchievement();
+                                if(!PREF.getLoginType().equals("IND")) {
+                                    fragment = new FragmentCreateAchievement();
+                                }
                                 expListView.collapseGroup(1);
                                 break;
 
                             case 1:
-                                fragment = new FragmentViewAchievement();
+                                if(!PREF.getLoginType().equals("IND")) {
+                                    fragment = new FragmentViewAchievement();
+                                }
                                 expListView.collapseGroup(1);
                                 break;
 
@@ -165,12 +177,16 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 2:
                         switch (childPosition) {
                             case 0:
-                                fragment = new FragmentCreateEvent();
+                                if(!PREF.getLoginType().equals("IND")) {
+                                    fragment = new FragmentViewAchievement();
+                                }
                                 expListView.collapseGroup(2);
                                 break;
 
                             case 1:
-                                fragment = new FragmentViewEvent();
+                                if(!PREF.getLoginType().equals("IND")) {
+                                    fragment = new FragmentViewEvent();
+                                }
                                 expListView.collapseGroup(2);
                                 break;
 
@@ -180,13 +196,40 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
                     case 3:
                         switch (childPosition) {
                             case 0:
-                                fragment = new FragmentCreateRequest();
+                                if(!PREF.getLoginType().equals("IND")) {
+                                    fragment = new FragmentCreateRequest();
+                                }
                                 expListView.collapseGroup(3);
                                 break;
 
                             case 1:
-                                fragment = new FragmentViewRequest();
+                                if(!PREF.getLoginType().equals("IND")) {
+                                    fragment = new FragmentViewRequest();
+                                }
                                 expListView.collapseGroup(3);
+                                break;
+
+                        }
+                        break;
+
+                    case 6:
+                        switch (childPosition) {
+                            case 0:
+                                if(PREF.getLoginType().equals("IND")) {
+                                   // fragment = new Login();
+                                }
+                                getFragmentTransaction(fragment);
+                                expListView.collapseGroup(6);
+                                break;
+
+                            case 1:
+                                if(PREF.getLoginType().equals("IND")) {
+//                                    fragment = new Login();
+                                }
+//                                getFragmentTransaction(fragment);
+                                Intent intent = new Intent(ActivityFragmentPlatform.this,RegisterUser.class);
+                                startActivity(intent);
+                                expListView.collapseGroup(6);
                                 break;
 
                         }
@@ -194,7 +237,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
                 }
                 mDrawerLayout.closeDrawer(mDrawerList);
-                getFragmentTransaction(fragment);
                 return false;
             }
         });
@@ -214,26 +256,46 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
     private void prepareListData() {
 
-        // Adding child data
-        listDataHeader = getResources().getStringArray(R.array.drawer_array);
-        // Adding child data
-        String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
-        // Adding child data
-        String[] eventItems = getResources().getStringArray(R.array.events_array);
-
-        String[] requestItems = getResources().getStringArray(R.array.request_array);
-
         String emptyArray[] = new String[0];
 
-        listDataChild = new HashMap<String, String[]>();
-        listDataChild.put(listDataHeader[0], emptyArray);
-        listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
-        listDataChild.put(listDataHeader[2], eventItems);
-        listDataChild.put(listDataHeader[3], requestItems);
-        listDataChild.put(listDataHeader[4], emptyArray);
-        listDataChild.put(listDataHeader[5], emptyArray);
-        listDataChild.put(listDataHeader[6], emptyArray);
+        if (PREF.getLoginType().equals("IND")) {
 
+            listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
+            String[] loginItems = getResources().getStringArray(R.array.login_array);
+
+            listDataChild = new HashMap<String, String[]>();
+            listDataChild.put(listDataHeader[0], emptyArray);
+            listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
+            listDataChild.put(listDataHeader[2], emptyArray);
+
+            listDataChild.put(listDataHeader[3], emptyArray);
+            listDataChild.put(listDataHeader[4], emptyArray);
+            listDataChild.put(listDataHeader[5], emptyArray);
+
+            listDataChild.put(listDataHeader[6], loginItems);
+            listDataChild.put(listDataHeader[7], emptyArray);
+            listDataChild.put(listDataHeader[8], emptyArray);
+
+
+        }else {
+            // Adding child data
+            listDataHeader = getResources().getStringArray(R.array.drawer_array);
+            // Adding child data
+            String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
+            // Adding child data
+            String[] eventItems = getResources().getStringArray(R.array.events_array);
+
+            String[] requestItems = getResources().getStringArray(R.array.request_array);
+
+            listDataChild = new HashMap<String, String[]>();
+            listDataChild.put(listDataHeader[0], emptyArray);
+            listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
+            listDataChild.put(listDataHeader[2], eventItems);
+            listDataChild.put(listDataHeader[3], requestItems);
+            listDataChild.put(listDataHeader[4], emptyArray);
+            listDataChild.put(listDataHeader[5], emptyArray);
+            listDataChild.put(listDataHeader[6], emptyArray);
+        }
     }
 
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -335,7 +397,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
         if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
             mDrawerLayout.closeDrawers();
-        } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
+        } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentIndDashboard) {
             finish();
         } else {
             super.onBackPressed();
@@ -381,6 +443,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         if (PREF.getUserName() != null) {
             TXT_USER_NAME.setText(PREF.getUserName());
         }
+    }
+
+    public static void getFinished(FragmentActivity context){
+        context.finish();
     }
 }
 
