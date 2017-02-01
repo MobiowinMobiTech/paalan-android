@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
+import com.phyder.paalan.social.Social;
+
 
 /**
  * Created by cmss on 12/1/17.
@@ -48,7 +50,7 @@ public class PreferenceUtils {
     }
 
     public String getLoginType() {
-        return preferences.getString("LOGIN_TYPE", "IND");
+        return preferences.getString("LOGIN_TYPE", Social.IND_ENTITY);
     }
 
     public void setUserName(String name) {

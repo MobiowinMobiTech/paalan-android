@@ -18,9 +18,11 @@ import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.adapter.SlidingImageAdapter;
 import com.phyder.paalan.helper.CircleIndicator;
 import com.phyder.paalan.model.DashboardModel;
+import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FragmentDashBorad extends Fragment {
@@ -32,13 +34,12 @@ public class FragmentDashBorad extends Fragment {
     private Handler handler = new Handler();
     private Runnable refresh;
     private int itemPos = 0;
+    List<String> images;
 
     private ArrayList<DashboardModel> listitems = new ArrayList<>();
 
     private Integer dashboardIcons[] = {R.drawable.publish_event,R.drawable.achievement,R.drawable.social_strength,
             R.drawable.about_us,R.drawable.contactus};
-    private Integer dashboardSlideShowIcons[] = {R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d};
-
 
 
     @Override
@@ -57,6 +58,7 @@ public class FragmentDashBorad extends Fragment {
 
             MyRecyclerView.setLayoutManager(MyLayoutManager);
 
+        initSlider(view);
         initializeList();
         init(view);
         return view;
@@ -64,13 +66,29 @@ public class FragmentDashBorad extends Fragment {
 
     private void init(View view) {
 
-        mPager = (ViewPager) view.findViewById(R.id.image_pager);
-        mCircleIndicator = (CircleIndicator) view.findViewById(R.id.indicator);
-       // mPager.setAdapter(new SlidingImageAdapter(getActivity(),dashboardSlideShowIcons));
-        mCircleIndicator.setViewPager(mPager);
-
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+    }
+
+    private void initSlider(View view) {
+        mPager = (ViewPager) view.findViewById(R.id.image_pager);
+        mCircleIndicator = (CircleIndicator) view.findViewById(R.id.indicator);
+
+        images = new ArrayList<>();
+        if(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")!=null) {
+            for (int i = 0; i < Integer.parseInt(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")); i++) {
+                String bannerImageURL = CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrl" + i);
+                images.add(bannerImageURL);
+            }
+        }else{
+            for(int i=0;i<4;i++){
+                images.add("Drawables");
+            }
+        }
+
+        mPager.setAdapter(new SlidingImageAdapter(getActivity(), images));
+        mCircleIndicator.setViewPager(mPager);
+
     }
 
     public class ORGDashboardAdapter extends RecyclerView.Adapter<MyViewHolder> {
@@ -200,7 +218,7 @@ public class FragmentDashBorad extends Fragment {
 
     public void initializeTimer(){
 
-        itemPos = 0;
+        itemPos = mPager.getCurrentItem();;
 
         if(handler!=null){
             handler.removeCallbacks(refresh);
@@ -210,7 +228,7 @@ public class FragmentDashBorad extends Fragment {
 
         refresh = new Runnable() {
             public void run() {
-                if (mPager.getCurrentItem() < dashboardSlideShowIcons.length-1) {
+                if (mPager.getCurrentItem() < images.size()-1) {
                     mPager.setCurrentItem(itemPos, true);
                     itemPos = itemPos + 1;
                 }else{

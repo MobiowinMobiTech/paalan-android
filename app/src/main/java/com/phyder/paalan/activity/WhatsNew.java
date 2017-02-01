@@ -76,6 +76,7 @@ public class WhatsNew extends AppIntro {
     private void launchDashboard(){
         //// TODO: 31/1/17
         Intent intent = new Intent(this, ActivityFragmentPlatform.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

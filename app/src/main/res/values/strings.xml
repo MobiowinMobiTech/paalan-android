@@ -219,7 +219,8 @@
     <string name="view_Other">OTHER</string>
     <string name="view_Category">CATEGORY</string>
     <string name="view_Location">LOCATION</string>
-    <string name="view_dates">START DATE / END DATE</string>
+    <string name="view_S_dates">START DATE</string>
+    <string name="view_E_dates">END DATE</string>
 
     <string name="delete">Delete</string>
     <string name="upate">Update</string>
@@ -234,10 +235,13 @@
 
     <!--Request String -->
     <string name="event">Publish Event</string>
-    <string name="more">More</string>
+    <string name="more">See more</string>
 
     <string name="oops">Oops!</string>
     <string name="no_data">No Data Availables</string>
+    <string name="no_events">Events not available</string>
+    <string name="no_achievements">Achievements not available</string>
+    <string name="no_requests">Social Requests not available</string>
     <string name="page_not_found">Page not found</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -272,5 +276,6 @@
     <string name="enter_name">Enter name</string>
     <string name="screent_title">Screen Title</string>
     <string name="fabric_id">815125c9312f62bd30e41300a5c1738d3d6cb349</string>
+
 
 </resources>

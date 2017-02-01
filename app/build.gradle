@@ -66,8 +66,6 @@ dependencies {
 
 
     testCompile 'junit:junit:4.12'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
-        transitive = true;
-    }
+
 }
 apply plugin: 'com.google.gms.google-services'

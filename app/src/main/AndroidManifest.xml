@@ -34,11 +34,14 @@
         </activity>
 
         <activity android:name=".activity.WhatsNew"
-            android:theme="@style/AppTheme.NoActionBar"/>
-           />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity android:name=".activity.RegisterUser"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+
+        <activity android:name=".activity.Login"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity
             android:name=".activity.ActivityFragmentPlatform"
@@ -77,5 +80,8 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="815125c9312f62bd30e41300a5c1738d3d6cb349" />
+        <!--<meta-data-->
+            <!--android:name="io.fabric.ApiKey"-->
+            <!--android:value="@string/fabric_id" />-->
     </application>
 </manifest>

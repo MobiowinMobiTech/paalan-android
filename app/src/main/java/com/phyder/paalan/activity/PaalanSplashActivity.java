@@ -62,8 +62,9 @@ public class PaalanSplashActivity extends AppCompatActivity {
                         intent = new Intent(com.phyder.paalan.activity.PaalanSplashActivity.this, WhatsNew.class);
                     else
                         //todo change landing page
-                        intent = new Intent(com.phyder.paalan.activity.PaalanSplashActivity.this, RegisterUser.class);
-                    startActivity(intent);
+                        intent = new Intent(com.phyder.paalan.activity.PaalanSplashActivity.this, ActivityFragmentPlatform.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                 }
             }
         };
@@ -97,7 +98,6 @@ public class PaalanSplashActivity extends AppCompatActivity {
                         isScreensAvailable = true;
                         CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
                     }
-
 
                 }
 
