@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.phyder.paalan.fragments.WhatsNewSlide;
@@ -29,6 +28,8 @@ public class WhatsNew extends AppIntro {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CommanUtils.setNewUserStatus(this,true);
 
         getScreensList();
 
@@ -74,7 +75,6 @@ public class WhatsNew extends AppIntro {
      * To launch dashboard
      */
     private void launchDashboard(){
-        //// TODO: 31/1/17
         Intent intent = new Intent(this, ActivityFragmentPlatform.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -84,7 +84,6 @@ public class WhatsNew extends AppIntro {
     @Override
     public void onSkipPressed() {
         launchDashboard();
-        Toast.makeText(getApplicationContext(), "Skip", Toast.LENGTH_SHORT).show();
     }
 
     @Override

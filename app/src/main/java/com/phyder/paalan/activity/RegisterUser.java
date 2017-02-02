@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.phyder.paalan.R;
-import com.phyder.paalan.fragments.AddressRegistrationInfo;
+import com.phyder.paalan.fragments.AddressInformation;
 import com.phyder.paalan.fragments.OrganisationInformation;
 import com.phyder.paalan.model.OrgAddressInfo;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
@@ -34,7 +34,7 @@ public class RegisterUser extends AppIntro {
 
     private static final String TAG = RegisterUser.class.getSimpleName();
     OrganisationInformation organisationInformation;
-    AddressRegistrationInfo addressRegistrationInfo;
+    AddressInformation addressInformation;
     private IndivitualReqRegistration indivitualResRegistration;
     boolean isIndividualFieldsEmpty = true;
     private OrgAddressInfo orgAddressInfo;
@@ -44,7 +44,7 @@ public class RegisterUser extends AppIntro {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         organisationInformation = new OrganisationInformation();
-        addressRegistrationInfo = new AddressRegistrationInfo();
+        addressInformation = new AddressInformation();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class RegisterUser extends AppIntro {
         super.init(savedInstanceState);
 
         addSlide(organisationInformation);
-        addSlide(addressRegistrationInfo);
+        addSlide(addressInformation);
 
         showSkipButton(false);
         setDoneText("Register");
@@ -72,7 +72,7 @@ public class RegisterUser extends AppIntro {
     @Override
     public void onDonePressed() {
         super.onDonePressed();
-        orgAddressInfo = addressRegistrationInfo.setOrganisationInfo();
+        orgAddressInfo = addressInformation.setOrganisationInfo();
         registerUser();
     }
 
