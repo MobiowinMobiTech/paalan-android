@@ -1,35 +1,42 @@
 package com.phyder.paalan.adapter;
 
-import android.content.Context;
-import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.utils.ItemClickListener;
+import com.phyder.paalan.fragments.FragmentViewDetailsAchievement;
+import com.phyder.paalan.fragments.FragmentViewDetailsEvent;
+import com.phyder.paalan.fragments.FragmentViewDetailsRequest;
+import com.phyder.paalan.helper.PaalanGetterSetter;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.ArrayList;
 
 public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListVAdapter.ViewHolder> {
 
-    ArrayList<String> titlesItems;
-    int image;
-    Context context;
+    private ArrayList<String> titlesItems,idsItems;
+    private int image;
+    private FragmentActivity context;
+    private String redirectPosition;
 
-    public HorizontalListVAdapter(Context context, ArrayList<String> titlesItems,int image) {
+    public HorizontalListVAdapter(FragmentActivity context, ArrayList<String> titlesItems,
+                                  ArrayList<String> idsItems,int image,String redirectPosition) {
         super();
         this.context = context;
         this.titlesItems = titlesItems;
+        this.idsItems = idsItems;
         this.image=image;
-    }
+        this.redirectPosition = redirectPosition;
+   }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int position) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.grid_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
@@ -37,14 +44,14 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         viewHolder.tvSpecies.setText(titlesItems.get(i));
         viewHolder.imgThumbnail.setImageResource(image);
 
-        viewHolder.setClickListener(new ItemClickListener() {
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-
+            public void onClick(View v) {
+                getNavigate(redirectPosition,i);
             }
         });
     }
@@ -54,38 +61,44 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
         return titlesItems.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public RoundedImageView imgThumbnail;
         public TextView tvSpecies;
-        private ItemClickListener clickListener;
+        public CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imgThumbnail = (RoundedImageView) itemView.findViewById(R.id.img_thumbnail);
             tvSpecies = (TextView) itemView.findViewById(R.id.tv_species);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
-
-        public void setClickListener(ItemClickListener itemClickListener) {
-            this.clickListener = itemClickListener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            clickListener.onClick(view, getPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            clickListener.onClick(view, getPosition(), true);
-            return true;
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
 
     }
 
+    private void getNavigate(String redirectPage,int pos){
 
+        switch (redirectPage){
 
+            case Social.NAVIGATE_TO_EVENT:
+                PaalanGetterSetter.setEventID(idsItems.get(pos));
+                context.getSupportFragmentManager().beginTransaction().
+                        replace(R.id.platform, new FragmentViewDetailsEvent()).addToBackStack(null).commit();
+                break;
+
+            case Social.NAVIGATE_TO_ACHIEVEMENT:
+                PaalanGetterSetter.setAchivementID(idsItems.get(pos));
+                context.getSupportFragmentManager().beginTransaction().
+                        replace(R.id.platform, new FragmentViewDetailsAchievement()).addToBackStack(null).commit();
+                break;
+
+            case Social.NAVIGATE_TO_SOCIAL:
+                PaalanGetterSetter.setRequestID(idsItems.get(pos));
+                context.getSupportFragmentManager().beginTransaction().
+                        replace(R.id.platform, new FragmentViewDetailsRequest()).addToBackStack(null).commit();
+                break;
+
+        }
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.phyder.paalan.fragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
@@ -11,7 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
+import com.phyder.paalan.activity.RegisterUser;
 import com.phyder.paalan.adapter.HorizontalListVAdapter;
 import com.phyder.paalan.adapter.SlidingImageAdapter;
 import com.phyder.paalan.db.Attributes;
@@ -29,6 +33,7 @@ import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
@@ -36,8 +41,6 @@ import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +51,7 @@ import retrofit2.Retrofit;
  * Created by cmss on 16/1/17.
  */
 
-public class FragmentIndDashboard extends Fragment{
+public class FragmentIndDashboard extends Fragment {
 
     private static final String TAG = FragmentIndDashboard.class.getSimpleName();
     private ViewPager mPager;
@@ -57,7 +60,7 @@ public class FragmentIndDashboard extends Fragment{
     private LinearLayout llEvents,llRequests,llAchievements;
     private RecyclerView mrecycleEventList, mrecycleSocialList, mrecycleAchievementsList;
     private LinearLayoutManager mLayoutManagerEvent, mLayoutManagerAchievement, mLayoutManagerSocial;
-    private RecyclerView.Adapter mAdapter, mAchievementAdapter, mEventAdapter;
+    private HorizontalListVAdapter mAdapter, mAchievementAdapter, mEventAdapter;
 
     List<String> images;
     private DBAdapter dbAdapter;
@@ -71,6 +74,7 @@ public class FragmentIndDashboard extends Fragment{
 
     private Cursor eventCursor,achievementCursor,requestCursor;
     private ArrayList<String> eventLists,achievementLists,requestLists;
+    private ArrayList<String> eventIdsLists,achievementIdsLists,requestIdsLists;
 
     private Handler handler = new Handler();
     private Runnable refresh;
@@ -81,7 +85,6 @@ public class FragmentIndDashboard extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ind_dashboard, container, false);
-
 
         initSlider(view);
         init(view);
@@ -109,6 +112,10 @@ public class FragmentIndDashboard extends Fragment{
         eventLists = new ArrayList<String>();
         achievementLists = new ArrayList<String>();
         requestLists = new ArrayList<String>();
+
+        eventIdsLists = new ArrayList<String>();
+        achievementIdsLists = new ArrayList<String>();
+        requestIdsLists = new ArrayList<String>();
 
 
         txtEventSeeMore.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +182,34 @@ public class FragmentIndDashboard extends Fragment{
         mPager.setAdapter(new SlidingImageAdapter(getActivity(), images));
         mCircleIndicator.setViewPager(mPager);
 
+
+        class TapGestureListener extends GestureDetector.SimpleOnGestureListener{
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                // Your Code here
+                if (mPager.getCurrentItem() == images.size() - 1) {
+                    getActivity().startActivity(new Intent(getActivity(), RegisterUser.class));
+                }
+
+                return false;
+            }
+        }
+
+
+       final GestureDetector tapGestureDetector = new GestureDetector(getActivity(), new TapGestureListener());
+
+        mPager.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                tapGestureDetector.onTouchEvent(event);
+                return false;
+            }
+        });
+
     }
+
+
+
 
     private boolean requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -250,6 +284,9 @@ public class FragmentIndDashboard extends Fragment{
         eventLists.clear();
         achievementLists.clear();
         requestLists.clear();
+        eventIdsLists.clear();
+        achievementIdsLists.clear();
+        requestIdsLists.clear();
 
         dbAdapter.open();
         eventCursor = dbAdapter.getAllEvent("F");
@@ -259,6 +296,7 @@ public class FragmentIndDashboard extends Fragment{
         if(eventCursor.moveToFirst()){
             do{
                 eventLists.add(eventCursor.getString(eventCursor.getColumnIndex(Attributes.Database.EVENT_TITLE)));
+                eventIdsLists.add(eventCursor.getString(eventCursor.getColumnIndex(Attributes.Database.EVENT_ID)));
             }while (eventCursor.moveToNext());
         }
 
@@ -269,6 +307,7 @@ public class FragmentIndDashboard extends Fragment{
         if(achievementCursor.moveToFirst()){
             do{
                 achievementLists.add(achievementCursor.getString(achievementCursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_TITLE)));
+                achievementIdsLists.add(achievementCursor.getString(achievementCursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_ID)));
             }while (achievementCursor.moveToNext());
         }
 
@@ -279,6 +318,7 @@ public class FragmentIndDashboard extends Fragment{
         if(requestCursor.moveToFirst()){
             do{
                 requestLists.add(requestCursor.getString(requestCursor.getColumnIndex(Attributes.Database.REQUEST_TITLE)));
+                requestIdsLists.add(requestCursor.getString(requestCursor.getColumnIndex(Attributes.Database.REQUEST_ID)));
             }while (requestCursor.moveToNext());
         }
         dbAdapter.close();
@@ -286,19 +326,19 @@ public class FragmentIndDashboard extends Fragment{
         mrecycleEventList.setHasFixedSize(true);
         mLayoutManagerEvent = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mrecycleEventList.setLayoutManager(mLayoutManagerEvent);
-        mAdapter = new HorizontalListVAdapter(getActivity(), eventLists,R.drawable.publish_event);
+        mAdapter = new HorizontalListVAdapter(getActivity(), eventLists,eventIdsLists,R.drawable.publish_event, Social.NAVIGATE_TO_EVENT);
         mrecycleEventList.setAdapter(mAdapter);
 
 
         mLayoutManagerAchievement = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mrecycleAchievementsList.setLayoutManager(mLayoutManagerAchievement);
-        mAchievementAdapter = new HorizontalListVAdapter(getActivity(), achievementLists,R.drawable.achievement);
+        mAchievementAdapter = new HorizontalListVAdapter(getActivity(), achievementLists,achievementIdsLists,R.drawable.achievement,Social.NAVIGATE_TO_ACHIEVEMENT);
         mrecycleAchievementsList.setAdapter(mAchievementAdapter);
 
 
         mLayoutManagerSocial = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mrecycleSocialList.setLayoutManager(mLayoutManagerSocial);
-        mEventAdapter = new HorizontalListVAdapter(getActivity(), requestLists,R.drawable.social_strength);
+        mEventAdapter = new HorizontalListVAdapter(getActivity(), requestLists,requestIdsLists,R.drawable.social_strength, Social.NAVIGATE_TO_SOCIAL);
         mrecycleSocialList.setAdapter(mEventAdapter);
 
         if(eventLists.size()>0){
@@ -324,6 +364,7 @@ public class FragmentIndDashboard extends Fragment{
             mrecycleAchievementsList.setVisibility(View.GONE);
             llAchievements.setVisibility(View.VISIBLE);
         }
+
     }
 
 
@@ -393,6 +434,19 @@ public class FragmentIndDashboard extends Fragment{
                                             response.body().getData()[0].getOrgachievementlist()[i].getImage4(),
                                             response.body().getData()[0].getOrgachievementlist()[i].getDeleteFlag());
                                 }
+                            }
+
+                            dbAdapter.deleteProfile();
+                            for(int i=0;i<response.body().getData()[0].getOrgprofilelist().length;i++) {
+
+                                dbAdapter.insertProfile(response.body().getData()[0].getOrgprofilelist()[i].getDpImgLink(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getRole(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getRegistrationNo(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getFbLink(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getLinkedinLink(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getWebsiteLink(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getTwitterLink(),
+                                        response.body().getData()[0].getOrgprofilelist()[i].getPresenceArea());
                             }
 
 //                            for(int i=0;i<response.body().getData()[0].getOrgreqlist().length;i++) {
@@ -476,6 +530,8 @@ public class FragmentIndDashboard extends Fragment{
         }
 
     }
+
+
 }
 
 

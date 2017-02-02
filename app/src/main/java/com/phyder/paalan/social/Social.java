@@ -26,5 +26,8 @@ public class Social {
     public static final String IND_REGISTRATION_ENTITY = "individual";
     public static final String REGISTRATION_TYPE = "registration";
 
+    public static final String NAVIGATE_TO_EVENT = "navigate_to_event";
+    public static final String NAVIGATE_TO_ACHIEVEMENT = "navigate_to_achievement";
+    public static final String NAVIGATE_TO_SOCIAL = "navigate_to_socail";
 
 }

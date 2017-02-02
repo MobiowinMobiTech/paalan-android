@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +45,7 @@ import java.util.HashMap;
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity {
+public class ActivityFragmentPlatform extends AppCompatActivity{
 
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
@@ -318,6 +317,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
     }
 
+
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         private Context _context;
@@ -470,5 +470,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     public static void getFinished(FragmentActivity context){
         context.finish();
     }
+
+
 }
 
