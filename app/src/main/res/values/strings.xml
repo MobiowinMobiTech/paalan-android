@@ -8,7 +8,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_empty_password">Password can not be empty</string>
-    <string name="error_invalid_password">This password can not be less than 8</string>
+    <string name="error_invalid_password">This password can not be less than 6 characters</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_timeout">Time out, please try again</string>
@@ -279,5 +279,9 @@
     <string name="first_time_user_without_network">There is no network connection. Please connect to the network to use Paalan.</string>
     <string name="connection_error">Connection Error</string>
     <string name="title_activity_dashboard">Dashboard</string>
+    <string name="dont_have_account">Not a member?</string>
+    <string name="sign_up_now"> <![CDATA[<a href=""> Signup now</a>]]></string>
+    <string name="technical_issue">Some technical issue occure. Please try later.</string>
+
 
 </resources>

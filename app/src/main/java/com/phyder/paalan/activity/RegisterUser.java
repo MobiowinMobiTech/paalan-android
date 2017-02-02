@@ -118,7 +118,6 @@ public class RegisterUser extends AppIntro {
                 return true;
             else
                 return false;
-
         }
 
     }
@@ -225,7 +224,7 @@ public class RegisterUser extends AppIntro {
         OrganizationReqResistration reqResistration =
                 OrganizationReqResistration.get(data.getName(),
                         data.getMobileno(), data.getEmailid(), data.getPassword(),
-                        notificationToken, Device.getDeviceId(this) , Device.getImeiNo(this),
+                        notificationToken, Device.getDeviceId(this) ,
                         orgAddressInfo.getAddress(), orgAddressInfo.getCity(),
                         orgAddressInfo.getState(), orgAddressInfo.getPincode(), orgAddressInfo.getPincode());
 

@@ -2,10 +2,6 @@ package com.phyder.paalan.payload.request.organization;
 
 import com.phyder.paalan.social.Social;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-
 /**
  * Created on 22/12/16.
  * Author Dharmendra
@@ -22,12 +18,12 @@ public class OrganisationReqProfile {
 
     private String action;
 
-    public static OrganisationReqProfile get(String orgid, String role, String imeino, String isnewsletter, String isregisterd, String registrationno, String dpimage, String fblink, String linkedinlink, String websitelink, String twitterlink, String presencearea) {
+    public static OrganisationReqProfile get(String orgid, String role, String isnewsletter, String isregisterd, String registrationno, String dpimage, String fblink, String linkedinlink, String websitelink, String twitterlink, String presencearea) {
 
         Data data = new Data();
         data.setOrgid(orgid);
         data.setRole(role);
-        data.setImeino(imeino);
+        data.setImeino("");
         data.setIsnewsletter(isnewsletter);
         data.setIsregisterd(isregisterd);
         data.setRegistrationno(registrationno);

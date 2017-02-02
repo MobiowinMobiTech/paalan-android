@@ -1,11 +1,9 @@
 package com.phyder.paalan.fragments;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +12,7 @@ import android.widget.EditText;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
+import com.phyder.paalan.services.Device;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,11 +43,19 @@ public class OrganisationInformation extends Fragment {
         return view;
     }
 
+    /**
+     * Function to check validation on password
+     * @return : password validation result
+     */
     public boolean isValidPassword() {
         return  edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())
-                && edtPassword.getText().length() > 0;
+                && edtPassword.getText().length() > 6;
     }
 
+    /**
+     * Function to check validation on email
+     * @return : email validation result
+     */
     public boolean isValidEmailId(String email){
         Pattern pattern1 = Pattern.compile( "^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\\.([a-zA-Z])+([a-zA-Z])+");
 
@@ -62,16 +69,18 @@ public class OrganisationInformation extends Fragment {
     }
 
 
+    /**
+     * Function to save individual info
+     * @return : individual info
+     */
     public IndivitualReqRegistration setIndividualInfo(){
-        TelephonyManager telephonyManager = (TelephonyManager) getActivity()
-                .getSystemService(Context.TELEPHONY_SERVICE);
 
         IndivitualReqRegistration indivitualReqRegistration = IndivitualReqRegistration.get(
                 edtName.getText().toString(),
                 edtEmail.getText().toString(),
                 edtContactNo.getText().toString(),
                 edtPassword.getText().toString(),
-                telephonyManager.getDeviceId(),"","");
+                Device.getDeviceId(getActivity()),"","");
 
         return indivitualReqRegistration;
 

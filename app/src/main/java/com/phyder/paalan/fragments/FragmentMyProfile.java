@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,13 +20,10 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
-import com.phyder.paalan.payload.request.organization.OrgReqCreateAchievments;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
-import com.phyder.paalan.payload.response.organization.OrgResCreateAchievments;
 import com.phyder.paalan.payload.response.organization.OrganizationResProfile;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
-import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.EditTextOpenSansRegular;
@@ -37,14 +33,11 @@ import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Attr;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
@@ -242,9 +235,8 @@ public class FragmentMyProfile extends Fragment {
             Device.newInstance(getActivity());
 
             OrganisationReqProfile reqProfile = OrganisationReqProfile.get(pref.getOrgId(), strRole,
-                    CommanUtils.getImeiNo(getActivity()),IS_NEWS_LETTER, IS_REGISTERED,
+                    IS_NEWS_LETTER, IS_REGISTERED,
                     strRegNo,strEncodedDp, strfblink, strlinkedin, strWeblink, strtwitter, strPresenceArea);
-
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);

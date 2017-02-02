@@ -30,7 +30,7 @@ import retrofit2.Retrofit;
 public class PaalanSplashActivity extends AppCompatActivity {
 
     private static final String TAG = PaalanSplashActivity.class.getSimpleName();
-    private static int SPLASH_TIME_OUT = 3000;
+    private static final int PERMISSION_READ_STATE = 1;
     private boolean isScreensAvailable = false;
 
     Set<String> bannerList = new HashSet<>();
@@ -54,6 +54,8 @@ public class PaalanSplashActivity extends AppCompatActivity {
         dbAdapter.close();
 
         getRetrofitCallBannerSlider();
+
+        Log.d(TAG, "onCreate: "+Device.getDeviceId(this));
 
     }
 
@@ -88,13 +90,13 @@ public class PaalanSplashActivity extends AppCompatActivity {
                 public void onFailure(Call<ResponseInitialData> call, Throwable t) {
                     Log.d(TAG, "onFailure: ");
                     if (CommanUtils.isNewUser(PaalanSplashActivity.this)){
-                        showExitAlert();
+                        showExitAlert(getString(R.string.technical_issue));
                     }
                 }
             });
         }else {
             if (CommanUtils.isNewUser(PaalanSplashActivity.this)){
-                showExitAlert();
+                showExitAlert(getString(R.string.first_time_user_without_network));
             }else{
                 launchDashboard(true);
             }
@@ -103,11 +105,12 @@ public class PaalanSplashActivity extends AppCompatActivity {
 
     /**
      * Function used to exit app
+     * @param message
      */
-    private void showExitAlert() {
+    private void showExitAlert(String message) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(getString(R.string.connection_error));
-        alert.setMessage(getString(R.string.first_time_user_without_network));
+        alert.setMessage(message);
         alert.setCancelable(false);
         alert.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
             @Override

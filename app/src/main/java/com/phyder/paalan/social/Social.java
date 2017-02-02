@@ -27,4 +27,5 @@ public class Social {
     public static final String REGISTRATION_TYPE = "registration";
 
 
+    public static final String NOTIFICATION = "notification";
 }

@@ -1,7 +1,5 @@
 package com.phyder.paalan.payload.request.organization;
 
-import android.util.Log;
-
 import com.phyder.paalan.social.Social;
 
 /**
@@ -16,8 +14,9 @@ public class OrganizationReqResistration {
     private String type;
 
     private String action;
-    public static OrganizationReqResistration get(String name, String mobileno, String emailid, String password, String notificationid,
-                                                  String deviceid, String imeino, String address, String city
+    public static OrganizationReqResistration get(String name, String mobileno, String emailid, String password,
+                                                  String notificationid,
+                                                  String deviceid,String address, String city
             , String state, String pincode, String country) {
 
         Data data = new Data();
@@ -27,7 +26,7 @@ public class OrganizationReqResistration {
         data.setPassword(password);
         data.setNotificationid(notificationid);
         data.setDeviceid(deviceid);
-        data.setImeino(imeino);
+        data.setImeino("");
         data.setAddress(address);
         data.setCity(city);
         data.setState(state);

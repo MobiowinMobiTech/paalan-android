@@ -24,6 +24,7 @@ public class WhatsNew extends AppIntro {
 
     private static final String TAG = WhatsNew.class.getSimpleName();
     ArrayList<WhatsNewScreenModel> screensToRender;
+    final int PERMISSION_READ_STATE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class WhatsNew extends AppIntro {
         getScreensList();
 
     }
+
 
     /**
      * Function to get screen list from shared preference
@@ -47,6 +49,7 @@ public class WhatsNew extends AppIntro {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void init(Bundle savedInstanceState) {
+
 
         for(int screenIndex = 0 ; screenIndex < screensToRender.size(); screenIndex ++){
             // fragment to show

@@ -1,19 +1,14 @@
 package com.phyder.paalan.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +26,7 @@ import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +47,7 @@ public class Login extends AppCompatActivity {
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
     private DBAdapter dbAdapter;
+    private TextViewOpenSansRegular txtSignUp;
 
 
     @Override
@@ -72,14 +69,18 @@ public class Login extends AppCompatActivity {
         mEmailView = (AutoCompleteTextViewOpenSansRegular) findViewById(R.id.email);
         mPasswordView = (EditTextOpenSansRegular) findViewById(R.id.password);
 
-        mEmailView.setText("7709642004");
-        mPasswordView.setText("cmss");
+        txtSignUp = (TextViewOpenSansRegular)findViewById(R.id.txtSignup);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            txtSignUp.setText(Html.fromHtml(getString(R.string.sign_up_now),Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            txtSignUp.setText(Html.fromHtml(getString(R.string.sign_up_now)));
+        }
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-
                     return true;
                 }
                 return false;
@@ -94,76 +95,45 @@ public class Login extends AppCompatActivity {
      */
     private void clickEventFire() {
 
+        txtSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent registerIntent = new Intent(Login.this,RegisterUser.class);
+                startActivity(registerIntent);
+            }
+        });
+
+
         btnSignIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+            email = mEmailView.getText().toString();
+            password = mPasswordView.getText().toString();
 
-                email = mEmailView.getText().toString();
-                password = mPasswordView.getText().toString();
+            if (isValidData())
+                getRetrofitCall();
 
-//                if(TextUtils.isEmpty(email)){
-//                    mEmailView.setError(getString(R.string.error_field_required));
-//                } else if(!CommanUtils.isEmailValid(email)){
-//                    mEmailView.setError(getString(R.string.error_invalid_email));
-//                } else if (TextUtils.isEmpty(password)) {
-//                    mPasswordView.setError(getString(R.string.error_empty_password));
-//                } else if(!CommanUtils.isPasswordValid(password)){
-//                    mPasswordView.setError(getString(R.string.error_invalid_password));
-//                } else {
-
-                if (requestPermission()) {
-                    deviceID = CommanUtils.getImeiNo(Login.this);
-                    getRetrofitCall();
-                }
-
-//                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
-//                intent.putExtra("LOGIN", loginType);
-//                startActivity(intent);
-//                }
             }
 //            }
         });
 
     }
 
-
-    private boolean requestPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
+    private boolean isValidData() {
+        if(TextUtils.isEmpty(email)){
+            mEmailView.setError(getString(R.string.error_field_required));
+            return false;
+        }else if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_empty_password));
+            return false;
+        } else if(!CommanUtils.isPasswordValid(password)){
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            return false;
         }
-
-        if (Login.this.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) ==
-                PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},
-                    PERMISSION_READ_STATE);
-        }
-        return false;
+        return true;
     }
 
 
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_READ_STATE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //permission is granted
-                    deviceID = CommanUtils.getImeiNo(Login.this);
-                    getRetrofitCall();
-                } else {
-                    //permission is not granted
-                }
-                return;
-            }
-
-        }
-    }
 
     public void getRetrofitCall() {
 
@@ -171,7 +141,7 @@ public class Login extends AppCompatActivity {
 
             CommanUtils.showDialog(Login.this);
             Device.newInstance(Login.this);
-            RequestLogin reqLogin = RequestLogin.get(deviceID, email, password);
+            RequestLogin reqLogin = RequestLogin.get(email, password);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);

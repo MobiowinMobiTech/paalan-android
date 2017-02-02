@@ -44,10 +44,10 @@ public class CommanUtils {
 
     public static boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 8;
+        return password.length() > 6;
     }
 
-    public static String getImeiNo(Context context){
+    private static String getImeiNo(Context context){
             TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         return telephonyManager.getDeviceId();
     }
@@ -267,4 +267,5 @@ public class CommanUtils {
         editor.putBoolean("isNewUser",true);
         editor.apply();
     }
+
 }
