@@ -23,6 +23,7 @@ import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteAchievement;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
@@ -88,6 +89,10 @@ public class FragmentViewDetailsAchievement extends Fragment {
         btnUpdate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnUpdateAchievement);
         btnDelete = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDeleteAchievement);
 
+        if(pref.getLoginType().equals(Social.IND_ENTITY)){
+            btnUpdate.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -241,7 +246,11 @@ public class FragmentViewDetailsAchievement extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_acheivement));
+        if(pref.getLoginType().equals(Social.IND_ENTITY)){
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.acheivement_details));
+        }else {
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_acheivement));
+        }
         getPoulatedData();
     }
 

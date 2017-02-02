@@ -46,7 +46,7 @@ import java.util.HashMap;
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity {
+public class ActivityFragmentPlatform extends AppCompatActivity{
 
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
@@ -115,7 +115,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                Log.d("", "onGroupClick: "+groupPosition);
+
                 if (groupPosition == 0) {
 
                     fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
@@ -318,6 +318,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
 
     }
 
+
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         private Context _context;
@@ -470,5 +471,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity {
     public static void getFinished(FragmentActivity context){
         context.finish();
     }
+
+
 }
 

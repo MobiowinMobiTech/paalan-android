@@ -19,6 +19,7 @@ import com.phyder.paalan.payload.request.organization.OrgReqDeleteEvent;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteEvent;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
@@ -75,6 +76,11 @@ public class FragmentViewDetailsEvent extends Fragment {
 
         btnUpdate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnUpdateEvent);
         btnDelete = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDeleteEvent);
+
+        if(pref.getLoginType().equals(Social.IND_ENTITY)){
+            btnUpdate.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -214,7 +220,12 @@ public class FragmentViewDetailsEvent extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_event));
+
+        if(pref.getLoginType().equals(Social.IND_ENTITY)){
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.event_details));
+        }else {
+            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_event));
+        }
         getPoulatedData();
     }
 }
