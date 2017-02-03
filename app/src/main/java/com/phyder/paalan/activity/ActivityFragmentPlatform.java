@@ -387,8 +387,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d(TAG, "onActivityResult: "+requestCode+" result code "+RESULT_OK +" "+resultCode);
-
         String strEncodedDp;
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");

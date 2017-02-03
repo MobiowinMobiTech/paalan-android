@@ -301,6 +301,8 @@ public class FragmentMyProfile extends Fragment {
             }
     }
 
+    //merge comment
+
     /**
      * Function to save profile picture in Sp
      * @param bitmap
