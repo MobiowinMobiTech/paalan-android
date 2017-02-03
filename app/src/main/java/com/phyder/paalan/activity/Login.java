@@ -197,7 +197,8 @@ public class Login extends AppCompatActivity {
                 }
             });
         }else{
-            CommanUtils.showAlertDialog(Login.this,getResources().getString(R.string.error_internet));
+            CommanUtils.showAlert(Login.this,getString(R.string.connection_error),
+                    getResources().getString(R.string.network_connectivity));
         }
     }
 
