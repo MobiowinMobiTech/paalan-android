@@ -84,7 +84,7 @@ public class RegisterUser extends AppIntro {
             if (NetworkUtil.isInternetConnected(RegisterUser.this)) {
                 registerOrganisationUserWithServer();
             }else {
-                CommanUtils.showAlert(this,getString(R.string.app_name),getString(R.string.network_connectivity));
+                CommanUtils.showAlert(this,getString(R.string.connection_error),getString(R.string.network_connectivity));
             }
 
         }else {
