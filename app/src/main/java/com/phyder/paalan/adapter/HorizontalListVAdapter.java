@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.fragments.FragmentGroupsProfile;
 import com.phyder.paalan.fragments.FragmentViewDetailsAchievement;
 import com.phyder.paalan.fragments.FragmentViewDetailsEvent;
 import com.phyder.paalan.fragments.FragmentViewDetailsRequest;
@@ -96,6 +97,12 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
                 PaalanGetterSetter.setRequestID(idsItems.get(pos));
                 context.getSupportFragmentManager().beginTransaction().
                         replace(R.id.platform, new FragmentViewDetailsRequest()).addToBackStack(null).commit();
+                break;
+
+            case Social.NAVIGATE_TO_GROUP:
+                PaalanGetterSetter.setOrgID(idsItems.get(pos));
+                context.getSupportFragmentManager().beginTransaction().
+                        replace(R.id.platform, new FragmentGroupsProfile()).addToBackStack(null).commit();
                 break;
 
         }

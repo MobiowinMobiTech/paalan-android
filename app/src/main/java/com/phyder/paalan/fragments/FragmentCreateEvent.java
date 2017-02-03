@@ -45,15 +45,13 @@ public class FragmentCreateEvent extends Fragment {
     private final static String TAG = FragmentCreateEvent.class.getCanonicalName();
 
     private Spinner spinnerOsversions;
-    private String[] state = { "Select Event Category" ,"Medical Camps", "Social Awareness", "Child care", "Health and Fitness",
-            "Food distribution", "Charity", "Misc" };
-
     private EditTextOpenSansRegular edtTitle, edtSubtitle, edtDescription, edtOther;
     private ButtonOpenSansSemiBold btnCreateEvent;
     private TextViewOpenSansRegular edtStartDate,edtEndDate;
     private ImageView imgStartDate, imgEndDate;
 
-    private String orgId = "", eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate, strEndDate, strCategory= "";
+    private String  eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate, strEndDate,
+            orgId = "",strCategory = "";
     private DBAdapter dbAdapter;
     private boolean shouldBeUpdated = false;
     private int mYear, mMonth, mDay;
@@ -63,6 +61,8 @@ public class FragmentCreateEvent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_create_event, null, false);
+
+        dbAdapter = new DBAdapter(getContext());
 
         edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_title);
         edtSubtitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_subtitle);
@@ -74,8 +74,11 @@ public class FragmentCreateEvent extends Fragment {
         imgEndDate = (ImageView) view.findViewById(R.id.img_enddate_calender);
         btnCreateEvent = (ButtonOpenSansSemiBold) view.findViewById(R.id.btn_create_event);
 
+        strCategory = getResources().getStringArray(R.array.event_category)[0];
+
         spinnerOsversions = (Spinner) view.findViewById(R.id.osversions);
-        ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, state);
+        ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.event_category));
         adapter_state
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerOsversions.setAdapter(adapter_state);
@@ -94,9 +97,10 @@ public class FragmentCreateEvent extends Fragment {
             edtStartDate.setText(bundle.getString("STARTDATE"));
             edtEndDate.setText(bundle.getString("ENDDATE"));
             String category = bundle.getString("CATEGORY");
+
             int pos = 0;
-            for(int i=0;i<state.length;i++){
-                if(state[i].equals(category)){
+            for(int i=0;i<getResources().getStringArray(R.array.event_category).length;i++){
+                if(getResources().getStringArray(R.array.event_category)[i].equals(category)){
                     pos=i;
                     break;
                 }
@@ -164,6 +168,7 @@ public class FragmentCreateEvent extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         edtStartDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        edtStartDate.setTextColor(getResources().getColor(R.color.primary_text));
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -184,6 +189,7 @@ public class FragmentCreateEvent extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         edtEndDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        edtEndDate.setTextColor(getResources().getColor(R.color.primary_text));
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -201,12 +207,12 @@ public class FragmentCreateEvent extends Fragment {
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
             String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
-            OrgReqCreateEvent reqUpdateProfile = OrgReqCreateEvent.get(orgId, eventId, strTitle, strSubtitle,
+            OrgReqCreateEvent reqCreateEvent = OrgReqCreateEvent.get(orgId, eventId, strTitle, strSubtitle,
                     strDescription, strStartDate, strEndDate, strOther,action);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
-            Call<OrgResCreateEvent> resProfileCall = mPaalanServices.orgCreateEvent(reqUpdateProfile);
+            Call<OrgResCreateEvent> resProfileCall = mPaalanServices.orgCreateEvent(reqCreateEvent);
             resProfileCall.enqueue(new Callback<OrgResCreateEvent>() {
                 @Override
                 public void onResponse(Call<OrgResCreateEvent> call, Response<OrgResCreateEvent> response) {
@@ -215,31 +221,25 @@ public class FragmentCreateEvent extends Fragment {
                     if (response.isSuccessful()) {
 
                         if (response.body().getStatus().equals("success")) {
-                            dbAdapter = new DBAdapter(getContext());
-                            dbAdapter.open();
-                            strCategory = strCategory.equals("Select Event Category") ? "" : strCategory;
 
-                            if (shouldBeUpdated) {
-                                dbAdapter.updateEvent(eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate, strEndDate,
-                                        strCategory,"mumbai");
-                                getActivity().getSupportFragmentManager().popBackStack();
-                                Toast.makeText(getActivity(), getResources().getString(R.string.event_updated), Toast.LENGTH_LONG)
-                                        .show();
-                            } else {
-                                dbAdapter.insertEvent(response.body().getData()[0].getEventid(), strTitle, strSubtitle, strDescription, strOther,
-                                        strStartDate, strEndDate, "F",strCategory,"mumbai");
-                                Toast.makeText(getActivity(), getResources().getString(R.string.event_created), Toast.LENGTH_LONG)
-                                        .show();
-                            }
+                            dbAdapter.open();
+
+                            int status = dbAdapter.populatingEventsIntoDB(response.body().getData()[0].getEventid()
+                                    ,eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate,
+                                    strEndDate,"F",strCategory,"mumbai");
+                            String message = status==0 ? getResources().getString(R.string.event_created) :
+                                    getResources().getString(R.string.event_updated);
+                            CommanUtils.showToast(getActivity(),message);
+                            getActivity().getSupportFragmentManager().popBackStack();
+
                             dbAdapter.close();
                             getClearFields();
+
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_went_wrong));
                         }
                     } else if (response.body() == null) {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -247,8 +247,7 @@ public class FragmentCreateEvent extends Fragment {
                 @Override
                 public void onFailure(Call<OrgResCreateEvent> call, Throwable t) {
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_timeout));
                 }
             });
         } else {

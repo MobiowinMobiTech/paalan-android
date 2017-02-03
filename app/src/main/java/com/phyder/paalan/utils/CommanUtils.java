@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,13 +14,17 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.helper.DialogPopupListener;
 import com.phyder.paalan.model.WhatsNewScreenModel;
 import com.phyder.paalan.payload.response.organization.ResponseInitialData;
 import com.squareup.picasso.Picasso;
@@ -36,6 +41,7 @@ public class CommanUtils {
     private final static String TAG = CommanUtils.class.getSimpleName();
 
     private static ProgressDialog mProgressDialog;
+    private static DialogPopupListener dialogPopupListener;
 
     public static boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
@@ -52,33 +58,6 @@ public class CommanUtils {
         return telephonyManager.getDeviceId();
     }
 
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = pixels;
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
-    }
-
-
-
-    public static String getFBRegId(Context context){
-        SharedPreferences pref = context.getSharedPreferences(Config.SHARED_PREF, 0);
-        return pref.getString("regId", null);
-    }
 
     public static String encodeToBase64(Bitmap image)
     {
@@ -133,6 +112,55 @@ public class CommanUtils {
     }
 
 
+    public static void showGpsLocationDialog(final Context context, final String btnLabel, DialogPopupListener _dialogPopupListener){
+        dialogPopupListener = _dialogPopupListener;
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Location Error");
+        alert.setMessage("Turn On Location Service");
+        alert.setCancelable(false);
+
+        alert.setPositiveButton("Turn On Now", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                context.startActivity(intent);
+            }
+        });
+        alert.setNegativeButton(btnLabel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogPopupListener.onCancelClicked(btnLabel);
+            }
+        });
+        alert.show();
+    }
+
+
+
+    public static void showWifiLocationDialog(final Context context,DialogPopupListener _dialogPopupListener){
+        dialogPopupListener = _dialogPopupListener;
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Location Error");
+        alert.setMessage("Turn On Wifi");
+        alert.setCancelable(false);
+
+        alert.setPositiveButton("Turn On Now", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                context.startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+             }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogPopupListener.onCancelClicked("Cancel");
+            }
+        });
+        alert.show();
+    }
+
+
+
     public static void showAlert(Context context, String title, String message){
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle(title);
@@ -148,6 +176,10 @@ public class CommanUtils {
         alert.show();
     }
 
+    public static void showToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_LONG)
+                .show();
+    }
 
     public static boolean showAlertDialog(final Context context,String message) {
 
@@ -192,11 +224,11 @@ public class CommanUtils {
         return sharedPref.getString(key, null);
     }
 
-    public static void updateImage(Context context, ImageView img, String imgUrl) {
+    public static void updateImage(Context context, ImageView img, String imgUrl,int defaultImage) {
        Picasso.with(context)
                 .load(imgUrl)
-                .placeholder(R.drawable.paalan_logo)
-                .error(R.drawable.paalan_logo)
+                .placeholder(defaultImage)
+                .error(defaultImage)
                 .into(img);
     }
 

@@ -254,14 +254,12 @@ public class FragmentViewDetailsAchievement extends Fragment {
         getPoulatedData();
     }
 
-    private void loadAchievementAttachments(ImageView imgView,String imgData){
+    private void loadAchievementAttachments(ImageView imgView,String url){
         imgView.setVisibility(View.VISIBLE);
-        if(imgData.contains("http://")) {
-            Picasso.with(getActivity())
-                    .load(imgData)
-                    .into(imgView);
+        if(url.contains("http://")) {
+            CommanUtils.updateImage(getActivity(),imgView,url,R.drawable.ic_add_circle_outline_black_24dp);
         }else{
-            imgView.setImageBitmap(CommanUtils.decodeBase64(imgData));
+            imgView.setImageBitmap(CommanUtils.decodeBase64(url));
         }
     }
 }

@@ -149,28 +149,26 @@ public class FragmentViewEvent extends Fragment {
 
                             for (int i = 0; i < response.body().getData()[0].getEventlist().length; i++) {
 
-                                if (!dbAdapter.isEventExist(response.body().getData()[0].getEventlist()[i].getEventId())) {
+                                dbAdapter.populatingEventsIntoDB(null,response.body().getData()[0].getEventlist()[i].getEventId(),
+                                        response.body().getData()[0].getEventlist()[i].getTitle(),
+                                        response.body().getData()[0].getEventlist()[i].getSubTitle(),
+                                        response.body().getData()[0].getEventlist()[i].getDiscription(),
+                                        response.body().getData()[0].getEventlist()[i].getOthers(),
+                                        response.body().getData()[0].getEventlist()[i].getStartDt(),
+                                        response.body().getData()[0].getEventlist()[i].getEndDt(),
+                                        response.body().getData()[0].getEventlist()[i].getDeleteFlag(),"","");
 
-                                    dbAdapter.insertEvent(response.body().getData()[0].getEventlist()[i].getEventId(),
-                                            response.body().getData()[0].getEventlist()[i].getTitle(),
-                                            response.body().getData()[0].getEventlist()[i].getSubTitle(),
-                                            response.body().getData()[0].getEventlist()[i].getDiscription(),
-                                            response.body().getData()[0].getEventlist()[i].getOthers(),
-                                            response.body().getData()[0].getEventlist()[i].getStartDt(),
-                                            response.body().getData()[0].getEventlist()[i].getEndDt(),
-                                            response.body().getData()[0].getEventlist()[i].getDeleteFlag(),"","");
-                                }
                             }
+
                             dbAdapter.updateEventTimeSpan(response.body().getData()[0].getLastsyncdate());
                             dbAdapter.close();
                             getPopulated();
+
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
-                                    Toast.LENGTH_LONG).show();
+                            CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_went_wrong));
                         }
                     } else if (response.body() == null) {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -178,8 +176,7 @@ public class FragmentViewEvent extends Fragment {
                 public void onFailure(Call<OrgResSyncEvent> call, Throwable t) {
                     Log.e(TAG, "onFailure: " + t.getMessage());
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_timeout));
                 }
             });
         } else {

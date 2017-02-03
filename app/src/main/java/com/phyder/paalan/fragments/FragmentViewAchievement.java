@@ -147,31 +147,26 @@ public class FragmentViewAchievement extends Fragment {
 
                             for(int i=0;i<response.body().getData()[0].getOrglist().length;i++) {
 
-                                if(!dbAdapter.isAchievementExist(response.body().getData()[0].
-                                        getOrglist()[i].getAchievementId()))    {
-
-                                    dbAdapter.insertAchievement(response.body().getData()[0].getOrglist()[i].getAchievementId(),
-                                            response.body().getData()[0].getOrglist()[i].getTitle(),
-                                            response.body().getData()[0].getOrglist()[i].getSubTitle(),
-                                            response.body().getData()[0].getOrglist()[i].getDiscription(),
-                                            response.body().getData()[0].getOrglist()[i].getOthers(),
-                                            response.body().getData()[0].getOrglist()[i].getImage1(),
-                                            response.body().getData()[0].getOrglist()[i].getImage2(),
-                                            response.body().getData()[0].getOrglist()[i].getImage3(),
-                                            response.body().getData()[0].getOrglist()[i].getImage4(),
-                                            response.body().getData()[0].getOrglist()[i].getDeleteFlag());
-                                }
+                                dbAdapter.populatingAchievementsIntoDB(null,response.body().getData()[0].getOrglist()[i].getAchievementId(),
+                                        response.body().getData()[0].getOrglist()[i].getTitle(),
+                                        response.body().getData()[0].getOrglist()[i].getSubTitle(),
+                                        response.body().getData()[0].getOrglist()[i].getDiscription(),
+                                        response.body().getData()[0].getOrglist()[i].getOthers(),
+                                        response.body().getData()[0].getOrglist()[i].getImage1(),
+                                        response.body().getData()[0].getOrglist()[i].getImage2(),
+                                        response.body().getData()[0].getOrglist()[i].getImage3(),
+                                        response.body().getData()[0].getOrglist()[i].getImage4(),
+                                        response.body().getData()[0].getOrglist()[i].getDeleteFlag());
                             }
                             dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
                             dbAdapter.close();
                             getPopulated();
+
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
-                                    Toast.LENGTH_LONG).show();
+                            CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -179,8 +174,7 @@ public class FragmentViewAchievement extends Fragment {
                 public void onFailure(Call<OrgResSyncAchievement> call, Throwable t) {
                     Log.e(TAG, "onFailure: " + t.getMessage());
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

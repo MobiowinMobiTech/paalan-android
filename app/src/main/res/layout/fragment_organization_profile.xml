@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_grey">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+            <com.phyder.paalan.utils.RoundedImageView
+                android:id="@+id/img_org_dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/light_grey"
+                app:border="true"
+                app:border_color="@color/primary"
+                app:border_width="4dp"
+                app:selector="true"
+                app:selector_color="#4403a9f4"
+                app:selector_stroke_color="@color/icons"
+                app:selector_stroke_width="4dp"
+                app:shadow="true"
+                android:src="@drawable/unknown" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/primary_dark"/>
+
+        </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_name"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtNameValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_mobile"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtMobileValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_email"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtEmailValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_address"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtAddressValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_role"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtRoleValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_news"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtNewsValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_authorised"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtAuthorisedValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_reg_no"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtRegNoValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_facebook"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtFBValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_linkedin"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtLINKEDINValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_website"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtWebsiteValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_twitter"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtTwitterValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/view_presence"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:background="@color/primary_more_dark"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtPresenceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:layout_margin="10dp"
+                        />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+       </LinearLayout>
+
+</FrameLayout>

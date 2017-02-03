@@ -51,7 +51,7 @@ public class SlidingImageAdapter extends PagerAdapter {
                 .findViewById(R.id.image);
 
 
-        CommanUtils.updateImage(context, imageView, IMAGES.get(position));
+        CommanUtils.updateImage(context, imageView, IMAGES.get(position),R.drawable.paalan_logo);
         view.addView(imageLayout, 0);
         return imageLayout;
     }

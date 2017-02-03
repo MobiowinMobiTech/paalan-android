@@ -174,7 +174,7 @@ public class FragmentViewDetailsRequest extends Fragment {
                         if (response.body().getStatus().equals("success")) {
 
                             dbAdapter.open();
-                            dbAdapter.deleteRequest(requestID,"T");
+                            dbAdapter.deleteRequest(requestID);
                             dbAdapter.close();
                             Toast.makeText(getActivity(), getResources().getString(R.string.request_deleted), Toast.LENGTH_LONG)
                                     .show();

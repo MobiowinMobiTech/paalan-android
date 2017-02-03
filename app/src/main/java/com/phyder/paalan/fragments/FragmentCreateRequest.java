@@ -157,27 +157,22 @@ public class FragmentCreateRequest extends Fragment{
 
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
-                            if(shouldBeUpdated){
-                                dbAdapter.updateRequest(requestID, strTitle, strSubTitle, strDescription, strOthers,
-                                        strLocation);
-                                Toast.makeText(getActivity(), getResources().getString(R.string.request_updated), Toast.LENGTH_LONG)
-                                        .show();
-                                getActivity().getSupportFragmentManager().popBackStack();
-                            }else {
-                                dbAdapter.insertRequest(response.body().getData()[0].getRequestid(), strTitle, strSubTitle,
-                                        strDescription, strOthers,strLocation,"F");
-                                Toast.makeText(getActivity(), getResources().getString(R.string.request_created), Toast.LENGTH_LONG)
-                                        .show();
-                            }
+
+                            int status = dbAdapter.populatingRequestIntoDB(response.body().getData()[0].getRequestid(),
+                                    requestID, strTitle, strSubTitle, strDescription, strOthers,
+                                        strLocation,"F");
+                            String message = status == 0 ? getResources().getString(R.string.request_created) :
+                                    getResources().getString(R.string.request_updated);
+                            CommanUtils.showToast(getActivity(),message);
+                            getActivity().getSupportFragmentManager().popBackStack();
+
                             dbAdapter.close();
                             getClearFields();
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -185,8 +180,7 @@ public class FragmentCreateRequest extends Fragment{
                 public void onFailure(Call<OrgResCreateRequest> call, Throwable t) {
                     Log.e(TAG, "onFailure: " + t.getMessage());
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

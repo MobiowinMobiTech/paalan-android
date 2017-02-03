@@ -19,13 +19,11 @@ public class RequestLogin {
     private String action;
 
 
-    public static RequestLogin get(String imeino, String userId, String password) {
+    public static RequestLogin get(String userId, String password) {
 
-        Log.e("TAG","imeino : "+imeino);
-        Log.e("TAG","userId : "+userId);
-        Log.e("TAG","password : "+password);
+
         Data data = new Data();
-        data.setImeino(imeino);
+        data.setImeino("");
         data.setUserid(userId);
         data.setPassword(password);
 

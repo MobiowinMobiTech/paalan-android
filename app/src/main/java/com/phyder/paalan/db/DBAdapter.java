@@ -39,50 +39,39 @@ public class DBAdapter {
 
 //	Database methods for achievement insertion,updation,deletion,selection operations
 
-	public long insertAchievement(String achieve_id,String achieve_title, String achieve_sub_title, String achieve_desc,
+	public int populatingAchievementsIntoDB(String tempId, String achieve_id,String achieve_title, String achieve_sub_title, String achieve_desc,
 								  String achieve_others, String achieve_img1, String achieve_img2, String achieve_img3,
-								  String achieve_img4,String isDeleted)
-	{
+								  String achieve_img4,String isDeleted) {
+		int status = 0;
 		ContentValues cv=new ContentValues();
 		try{
-			cv.put(Attributes.Database.ACHIEVEMENT_ID, achieve_id);
-			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : ""));
-			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : ""));
-			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : ""));
-			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, (achieve_others!=null ? achieve_others : ""));
+
+			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : "-"));
+			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : "-"));
+			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : "-"));
+			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, (achieve_others!=null ? achieve_others : "-"));
 			cv.put(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE, (achieve_img1!=null ? achieve_img1 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, (achieve_img2!=null ? achieve_img2 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, (achieve_img3!=null ? achieve_img3 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, (achieve_img4!=null ? achieve_img4 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
+
+			if(!isAchievementExist(achieve_id)) {
+				status = 0;
+				String id = tempId==null ? achieve_id : tempId;
+				cv.put(Attributes.Database.ACHIEVEMENT_ID, id);
+				sqLiteDatabase.insert(Attributes.Database.ACHIEVEMENT_TABLE_NAME, null, cv);
+			}else{
+				status = 1;
+				sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID
+						+" = '"+ achieve_id + "'",null);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.insert(Attributes.Database.ACHIEVEMENT_TABLE_NAME, null, cv);
-	}
+	return status;
 
-
-	public long updateAchievement(String achieve_id,String achieve_title, String achieve_sub_title, String achieve_desc,
-								  String achieve_others, String achieve_img1, String achieve_img2, String achieve_img3,
-								  String achieve_img4)
-	{
-		ContentValues cv=new ContentValues();
-		try{
-			cv.put(Attributes.Database.ACHIEVEMENT_TITLE, achieve_title);
-			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, achieve_sub_title);
-			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, achieve_desc);
-			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, achieve_others);
-			cv.put(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE, achieve_img1);
-			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, achieve_img2);
-			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, achieve_img3);
-			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, achieve_img4);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID
-				+" = '"+ achieve_id + "'",null);
 	}
 
 	public long deleteAchievement(String achieve_id)
@@ -123,49 +112,40 @@ public class DBAdapter {
 
 	//	Database methods for event insertion,updation,deletion,selection operations
 
-	public long insertEvent(String event_id, String event_title, String event_sub_title, String event_desc,
+	public int populatingEventsIntoDB(String tempId,String event_id, String event_title, String event_sub_title, String event_desc,
 							String event_others, String event_startdate, String event_enddate,
 							String event_is_Deleted,String event_category,String location) {
+		int status = 0;
 		ContentValues cv = new ContentValues();
 		try {
-			cv.put(Attributes.Database.EVENT_ID, event_id);
-			cv.put(Attributes.Database.EVENT_TITLE, (event_title != null ? event_title : ""));
-			cv.put(Attributes.Database.EVENT_SUB_TITLE, (event_sub_title != null ? event_sub_title : ""));
-			cv.put(Attributes.Database.EVENT_DESCRIPTION, (event_desc != null ? event_desc : ""));
-			cv.put(Attributes.Database.EVENT_OTHERS, (event_others != null ? event_others : ""));
-			cv.put(Attributes.Database.EVENT_START_DATE, (event_startdate != null ? event_startdate : ""));
-			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate != null ? event_enddate : ""));
-			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : ""));
-			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : ""));
+
+			cv.put(Attributes.Database.EVENT_TITLE, (event_title != null ? event_title : "-"));
+			cv.put(Attributes.Database.EVENT_SUB_TITLE, (event_sub_title != null ? event_sub_title : "-"));
+			cv.put(Attributes.Database.EVENT_DESCRIPTION, (event_desc != null ? event_desc : "-"));
+			cv.put(Attributes.Database.EVENT_OTHERS, (event_others != null ? event_others : "-"));
+			cv.put(Attributes.Database.EVENT_START_DATE, (event_startdate != null ? event_startdate : "-"));
+			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate != null ? event_enddate : "-"));
+			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : "-"));
+			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : "-"));
 			cv.put(Attributes.Database.EVENT_IS_DELETED, event_is_Deleted);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Log.d(TAG, "insertEvent: "+e.getMessage());
-		}
-		return sqLiteDatabase.insert(Attributes.Database.EVENT_TABLE_NAME, null, cv);
-	}
 
+			if(!isEventExist(event_id)) {
+				status = 0;
+				String id = tempId==null ? event_id : tempId;
+				cv.put(Attributes.Database.EVENT_ID, id);
+				sqLiteDatabase.insert(Attributes.Database.EVENT_TABLE_NAME, null, cv);
+			}else{
+				status = 1;
+				sqLiteDatabase.update(Attributes.Database.EVENT_TABLE_NAME, cv, Attributes.Database.EVENT_ID
+						+ " = '" + event_id + "'", null);
+			}
 
-	public long updateEvent(String event_id, String event_title, String event_sub_title, String event_desc,
-							String event_others, String event_startdate, String event_enddate,String event_category,
-							String location) {
-		ContentValues cv = new ContentValues();
-		try {
-			cv.put(Attributes.Database.EVENT_ID, event_id);
-			cv.put(Attributes.Database.EVENT_TITLE, event_title);
-			cv.put(Attributes.Database.EVENT_SUB_TITLE, event_sub_title);
-			cv.put(Attributes.Database.EVENT_DESCRIPTION, event_desc);
-			cv.put(Attributes.Database.EVENT_OTHERS, event_others);
-			cv.put(Attributes.Database.EVENT_START_DATE, event_startdate);
-			cv.put(Attributes.Database.EVENT_END_DATE, event_enddate);
-			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : ""));
-			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : ""));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.update(Attributes.Database.EVENT_TABLE_NAME, cv, Attributes.Database.EVENT_ID
-				+ " = '" + event_id + "'", null);
+		return status;
 	}
+
 
 	public long deleteEvent(String event_id) {
 
@@ -203,6 +183,127 @@ public class DBAdapter {
 	}
 
 
+
+	//	Database methods for organization insertion,updation,deletion,selection operations
+
+	public void populatingGroupsIntoDB(String id, String org_id, String name,String mobile_no, String email,
+								   String address,String city,String state,String pincode,String country,
+								   String deleted) {
+
+		ContentValues cv = new ContentValues();
+		try {
+
+			cv.put(Attributes.Database.GROUPS_ORGANIZATION_ID, (org_id != null ? org_id : ""));
+			cv.put(Attributes.Database.GROUPS_NAME, (name != null ? name : "-"));
+			cv.put(Attributes.Database.GROUPS_MOBILE_NO, (mobile_no != null ? mobile_no : "-"));
+			cv.put(Attributes.Database.GROUPS_EMAIL, (email != null ? email : "-"));
+			cv.put(Attributes.Database.GROUPS_ADDRESS, (address != null ? address : "-"));
+			cv.put(Attributes.Database.GROUPS_CITY, (city != null ? city : "-"));
+			cv.put(Attributes.Database.GROUPS_STATE, (state != null ? state : "-"));
+			cv.put(Attributes.Database.GROUPS_PINCODE, (pincode != null ? pincode : "-"));
+			cv.put(Attributes.Database.GROUPS_COUNTRY, (country != null ? country : "-"));
+			cv.put(Attributes.Database.GROUPS_DELETED, deleted);
+
+			if(!isGroupsExist(id)) {
+				cv.put(Attributes.Database.GROUPS_ID, id);
+				sqLiteDatabase.insert(Attributes.Database.GROUPS_TABLE_NAME, null, cv);
+			}else{
+				sqLiteDatabase.update(Attributes.Database.GROUPS_TABLE_NAME, cv, Attributes.Database.GROUPS_ID
+						+ " = '" + id + "'", null);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Cursor getAllGroups(String isDeleted) {
+		return sqLiteDatabase.rawQuery("Select * from " + Attributes.Database.GROUPS_TABLE_NAME + " where " +
+				Attributes.Database.GROUPS_DELETED + " = '" + isDeleted + "'", null);
+	}
+
+
+	public boolean isGroupsExist(String id){
+		boolean isExist = false;
+		Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.GROUPS_TABLE_NAME+" where "+
+				Attributes.Database.GROUPS_ID+" = '"+id+"'", null);
+		if(cursor !=null){
+			cursor.moveToFirst();
+			if(cursor.moveToFirst()){
+				do{
+					if(cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_ID))!=null){
+						isExist = true;
+						break;
+					}
+				}while (cursor.moveToNext());
+			}
+		}
+		return isExist;
+	}
+
+
+	//	Database methods for organization profile insertion,updation,deletion,selection operations
+
+	public void populatingGroupsProfileIntoDB(String id, String org_id, String name,String mobile_no, String email,
+								    String address,String role,String is_news_latter,String is_govt,String is_register,
+								    String dp_img,String fb_link,String linkedin,String website,String twitter,
+									String presence_area,String deleted) {
+
+		ContentValues cv = new ContentValues();
+		try {
+			cv.put(Attributes.Database.GROUPS_PROFILE_ORG_ID, (org_id != null ? org_id : ""));
+			cv.put(Attributes.Database.GROUPS_PROFILE_NAME, (name != null ? name : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_MOBILE_NO, (mobile_no != null ? mobile_no : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_EMAIL, (email != null ? email : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_ADDRESS, (address != null ? address : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_ROLE, (role != null ? role : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER, (is_news_latter != null ? is_news_latter : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER, (is_govt != null ? is_govt : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_REGISTER, (is_register != null ? is_register : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_DP_IMG, (dp_img != null ? dp_img : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_FB_LINK, (fb_link != null ? fb_link : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_LINKEDIN, (linkedin != null ? linkedin : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_WEBSITE, (website != null ? website : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_TWITTER, (twitter != null ? twitter : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA, (presence_area != null ? presence_area : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_DELETED, deleted);
+
+			if(!isGroupsProfileExist(id)) {
+				cv.put(Attributes.Database.GROUPS_PROFILE_ID, id);
+				sqLiteDatabase.insert(Attributes.Database.GROUPS_PROFILE_TABLE_NAME, null, cv);
+			}else{
+				sqLiteDatabase.update(Attributes.Database.GROUPS_PROFILE_TABLE_NAME, cv, Attributes.Database.GROUPS_PROFILE_ID
+						+ " = '" + id + "'", null);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public Cursor getGroupsProfileById(String id) {
+		return sqLiteDatabase.rawQuery("Select * from " + Attributes.Database.GROUPS_PROFILE_TABLE_NAME + " where " +
+				Attributes.Database.GROUPS_PROFILE_ORG_ID + " = '" + id + "'", null);
+	}
+
+	public boolean isGroupsProfileExist(String id){
+		boolean isExist = false;
+		Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.GROUPS_PROFILE_TABLE_NAME+" where "+
+				Attributes.Database.GROUPS_PROFILE_ID+" = '"+id+"'", null);
+		if(cursor !=null){
+			cursor.moveToFirst();
+			if(cursor.moveToFirst()){
+				do{
+					if(cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_ID))!=null){
+						isExist = true;
+						break;
+					}
+				}while (cursor.moveToNext());
+			}
+		}
+		return isExist;
+	}
 
 //	Database methods of master db for insertion,updation last sync timespan
 
@@ -285,56 +386,40 @@ public class DBAdapter {
 
 //	Database methods for request insertion,updation,deletion,selection operations
 
-	public long insertRequest(String request_id,String request_title, String request_sub_title, String request_desc,
-							  String request_others, String request_location, String isDeleted)
-	{
+	public int populatingRequestIntoDB(String tempId,String request_id,String request_title, String request_sub_title, String request_desc,
+							  String request_others, String request_location, String isDeleted){
+
+		int status = 0;
 		ContentValues cv=new ContentValues();
 		try{
-			cv.put(Attributes.Database.REQUEST_ID, request_id);
-			cv.put(Attributes.Database.REQUEST_TITLE,(request_title!=null ? request_title : ""));
-			cv.put(Attributes.Database.REQUEST_SUB_TITLE, (request_sub_title!=null ? request_sub_title : ""));
-			cv.put(Attributes.Database.REQUEST_DESCRIPTION, (request_desc!=null ? request_desc : ""));
-			cv.put(Attributes.Database.REQUEST_OTHER, (request_others!=null ? request_others : ""));
-			cv.put(Attributes.Database.REQUEST_LOCATION, (request_location!=null ? request_location : ""));
+
+			cv.put(Attributes.Database.REQUEST_TITLE,(request_title!=null ? request_title : "-"));
+			cv.put(Attributes.Database.REQUEST_SUB_TITLE, (request_sub_title!=null ? request_sub_title : "-"));
+			cv.put(Attributes.Database.REQUEST_DESCRIPTION, (request_desc!=null ? request_desc : "-"));
+			cv.put(Attributes.Database.REQUEST_OTHER, (request_others!=null ? request_others : "-"));
+			cv.put(Attributes.Database.REQUEST_LOCATION, (request_location!=null ? request_location : "-"));
 			cv.put(Attributes.Database.REQUEST_IS_DELETED, isDeleted);
+
+			if(!isRequestExist(request_id)) {
+				status = 0;
+				cv.put(Attributes.Database.REQUEST_ID, request_id);
+				sqLiteDatabase.insert(Attributes.Database.REQUEST_TABLE_NAME, null, cv);
+			}else{
+				status = 1;
+				sqLiteDatabase.update(Attributes.Database.REQUEST_TABLE_NAME, cv, Attributes.Database.REQUEST_ID
+						+ " = '" + request_id + "'", null);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sqLiteDatabase.insert(Attributes.Database.REQUEST_TABLE_NAME, null, cv);
+		return status;
 	}
 
 
-	public long updateRequest(String request_id,String request_title, String request_sub_title, String request_desc,
-							  String request_others, String request_location)
-	{
-		ContentValues cv=new ContentValues();
-		try{
-			cv.put(Attributes.Database.REQUEST_ID, request_id);
-			cv.put(Attributes.Database.REQUEST_TITLE,request_title);
-			cv.put(Attributes.Database.REQUEST_SUB_TITLE,request_sub_title);
-			cv.put(Attributes.Database.REQUEST_DESCRIPTION,request_desc);
-			cv.put(Attributes.Database.REQUEST_OTHER,request_others);
-			cv.put(Attributes.Database.REQUEST_LOCATION,request_location);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sqLiteDatabase.update(Attributes.Database.REQUEST_TABLE_NAME,cv,Attributes.Database.REQUEST_ID
-				+" = '"+ request_id + "'",null);
-	}
-
-	public long deleteRequest(String request_id,String isDeleted)
-	{
-		ContentValues cv=new ContentValues();
-		try{
-			cv.put(Attributes.Database.REQUEST_IS_DELETED, isDeleted);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sqLiteDatabase.update(Attributes.Database.REQUEST_TABLE_NAME,cv,Attributes.Database.REQUEST_ID
-				+" = '"+ request_id + "'",null);
+	public long deleteRequest(String id){
+		return sqLiteDatabase.delete(Attributes.Database.REQUEST_TABLE_NAME,Attributes.Database.REQUEST_ID
+				+" = '"+ id + "'",null);
 	}
 
 	public Cursor getAllRequests(String isDeleted){
@@ -375,13 +460,13 @@ public class DBAdapter {
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.Database.PROFILE_IMAGE, (image!=null ? image : ""));
-			cv.put(Attributes.Database.PROFILE_ROLE,(role!=null ? role : ""));
-			cv.put(Attributes.Database.PROFILE_REGISTER_NO,(regNo!=null ? regNo : ""));
-			cv.put(Attributes.Database.PROFILE_FB_LINK, (fbLink!=null ? fbLink : ""));
-			cv.put(Attributes.Database.PROFILE_LINKED_IN_LINK, (linkedIn!=null ? linkedIn : ""));
-			cv.put(Attributes.Database.PROFILE_WEB_LINK, (webLink!=null ? webLink : ""));
-			cv.put(Attributes.Database.PROFILE_TWITTER_LINK, (twitter!=null ? twitter : ""));
-			cv.put(Attributes.Database.PROFILE_PRESENCE_AREA, (presenceArea!=null ? presenceArea : ""));
+			cv.put(Attributes.Database.PROFILE_ROLE,(role!=null ? role : "-"));
+			cv.put(Attributes.Database.PROFILE_REGISTER_NO,(regNo!=null ? regNo : "-"));
+			cv.put(Attributes.Database.PROFILE_FB_LINK, (fbLink!=null ? fbLink : "-"));
+			cv.put(Attributes.Database.PROFILE_LINKED_IN_LINK, (linkedIn!=null ? linkedIn : "-"));
+			cv.put(Attributes.Database.PROFILE_WEB_LINK, (webLink!=null ? webLink : "-"));
+			cv.put(Attributes.Database.PROFILE_TWITTER_LINK, (twitter!=null ? twitter : "-"));
+			cv.put(Attributes.Database.PROFILE_PRESENCE_AREA, (presenceArea!=null ? presenceArea : "-"));
 		}
 		catch (Exception e) {
 			e.printStackTrace();

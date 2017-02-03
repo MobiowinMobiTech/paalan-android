@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -79,6 +80,12 @@ public class NetworkUtil {
             return false;
         }
         return false;
+    }
+
+
+    public static boolean isWifiConnected(Context context){
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        return  wifiManager.isWifiEnabled();
     }
 
     public static boolean alert(final Context context, final String message) {

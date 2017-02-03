@@ -68,6 +68,62 @@ public class Attributes {
                 + EVENT_IS_DELETED + " text not null);";
 
 
+        public static final String GROUPS_PROFILE_TABLE_NAME = "groups_profile_table";
+        public static final String GROUPS_PROFILE_ID = "groups_profile_id";
+        public static final String GROUPS_PROFILE_NAME = "groups_profile_name";
+        public static final String GROUPS_PROFILE_ORG_ID = "groups_profile_org_id";
+        public static final String GROUPS_PROFILE_MOBILE_NO = "groups_profile_mobile_no";
+        public static final String GROUPS_PROFILE_EMAIL = "groups_profile_email";
+        public static final String GROUPS_PROFILE_ADDRESS = "groups_profile_address";
+        public static final String GROUPS_PROFILE_ROLE = "groups_profile_role";
+        public static final String GROUPS_PROFILE_IS_NEWS_LETTER = "groups_profile_is_news_letter";
+        public static final String GROUPS_PROFILE_IS_GOVT_REGISTER = "groups_profile_is_govt_register";
+        public static final String GROUPS_PROFILE_REGISTER = "groups_profile_register";
+        public static final String GROUPS_PROFILE_DP_IMG = "groups_profile_dp_img";
+        public static final String GROUPS_PROFILE_FB_LINK = "groups_profile_fb_link";
+        public static final String GROUPS_PROFILE_LINKEDIN = "groups_profile_linkedin";
+        public static final String GROUPS_PROFILE_WEBSITE = "groups_profile_website";
+        public static final String GROUPS_PROFILE_TWITTER = "groups_profile_twitter";
+        public static final String GROUPS_PROFILE_PRESENCE_AREA = "groups_profile_presence_area";
+        public static final String GROUPS_PROFILE_DELETED = "groups_profile_deleted";
+
+        public static final String CREATE_GROUPS_PROFILE_QUERY = "create table " + GROUPS_PROFILE_TABLE_NAME +
+                " (_id integer primary key autoincrement, " + GROUPS_PROFILE_ID + " text not null, "
+                + GROUPS_PROFILE_NAME + " text not null, "+ GROUPS_PROFILE_ORG_ID + " text not null, "
+                + GROUPS_PROFILE_MOBILE_NO + " text not null, "+ GROUPS_PROFILE_EMAIL + " text not null, "
+                + GROUPS_PROFILE_ADDRESS + " text not null, "+ GROUPS_PROFILE_ROLE + " text not null, "
+                + GROUPS_PROFILE_IS_NEWS_LETTER + " text not null, "+ GROUPS_PROFILE_IS_GOVT_REGISTER + " text not null, "
+                + GROUPS_PROFILE_REGISTER + " text not null, "+ GROUPS_PROFILE_DP_IMG + " text not null, "
+                + GROUPS_PROFILE_FB_LINK + " text not null, "+ GROUPS_PROFILE_LINKEDIN + " text not null, "
+                + GROUPS_PROFILE_WEBSITE + " text not null, "+ GROUPS_PROFILE_TWITTER + " text not null, "
+                + GROUPS_PROFILE_PRESENCE_AREA + " text not null, "+ GROUPS_PROFILE_DELETED + " text not null);";
+
+
+
+        public static final String GROUPS_TABLE_NAME = "org_organization_table_name";
+        public static final String GROUPS_ID = "id";
+        public static final String GROUPS_ORGANIZATION_ID = "organization_id";
+        public static final String GROUPS_NAME = "organization_name";
+        public static final String GROUPS_MOBILE_NO = "organization_mobile_no";
+        public static final String GROUPS_EMAIL = "organization_email";
+        public static final String GROUPS_ADDRESS = "organization_address";
+        public static final String GROUPS_CITY = "organization_city";
+        public static final String GROUPS_STATE = "organization_state";
+        public static final String GROUPS_PINCODE = "organization_pincode";
+        public static final String GROUPS_COUNTRY = "organization_country";
+        public static final String GROUPS_DELETED = "organization_deleted";
+
+        public static final String CREATE_GROUPS_QUERY = "create table " + GROUPS_TABLE_NAME +
+                " (_id integer primary key autoincrement, " + GROUPS_ID + " text not null, "
+                + GROUPS_ORGANIZATION_ID + " text not null, " + GROUPS_NAME + " text not null, "
+                + GROUPS_MOBILE_NO + " text not null, " + GROUPS_EMAIL + " text not null, "
+                + GROUPS_ADDRESS + " text not null, " + GROUPS_CITY + " text not null, "
+                + GROUPS_STATE + " text not null, " + GROUPS_PINCODE + " text not null, "
+                + GROUPS_COUNTRY + " text not null, " + GROUPS_DELETED+ " text not null);";
+
+
+
+
         public static final String PROFILE_TABLE_NAME = "profile_table";
         public static final String PROFILE_IMAGE = "profile_image";
         public static final String PROFILE_ROLE = "profile_role";

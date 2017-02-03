@@ -183,6 +183,20 @@
         <item>Registration</item>
     </string-array>
 
+
+    <!--event category array-->
+    <string-array name="event_category">
+        <item>Medical Camps</item>
+        <item>Social Awareness</item>
+        <item>Child care</item>
+        <item>Health and Fitness</item>
+        <item>Food distribution</item>
+        <item>Charity</item>
+        <item>Misc</item>
+    </string-array>
+
+
+
     <string name="acheivements">Acheivements</string>
     <string name="acheivement_details">Acheivement Details</string>
     <string name="update_acheivement">Update Acheivement</string>
@@ -199,10 +213,13 @@
 
     <string name="discription">Discription</string>
     <string name="startdate">Start Date</string>
+    <string name="category">Category</string>
     <string name="other">Other</string>
     <string name="enddate">enddate</string>
     <string name="EndDate">End Date</string>
     <string name="Oraginization_id">Organization Id</string>
+
+    <string name="Organization_profile">Organizer Profile</string>
 
 
     <!--toolbar titles-->
@@ -212,6 +229,24 @@
     <string name="Create">Create</string>
     <string name="View">View</string>
 
+
+    <string name="view_name">NAME</string>
+    <string name="view_mobile">MOBILE NO</string>
+    <string name="view_email">EMAIL</string>
+    <string name="view_address">ADDRESS</string>
+    <string name="view_role">ROLE</string>
+    <string name="view_news">NEWS LETTER</string>
+    <string name="view_authorised">GOVT AUTHORISED</string>
+    <string name="view_reg_no">REGISTRATION NO</string>
+    <string name="view_facebook">FACEBOOK LINK</string>
+    <string name="view_linkedin">LINKEDIN LINK</string>
+    <string name="view_website">WEBSITE LINK</string>
+    <string name="view_twitter">TWITTER LINK</string>
+    <string name="view_presence">PRESENCE_AREA</string>
+
+
+    <string name="view_govt">Govt registered</string>
+    <string name="view_non_govt">Non govt registered</string>
 
     <string name="view_title">TITLE</string>
     <string name="view_sub_title">SUB TITLE</string>
@@ -229,6 +264,7 @@
     <!--Request String -->
     <string name="request_details">Social Request Details</string>
     <string name="request">Social Request</string>
+    <string name="groups">Social Groups</string>
     <string name="update_request">Update Social Request</string>
     <string name="delete_request">Delete Social Request</string>
     <string name="update_delete_request">Update/Delete Social Request</string>
@@ -242,6 +278,7 @@
     <string name="no_events">Events not available</string>
     <string name="no_achievements">Achievements not available</string>
     <string name="no_requests">Social Requests not available</string>
+    <string name="no_groups">Social Groups not available</string>
     <string name="page_not_found">Page not found</string>
 
     <!-- TODO: Remove or change this placeholder text -->

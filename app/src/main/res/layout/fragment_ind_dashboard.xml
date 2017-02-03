@@ -53,7 +53,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.33"
                 android:background="@color/light_grey"
                 android:orientation="vertical"
                 >
@@ -72,17 +71,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="@string/event"
+                        android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:textColor="@color/icons"/>
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtEventSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
                         android:text="@string/more"
-                        />
+                        android:textColor="@color/icons"
+                        android:drawableRight="@drawable/ic_see_more"/>
 
                 </RelativeLayout>
 
@@ -118,11 +120,81 @@
 
             </LinearLayout>
 
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.33"
+                android:background="@color/light_grey"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rlGroups"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:background="@color/primary"
+                    android:layout_marginTop="10dp">
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="@string/groups"
+                        android:textColor="@color/icons"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:id="@+id/txtGroupSeeMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/more"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/icons"
+                        android:drawableRight="@drawable/ic_see_more"
+                        />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/groups_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlRequest"/>
+
+                <LinearLayout
+                    android:id="@+id/llGroupsStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_gravity="center">
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary_text"
+                        android:text="@string/oops"/>
+
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondary_text"
+                        android:text="@string/no_groups"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/light_grey"
                 android:orientation="vertical">
 
@@ -139,17 +211,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:text="@string/request"
                         android:textColor="@color/icons"/>
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtSocialSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/icons"
+                        android:drawableRight="@drawable/ic_see_more"
                         />
                 </RelativeLayout>
 
@@ -188,7 +264,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.33"
                 android:orientation="vertical"
                 android:background="@color/light_grey">
 
@@ -206,16 +281,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/acheivements"
                         android:textColor="@color/icons" />
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtAchievementSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/icons"
+                        android:drawableRight="@drawable/ic_see_more"
                          />
                 </RelativeLayout>
 
@@ -259,7 +338,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
@@ -268,7 +347,7 @@
             android:background="@color/primary"
             android:text="@string/donate"/>
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"

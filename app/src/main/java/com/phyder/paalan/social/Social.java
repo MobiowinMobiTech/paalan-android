@@ -28,6 +28,7 @@ public class Social {
 
     public static final String NAVIGATE_TO_EVENT = "navigate_to_event";
     public static final String NAVIGATE_TO_ACHIEVEMENT = "navigate_to_achievement";
-    public static final String NAVIGATE_TO_SOCIAL = "navigate_to_socail";
+    public static final String NAVIGATE_TO_SOCIAL = "navigate_to_social";
+    public static final String NAVIGATE_TO_GROUP = "navigate_to_group";
 
 }

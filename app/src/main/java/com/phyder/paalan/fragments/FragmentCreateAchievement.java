@@ -299,7 +299,6 @@ public class FragmentCreateAchievement extends Fragment{
                 } else { //permission is not granted }
                     return;
                 }
-
             }
         }
     }
@@ -330,28 +329,22 @@ public class FragmentCreateAchievement extends Fragment{
 
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
-                            if(shouldBeUpdated){
-                                dbAdapter.updateAchievement(achievementID, strTitle, strSubTitle, strDescription, strOthers,
-                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth);
-                                getActivity().getSupportFragmentManager().popBackStack();
-                                Toast.makeText(getActivity(), getResources().getString(R.string.achievement_updated), Toast.LENGTH_LONG)
-                                        .show();
-                            }else {
-                                dbAdapter.insertAchievement(response.body().getData()[0].getAchievementid(), strTitle, strSubTitle, strDescription, strOthers,
-                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth, "F");
-                                Toast.makeText(getActivity(), getResources().getString(R.string.achievement_created), Toast.LENGTH_LONG)
-                                        .show();
-                            }
+                            int status = dbAdapter.populatingAchievementsIntoDB(response.body().getData()[0].getAchievementid(),
+                                    achievementID, strTitle, strSubTitle, strDescription, strOthers,
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
+                            String message = status==0 ? getResources().getString(R.string.achievement_created) :
+                                    getResources().getString(R.string.achievement_updated);
+                            CommanUtils.showToast(getActivity(),message);
+                            getActivity().getSupportFragmentManager().popBackStack();
+
                             dbAdapter.close();
                             getClearFields();
 
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -359,8 +352,7 @@ public class FragmentCreateAchievement extends Fragment{
                 public void onFailure(Call<OrgResCreateAchievments> call, Throwable t) {
                     Log.e(TAG, "onFailure: " + t.getMessage());
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_timeout));
                 }
             });
         }else{
@@ -407,16 +399,16 @@ public class FragmentCreateAchievement extends Fragment{
         }
     }
 
-    private void loadAchievementAttachments(ImageView imgView,String imgData){
 
-        if(imgData.contains("http://")) {
-            Picasso.with(getActivity())
-                    .load(imgData)
-                    .into(imgView);
+    private void loadAchievementAttachments(ImageView imgView,String url){
+        imgView.setVisibility(View.VISIBLE);
+        if(url.contains("http://")) {
+            CommanUtils.updateImage(getActivity(),imgView,url,R.drawable.ic_add_circle_outline_black_24dp);
         }else{
-            imgView.setImageBitmap(CommanUtils.decodeBase64(imgData));
+            imgView.setImageBitmap(CommanUtils.decodeBase64(url));
         }
     }
+
 
     private String getImageData(Cursor cursor,int columnIndex){
         return  CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(

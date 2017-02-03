@@ -147,28 +147,24 @@ public class FragmentViewRequest extends Fragment {
 
                             for(int i=0;i<response.body().getData()[0].getOrgreqlist().length;i++) {
 
-                                if(!dbAdapter.isRequestExist(response.body().getData()[0].
-                                        getOrgreqlist()[i].getRequestId()))    {
-
-                                    dbAdapter.insertRequest(response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
-                                            response.body().getData()[0].getOrgreqlist()[i].getTitle(),
-                                            response.body().getData()[0].getOrgreqlist()[i].getSubTitle(),
-                                            response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
-                                            response.body().getData()[0].getOrgreqlist()[i].getOthers(),
-                                            response.body().getData()[0].getOrgreqlist()[i].getLocation(),
-                                            response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag());
-                                }
+                                dbAdapter.populatingRequestIntoDB(null,response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getTitle(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getSubTitle(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getOthers(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getLocation(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag());
                             }
+
                             dbAdapter.updateRequestTimeSpan(response.body().getMessage());
                             dbAdapter.close();
                             getPopulated();
+
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
-                                    Toast.LENGTH_LONG).show();
+                            CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -176,8 +172,7 @@ public class FragmentViewRequest extends Fragment {
                 public void onFailure(Call<OrgResSyncRequest> call, Throwable t) {
                     Log.e(TAG, "onFailure: " + t.getMessage());
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(),getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

@@ -27,12 +27,14 @@ import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentContactUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
+import com.phyder.paalan.fragments.FragmentCreateEvent;
 import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 import com.phyder.paalan.fragments.FragmentViewEvent;
+import com.phyder.paalan.fragments.FragmentViewGroups;
 import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
@@ -129,7 +131,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                     }
                 }else if(groupPosition == 2){
                     if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-
+                        getFragmentTransaction(new FragmentViewGroups());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
                 }else if(groupPosition == 3){
@@ -137,16 +139,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         getFragmentTransaction(new FragmentViewAchievement());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
-                }else if(groupPosition == 4){
-                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
+                }else if(groupPosition == 4 || groupPosition == 7){
                         getFragmentTransaction(new FragmentAboutUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 5){
-                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
+                }else if(groupPosition == 5 || groupPosition == 8){
                         getFragmentTransaction(new FragmentContactUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
-                    }
                 }else if(groupPosition == 6){
                     if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                         PREF.setLogin(false);
@@ -193,7 +191,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         switch (childPosition) {
                             case 0:
                                 if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewAchievement();
+                                    fragment = new FragmentCreateEvent();
                                     getFragmentTransaction(fragment);
                                     expListView.collapseGroup(2);
                                 }

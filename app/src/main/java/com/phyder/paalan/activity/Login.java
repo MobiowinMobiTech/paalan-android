@@ -111,10 +111,7 @@ public class Login extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-                if (requestPermission()) {
-                    deviceID = CommanUtils.getImeiNo(Login.this);
                     getRetrofitCall();
-                }
 
 //                Intent intent = new Intent(LoginActivity.this, ActivityFragmentPlatform.class);
 //                intent.putExtra("LOGIN", loginType);
@@ -127,43 +124,9 @@ public class Login extends AppCompatActivity {
     }
 
 
-    private boolean requestPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-
-        if (Login.this.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) ==
-                PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},
-                    PERMISSION_READ_STATE);
-        }
-        return false;
-    }
 
 
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_READ_STATE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //permission is granted
-                    deviceID = CommanUtils.getImeiNo(Login.this);
-                    getRetrofitCall();
-                } else {
-                    //permission is not granted
-                }
-                return;
-            }
 
-        }
-    }
 
     public void getRetrofitCall() {
 
@@ -171,7 +134,7 @@ public class Login extends AppCompatActivity {
 
             CommanUtils.showDialog(Login.this);
             Device.newInstance(Login.this);
-            RequestLogin reqLogin = RequestLogin.get(deviceID, email, password);
+            RequestLogin reqLogin = RequestLogin.get( email, password);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
