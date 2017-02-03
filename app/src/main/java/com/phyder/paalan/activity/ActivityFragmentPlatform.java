@@ -1,8 +1,18 @@
 package com.phyder.paalan.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,6 +32,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.db.DBAdapter;
@@ -41,8 +53,8 @@ import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
-import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 /**
@@ -50,6 +62,7 @@ import java.util.HashMap;
  */
 public class ActivityFragmentPlatform extends AppCompatActivity{
 
+    private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
     private ExpandableListView expListView;
@@ -61,8 +74,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     private static TextView TXT_USER_NAME;
     private static PreferenceUtils PREF;
     private static DBAdapter DB_ADAPTER;
-
+    final static int IMG_RESULT = 1;
+    final int CAMERA_REQUEST = 1888;
     private static ActionBar actionBar;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
+    private static final int STORAGE_PERMISSION_CODE = 88;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +115,15 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         prepareListData();
 
+        //Profile image
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
+        // to update profile image
+        IMG_PROFILE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateProfileImage();
+            }
+        });
         TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -117,9 +141,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-
                 if (groupPosition == 0) {
-
                     fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
                             new FragmentViewEvent();
                     getFragmentTransaction(fragment);
@@ -148,10 +170,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                 }else if(groupPosition == 6){
                     if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
                         PREF.setLogin(false);
-                        PREF.setLoginType(Social.IND_ENTITY);
                         DB_ADAPTER.open();
                         DB_ADAPTER.deleteProfile();
                         DB_ADAPTER.close();
+                        PREF.setLoginType(Social.IND_ENTITY);
                         prepareListData();
                         getFragmentTransaction(new FragmentIndDashboard());
                         mDrawerLayout.closeDrawer(mDrawerList);
@@ -259,6 +281,167 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
 
 
+    /**
+     * Function used to update profile image
+     */
+    private void updateProfileImage() {
+        Log.d("", "updateProfileImage: "+PREF.getLoginType());
+        if (PREF.getLoginType().equalsIgnoreCase(Social.ORG_ENTITY)) {
+            Log.d("", "updateProfileImage: org");
+            try {
+                fragment = new FragmentMyProfile();
+                getFragmentTransaction(fragment);
+                mDrawerLayout.closeDrawer(mDrawerList);
+            } catch (Exception ex) {
+
+            }
+        }else{
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle(" Select Profile");
+            alertDialog.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                if (requestPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_REQUEST_CODE)){
+                    openCameraForDP();
+                }
+
+            }
+        });
+        alertDialog.setNegativeButton("Gallary", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE)){
+                    openGalleryForDP();
+                }
+            }
+
+
+        });
+
+        alertDialog.show();
+        }
+    }
+
+
+    /**
+     * To open gallery
+     */
+    private void openGalleryForDP() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, IMG_RESULT);
+    }
+
+    /**
+     * To open Camera
+     */
+    private void openCameraForDP() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+
+    /**
+     * To get permission from user
+     * @param permissionName : permission to take
+     * @param permissionRequestCode : request for open identifier
+     * @return : status of permission
+     */
+    private boolean requestPermission(String permissionName, int permissionRequestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(permissionName) == PackageManager.PERMISSION_GRANTED ) {
+            return true;
+        } else {
+            requestPermissions(new String[]{permissionName}, permissionRequestCode);
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        Log.d(TAG, "onRequestPermissionsResult: reqCode "+requestCode);
+
+        switch (requestCode) {
+            case CAMERA_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)  {
+                    openCameraForDP();
+                }
+                return;
+            }
+            case STORAGE_PERMISSION_CODE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGalleryForDP();
+                }
+                break;
+
+        }
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d(TAG, "onActivityResult: "+requestCode+" result code "+RESULT_OK +" "+resultCode);
+
+        String strEncodedDp;
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            IMG_PROFILE.setImageBitmap(photo);
+            strEncodedDp = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
+            Log.d(TAG, "onActivityResult: CAMERA "+strEncodedDp);
+            saveProfilePicture(photo);
+        } else if (requestCode == IMG_RESULT || requestCode == IMG_RESULT) {
+            try {
+                if (requestCode == IMG_RESULT && resultCode == RESULT_OK
+                        && null != data) {
+                    Uri URI = data.getData();
+                    String[] FILE = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = this.getContentResolver().query(URI,
+                            FILE, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(FILE[0]);
+                    strEncodedDp = cursor.getString(columnIndex);
+                    IMG_PROFILE.setImageBitmap(BitmapFactory
+                            .decodeFile(strEncodedDp));
+
+                    saveProfilePicture(BitmapFactory.decodeFile(strEncodedDp));
+
+                    strEncodedDp = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(BitmapFactory
+                            .decodeFile(strEncodedDp)));
+                    cursor.close();
+                    Log.d(TAG, "onActivityResult: GALLERY "+strEncodedDp);
+
+                }
+            } catch (Exception e) {
+                Toast.makeText(this, "Please try again", Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
+    }
+
+    /**
+     * Function to save profile picture
+     * @param bitmap
+     */
+    private void saveProfilePicture(Bitmap bitmap) {
+
+        Log.d(TAG, "XXsaveProfilePicture: "+PREF.getLoginType());
+
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        CommanUtils.saveProfilePic(this, PREF.getLoginType(), temp);
+
+    }
+
+
     private void getFragmentTransaction(Fragment fragment){
 
         getSupportFragmentManager().beginTransaction()
@@ -269,51 +452,53 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
 
     private void prepareListData() {
+try {
+    String emptyArray[] = new String[0];
 
-        String emptyArray[] = new String[0];
+    if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
 
-        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
+        listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
+        String[] loginItems = getResources().getStringArray(R.array.login_array);
 
-            listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
-            String[] loginItems = getResources().getStringArray(R.array.login_array);
+        listDataChild = new HashMap<String, String[]>();
+        listDataChild.put(listDataHeader[0], emptyArray);
+        listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
+        listDataChild.put(listDataHeader[2], emptyArray);
 
-            listDataChild = new HashMap<String, String[]>();
-            listDataChild.put(listDataHeader[0], emptyArray);
-            listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
-            listDataChild.put(listDataHeader[2], emptyArray);
+        listDataChild.put(listDataHeader[3], emptyArray);
+        listDataChild.put(listDataHeader[4], emptyArray);
+        listDataChild.put(listDataHeader[5], emptyArray);
 
-            listDataChild.put(listDataHeader[3], emptyArray);
-            listDataChild.put(listDataHeader[4], emptyArray);
-            listDataChild.put(listDataHeader[5], emptyArray);
-
-            listDataChild.put(listDataHeader[6], loginItems);
-            listDataChild.put(listDataHeader[7], emptyArray);
-            listDataChild.put(listDataHeader[8], emptyArray);
+        listDataChild.put(listDataHeader[6], loginItems);
+        listDataChild.put(listDataHeader[7], emptyArray);
+        listDataChild.put(listDataHeader[8], emptyArray);
 
 
-        }else {
-            // Adding child data
-            listDataHeader = getResources().getStringArray(R.array.drawer_array);
-            // Adding child data
-            String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
-            // Adding child data
-            String[] eventItems = getResources().getStringArray(R.array.events_array);
+    } else {
+        // Adding child data
+        listDataHeader = getResources().getStringArray(R.array.drawer_array);
+        // Adding child data
+        String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
+        // Adding child data
+        String[] eventItems = getResources().getStringArray(R.array.events_array);
 
-            String[] requestItems = getResources().getStringArray(R.array.request_array);
+        String[] requestItems = getResources().getStringArray(R.array.request_array);
 
-            listDataChild = new HashMap<String, String[]>();
-            listDataChild.put(listDataHeader[0], emptyArray);
-            listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
-            listDataChild.put(listDataHeader[2], eventItems);
-            listDataChild.put(listDataHeader[3], requestItems);
-            listDataChild.put(listDataHeader[4], emptyArray);
-            listDataChild.put(listDataHeader[5], emptyArray);
-            listDataChild.put(listDataHeader[6], emptyArray);
-        }
+        listDataChild = new HashMap<String, String[]>();
+        listDataChild.put(listDataHeader[0], emptyArray);
+        listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
+        listDataChild.put(listDataHeader[2], eventItems);
+        listDataChild.put(listDataHeader[3], requestItems);
+        listDataChild.put(listDataHeader[4], emptyArray);
+        listDataChild.put(listDataHeader[5], emptyArray);
+        listDataChild.put(listDataHeader[6], emptyArray);
+    }
 
-        listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);
-
+    listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
+    expListView.setAdapter(listAdapter);
+}catch (Exception e){
+    e.printStackTrace();
+}
     }
 
 
@@ -428,7 +613,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        getProfileUpdate(ActivityFragmentPlatform.this);
+        getProfileUpdate();
     }
 
     @Override
@@ -440,26 +625,18 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                 else
                     mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
                 return true;
-
-
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public static void getProfileUpdate(Context context){
-        DB_ADAPTER.open();
-        String encodedImage = DB_ADAPTER.getProfileDP();
-        if(!encodedImage.isEmpty() && !encodedImage.contains("http://")){
-            IMG_PROFILE.setImageBitmap(CommanUtils.decodeBase64(encodedImage));
-
-        }else if(!encodedImage.isEmpty() && encodedImage.contains("http://")){
-            Picasso.with(context)
-                    .load(encodedImage)
-                    .placeholder(R.drawable.unknown)   // optional
-                    .error(R.drawable.unknown)      // optional
-                    .into(IMG_PROFILE);
-        }
-        DB_ADAPTER.close();
+    /**
+     * Function to get profile image from sp
+     */
+    public void getProfileUpdate(){
+        Log.d("", "XXgetProfileUpdate: "+PREF.getLoginType());
+        Bitmap profilePic = CommanUtils.getUserProfile(ActivityFragmentPlatform.this, PREF.getLoginType());
+        if (profilePic != null)
+            IMG_PROFILE.setImageBitmap(profilePic);
 
         if (PREF.getUserName() != null) {
             TXT_USER_NAME.setText(PREF.getUserName());
@@ -469,7 +646,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     public static void getFinished(FragmentActivity context){
         context.finish();
     }
-
 
 }
 

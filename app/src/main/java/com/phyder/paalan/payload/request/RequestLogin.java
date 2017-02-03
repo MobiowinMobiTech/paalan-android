@@ -1,7 +1,5 @@
 package com.phyder.paalan.payload.request;
 
-import android.util.Log;
-
 import com.phyder.paalan.social.Social;
 
 /**
@@ -20,7 +18,6 @@ public class RequestLogin {
 
 
     public static RequestLogin get(String userId, String password) {
-
 
         Data data = new Data();
         data.setImeino("");

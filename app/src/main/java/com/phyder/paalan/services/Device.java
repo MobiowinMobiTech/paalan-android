@@ -161,4 +161,12 @@ public class Device {
         SharedPreferences sharedPreferences = context.getSharedPreferences("notification",Context.MODE_PRIVATE);
         return sharedPreferences.getString("regId","");
     }
+
+    public static String getModelNo() {
+        return Build.MODEL;
+    }
+
+    public String getOSVersion() {
+        return Build.VERSION.SDK_INT+"";
+    }
 }

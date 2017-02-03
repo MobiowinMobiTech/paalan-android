@@ -84,7 +84,7 @@ public class RegisterUser extends AppIntro {
             if (NetworkUtil.isInternetConnected(RegisterUser.this)) {
                 registerOrganisationUserWithServer();
             }else {
-                CommanUtils.showAlert(this,getString(R.string.app_name),getString(R.string.network_connectivity));
+                CommanUtils.showAlert(this,getString(R.string.connection_error),getString(R.string.network_connectivity));
             }
 
         }else {
@@ -118,7 +118,6 @@ public class RegisterUser extends AppIntro {
                 return true;
             else
                 return false;
-
         }
 
     }
@@ -225,7 +224,7 @@ public class RegisterUser extends AppIntro {
         OrganizationReqResistration reqResistration =
                 OrganizationReqResistration.get(data.getName(),
                         data.getMobileno(), data.getEmailid(), data.getPassword(),
-                        notificationToken, Device.getDeviceId(this) , Device.getImeiNo(this),
+                        notificationToken, Device.getDeviceId(this) ,
                         orgAddressInfo.getAddress(), orgAddressInfo.getCity(),
                         orgAddressInfo.getState(), orgAddressInfo.getPincode(), orgAddressInfo.getPincode());
 

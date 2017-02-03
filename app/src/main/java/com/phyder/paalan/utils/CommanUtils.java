@@ -50,10 +50,10 @@ public class CommanUtils {
 
     public static boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 8;
+        return password.length() > 6;
     }
 
-    public static String getImeiNo(Context context){
+    private static String getImeiNo(Context context){
             TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         return telephonyManager.getDeviceId();
     }
@@ -298,5 +298,37 @@ public class CommanUtils {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("isNewUser",true);
         editor.apply();
+    }
+
+    /**
+     * Function to save profile picture in shared preference
+     * @param context : current context
+     * @param userType
+     * @param strEncodedDp : user profile picture
+     */
+    public static void saveProfilePic(Context context, String userType, String strEncodedDp) {
+        Log.d(TAG, "getProfileUpdate: save "+userType);
+        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("profilePic"+userType,strEncodedDp);
+        editor.apply();
+    }
+
+    public static Bitmap getUserProfile(Context context, String loginType) {
+        Log.d(TAG, "getProfileUpdate: type "+loginType);
+        SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
+        String profilePic = sharedPref.getString("profilePic"+loginType,"");
+        try {
+            byte [] encodeByte=Base64.decode(profilePic,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            Log.d(TAG, "getProfileUpdate: found "+bitmap.toString());
+            return bitmap;
+        } catch(Exception e) {
+            Log.d(TAG, "getProfileUpdate: error "+e.toString());
+            e.getMessage();
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }
