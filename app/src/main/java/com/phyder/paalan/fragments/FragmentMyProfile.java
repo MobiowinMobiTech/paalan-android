@@ -1,15 +1,19 @@
 package com.phyder.paalan.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +35,8 @@ import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
-import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +53,8 @@ public class FragmentMyProfile extends Fragment {
     private final static String IS_NEWS_LETTER = "cmss";
 
     final static int IMG_RESULT = 1;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
+    private static final int STORAGE_PERMISSION_CODE = 88;
     final int CAMERA_REQUEST = 1888;
     private RoundedImageView profileImage;
     private TextViewOpenSansRegular txtUserName;
@@ -88,12 +95,14 @@ public class FragmentMyProfile extends Fragment {
         profileImage = (RoundedImageView) view.findViewById(R.id.imageview_dp_image);
         txtUserName = (TextViewOpenSansRegular) view.findViewById(R.id.txtProfileName);
 
+        Bitmap profilePic = CommanUtils.getUserProfile(getActivity(),pref.getLoginType());
+        if (profilePic != null)
+            profileImage.setImageBitmap(CommanUtils.getUserProfile(getActivity(),pref.getLoginType()));
+
     }
 
 
-
     private void populatingData(){
-
         dbAdapter.open();
         cursor = dbAdapter.getProfile();
         if(cursor !=null)
@@ -108,19 +117,11 @@ public class FragmentMyProfile extends Fragment {
                     edtTwitterLink.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_TWITTER_LINK)));
                     edtPresenceArea.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_PRESENCE_AREA)));
 
-
-                    if(!isDoingUpdateDp)
-                        strEncodedDp = cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_IMAGE));
-
-                    if(!strEncodedDp.isEmpty() && !strEncodedDp.contains("http://")){
-                        profileImage.setImageBitmap(CommanUtils.decodeBase64(strEncodedDp));
-                    }else if(!strEncodedDp.isEmpty() && strEncodedDp.contains("http://")){
-                        Picasso.with(getActivity())
-                                .load(strEncodedDp)
-                                .placeholder(R.drawable.unknown)   // optional
-                                .error(R.drawable.unknown)      // optional
-                                .into(profileImage);
-                    }
+                    Bitmap profilePic = CommanUtils.getUserProfile(getActivity(), pref.getLoginType());
+                    Log.d(TAG, "getProfileUpdate: type "+pref.getLoginType());
+                    Log.d(TAG, "getProfileUpdate: img "+profilePic);
+                    if (profilePic != null)
+                        profileImage.setImageBitmap(profilePic);
 
                 }while(cursor.moveToNext());
             }
@@ -145,20 +146,20 @@ public class FragmentMyProfile extends Fragment {
                 alertDialog.setTitle(" Select Profile");
                 alertDialog.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        isDoingUpdateDp = true;
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    if (requestPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_REQUEST_CODE)){
+                        openCameraForDP();
+                    }
 
                     }
                 });
                 alertDialog.setNegativeButton("Gallary", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        isDoingUpdateDp = true;
-                        Intent intent = new Intent(Intent.ACTION_PICK,
-                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, IMG_RESULT);
-                        dialog.cancel();
+                        if (requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE)){
+                            openGalleryForDP();
+                        }
                     }
+
+
                 });
 
                 alertDialog.show();
@@ -190,19 +191,88 @@ public class FragmentMyProfile extends Fragment {
         });
     }
 
+    /**
+     * To open gallery
+     */
+    private void openGalleryForDP() {
+        isDoingUpdateDp = true;
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, IMG_RESULT);
+    }
 
+    /**
+     * To open Camera
+     */
+    private void openCameraForDP() {
+        isDoingUpdateDp = true;
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+
+    /**
+     * To get permission from user
+     * @param permissionName : permission to take
+     * @param permissionRequestCode : request for open identifier
+     * @return : status of permission
+     */
+    private boolean requestPermission(String permissionName, int permissionRequestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (getActivity().checkSelfPermission(permissionName) ==
+                PackageManager.PERMISSION_GRANTED ) {
+            return true;
+        } else {
+            getActivity().requestPermissions(new String[]{permissionName},
+                    permissionRequestCode);
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        Log.d(TAG, "onRequestPermissionsResult: reqCode "+requestCode);
+
+        switch (requestCode) {
+            case CAMERA_PERMISSION_REQUEST_CODE: {
+                Log.d(TAG, "onRequestPermissionsResult: length "+grantResults.length);
+                Log.d(TAG, "onRequestPermissionsResult: results 1 "+grantResults[0] +" 2 "+ grantResults[1]);
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCameraForDP();
+                }
+                return;
+            }
+            case STORAGE_PERMISSION_CODE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
+                    openGalleryForDP();
+                }
+                break;
+
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d(TAG, "onActivityResult: "+requestCode+" result code "+RESULT_OK +" "+resultCode);
             if (requestCode == CAMERA_REQUEST) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                profileImage.setImageBitmap(photo);
-                strEncodedDp = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
+                if (resultCode == RESULT_OK){
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    profileImage.setImageBitmap(photo);
+                    strEncodedDp = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
 
-            } else if (requestCode == IMG_RESULT || requestCode == IMG_RESULT) {
-
+                    Log.d(TAG, "onActivityResult: CAMERA "+strEncodedDp);
+                    saveProfilePicture(photo);
+                }
+            } else if (requestCode == IMG_RESULT) {
                 try {
                     if (requestCode == IMG_RESULT && resultCode == RESULT_OK
                             && null != data) {
@@ -216,9 +286,13 @@ public class FragmentMyProfile extends Fragment {
                         profileImage.setImageBitmap(BitmapFactory
                                 .decodeFile(strEncodedDp));
 
+                        saveProfilePicture(BitmapFactory.decodeFile(strEncodedDp));
+
                         strEncodedDp = CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(BitmapFactory
                                 .decodeFile(strEncodedDp)));
                         cursor.close();
+                        Log.d(TAG, "onActivityResult: GALLERY "+strEncodedDp);
+
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)
@@ -227,6 +301,17 @@ public class FragmentMyProfile extends Fragment {
             }
     }
 
+    /**
+     * Function to save profile picture in Sp
+     * @param bitmap
+     */
+    private void saveProfilePicture(Bitmap bitmap) {
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        CommanUtils.saveProfilePic(getActivity(), pref.getLoginType(),temp);
+    }
 
     public void getRetrofitCall(){
 
@@ -257,7 +342,6 @@ public class FragmentMyProfile extends Fragment {
                                     strPresenceArea);
                             dbAdapter.close();
                             isDoingUpdateDp = false;
-                            ActivityFragmentPlatform.getProfileUpdate(getActivity());
                             Toast.makeText(getActivity(), getResources().getString(R.string.profile_up_to_date), Toast.LENGTH_LONG)
                                     .show();
                         } else {
@@ -282,7 +366,6 @@ public class FragmentMyProfile extends Fragment {
             CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
         }
     }
-
 
     @Override
     public void onResume() {
