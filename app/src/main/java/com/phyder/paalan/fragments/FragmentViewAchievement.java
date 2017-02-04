@@ -147,7 +147,9 @@ public class FragmentViewAchievement extends Fragment {
 
                             for(int i=0;i<response.body().getData()[0].getOrglist().length;i++) {
 
-                                dbAdapter.populatingAchievementsIntoDB(null,response.body().getData()[0].getOrglist()[i].getAchievementId(),
+                                dbAdapter.populatingAchievementsIntoDB(response.body().getData()[0].getOrglist()[i].getOrgId(),null,
+                                        response.body().getData()[0].getOrglist()[i].getAchievementId(),
+                                        response.body().getData()[0].getOrglist()[i].getName(),
                                         response.body().getData()[0].getOrglist()[i].getTitle(),
                                         response.body().getData()[0].getOrglist()[i].getSubTitle(),
                                         response.body().getData()[0].getOrglist()[i].getDiscription(),

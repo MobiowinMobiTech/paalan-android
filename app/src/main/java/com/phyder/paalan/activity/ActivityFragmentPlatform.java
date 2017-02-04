@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.adapter.ExpandableListAdapter;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentContactUs;
@@ -66,9 +67,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
     private ExpandableListView expListView;
-    private HashMap<String, String[]> listDataChild;
-    private ExpandableListAdapter listAdapter;
-    private String[] listDataHeader;
     private Fragment fragment;
     private static RoundedImageView IMG_PROFILE;
     private static TextView TXT_USER_NAME;
@@ -84,7 +82,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
-        // initToolBar();
         setUpDrawer();
     }
 
@@ -113,8 +110,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
-        prepareListData();
-
+        populatingSideDrawerList();
         //Profile image
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
         // to update profile image
@@ -174,7 +170,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         DB_ADAPTER.deleteProfile();
                         DB_ADAPTER.close();
                         PREF.setLoginType(Social.IND_ENTITY);
-                        prepareListData();
+                        getProfileUpdate();
+                        populatingSideDrawerList();
                         getFragmentTransaction(new FragmentIndDashboard());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
@@ -387,8 +384,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d(TAG, "onActivityResult: "+requestCode+" result code "+RESULT_OK +" "+resultCode);
-
         String strEncodedDp;
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -451,149 +446,71 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
 
 
-    private void prepareListData() {
-try {
-    String emptyArray[] = new String[0];
+    private void populatingSideDrawerList() {
 
-    if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
+        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
 
-        listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
-        String[] loginItems = getResources().getStringArray(R.array.login_array);
+            String emptyArray[] = new String[0];
 
-        listDataChild = new HashMap<String, String[]>();
-        listDataChild.put(listDataHeader[0], emptyArray);
-        listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
-        listDataChild.put(listDataHeader[2], emptyArray);
+            String[] listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
+            String[] loginItems = getResources().getStringArray(R.array.login_array);
 
-        listDataChild.put(listDataHeader[3], emptyArray);
-        listDataChild.put(listDataHeader[4], emptyArray);
-        listDataChild.put(listDataHeader[5], emptyArray);
+            HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
+            listDataChild.clear();
 
-        listDataChild.put(listDataHeader[6], loginItems);
-        listDataChild.put(listDataHeader[7], emptyArray);
-        listDataChild.put(listDataHeader[8], emptyArray);
+            Log.d("IND_ENTITY","listDataHeader size : "+listDataHeader.length);
 
+            listDataChild.put(listDataHeader[0], emptyArray);
+            listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
+            listDataChild.put(listDataHeader[2], emptyArray);
 
-    } else {
-        // Adding child data
-        listDataHeader = getResources().getStringArray(R.array.drawer_array);
-        // Adding child data
-        String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
-        // Adding child data
-        String[] eventItems = getResources().getStringArray(R.array.events_array);
+            listDataChild.put(listDataHeader[3], emptyArray);
+            listDataChild.put(listDataHeader[4], emptyArray);
+            listDataChild.put(listDataHeader[5], emptyArray);
 
-        String[] requestItems = getResources().getStringArray(R.array.request_array);
+            listDataChild.put(listDataHeader[6], loginItems);
+            listDataChild.put(listDataHeader[7], emptyArray);
+            listDataChild.put(listDataHeader[8], emptyArray);
 
-        listDataChild = new HashMap<String, String[]>();
-        listDataChild.put(listDataHeader[0], emptyArray);
-        listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
-        listDataChild.put(listDataHeader[2], eventItems);
-        listDataChild.put(listDataHeader[3], requestItems);
-        listDataChild.put(listDataHeader[4], emptyArray);
-        listDataChild.put(listDataHeader[5], emptyArray);
-        listDataChild.put(listDataHeader[6], emptyArray);
+            Log.d("IND_ENTITY","listDataChild size : "+listDataChild.size());
+
+            ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
+            expListView.setAdapter(listAdapter);
+
+        } else {
+
+            String emptyArray[] = new String[0];
+            // Adding child data
+            String[] listDataHeader = getResources().getStringArray(R.array.drawer_array);
+            // Adding child data
+            String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
+            // Adding child data
+            String[] eventItems = getResources().getStringArray(R.array.events_array);
+
+            String[] requestItems = getResources().getStringArray(R.array.request_array);
+
+            HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
+            listDataChild.clear();
+
+            Log.d("ORG_ENTITY","listDataHeader size : "+listDataHeader.length);
+
+            listDataChild.put(listDataHeader[0], emptyArray);
+            listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
+            listDataChild.put(listDataHeader[2], eventItems);
+            listDataChild.put(listDataHeader[3], requestItems);
+            listDataChild.put(listDataHeader[4], emptyArray);
+            listDataChild.put(listDataHeader[5], emptyArray);
+            listDataChild.put(listDataHeader[6], emptyArray);
+
+            Log.d("ORG_ENTITY","listDataChild size : "+listDataChild.size());
+
+            ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
+            expListView.setAdapter(listAdapter);
+        }
+
     }
 
-    listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
-    expListView.setAdapter(listAdapter);
-}catch (Exception e){
-    e.printStackTrace();
-}
-    }
 
-
-    public class ExpandableListAdapter extends BaseExpandableListAdapter {
-
-        private Context _context;
-        private String[] _listDataHeader; // header titles
-        // child data in format of header title, child title
-        private HashMap<String, String[]> _listDataChild;
-
-        public ExpandableListAdapter(Context context, String[] listDataHeader,
-                                     HashMap<String, String[]> listChildData) {
-            this._context = context;
-            this._listDataHeader = listDataHeader;
-            this._listDataChild = listChildData;
-        }
-
-        @Override
-        public Object getChild(int groupPosition, int childPosititon) {
-            return this._listDataChild.get(this._listDataHeader[groupPosition])
-                    [childPosititon];
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public View getChildView(int groupPosition, final int childPosition,
-                                 boolean isLastChild, View convertView, ViewGroup parent) {
-
-            final String childText = (String) getChild(groupPosition, childPosition);
-
-            if (convertView == null) {
-                LayoutInflater infalInflater = (LayoutInflater) this._context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.list_items, null);
-            }
-
-            TextViewOpenSansRegular txtListChild = (TextViewOpenSansRegular) convertView
-                    .findViewById(R.id.lblListItem);
-
-            txtListChild.setText(childText);
-            return convertView;
-        }
-
-        @Override
-        public int getChildrenCount(int groupPosition) {
-            return this._listDataChild.get(this._listDataHeader[groupPosition])
-                    .length;
-        }
-
-        @Override
-        public Object getGroup(int groupPosition) {
-            return this._listDataHeader[groupPosition];
-        }
-
-        @Override
-        public int getGroupCount() {
-            return this._listDataHeader.length;
-        }
-
-        @Override
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        @Override
-        public View getGroupView(final int groupPosition, boolean isExpanded,
-                                 View convertView, ViewGroup parent) {
-            String headerTitle = (String) getGroup(groupPosition);
-            if (convertView == null) {
-                LayoutInflater infalInflater = (LayoutInflater) this._context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.list_group, null);
-            }
-
-            TextViewOpenSansRegular lblListHeader = (TextViewOpenSansRegular) convertView
-                    .findViewById(R.id.lblListHeader);
-            lblListHeader.setText(headerTitle);
-
-            return convertView;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return false;
-        }
-
-        @Override
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return true;
-        }
-    }
 
 
     @Override
@@ -634,7 +551,7 @@ try {
      */
     public void getProfileUpdate(){
         Log.d("", "XXgetProfileUpdate: "+PREF.getLoginType());
-        Bitmap profilePic = CommanUtils.getUserProfile(ActivityFragmentPlatform.this, PREF.getLoginType());
+        Bitmap profilePic = CommanUtils.getUserProfile(this, PREF.getLoginType());
         if (profilePic != null)
             IMG_PROFILE.setImageBitmap(profilePic);
 

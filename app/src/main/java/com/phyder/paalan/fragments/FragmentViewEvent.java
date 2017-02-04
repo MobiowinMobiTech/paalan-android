@@ -149,14 +149,16 @@ public class FragmentViewEvent extends Fragment {
 
                             for (int i = 0; i < response.body().getData()[0].getEventlist().length; i++) {
 
-                                dbAdapter.populatingEventsIntoDB(null,response.body().getData()[0].getEventlist()[i].getEventId(),
+                                dbAdapter.populatingEventsIntoDB(response.body().getData()[0].getEventlist()[i].getOrgId(),null,
+                                        response.body().getData()[0].getEventlist()[i].getEventId(),
+                                        response.body().getData()[0].getEventlist()[i].getName(),
                                         response.body().getData()[0].getEventlist()[i].getTitle(),
                                         response.body().getData()[0].getEventlist()[i].getSubTitle(),
                                         response.body().getData()[0].getEventlist()[i].getDiscription(),
                                         response.body().getData()[0].getEventlist()[i].getOthers(),
                                         response.body().getData()[0].getEventlist()[i].getStartDt(),
                                         response.body().getData()[0].getEventlist()[i].getEndDt(),
-                                        response.body().getData()[0].getEventlist()[i].getDeleteFlag(),"","");
+                                        response.body().getData()[0].getEventlist()[i].getDeleteFlag(),null,null,null);
 
                             }
 

@@ -24,7 +24,7 @@ public class OrgReqCreateAchievments {
     private String type;
 
     public static OrgReqCreateAchievments get(String orgs, String achiId,ArrayList<String> imgs, String description, String others,
-                                              String subTitle, String title,String action) {
+                                              String subTitle, String title,String name,String action) {
 
         Achievementimg[] achievements = new Achievementimg[imgs.size()];
         for (int i = 0; i < achievements.length; i++) {
@@ -36,6 +36,7 @@ public class OrgReqCreateAchievments {
         Data data = new Data();
         data.setOrgid(orgs);
         data.setAchiId(achiId);
+        data.setName(name);
         data.setDiscription(description);
         data.setOthers(others);
         data.setSubtitle(subTitle);
@@ -94,6 +95,9 @@ public class OrgReqCreateAchievments {
     }
 
     public static class Data {
+
+        private String orgName;
+
         private String title;
 
         private String others;
@@ -115,6 +119,15 @@ public class OrgReqCreateAchievments {
         public void setTitle(String title) {
             this.title = title;
         }
+
+        public String getName() {
+            return orgName;
+        }
+
+        public void setName(String orgName) {
+            this.orgName = orgName;
+        }
+
 
         public String getOthers() {
             return others;
@@ -167,6 +180,7 @@ public class OrgReqCreateAchievments {
         @Override
         public String toString() {
             return "Data{" +
+                    "orgName='" + orgName + '\'' +
                     "title='" + title + '\'' +
                     ", others='" + others + '\'' +
                     ", achievementimg=" + Arrays.toString(achievementimg) +

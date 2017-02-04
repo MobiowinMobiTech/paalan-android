@@ -39,13 +39,14 @@ public class DBAdapter {
 
 //	Database methods for achievement insertion,updation,deletion,selection operations
 
-	public int populatingAchievementsIntoDB(String tempId, String achieve_id,String achieve_title, String achieve_sub_title, String achieve_desc,
+	public int populatingAchievementsIntoDB(String orgId,String tempId, String achieve_id,String name,String achieve_title, String achieve_sub_title, String achieve_desc,
 								  String achieve_others, String achieve_img1, String achieve_img2, String achieve_img3,
 								  String achieve_img4,String isDeleted) {
 		int status = 0;
 		ContentValues cv=new ContentValues();
 		try{
-
+			cv.put(Attributes.Database.ACHIEVEMENT_ORG_ID,(orgId!=null ? orgId : ""));
+			cv.put(Attributes.Database.ACHIEVEMENT_NAME,(name!=null ? name : "-"));
 			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : "-"));
 			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : "-"));
 			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : "-"));
@@ -56,15 +57,15 @@ public class DBAdapter {
 			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, (achieve_img4!=null ? achieve_img4 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
 
-			if(!isAchievementExist(achieve_id)) {
+			String id = tempId==null ? achieve_id : tempId;
+			if(!isAchievementExist(id)) {
 				status = 0;
-				String id = tempId==null ? achieve_id : tempId;
 				cv.put(Attributes.Database.ACHIEVEMENT_ID, id);
 				sqLiteDatabase.insert(Attributes.Database.ACHIEVEMENT_TABLE_NAME, null, cv);
 			}else{
 				status = 1;
 				sqLiteDatabase.update(Attributes.Database.ACHIEVEMENT_TABLE_NAME,cv,Attributes.Database.ACHIEVEMENT_ID
-						+" = '"+ achieve_id + "'",null);
+						+" = '"+ id + "'",null);
 			}
 		}
 		catch (Exception e) {
@@ -112,13 +113,15 @@ public class DBAdapter {
 
 	//	Database methods for event insertion,updation,deletion,selection operations
 
-	public int populatingEventsIntoDB(String tempId,String event_id, String event_title, String event_sub_title, String event_desc,
+	public int populatingEventsIntoDB(String orgId,String tempId,String event_id, String name,String event_title, String event_sub_title, String event_desc,
 							String event_others, String event_startdate, String event_enddate,
-							String event_is_Deleted,String event_category,String location) {
+							String event_is_Deleted,String event_category,String location,String logo) {
+
 		int status = 0;
 		ContentValues cv = new ContentValues();
 		try {
-
+			cv.put(Attributes.Database.EVENT_ORG_ID, (orgId != null ? orgId : ""));
+			cv.put(Attributes.Database.EVENT_NAME, (name != null ? name : "-"));
 			cv.put(Attributes.Database.EVENT_TITLE, (event_title != null ? event_title : "-"));
 			cv.put(Attributes.Database.EVENT_SUB_TITLE, (event_sub_title != null ? event_sub_title : "-"));
 			cv.put(Attributes.Database.EVENT_DESCRIPTION, (event_desc != null ? event_desc : "-"));
@@ -127,17 +130,19 @@ public class DBAdapter {
 			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate != null ? event_enddate : "-"));
 			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : "-"));
 			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : "-"));
+			cv.put(Attributes.Database.EVENT_LOGO, (logo != null ? logo : "-"));
 			cv.put(Attributes.Database.EVENT_IS_DELETED, event_is_Deleted);
 
-			if(!isEventExist(event_id)) {
+			String id = tempId==null ? event_id : tempId;
+
+			if(!isEventExist(id)) {
 				status = 0;
-				String id = tempId==null ? event_id : tempId;
 				cv.put(Attributes.Database.EVENT_ID, id);
 				sqLiteDatabase.insert(Attributes.Database.EVENT_TABLE_NAME, null, cv);
 			}else{
 				status = 1;
 				sqLiteDatabase.update(Attributes.Database.EVENT_TABLE_NAME, cv, Attributes.Database.EVENT_ID
-						+ " = '" + event_id + "'", null);
+						+ " = '" + id + "'", null);
 			}
 
 		} catch (Exception e) {
@@ -287,6 +292,25 @@ public class DBAdapter {
 				Attributes.Database.GROUPS_PROFILE_ORG_ID + " = '" + id + "'", null);
 	}
 
+
+	public String getGroupsProfileDp(String id) {
+		String dp = "";
+		Cursor cursor = sqLiteDatabase.rawQuery("Select " + Attributes.Database.GROUPS_PROFILE_DP_IMG +" from " +
+				Attributes.Database.GROUPS_PROFILE_TABLE_NAME +" where " +
+				Attributes.Database.GROUPS_PROFILE_ORG_ID + " = '" + id + "'", null);
+
+		if(cursor!=null)
+			cursor.moveToFirst();
+		if(cursor.moveToFirst()){
+			do{
+				dp = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_DP_IMG));
+			}while (cursor.moveToNext());
+		}
+
+		return dp;
+	}
+
+
 	public boolean isGroupsProfileExist(String id){
 		boolean isExist = false;
 		Cursor cursor = sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.GROUPS_PROFILE_TABLE_NAME+" where "+
@@ -386,13 +410,14 @@ public class DBAdapter {
 
 //	Database methods for request insertion,updation,deletion,selection operations
 
-	public int populatingRequestIntoDB(String tempId,String request_id,String request_title, String request_sub_title, String request_desc,
+	public int populatingRequestIntoDB(String orgId,String tempId,String request_id,String name,String request_title, String request_sub_title, String request_desc,
 							  String request_others, String request_location, String isDeleted){
 
 		int status = 0;
 		ContentValues cv=new ContentValues();
 		try{
-
+			cv.put(Attributes.Database.REQUEST_ORG_ID,(orgId!=null ? orgId : ""));
+			cv.put(Attributes.Database.REQUEST_NAME,(name!=null ? name : "-"));
 			cv.put(Attributes.Database.REQUEST_TITLE,(request_title!=null ? request_title : "-"));
 			cv.put(Attributes.Database.REQUEST_SUB_TITLE, (request_sub_title!=null ? request_sub_title : "-"));
 			cv.put(Attributes.Database.REQUEST_DESCRIPTION, (request_desc!=null ? request_desc : "-"));
@@ -400,14 +425,16 @@ public class DBAdapter {
 			cv.put(Attributes.Database.REQUEST_LOCATION, (request_location!=null ? request_location : "-"));
 			cv.put(Attributes.Database.REQUEST_IS_DELETED, isDeleted);
 
-			if(!isRequestExist(request_id)) {
+			String id = tempId==null ? request_id : tempId;
+
+			if(!isRequestExist(id)) {
 				status = 0;
-				cv.put(Attributes.Database.REQUEST_ID, request_id);
+				cv.put(Attributes.Database.REQUEST_ID, id);
 				sqLiteDatabase.insert(Attributes.Database.REQUEST_TABLE_NAME, null, cv);
 			}else{
 				status = 1;
 				sqLiteDatabase.update(Attributes.Database.REQUEST_TABLE_NAME, cv, Attributes.Database.REQUEST_ID
-						+ " = '" + request_id + "'", null);
+						+ " = '" + id + "'", null);
 			}
 		}
 		catch (Exception e) {

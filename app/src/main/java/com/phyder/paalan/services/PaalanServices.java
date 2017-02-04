@@ -2,6 +2,7 @@ package com.phyder.paalan.services;
 
 import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.request.RequestLogin;
+import com.phyder.paalan.payload.request.RequestOrganizerProfile;
 import com.phyder.paalan.payload.request.RequestSyncNotification;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
@@ -22,6 +23,7 @@ import com.phyder.paalan.payload.request.organization.OrganizationReqResistratio
 import com.phyder.paalan.payload.request.organization.RequestInitialData;
 import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.payload.response.ResponseLogin;
+import com.phyder.paalan.payload.response.ResponseOrganizerProfile;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
@@ -115,5 +117,8 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<RequestSyncNotification> syncNotificationId(@Body RequestSyncNotification requestSyncNotification);
+
+    @POST("paalan/PaalanGateway")
+    Call<ResponseOrganizerProfile> orgProfile(@Body RequestOrganizerProfile requestOrganizerProfile);
 
 }

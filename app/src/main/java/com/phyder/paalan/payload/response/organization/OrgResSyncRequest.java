@@ -80,6 +80,8 @@ public class OrgResSyncRequest {
 
         private String title;
 
+        private String orgName;
+
         private String others;
 
         private String createdBy;
@@ -136,6 +138,16 @@ public class OrgResSyncRequest {
         public void setTitle (String title)
         {
             this.title = title;
+        }
+
+        public String getName ()
+        {
+            return orgName;
+        }
+
+        public void setName (String orgName)
+        {
+            this.orgName = orgName;
         }
 
         public String getOthers ()
@@ -229,9 +241,23 @@ public class OrgResSyncRequest {
         }
 
         @Override
-        public String toString()
-        {
-            return "ClassPojo [orgId = "+orgId+", id = "+id+", subTitle = "+subTitle+", title = "+title+", others = "+others+", createdBy = "+createdBy+", location = "+location+", requestId = "+requestId+", modifiedBy = "+modifiedBy+", discription = "+discription+", deleteFlag = "+deleteFlag+", modifyDt = "+modifyDt+", createDt = "+createDt+"]";
+        public String toString() {
+            return "Orgreqlist{" +
+                    "orgId='" + orgId + '\'' +
+                    ", id='" + id + '\'' +
+                    ", subTitle='" + subTitle + '\'' +
+                    ", title='" + title + '\'' +
+                    ", orgName='" + orgName + '\'' +
+                    ", others='" + others + '\'' +
+                    ", createdBy='" + createdBy + '\'' +
+                    ", location='" + location + '\'' +
+                    ", requestId='" + requestId + '\'' +
+                    ", modifiedBy='" + modifiedBy + '\'' +
+                    ", discription='" + discription + '\'' +
+                    ", deleteFlag='" + deleteFlag + '\'' +
+                    ", modifyDt='" + modifyDt + '\'' +
+                    ", createDt='" + createDt + '\'' +
+                    '}';
         }
     }
 }

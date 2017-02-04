@@ -28,7 +28,7 @@ public class FragmentViewGroups extends Fragment {
     private LinearLayout llNoData;
     private String[] listOfGroupProfileIds;
     private String[] listOfGroupName;
-    private String[] listOfGroupMobile;
+    private String[] listOfGroupAddress;
 
     private int counter = 0;
 
@@ -68,7 +68,7 @@ public class FragmentViewGroups extends Fragment {
         Cursor cursor = dbAdapter.getAllGroups("F");
         listOfGroupProfileIds =new String[cursor.getCount()];
         listOfGroupName =new String[cursor.getCount()];
-        listOfGroupMobile =new String[cursor.getCount()];
+        listOfGroupAddress =new String[cursor.getCount()];
 
         if(cursor !=null){
             cursor.moveToFirst();
@@ -76,7 +76,7 @@ public class FragmentViewGroups extends Fragment {
                 do{
                     listOfGroupProfileIds[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_ORGANIZATION_ID)));
                     listOfGroupName[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_NAME)));
-                    listOfGroupMobile[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_MOBILE_NO)));
+                    listOfGroupAddress[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_ADDRESS)));
                     counter = counter+1;
                 }while(cursor.moveToNext());
             }
@@ -85,7 +85,7 @@ public class FragmentViewGroups extends Fragment {
         dbAdapter.close();
 
         if(listOfGroupName!=null && listOfGroupName.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfGroupName,listOfGroupMobile,null));
+            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfGroupName,listOfGroupAddress,null));
             listView.setVisibility(View.VISIBLE);
             llNoData.setVisibility(View.GONE);
         }else{

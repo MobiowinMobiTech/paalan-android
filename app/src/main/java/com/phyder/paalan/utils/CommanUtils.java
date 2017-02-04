@@ -225,7 +225,9 @@ public class CommanUtils {
     }
 
     public static void updateImage(Context context, ImageView img, String imgUrl,int defaultImage) {
-       Picasso.with(context)
+
+        imgUrl = (imgUrl==null || imgUrl.isEmpty()) ? "www.error.com" : imgUrl;
+        Picasso.with(context)
                 .load(imgUrl)
                 .placeholder(defaultImage)
                 .error(defaultImage)

@@ -15,23 +15,25 @@ import com.phyder.paalan.fragments.FragmentViewDetailsEvent;
 import com.phyder.paalan.fragments.FragmentViewDetailsRequest;
 import com.phyder.paalan.helper.PaalanGetterSetter;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.ArrayList;
 
 public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListVAdapter.ViewHolder> {
 
-    private ArrayList<String> titlesItems,idsItems;
+    private ArrayList<String> titlesItems,idsItems,logosItems;
     private int image;
     private FragmentActivity context;
     private String redirectPosition;
 
-    public HorizontalListVAdapter(FragmentActivity context, ArrayList<String> titlesItems,
+    public HorizontalListVAdapter(FragmentActivity context, ArrayList<String> logosItems,ArrayList<String> titlesItems,
                                   ArrayList<String> idsItems,int image,String redirectPosition) {
         super();
         this.context = context;
         this.titlesItems = titlesItems;
         this.idsItems = idsItems;
+        this.logosItems = logosItems;
         this.image=image;
         this.redirectPosition = redirectPosition;
    }
@@ -47,7 +49,14 @@ public class HorizontalListVAdapter extends RecyclerView.Adapter<HorizontalListV
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         viewHolder.tvSpecies.setText(titlesItems.get(i));
-        viewHolder.imgThumbnail.setImageResource(image);
+
+        if(logosItems==null ) {
+            viewHolder.imgThumbnail.setImageResource(image);
+        }else if(redirectPosition.equals(Social.NAVIGATE_TO_EVENT)){
+            CommanUtils.updateImage(context,viewHolder.imgThumbnail,logosItems.get(i),R.drawable.ic_add_alert_black_24dp);
+        }else if(redirectPosition.equals(Social.NAVIGATE_TO_GROUP)){
+            CommanUtils.updateImage(context,viewHolder.imgThumbnail,logosItems.get(i),R.drawable.unknown);
+        }
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

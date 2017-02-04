@@ -711,6 +711,8 @@ public class ResponseIndDashboard {
 
         private String title;
 
+        private String orgName;
+
         private String image2;
 
         private String image1;
@@ -807,6 +809,17 @@ public class ResponseIndDashboard {
             this.title = title;
         }
 
+        public String getName ()
+        {
+            return orgName;
+        }
+
+        public void setName (String orgName)
+        {
+            this.orgName = orgName;
+        }
+
+
         public String getImage2 ()
         {
             return image2;
@@ -897,6 +910,7 @@ public class ResponseIndDashboard {
                     ", orgId='" + orgId + '\'' +
                     ", subTitle='" + subTitle + '\'' +
                     ", title='" + title + '\'' +
+                    ", orgName='" + orgName + '\'' +
                     ", image2='" + image2 + '\'' +
                     ", image1='" + image1 + '\'' +
                     ", createdBy='" + createdBy + '\'' +
@@ -928,6 +942,8 @@ public class ResponseIndDashboard {
 
         private String subTitle;
 
+        private String orgName;
+
         private String title;
 
         private String category;
@@ -935,6 +951,8 @@ public class ResponseIndDashboard {
         private String eventId;
 
         private String createdBy;
+
+        private String eventLogo;
 
         private String startDt;
 
@@ -1024,6 +1042,17 @@ public class ResponseIndDashboard {
             this.subTitle = subTitle;
         }
 
+        public String getName ()
+        {
+            return orgName;
+        }
+
+        public void setName (String orgName)
+        {
+            this.orgName = orgName;
+        }
+
+
         public String getTitle ()
         {
             return title;
@@ -1063,6 +1092,17 @@ public class ResponseIndDashboard {
         {
             this.createdBy = createdBy;
         }
+
+        public String getEventLogo ()
+        {
+            return eventLogo;
+        }
+
+        public void setEventLogo (String eventLogo)
+        {
+            this.eventLogo = eventLogo;
+        }
+
 
         public String getStartDt ()
         {
@@ -1114,8 +1154,10 @@ public class ResponseIndDashboard {
                     ", id='" + id + '\'' +
                     ", orgId='" + orgId + '\'' +
                     ", subTitle='" + subTitle + '\'' +
+                    ", orgName='" + orgName + '\'' +
                     ", title='" + title + '\'' +
                     ", eventId='" + eventId + '\'' +
+                    ", eventLogo='" + eventLogo + '\'' +
                     ", createdBy='" + createdBy + '\'' +
                     ", startDt='" + startDt + '\'' +
                     ", deleteFlag='" + deleteFlag + '\'' +

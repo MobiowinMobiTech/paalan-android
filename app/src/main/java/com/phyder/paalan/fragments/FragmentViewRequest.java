@@ -147,7 +147,9 @@ public class FragmentViewRequest extends Fragment {
 
                             for(int i=0;i<response.body().getData()[0].getOrgreqlist().length;i++) {
 
-                                dbAdapter.populatingRequestIntoDB(null,response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
+                                dbAdapter.populatingRequestIntoDB(response.body().getData()[0].getOrgreqlist()[i].getOrgId(),null,
+                                        response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
+                                        response.body().getData()[0].getOrgreqlist()[i].getName(),
                                         response.body().getData()[0].getOrgreqlist()[i].getTitle(),
                                         response.body().getData()[0].getOrgreqlist()[i].getSubTitle(),
                                         response.body().getData()[0].getOrgreqlist()[i].getDiscription(),

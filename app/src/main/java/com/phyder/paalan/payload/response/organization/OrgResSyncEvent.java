@@ -116,6 +116,8 @@ public class OrgResSyncEvent {
 
         private String title;
 
+        private String orgName;
+
         private String category;
 
         private String eventId;
@@ -220,6 +222,16 @@ public class OrgResSyncEvent {
             this.title = title;
         }
 
+        public String getName ()
+        {
+            return orgName;
+        }
+
+        public void setName (String name)
+        {
+            this.orgName = orgName;
+        }
+
         public String getCategory ()
         {
             return category;
@@ -301,6 +313,7 @@ public class OrgResSyncEvent {
                     ", id='" + id + '\'' +
                     ", orgId='" + orgId + '\'' +
                     ", subTitle='" + subTitle + '\'' +
+                    ", orgName='" + orgName + '\'' +
                     ", title='" + title + '\'' +
                     ", category='" + category + '\'' +
                     ", eventId='" + eventId + '\'' +

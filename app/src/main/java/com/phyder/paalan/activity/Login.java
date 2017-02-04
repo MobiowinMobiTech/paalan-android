@@ -56,6 +56,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initializations();
         clickEventFire();
+
+        //merge comment
     }
 
 
@@ -110,8 +112,6 @@ public class Login extends AppCompatActivity {
             email = mEmailView.getText().toString();
             password = mPasswordView.getText().toString();
 
-                email = mEmailView.getText().toString();
-                password = mPasswordView.getText().toString();
 
 //                if(TextUtils.isEmpty(email)){
 //                    mEmailView.setError(getString(R.string.error_field_required));
@@ -123,7 +123,6 @@ public class Login extends AppCompatActivity {
 //                    mPasswordView.setError(getString(R.string.error_invalid_password));
 //                } else {
 
-                    getRetrofitCall();
             if (isValidData())
                 getRetrofitCall();
 

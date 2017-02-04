@@ -50,10 +50,10 @@ public class FragmentCreateRequest extends Fragment{
 
     private static final String TAG = FragmentCreateRequest.class.getCanonicalName();
 
-    private EditTextOpenSansRegular edtTitle,edtSubTitle,edtDescription,edtOthers,edtLocation;
+    private EditTextOpenSansRegular edtName,edtTitle,edtSubTitle,edtDescription,edtOthers,edtLocation;
     private ButtonOpenSansSemiBold btnSubmit;
 
-    private String requestID = "",strTitle = "",strSubTitle = "",strDescription = "",strOthers = "",strLocation = "";
+    private String requestID = "",strName = "",strTitle = "",strSubTitle = "",strDescription = "",strOthers = "",strLocation = "";
 
     private PreferenceUtils pref;
     private DBAdapter dbAdapter;
@@ -72,6 +72,7 @@ public class FragmentCreateRequest extends Fragment{
         pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
         edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_title);
+        edtName = (EditTextOpenSansRegular) view.findViewById(R.id.edt_name);
         edtSubTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_subtitle);
         edtDescription = (EditTextOpenSansRegular) view.findViewById(R.id.edt_description);
         edtOthers = (EditTextOpenSansRegular) view.findViewById(R.id.edt_other);
@@ -86,6 +87,7 @@ public class FragmentCreateRequest extends Fragment{
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
             requestID = bundle.getString("ID");
+            edtName.setText(bundle.getString("NAME"));
             edtTitle.setText(bundle.getString("TITLE"));
             edtSubTitle.setText(bundle.getString("SUB_TITLE"));
             edtDescription.setText(bundle.getString("DESCRIPTION"));
@@ -110,8 +112,11 @@ public class FragmentCreateRequest extends Fragment{
                 strDescription = edtDescription.getText().toString();
                 strOthers = edtOthers.getText().toString();
                 strLocation = edtLocation.getText().toString();
+                strName = edtName.getText().toString();
 
-                if(strTitle.isEmpty()){
+                if(strName.isEmpty()){
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_name));
+                }else if(strTitle.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_title));
                 } else if(strSubTitle.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_sub_title));
@@ -141,7 +146,7 @@ public class FragmentCreateRequest extends Fragment{
             String reqId = shouldBeUpdated ? requestID : "";
 
             OrgReqCreateRequest orgReqCreateRequest = OrgReqCreateRequest.get(pref.getOrgId(),reqId,
-                    strTitle,strSubTitle,strDescription,strOthers,strLocation,action);
+                    strName,strTitle,strSubTitle,strDescription,strOthers,strLocation,action);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -158,8 +163,8 @@ public class FragmentCreateRequest extends Fragment{
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
 
-                            int status = dbAdapter.populatingRequestIntoDB(response.body().getData()[0].getRequestid(),
-                                    requestID, strTitle, strSubTitle, strDescription, strOthers,
+                            int status = dbAdapter.populatingRequestIntoDB(pref.getOrgId(),response.body().getData()[0].getRequestid(),
+                                    requestID, strName,strTitle, strSubTitle, strDescription, strOthers,
                                         strLocation,"F");
                             String message = status == 0 ? getResources().getString(R.string.request_created) :
                                     getResources().getString(R.string.request_updated);
@@ -196,13 +201,14 @@ public class FragmentCreateRequest extends Fragment{
         strDescription = "";
         strOthers = "";
         strLocation = "";
+        strName = "";
 
         edtTitle.setText("");
         edtSubTitle.setText("");
         edtDescription.setText("");
         edtOthers.setText("");
         edtLocation.setText("");
-
+        edtName.setText("");
     }
 
     @Override

@@ -80,7 +80,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
     private Cursor eventCursor, groupCursor, requestCursor, achievementCursor;
     private ArrayList<String> eventLists, groupLists, requestLists, achievementLists;
-    private ArrayList<String> eventIdsLists, groupIdsLists, groupOrgIdsLists, requestIdsLists, achievementIdsLists;
+    private ArrayList<String> eventLogo,eventIdsLists,groupLogo, groupIdsLists, groupOrgIdsLists, requestIdsLists, achievementIdsLists;
 
 
         @Override
@@ -122,6 +122,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 requestLists = new ArrayList<String>();
                 achievementLists = new ArrayList<String>();
                 eventIdsLists = new ArrayList<String>();
+                eventLogo = new ArrayList<String>();
+                groupLogo = new ArrayList<String>();
                 groupIdsLists = new ArrayList<String>();
                 requestIdsLists = new ArrayList<String>();
                 achievementIdsLists = new ArrayList<String>();
@@ -305,6 +307,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             requestLists.clear();
             groupLists.clear();
             achievementLists.clear();
+            eventLogo.clear();
+            groupLogo.clear();
             eventIdsLists.clear();
             requestIdsLists.clear();
             groupIdsLists.clear();
@@ -319,6 +323,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 eventCursor.moveToFirst();
             if(eventCursor.moveToFirst()){
                 do{
+                    eventLogo.add(eventCursor.getString(eventCursor.getColumnIndex(Attributes.Database.EVENT_LOGO)));
                     eventLists.add(eventCursor.getString(eventCursor.getColumnIndex(Attributes.Database.EVENT_TITLE)));
                     eventIdsLists.add(eventCursor.getString(eventCursor.getColumnIndex(Attributes.Database.EVENT_ID)));
                 }while (eventCursor.moveToNext());
@@ -344,6 +349,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     groupLists.add(groupCursor.getString(groupCursor.getColumnIndex(Attributes.Database.GROUPS_NAME)));
                     groupIdsLists.add(groupCursor.getString(groupCursor.getColumnIndex(Attributes.Database.GROUPS_ID)));
                     groupOrgIdsLists.add(groupCursor.getString(groupCursor.getColumnIndex(Attributes.Database.GROUPS_ORGANIZATION_ID)));
+                    groupLogo.add(dbAdapter.getGroupsProfileDp(groupCursor.getString(groupCursor.getColumnIndex(Attributes.Database.GROUPS_ORGANIZATION_ID))));
                 }while (groupCursor.moveToNext());
             }
 
@@ -365,25 +371,25 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             recycleEvent.setHasFixedSize(true);
             layoutManagerEvent = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
             recycleEvent.setLayoutManager(layoutManagerEvent);
-            eventAdapter = new HorizontalListVAdapter(getActivity(), eventLists,eventIdsLists,R.drawable.publish_event, Social.NAVIGATE_TO_EVENT);
+            eventAdapter = new HorizontalListVAdapter(getActivity(), eventLogo,eventLists,eventIdsLists,R.drawable.publish_event, Social.NAVIGATE_TO_EVENT);
             recycleEvent.setAdapter(eventAdapter);
 
             recycleGroup.setHasFixedSize(true);
             layoutManagerGroup = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
             recycleGroup.setLayoutManager(layoutManagerGroup);
-            groupAdapter = new HorizontalListVAdapter(getActivity(), groupLists,groupOrgIdsLists,R.drawable.achievement, Social.NAVIGATE_TO_GROUP);
+            groupAdapter = new HorizontalListVAdapter(getActivity(), groupLogo,groupLists,groupOrgIdsLists,R.drawable.achievement, Social.NAVIGATE_TO_GROUP);
             recycleGroup.setAdapter(groupAdapter);
 
             recycleRequest.setHasFixedSize(true);
             layoutManagerSocial = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
             recycleRequest.setLayoutManager(layoutManagerSocial);
-            requestAdapter = new HorizontalListVAdapter(getActivity(), requestLists,requestIdsLists,R.drawable.social_strength, Social.NAVIGATE_TO_SOCIAL);
+            requestAdapter = new HorizontalListVAdapter(getActivity(), null,requestLists,requestIdsLists,R.drawable.social_strength, Social.NAVIGATE_TO_SOCIAL);
             recycleRequest.setAdapter(requestAdapter);
 
             recycleAchievement.setHasFixedSize(true);
             layoutManagerAchievement = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
             recycleAchievement.setLayoutManager(layoutManagerAchievement);
-            achievementAdapter = new HorizontalListVAdapter(getActivity(), achievementLists,achievementIdsLists,R.drawable.achievement,Social.NAVIGATE_TO_ACHIEVEMENT);
+            achievementAdapter = new HorizontalListVAdapter(getActivity(), null,achievementLists,achievementIdsLists,R.drawable.achievement,Social.NAVIGATE_TO_ACHIEVEMENT);
             recycleAchievement.setAdapter(achievementAdapter);
 
             if(eventLists.size()>0){
@@ -480,7 +486,9 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
             for (int i = 0; i < response.body().getData()[0].getEventlist().length; i++) {
 
-                    dbAdapter.populatingEventsIntoDB(null,response.body().getData()[0].getEventlist()[i].getEventId(),
+                    dbAdapter.populatingEventsIntoDB(response.body().getData()[0].getEventlist()[i].getOrgId(),null,
+                            response.body().getData()[0].getEventlist()[i].getEventId(),
+                            response.body().getData()[0].getEventlist()[i].getName(),
                             response.body().getData()[0].getEventlist()[i].getTitle(),
                             response.body().getData()[0].getEventlist()[i].getSubTitle(),
                             response.body().getData()[0].getEventlist()[i].getDiscription(),
@@ -489,12 +497,15 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             response.body().getData()[0].getEventlist()[i].getEndDt(),
                             response.body().getData()[0].getEventlist()[i].getDeleteFlag(),
                             response.body().getData()[0].getEventlist()[i].getCategory(),
-                            response.body().getData()[0].getEventlist()[i].getLocation());
+                            response.body().getData()[0].getEventlist()[i].getLocation(),
+                            response.body().getData()[0].getEventlist()[i].getEventLogo());
             }
 
             for(int i=0;i<response.body().getData()[0].getOrgachievementlist().length;i++) {
 
-                    dbAdapter.populatingAchievementsIntoDB(null,response.body().getData()[0].getOrgachievementlist()[i].getAchievementId(),
+                    dbAdapter.populatingAchievementsIntoDB(response.body().getData()[0].getOrgachievementlist()[i].getOrgId(),null,
+                            response.body().getData()[0].getOrgachievementlist()[i].getAchievementId(),
+                            response.body().getData()[0].getOrgachievementlist()[i].getName(),
                             response.body().getData()[0].getOrgachievementlist()[i].getTitle(),
                             response.body().getData()[0].getOrgachievementlist()[i].getSubTitle(),
                             response.body().getData()[0].getOrgachievementlist()[i].getDiscription(),

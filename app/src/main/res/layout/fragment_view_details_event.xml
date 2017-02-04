@@ -31,6 +31,61 @@
             android:background="@color/light_grey"
             android:padding="10dp">
 
+        <LinearLayout
+            android:id="@+id/llOrganizedby"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/organized_by"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/primary_more_dark"/>
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_grey">
+
+                <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    android:id="@+id/txtNameValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:layout_margin="10dp"
+                    />
+
+                <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+                    android:id="@+id/btnView"
+                    android:layout_width="70dp"
+                    android:layout_height="20dp"
+                    android:textAllCaps="false"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/background_button"
+                    android:text="@string/view_profile"
+                    android:textColor="@drawable/button_text_color"
+                    android:textSize="10sp"
+                    android:layout_margin="10dp"/>
+
+
+            </RelativeLayout>
+
+            </LinearLayout>
+
+
             <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,6 +198,30 @@
                 android:layout_margin="10dp"
                 />
 
+            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/view_Location"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/primary_more_dark"/>
+
+            <com.phyder.paalan.utils.TextViewOpenSansRegular
+                android:id="@+id/txtLocationValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_margin="10dp"
+                />
 
 
 
@@ -176,99 +255,97 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            >
+            android:layout_gravity="center_horizontal">
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:textColor="@color/primary"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="15dp"
-                android:text="@string/view_S_dates"/>
+                android:orientation="vertical"
+                android:layout_margin="10dp">
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    android:id="@+id/startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textColor="@color/primary"
+                    android:text="@string/view_S_dates"/>
+
+                <LinearLayout
+                    android:layout_below="@+id/startDate"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/ic_calendar_o">
+
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:id="@+id/txtStartDateDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="23sp"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginTop="15dp"/>
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtStartDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="@color/primary_text"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:textColor="@color/primary"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:text="@string/view_S_dates"/>
-
-        </LinearLayout>
-
-            <View
-                android:id="@+id/viewDates"
-                android:layout_width="match_parent"
-                android:layout_height="1.2dp"
-                android:background="@color/primary_more_dark"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-8dp">
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/ic_calendar_o">
+                android:layout_margin="10dp">
 
                 <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                    android:id="@+id/txtStartDateDay"
+                    android:id="@+id/endDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="23sp"
-                    android:textColor="@color/primary_text"
-                    android:text="27"
-                    android:layout_marginTop="15dp"/>
-                <com.phyder.paalan.utils.TextViewOpenSansRegular
-                    android:id="@+id/txtStartDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="@color/primary_text"
-                    android:text="27-01-2017"/>
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textColor="@color/primary"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/view_E_dates"/>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_below="@+id/endDate"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/ic_calendar_o">
 
+                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                        android:id="@+id/txtEndDateDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="23sp"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginTop="15dp"/>
+                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                        android:id="@+id/txtEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="@color/primary_text"
+                        />
 
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/ic_calendar_o">
+                </LinearLayout>
 
-                <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                    android:id="@+id/txtEndDateDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="23sp"
-                    android:textColor="@color/primary_text"
-                    android:text="27"
-                    android:layout_marginTop="15dp"/>
-                <com.phyder.paalan.utils.TextViewOpenSansRegular
-                    android:id="@+id/txtEndDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="@color/primary_text"
-                    android:text="27-01-2017"/>
-
-            </LinearLayout>
-
-
+            </RelativeLayout>
 
         </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"

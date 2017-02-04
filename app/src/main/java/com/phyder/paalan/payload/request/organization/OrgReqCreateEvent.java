@@ -20,17 +20,20 @@ public class OrgReqCreateEvent {
 
     private String type;
 
-    public static OrgReqCreateEvent get(String orgId, String eventId, String title, String subTitle,
+    public static OrgReqCreateEvent get(String orgId, String eventId, String name,String title, String subTitle,
                                         String description, String startDate, String endDate,
-                                        String other, String action) {
+                                        String other,String category,String location, String action) {
 
         Data data = new Data();
         data.setOrgid(orgId);
         data.setEventid(eventId);
+        data.setName(name);
         data.setTitle(title);
         data.setSubtitle(subTitle);
         data.setDiscription(description);
         data.setOthers(other);
+        data.setCategory(category);
+        data.setLocation(location);
         data.setStartdate(startDate);
         data.setEnddate(endDate);
 
@@ -87,6 +90,9 @@ public class OrgReqCreateEvent {
 
 
     public static class Data {
+
+        private String orgName;
+
         private String title;
 
         private String others;
@@ -101,9 +107,19 @@ public class OrgReqCreateEvent {
 
         private String discription;
 
+        private String category;
+
         private String enddate;
 
         private String eventid;
+
+        public String getName() {
+            return orgName;
+        }
+
+        public void setName(String orgName) {
+            this.orgName = orgName;
+        }
 
         public String getTitle() {
             return title;
@@ -161,6 +177,14 @@ public class OrgReqCreateEvent {
             this.discription = discription;
         }
 
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
         public String getEnddate() {
             return enddate;
         }
@@ -180,6 +204,7 @@ public class OrgReqCreateEvent {
         @Override
         public String toString() {
             return "Data{" +
+                    "orgName='" + orgName + '\'' +
                     "title='" + title + '\'' +
                     ", other='" + others + '\'' +
                     ", startdate='" + startdate + '\'' +
@@ -187,6 +212,7 @@ public class OrgReqCreateEvent {
                     ", location='" + location + '\'' +
                     ", subtitle='" + subtitle + '\'' +
                     ", discription='" + discription + '\'' +
+                    ", category='" + category + '\'' +
                     ", enddate='" + enddate + '\'' +
                     ", eventid='" + eventid + '\'' +
                     '}';

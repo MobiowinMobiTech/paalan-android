@@ -69,34 +69,58 @@ public class FragmentGroupsProfile extends Fragment {
 
     private void getPoulatedData() {
 
-        if(PaalanGetterSetter.getOrgID()!=null) {
-            orgID = PaalanGetterSetter.getOrgID();
+        Bundle bundle = getArguments();
+
+        if(bundle!=null){
+
+            strDp = bundle.getString(Attributes.Database.GROUPS_PROFILE_DP_IMG);
+            strName = bundle.getString(Attributes.Database.GROUPS_PROFILE_NAME);
+            strMobile = bundle.getString(Attributes.Database.GROUPS_PROFILE_MOBILE_NO);
+            strEmail = bundle.getString(Attributes.Database.GROUPS_PROFILE_EMAIL);
+            strAddress = bundle.getString(Attributes.Database.GROUPS_PROFILE_ADDRESS);
+            strRole = bundle.getString(Attributes.Database.GROUPS_PROFILE_ROLE);
+            strNews = bundle.getString(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER);
+            strGovt = bundle.getString(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER);
+            strRegNo = bundle.getString(Attributes.Database.GROUPS_PROFILE_REGISTER);
+            strFBLink = bundle.getString(Attributes.Database.GROUPS_PROFILE_FB_LINK);
+            strLinkedInLink = bundle.getString(Attributes.Database.GROUPS_PROFILE_LINKEDIN);
+            strWebsite = bundle.getString(Attributes.Database.GROUPS_PROFILE_WEBSITE);
+            strTwitter = bundle.getString(Attributes.Database.GROUPS_PROFILE_TWITTER);
+            strPresenceArea = bundle.getString(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA);
+
+        }else{
+
+            if(PaalanGetterSetter.getOrgID()!=null) {
+                orgID = PaalanGetterSetter.getOrgID();
+            }
+
+            dbAdapter.open();
+            cursor = dbAdapter.getGroupsProfileById(orgID);
+            if(cursor!=null){
+                cursor.moveToFirst();
+                if(cursor.moveToFirst()){
+                    do{
+                        strDp = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_DP_IMG));
+                        strName = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_NAME));
+                        strMobile = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_MOBILE_NO));
+                        strEmail = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_EMAIL));
+                        strAddress = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_ADDRESS));
+                        strRole = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_ROLE));
+                        strNews = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER));
+                        strGovt = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER));
+                        strRegNo = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_REGISTER));
+                        strFBLink = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_FB_LINK));
+                        strLinkedInLink = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_LINKEDIN));
+                        strWebsite = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_WEBSITE));
+                        strTwitter = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_TWITTER));
+                        strPresenceArea = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA));
+                    }while (cursor.moveToNext());
+                }
+            }
+            dbAdapter.close();
+
         }
 
-        dbAdapter.open();
-        cursor = dbAdapter.getGroupsProfileById(orgID);
-        if(cursor!=null){
-            cursor.moveToFirst();
-            if(cursor.moveToFirst()){
-                do{
-                    strDp = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_DP_IMG));
-                    strName = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_NAME));
-                    strMobile = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_MOBILE_NO));
-                    strEmail = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_EMAIL));
-                    strAddress = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_ADDRESS));
-                    strRole = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_ROLE));
-                    strNews = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER));
-                    strGovt = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER));
-                    strRegNo = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_REGISTER));
-                    strFBLink = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_FB_LINK));
-                    strLinkedInLink = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_LINKEDIN));
-                    strWebsite = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_WEBSITE));
-                    strTwitter = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_TWITTER));
-                    strPresenceArea = cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA));
-                }while (cursor.moveToNext());
-            }
-        }
-        dbAdapter.close();
 
         txtName.setText(strName);
         txtMobile.setText(strMobile);

@@ -49,14 +49,14 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentCreateAchievement extends Fragment{
 
     private static final String TAG = FragmentCreateAchievement.class.getCanonicalName();
-    private EditTextOpenSansRegular edtTitle,edtSubTitle,edtDescription,edtOthers;
+    private EditTextOpenSansRegular edtName,edtTitle,edtSubTitle,edtDescription,edtOthers;
     private ImageView imgAchievementFirst,imgAchievementSecond,imgAchievementThird,imgAchievementForth;
     private ButtonOpenSansSemiBold btnSubmit;
 
     final static int PICK_IMAGE_FROM_GALARY = 1;
 
     private String imgDecodableFirst = "",imgDecodableSecond = "",imgDecodableThird = "",imgDecodableForth = "";
-    private String achievementID = "",strTitle = "",strSubTitle = "",strDescription = "",strOthers = "";
+    private String achievementID = "",strName = "",strTitle = "",strSubTitle = "",strDescription = "",strOthers = "";
     private ArrayList<String> listOfImages;
     private int imgAchievementStatus = 1;
     private static final int PERMISSION_READ_EXTERNAL_STORAGE = 1;
@@ -77,6 +77,7 @@ public class FragmentCreateAchievement extends Fragment{
 
         pref = new PreferenceUtils(getActivity());
         dbAdapter = new DBAdapter(getActivity());
+        edtName = (EditTextOpenSansRegular) view.findViewById(R.id.edt_name);
         edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_title);
         edtSubTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_subtitle);
         edtDescription = (EditTextOpenSansRegular) view.findViewById(R.id.edt_description);
@@ -98,6 +99,7 @@ public class FragmentCreateAchievement extends Fragment{
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
             achievementID = bundle.getString("ID");
+            edtName.setText(bundle.getString("NAME"));
             edtTitle.setText(bundle.getString("TITLE"));
             edtSubTitle.setText(bundle.getString("SUB_TITLE"));
             edtDescription.setText(bundle.getString("DESCRIPTION"));
@@ -185,12 +187,15 @@ public class FragmentCreateAchievement extends Fragment{
             @Override
             public void onClick(View v) {
 
+                strName = edtName.getText().toString();
                 strTitle = edtTitle.getText().toString();
                 strSubTitle = edtSubTitle.getText().toString();
                 strDescription = edtDescription.getText().toString();
                 strOthers = edtOthers.getText().toString();
 
-                if(strTitle.isEmpty()){
+                if(strName.isEmpty()){
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_name));
+                }else if(strTitle.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_title));
                 } else if(strSubTitle.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_sub_title));
@@ -313,7 +318,7 @@ public class FragmentCreateAchievement extends Fragment{
             String achiId = shouldBeUpdated ? achievementID : "";
 
             OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),achiId,
-                    listOfImages,strDescription,strOthers,strSubTitle,strTitle,action);
+                    listOfImages,strDescription,strOthers,strSubTitle,strTitle,strName,action);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -329,8 +334,8 @@ public class FragmentCreateAchievement extends Fragment{
 
                         if (response.body().getStatus().equals("success")) {
                             dbAdapter.open();
-                            int status = dbAdapter.populatingAchievementsIntoDB(response.body().getData()[0].getAchievementid(),
-                                    achievementID, strTitle, strSubTitle, strDescription, strOthers,
+                            int status = dbAdapter.populatingAchievementsIntoDB(pref.getOrgId(),response.body().getData()[0].getAchievementid(),
+                                    achievementID, strName,strTitle, strSubTitle, strDescription, strOthers,
                                         imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
                             String message = status==0 ? getResources().getString(R.string.achievement_created) :
                                     getResources().getString(R.string.achievement_updated);
@@ -367,6 +372,7 @@ public class FragmentCreateAchievement extends Fragment{
         strSubTitle = "";
         strDescription = "";
         strOthers = "";
+        strName = "";
         imgDecodableFirst = "";
         imgDecodableSecond = "";
         imgDecodableThird = "";
@@ -376,6 +382,7 @@ public class FragmentCreateAchievement extends Fragment{
         edtSubTitle.setText("");
         edtDescription.setText("");
         edtOthers.setText("");
+        edtName.setText("");
 
         imgAchievementFirst.setImageResource(R.drawable.ic_add_circle_outline_black_24dp);
         imgAchievementSecond.setImageResource(R.drawable.ic_add_circle_outline_black_24dp);

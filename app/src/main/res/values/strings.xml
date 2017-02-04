@@ -13,6 +13,8 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_timeout">Time out, please try again</string>
     <string name="error_went_wrong">Something went wrong</string>
+    <string name="error_org_profile">Some issues while fetching orgnazation profile for you, Kindly check after some time!!!</string>
+
     <string name="error_server">Server not responding</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -93,13 +95,23 @@
     <!--submit text-->
     <string name="submit">Submit</string>
 
-    <!--Achievements form text-->
+    <string name="event_creator_name">Event Organizer Name</string>
+    <string name="achiver_name">Achiever Name</string>
+    <string name="requester_name">Requester Name</string>
+
+    <string name="organized_by">Organized by</string>
+    <string name="achiver">Achiever</string>
+    <string name="requested_by">Requested by</string>
+
     <string name="title">Title</string>
     <string name="subtitle">Sub Title</string>
     <string name="descrition">Description</string>
     <string name="others">Others</string>
     <string name="location">Location</string>
+
+
     <string name="achievement_images">Add Achievements</string>
+    <string name="error_empty_name">Name can not be empty</string>
     <string name="error_empty_title">Title can not be empty</string>
     <string name="error_empty_sub_title">Sub title can not be empty</string>
     <string name="error_empty_description">Description can not be empty</string>
@@ -259,6 +271,7 @@
 
     <string name="delete">Delete</string>
     <string name="upate">Update</string>
+    <string name="view_profile">View Profile</string>
 
 
     <!--Request String -->

@@ -30,6 +30,7 @@ import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.EditTextOpenSansRegular;
 import com.phyder.paalan.utils.NetworkUtil;
+import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.Calendar;
@@ -45,14 +46,15 @@ public class FragmentCreateEvent extends Fragment {
     private final static String TAG = FragmentCreateEvent.class.getCanonicalName();
 
     private Spinner spinnerOsversions;
-    private EditTextOpenSansRegular edtTitle, edtSubtitle, edtDescription, edtOther;
+    private EditTextOpenSansRegular edtName,edtTitle, edtSubtitle, edtDescription, edtOther,edtLocation;
     private ButtonOpenSansSemiBold btnCreateEvent;
     private TextViewOpenSansRegular edtStartDate,edtEndDate;
     private ImageView imgStartDate, imgEndDate;
 
-    private String  eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate, strEndDate,
+    private String  strName,eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate, strEndDate,strLocation,
             orgId = "",strCategory = "";
     private DBAdapter dbAdapter;
+    private PreferenceUtils pref;
     private boolean shouldBeUpdated = false;
     private int mYear, mMonth, mDay;
 
@@ -63,11 +65,14 @@ public class FragmentCreateEvent extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_create_event, null, false);
 
         dbAdapter = new DBAdapter(getContext());
+        pref = new PreferenceUtils(getActivity());
 
+        edtName = (EditTextOpenSansRegular) view.findViewById(R.id.edt_name);
         edtTitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_title);
         edtSubtitle = (EditTextOpenSansRegular) view.findViewById(R.id.edt_subtitle);
         edtDescription = (EditTextOpenSansRegular) view.findViewById(R.id.edt_description);
         edtOther = (EditTextOpenSansRegular) view.findViewById(R.id.edt_other);
+        edtLocation = (EditTextOpenSansRegular) view.findViewById(R.id.edt_location);
         edtStartDate = (TextViewOpenSansRegular) view.findViewById(R.id.txt_startdate);
         edtEndDate = (TextViewOpenSansRegular) view.findViewById(R.id.txt_enddate);
         imgStartDate = (ImageView) view.findViewById(R.id.img_start_date);
@@ -90,12 +95,14 @@ public class FragmentCreateEvent extends Fragment {
             shouldBeUpdated = bundle.getBoolean("OPERATION_STATUS");
 
             eventId = bundle.getString("ID");
+            edtName.setText(bundle.getString("NAME"));
             edtTitle.setText(bundle.getString("TITLE"));
             edtSubtitle.setText(bundle.getString("SUB_TITLE"));
             edtDescription.setText(bundle.getString("DESCRIPTION"));
             edtOther.setText(bundle.getString("OTHER"));
             edtStartDate.setText(bundle.getString("STARTDATE"));
             edtEndDate.setText(bundle.getString("ENDDATE"));
+            edtLocation.setText(bundle.getString("LOCATION"));
             String category = bundle.getString("CATEGORY");
 
             int pos = 0;
@@ -135,8 +142,12 @@ public class FragmentCreateEvent extends Fragment {
                 strStartDate = edtStartDate.getText().toString();
                 strOther = edtOther.getText().toString();
                 strEndDate = edtEndDate.getText().toString();
+                strLocation = edtLocation.getText().toString();
+                strName = edtName.getText().toString();
 
-                if(strTitle.isEmpty()){
+                if(strName.isEmpty()){
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_name));
+                }else if(strTitle.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_title));
                 }else if(strSubtitle.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_sub_title));
@@ -148,7 +159,9 @@ public class FragmentCreateEvent extends Fragment {
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_enddate));
                 }else if(strOther.isEmpty()){
                     CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_others));
-                }else {
+                }else if(strLocation.isEmpty()){
+                    CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_empty_location));
+                }else{
                     getRetrofitCall();
                 }
 
@@ -207,8 +220,8 @@ public class FragmentCreateEvent extends Fragment {
             CommanUtils.showDialog(getActivity());
             Device.newInstance(getActivity());
             String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
-            OrgReqCreateEvent reqCreateEvent = OrgReqCreateEvent.get(orgId, eventId, strTitle, strSubtitle,
-                    strDescription, strStartDate, strEndDate, strOther,action);
+            OrgReqCreateEvent reqCreateEvent = OrgReqCreateEvent.get(orgId, eventId, strName,strTitle, strSubtitle,
+                    strDescription, strStartDate, strEndDate, strOther,strCategory,strLocation,action);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -224,9 +237,10 @@ public class FragmentCreateEvent extends Fragment {
 
                             dbAdapter.open();
 
-                            int status = dbAdapter.populatingEventsIntoDB(response.body().getData()[0].getEventid()
-                                    ,eventId, strTitle, strSubtitle, strDescription, strOther, strStartDate,
-                                    strEndDate,"F",strCategory,"mumbai");
+                            int status = dbAdapter.populatingEventsIntoDB(pref.getOrgId(),
+                                    response.body().getData()[0].getEventid()
+                                    ,eventId,strName,strTitle, strSubtitle, strDescription, strOther, strStartDate,
+                                    strEndDate,"F",strCategory,strLocation,null);
                             String message = status==0 ? getResources().getString(R.string.event_created) :
                                     getResources().getString(R.string.event_updated);
                             CommanUtils.showToast(getActivity(),message);
@@ -264,6 +278,8 @@ public class FragmentCreateEvent extends Fragment {
         strOther = "";
         strStartDate = "";
         strEndDate = "";
+        strLocation = "";
+        strName = "";
 
         edtTitle.setText("");
         edtSubtitle.setText("");
@@ -271,6 +287,8 @@ public class FragmentCreateEvent extends Fragment {
         edtOther.setText("");
         edtStartDate.setText("");
         edtEndDate.setText("");
+        edtLocation.setText("");
+        edtName.setText("");
 
         spinnerOsversions.setSelection(0);
 

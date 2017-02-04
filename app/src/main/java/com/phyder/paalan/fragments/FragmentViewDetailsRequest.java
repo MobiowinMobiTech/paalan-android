@@ -15,9 +15,11 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.helper.OrganizerProfileListener;
 import com.phyder.paalan.helper.PaalanGetterSetter;
 import com.phyder.paalan.payload.request.organization.OrgReqDeleteAchievement;
 import com.phyder.paalan.payload.request.organization.OrgReqDeleteRequest;
+import com.phyder.paalan.payload.response.ResponseOrganizerProfile;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteAchievement;
 import com.phyder.paalan.payload.response.organization.OrgResDeleteRequest;
 import com.phyder.paalan.services.Device;
@@ -42,13 +44,14 @@ public class FragmentViewDetailsRequest extends Fragment {
 
     private final static String TAG = FragmentViewDetailsRequest.class.getCanonicalName();
 
-    private TextViewOpenSansRegular txtTitle,txtSubTitle,txtDesc,txtOther,txtLocation;
-    private ButtonOpenSansSemiBold btnUpdate,btnDelete;
+    private LinearLayout llRequestedBy;
+    private TextViewOpenSansRegular txtName,txtTitle,txtSubTitle,txtDesc,txtOther,txtLocation;
+    private ButtonOpenSansSemiBold btnUpdate,btnDelete,btnViewProfile;
 
     private DBAdapter dbAdapter;
     private PreferenceUtils pref;
 
-    private String requestID,strTitle,strSubTitle,strDescriptions,strOthers,strLocation;
+    private String orgId,requestID,strName,strTitle,strSubTitle,strDescriptions,strOthers,strLocation;
 
     private Cursor cursor;
 
@@ -66,7 +69,9 @@ public class FragmentViewDetailsRequest extends Fragment {
 
         dbAdapter = new DBAdapter(getActivity());
         pref = new PreferenceUtils(getActivity());
+        llRequestedBy = (LinearLayout) view.findViewById(R.id.llRequestedby);
 
+        txtName = (TextViewOpenSansRegular) view.findViewById(R.id.txtNameValue);
         txtTitle = (TextViewOpenSansRegular) view.findViewById(R.id.txtTitleValue);
         txtSubTitle = (TextViewOpenSansRegular) view.findViewById(R.id.txtSubTitleValue);
         txtDesc = (TextViewOpenSansRegular) view.findViewById(R.id.txtDescValue);
@@ -75,10 +80,13 @@ public class FragmentViewDetailsRequest extends Fragment {
 
         btnUpdate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnUpdateRequest);
         btnDelete = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDeleteRequest);
+        btnViewProfile = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnView);
 
         if(pref.getLoginType().equals(Social.IND_ENTITY)){
-            btnUpdate.setVisibility(View.INVISIBLE);
-            btnDelete.setVisibility(View.INVISIBLE);
+            btnUpdate.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
+        }else{
+            llRequestedBy.setVisibility(View.GONE);
         }
     }
 
@@ -96,6 +104,8 @@ public class FragmentViewDetailsRequest extends Fragment {
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
                 do{
+                    orgId = cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_ORG_ID));
+                    strName = cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_NAME));
                     strTitle = cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_TITLE));
                     strSubTitle = cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_SUB_TITLE));
                     strDescriptions = cursor.getString(cursor.getColumnIndex(Attributes.Database.REQUEST_DESCRIPTION));
@@ -106,6 +116,7 @@ public class FragmentViewDetailsRequest extends Fragment {
         }
         dbAdapter.close();
 
+        txtName.setText(strName);
         txtTitle.setText(strTitle);
         txtSubTitle.setText(strSubTitle);
         txtDesc.setText(strDescriptions);
@@ -126,6 +137,7 @@ public class FragmentViewDetailsRequest extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("OPERATION_STATUS",true);
                 bundle.putString("ID",requestID);
+                bundle.putString("NAME",strName);
                 bundle.putString("TITLE",strTitle);
                 bundle.putString("SUB_TITLE",strSubTitle);
                 bundle.putString("DESCRIPTION",strDescriptions);
@@ -143,6 +155,36 @@ public class FragmentViewDetailsRequest extends Fragment {
             public void onClick(View v) {
 
                 getRetrofitCall();
+            }
+        });
+
+        btnViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkUtil.getOrganizerProfile(getActivity(), orgId, new OrganizerProfileListener() {
+                    @Override
+                    public void onSuccess(Response<ResponseOrganizerProfile> responseOrganizerProfile) {
+                        Bundle bundle=new Bundle();
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_DP_IMG,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getDpImgLink());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_NAME,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getName());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_MOBILE_NO,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getMobileNo());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_EMAIL,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getEmailId());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_ADDRESS,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getAddress());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_ROLE,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getRole());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getIsNewsLetter());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getIsGovtRegister());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_REGISTER,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getRegistrationNo());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_FB_LINK,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getFbLink());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_LINKEDIN,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getLinkedinLink());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_WEBSITE,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getWebsiteLink());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_TWITTER,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getTwitterLink());
+                        bundle.putString(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA,responseOrganizerProfile.body().getData()[0].getOrgprofilelist()[0].getPresenceArea());
+                        Fragment fragment =new FragmentGroupsProfile();
+                        fragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.platform,fragment).
+                                addToBackStack(null).commit();
+                    }
+                });
             }
         });
     }

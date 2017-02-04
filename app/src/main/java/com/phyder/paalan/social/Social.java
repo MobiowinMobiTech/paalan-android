@@ -13,6 +13,7 @@ public class Social {
     public static final String ORG_REGISTRATION_ENTITY = "org";
     public static final String EVENT_ACTION = "create";
     public static final String SUBMIT_ACTION = "submit";
+    public static final String VIEW_ACTION = "view";
     public static final String ACTION_DELETE = "delete";
     public static final String EVENT_SYNC_ACTION = "sync";
     public static final String EVENT_UPDATE_ACTION = "update";

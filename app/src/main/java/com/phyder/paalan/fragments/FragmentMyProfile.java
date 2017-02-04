@@ -95,6 +95,12 @@ public class FragmentMyProfile extends Fragment {
         profileImage = (RoundedImageView) view.findViewById(R.id.imageview_dp_image);
         txtUserName = (TextViewOpenSansRegular) view.findViewById(R.id.txtProfileName);
 
+        Bitmap profilePic = CommanUtils.getUserProfile(getActivity(), pref.getLoginType());
+        Log.d(TAG, "XXgetProfileUpdate: type "+pref.getLoginType());
+        Log.d(TAG, "getProfileUpdate: img "+profilePic);
+        if (profilePic != null)
+            profileImage.setImageBitmap(profilePic);
+
     }
 
 
@@ -296,6 +302,8 @@ public class FragmentMyProfile extends Fragment {
                 }
             }
     }
+
+    //merge comment
 
     /**
      * Function to save profile picture in Sp

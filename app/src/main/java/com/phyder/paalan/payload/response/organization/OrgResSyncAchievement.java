@@ -92,6 +92,8 @@ public class OrgResSyncAchievement {
 
         private String subTitle;
 
+        private String orgName;
+
         private String title;
 
         private String image2;
@@ -190,6 +192,16 @@ public class OrgResSyncAchievement {
             this.title = title;
         }
 
+        public String getName ()
+        {
+            return orgName;
+        }
+
+        public void setName (String orgName)
+        {
+            this.orgName = orgName;
+        }
+
         public String getImage2 ()
         {
             return image2;
@@ -271,9 +283,26 @@ public class OrgResSyncAchievement {
         }
 
         @Override
-        public String toString()
-        {
-            return "ClassPojo [others = "+others+", modifiedBy = "+modifiedBy+", achievementId = "+achievementId+", discription = "+discription+", id = "+id+", orgId = "+orgId+", subTitle = "+subTitle+", title = "+title+", image2 = "+image2+", image1 = "+image1+", createdBy = "+createdBy+", deleteFlag = "+deleteFlag+", image4 = "+image4+", modifyDt = "+modifyDt+", image3 = "+image3+", createDt = "+createDt+"]";
+        public String toString() {
+            return "Orglist{" +
+                    "others='" + others + '\'' +
+                    ", modifiedBy='" + modifiedBy + '\'' +
+                    ", achievementId='" + achievementId + '\'' +
+                    ", discription='" + discription + '\'' +
+                    ", id='" + id + '\'' +
+                    ", orgId='" + orgId + '\'' +
+                    ", subTitle='" + subTitle + '\'' +
+                    ", orgName='" + orgName + '\'' +
+                    ", title='" + title + '\'' +
+                    ", image2='" + image2 + '\'' +
+                    ", image1='" + image1 + '\'' +
+                    ", createdBy='" + createdBy + '\'' +
+                    ", deleteFlag='" + deleteFlag + '\'' +
+                    ", image4='" + image4 + '\'' +
+                    ", modifyDt='" + modifyDt + '\'' +
+                    ", image3='" + image3 + '\'' +
+                    ", createDt='" + createDt + '\'' +
+                    '}';
         }
     }
 }

@@ -12,6 +12,8 @@ public class Attributes {
 
         public static final String ACHIEVEMENT_TABLE_NAME = "achievement_table";
         public static final String ACHIEVEMENT_ID = "achievement_id";
+        public static final String ACHIEVEMENT_ORG_ID = "achievement_org_id";
+        public static final String ACHIEVEMENT_NAME = "achievement_name";
         public static final String ACHIEVEMENT_TITLE = "achievement_title";
         public static final String ACHIEVEMENT_SUB_TITLE = "achievement_sub_title";
         public static final String ACHIEVEMENT_DESCRIPTION = "achievement_description";
@@ -23,7 +25,8 @@ public class Attributes {
         public static final String ACHIEVEMENT_IS_DELETED = "achievement_is_deleted";
 
         public static final String CREATE_ACHIEVEMENT_QUERY = "create table " + ACHIEVEMENT_TABLE_NAME +
-                " (_id integer primary key autoincrement, " + ACHIEVEMENT_ID + " text not null, " + ACHIEVEMENT_TITLE + " text not null, "
+                " (_id integer primary key autoincrement, " + ACHIEVEMENT_ID + " text not null, "+ ACHIEVEMENT_ORG_ID + " text not null, "
+                + ACHIEVEMENT_NAME + " text not null, "+ ACHIEVEMENT_TITLE + " text not null, "
                 + ACHIEVEMENT_SUB_TITLE + " text not null, " + ACHIEVEMENT_DESCRIPTION + " text not null, "
                 + ACHIEVEMENT_OTHERS + " text not null, " + ACHIEVEMENT_FIRST_IMAGE + " text not null, "
                 + ACHIEVEMENT_SECOND_IMAGE + " text not null, " + ACHIEVEMENT_THIRD_IMAGE + " text not null, "
@@ -32,6 +35,8 @@ public class Attributes {
 
         public static final String REQUEST_TABLE_NAME = "request_table";
         public static final String REQUEST_ID = "request_id";
+        public static final String REQUEST_ORG_ID = "request_org_id";
+        public static final String REQUEST_NAME = "request_name";
         public static final String REQUEST_TITLE = "request_title";
         public static final String REQUEST_SUB_TITLE = "request_sub_title";
         public static final String REQUEST_DESCRIPTION = "request_description";
@@ -40,15 +45,18 @@ public class Attributes {
         public static final String REQUEST_IS_DELETED = "request_is_deleted";
 
         public static final String CREATE_REQUEST_QUERY = "create table " + REQUEST_TABLE_NAME +
-                " (_id integer primary key autoincrement, " + REQUEST_ID + " text not null, "
-                + REQUEST_TITLE + " text not null, " + REQUEST_SUB_TITLE + " text not null, "
-                + REQUEST_DESCRIPTION + " text not null, " + REQUEST_OTHER + " text not null, "
-                + REQUEST_LOCATION + " text not null, " + REQUEST_IS_DELETED + " text not null);";
+                " (_id integer primary key autoincrement, " + REQUEST_ID + " text not null, "+REQUEST_ORG_ID + " text not null, "
+                + REQUEST_NAME + " text not null, "+ REQUEST_TITLE + " text not null, "
+                + REQUEST_SUB_TITLE + " text not null, "+ REQUEST_DESCRIPTION + " text not null, "
+                + REQUEST_OTHER + " text not null, "+ REQUEST_LOCATION + " text not null, "
+                + REQUEST_IS_DELETED + " text not null);";
 
 
 
         public static final String EVENT_TABLE_NAME = "event_table";
         public static final String EVENT_ID = "event_id";
+        public static final String EVENT_ORG_ID = "event_org_id";
+        public static final String EVENT_NAME = "event_name";
         public static final String EVENT_TITLE = "event_title";
         public static final String EVENT_SUB_TITLE = "event_sub_title";
         public static final String EVENT_DESCRIPTION = "event_description";
@@ -57,14 +65,16 @@ public class Attributes {
         public static final String EVENT_START_DATE = "event_start_date";
         public static final String EVENT_END_DATE = "event_end_date";
         public static final String EVENT_LOCATION = "event_location";
+        public static final String EVENT_LOGO = "event_logo";
         public static final String EVENT_IS_DELETED = "event_is_deleted";
 
         public static final String CREATE_EVENT_QUERY = "create table " + EVENT_TABLE_NAME +
-                " (_id integer primary key autoincrement, " + EVENT_ID + " text not null, "
-                + EVENT_TITLE + " text not null, " + EVENT_SUB_TITLE + " text not null, "
-                + EVENT_DESCRIPTION + " text not null, " + EVENT_OTHERS + " text not null, "
-                + EVENT_START_DATE + " text not null, " + EVENT_END_DATE + " text not null, "
-                + EVENT_CATEGORY + " text not null, " + EVENT_LOCATION + " text not null, "
+                " (_id integer primary key autoincrement, " + EVENT_ID + " text not null, " + EVENT_ORG_ID + " text not null, "
+                + EVENT_NAME + " text not null, " + EVENT_TITLE + " text not null, "
+                + EVENT_SUB_TITLE + " text not null, "+ EVENT_DESCRIPTION + " text not null, "
+                + EVENT_OTHERS + " text not null, "+ EVENT_START_DATE + " text not null, "
+                + EVENT_END_DATE + " text not null, "+ EVENT_CATEGORY + " text not null, "
+                + EVENT_LOCATION + " text not null, " + EVENT_LOGO + " text not null, "
                 + EVENT_IS_DELETED + " text not null);";
 
 
