@@ -78,6 +78,7 @@
     <string name="role_in_organization">Role in Organization</string>
     <string name="organization_id">Organization Id</string>
     <string name="registration_no">Registration No</string>
+    <string name="registration">Registration</string>
 
     <string name="profile_up_to_date">Profile up-to-date</string>
     <string name="achievement_created">Achievement Created Successfully</string>

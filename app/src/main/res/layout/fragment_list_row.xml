@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp">
+
+    <com.phyder.paalan.utils.RoundedImageView
+        android:id="@+id/img_logo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent"
+        android:layout_marginLeft="5dp"
+        app:border="true"
+        app:border_color="@color/primary"
+        app:border_width="4dp"
+        app:selector="true"
+        app:selector_color="#4403a9f4"
+        app:selector_stroke_color="@color/icons"
+        app:selector_stroke_width="4dp"
+        app:shadow="true"
+        android:src="@drawable/unknown" />
 
     <LinearLayout
         android:id="@+id/rlDateCircle"

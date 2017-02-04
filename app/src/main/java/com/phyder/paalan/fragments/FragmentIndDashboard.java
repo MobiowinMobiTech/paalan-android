@@ -82,8 +82,10 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private ArrayList<String> eventLists, groupLists, requestLists, achievementLists;
     private ArrayList<String> eventLogo,eventIdsLists,groupLogo, groupIdsLists, groupOrgIdsLists, requestIdsLists, achievementIdsLists;
 
+    private SlidingImageAdapter slidingImageAdapter;
 
-        @Override
+
+    @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 View view = inflater.inflate(R.layout.fragment_ind_dashboard, container, false);
                 init(view);
@@ -145,32 +147,33 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 }
             }
 
-            mPager.setAdapter(new SlidingImageAdapter(getActivity(), images));
+            slidingImageAdapter =new SlidingImageAdapter(getActivity(), images);
+            mPager.setAdapter(slidingImageAdapter);
             mCircleIndicator.setViewPager(mPager);
 
 
-            class TapGestureListener extends GestureDetector.SimpleOnGestureListener{
-
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
-                    // Your Code here
-                    if (mPager.getCurrentItem() == images.size() - 1) {
-                        getActivity().startActivity(new Intent(getActivity(), RegisterUser.class));
-                    }
-
-                    return false;
-                }
-            }
-
-
-           final GestureDetector tapGestureDetector = new GestureDetector(getActivity(), new TapGestureListener());
-
-            mPager.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    tapGestureDetector.onTouchEvent(event);
-                    return false;
-                }
-            });
+//            class TapGestureListener extends GestureDetector.SimpleOnGestureListener{
+//
+//                @Override
+//                public boolean onSingleTapConfirmed(MotionEvent e) {
+//                    // Your Code here
+//                    if (mPager.getCurrentItem() == images.size() - 1) {
+//                        getActivity().startActivity(new Intent(getActivity(), RegisterUser.class));
+//                    }
+//
+//                    return false;
+//                }
+//            }
+//
+//
+//           final GestureDetector tapGestureDetector = new GestureDetector(getActivity(), new TapGestureListener());
+//
+//            mPager.setOnTouchListener(new View.OnTouchListener() {
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    tapGestureDetector.onTouchEvent(event);
+//                    return false;
+//                }
+//            });
 
         }
 
@@ -565,7 +568,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public void initializeTimer(){
 
             itemPos = mPager.getCurrentItem();
-
             if(handler!=null){
                 handler.removeCallbacks(refresh);
             }
@@ -577,7 +579,13 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     if (mPager.getCurrentItem() < images.size()-1) {
                         mPager.setCurrentItem(itemPos, true);
                         itemPos = itemPos + 1;
+                        if(mPager.getCurrentItem() == images.size()-1){
+                            slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
+                        }else{
+                            slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
+                        }
                     }else{
+                        slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
                         itemPos = 0;
                         mPager.setCurrentItem(itemPos, true);
                     }

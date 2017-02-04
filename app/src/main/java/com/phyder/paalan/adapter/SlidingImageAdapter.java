@@ -1,6 +1,7 @@
 package com.phyder.paalan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.phyder.paalan.R;
+import com.phyder.paalan.activity.RegisterUser;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 
 import java.util.ArrayList;
@@ -23,7 +26,8 @@ public class SlidingImageAdapter extends PagerAdapter {
     private List<String> IMAGES;
     private LayoutInflater inflater;
     private Context context;
-
+    private ButtonOpenSansSemiBold btnRegistration;
+    private ImageView imageView;
 
     public SlidingImageAdapter(Context context, List<String> IMAGES) {
         this.context = context;
@@ -47,10 +51,16 @@ public class SlidingImageAdapter extends PagerAdapter {
         View imageLayout = inflater.inflate(R.layout.slidingimages_layout, view, false);
 
         assert imageLayout != null;
-        final ImageView imageView = (ImageView) imageLayout
+        imageView = (ImageView) imageLayout
                 .findViewById(R.id.image);
+        btnRegistration = (ButtonOpenSansSemiBold)imageLayout.findViewById(R.id.btn_register);
 
-
+        btnRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, RegisterUser.class));
+            }
+        });
         CommanUtils.updateImage(context, imageView, IMAGES.get(position),R.drawable.paalan_logo);
         view.addView(imageLayout, 0);
         return imageLayout;
@@ -70,5 +80,8 @@ public class SlidingImageAdapter extends PagerAdapter {
         return null;
     }
 
+    public void getRegistrationVisible_Invisible(int status){
+        btnRegistration.setVisibility(status);
+    }
 
 }

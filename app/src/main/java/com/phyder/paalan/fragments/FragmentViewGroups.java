@@ -17,6 +17,8 @@ import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.helper.PaalanGetterSetter;
 
+import java.util.ArrayList;
+
 /**
  * Created by cmss on 12/1/17.
  */
@@ -29,6 +31,7 @@ public class FragmentViewGroups extends Fragment {
     private String[] listOfGroupProfileIds;
     private String[] listOfGroupName;
     private String[] listOfGroupAddress;
+    private String[] groupLogo;
 
     private int counter = 0;
 
@@ -69,6 +72,7 @@ public class FragmentViewGroups extends Fragment {
         listOfGroupProfileIds =new String[cursor.getCount()];
         listOfGroupName =new String[cursor.getCount()];
         listOfGroupAddress =new String[cursor.getCount()];
+        groupLogo =new String[cursor.getCount()];
 
         if(cursor !=null){
             cursor.moveToFirst();
@@ -77,6 +81,7 @@ public class FragmentViewGroups extends Fragment {
                     listOfGroupProfileIds[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_ORGANIZATION_ID)));
                     listOfGroupName[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_NAME)));
                     listOfGroupAddress[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_ADDRESS)));
+                    groupLogo[counter]= (dbAdapter.getGroupsProfileDp(cursor.getString(cursor.getColumnIndex(Attributes.Database.GROUPS_ORGANIZATION_ID))));
                     counter = counter+1;
                 }while(cursor.moveToNext());
             }
@@ -85,7 +90,7 @@ public class FragmentViewGroups extends Fragment {
         dbAdapter.close();
 
         if(listOfGroupName!=null && listOfGroupName.length>0 ) {
-            listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfGroupName,listOfGroupAddress,null));
+            listView.setAdapter(new ListsAdapter(getActivity(), 1, listOfGroupName,listOfGroupAddress,groupLogo));
             listView.setVisibility(View.VISIBLE);
             llNoData.setVisibility(View.GONE);
         }else{
