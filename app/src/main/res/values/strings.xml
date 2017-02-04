@@ -335,6 +335,25 @@
     <string name="dont_have_account">Not a member?</string>
     <string name="sign_up_now"> <![CDATA[<a href=""> Signup now</a>]]></string>
     <string name="technical_issue">Some technical issue occure. Please try later.</string>
+    <string name="enter_mobile">Mobile No</string>
+    <string name="enter_email">Email</string>
+    <string name="enter_message">Message</string>
+    <string name="follow_us_message">Follow us to see new features launches and glimpses into the culture and activities at Paalan</string>
+
+    <string name="url_facebook">https://www.facebook.com/Paalan-1729449980622228/</string>
+    <string name="url_google_plus">https://plus.google.com/u/0/115103567987094574704</string>
+    <string name="url_instagram">https://www.instagram.com/paalanofficial/</string>
+    <string name="url_twitter">https://twitter.com/PaalanOffical</string>
+
+
+    <string name="about_us"><![CDATA["<h3><span style="font-size: 12pt;">A Few Words About Paalan</span></h3>
+<p><span style="font-size: 12pt;">Paalan follows the philosophy of <em><strong>\"Vasudhaiva Kutumbakam\"</strong></em> that inclucates an understanding that the whole world is one family.It is a philosophy that tries to foster an understanding that the whole of humanity is one family.</span></p>
+<div class="about-grids">
+<div class="col-md-6 about-info">
+<p><span style="font-size: 12pt;">Paalan's vision is of a world in which all older people &amp; children can lead dignified, active, healthy and secure lives.We work with our partners to ensure that people everywhere understand how much older people &amp; young children contribute to society and that they must enjoy their right to healthcare, social services and economic and physical security.</span></p>
+</div>
+<div class="clearfix">&copy; 2017 Paalan. All rights reserved | mobiOwin</div>
+</div>"]]></string>
 
 
 </resources>

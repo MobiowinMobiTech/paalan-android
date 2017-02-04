@@ -2,7 +2,6 @@ package com.phyder.paalan.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,11 +22,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
@@ -38,7 +34,7 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.adapter.ExpandableListAdapter;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
-import com.phyder.paalan.fragments.FragmentContactUs;
+import com.phyder.paalan.fragments.FragmentConnectWithUs;
 import com.phyder.paalan.fragments.FragmentCreateAchievement;
 import com.phyder.paalan.fragments.FragmentCreateEvent;
 import com.phyder.paalan.fragments.FragmentCreateRequest;
@@ -53,7 +49,6 @@ import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
-import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -161,7 +156,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         getFragmentTransaction(new FragmentAboutUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
                 }else if(groupPosition == 5 || groupPosition == 8){
-                        getFragmentTransaction(new FragmentContactUs());
+                        getFragmentTransaction(new FragmentConnectWithUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
                 }else if(groupPosition == 6){
                     if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
