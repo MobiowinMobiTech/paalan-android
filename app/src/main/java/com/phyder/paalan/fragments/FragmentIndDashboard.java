@@ -151,30 +151,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             mPager.setAdapter(slidingImageAdapter);
             mCircleIndicator.setViewPager(mPager);
 
-
-//            class TapGestureListener extends GestureDetector.SimpleOnGestureListener{
-//
-//                @Override
-//                public boolean onSingleTapConfirmed(MotionEvent e) {
-//                    // Your Code here
-//                    if (mPager.getCurrentItem() == images.size() - 1) {
-//                        getActivity().startActivity(new Intent(getActivity(), RegisterUser.class));
-//                    }
-//
-//                    return false;
-//                }
-//            }
-//
-//
-//           final GestureDetector tapGestureDetector = new GestureDetector(getActivity(), new TapGestureListener());
-//
-//            mPager.setOnTouchListener(new View.OnTouchListener() {
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    tapGestureDetector.onTouchEvent(event);
-//                    return false;
-//                }
-//            });
-
         }
 
         private void clickEventFire() {
@@ -518,6 +494,20 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             response.body().getData()[0].getOrgachievementlist()[i].getImage3(),
                             response.body().getData()[0].getOrgachievementlist()[i].getImage4(),
                             response.body().getData()[0].getOrgachievementlist()[i].getDeleteFlag());
+            }
+
+
+            for (int i = 0; i < response.body().getData()[0].getOrgreqlist().length; i++) {
+
+                dbAdapter.populatingRequestIntoDB(response.body().getData()[0].getOrgreqlist()[i].getOrgId(),null,
+                        response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
+                        response.body().getData()[0].getOrgreqlist()[i].getOrgName(),
+                        response.body().getData()[0].getOrgreqlist()[i].getTitle(),
+                        response.body().getData()[0].getOrgreqlist()[i].getSubTitle(),
+                        response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
+                        response.body().getData()[0].getOrgreqlist()[i].getOthers(),
+                        response.body().getData()[0].getOrgreqlist()[i].getLocation(),
+                        response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag());
             }
 
 
