@@ -33,4 +33,5 @@ public class Social {
     public static final String NAVIGATE_TO_GROUP = "navigate_to_group";
 
     public static final String NOTIFICATION = "notification";
+    public static final String CONNECT = "connect";
 }

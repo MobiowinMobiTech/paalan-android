@@ -128,10 +128,15 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         transaction.commit();
 
 
+
+
+
+
         // Listview Group click listener
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Log.d(TAG, "onGroupClick: "+groupPosition);
                 if (groupPosition == 0) {
                     fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
                             new FragmentViewEvent();

@@ -1,6 +1,7 @@
 package com.phyder.paalan.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,8 @@ import java.util.HashMap;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
-        private Context _context;
+    private static final String TAG = ExpandableListAdapter.class.getSimpleName();
+    private Context _context;
         private String[] _listDataHeader; // header titles
         // child data in format of header title, child title
         private HashMap<String, String[]> _listDataChild;
@@ -54,6 +56,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .findViewById(R.id.lblListItem);
 
             txtListChild.setText(childText);
+
+            Log.d(TAG, "getGroupView: group child name "+childText);
+
+
             return convertView;
         }
 
@@ -93,6 +99,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             TextViewOpenSansRegular lblListHeader = (TextViewOpenSansRegular) convertView
                     .findViewById(R.id.lblListHeader);
             lblListHeader.setText(headerTitle);
+
+
+            Resources resources = _context.getResources();
+            final int resourceId = resources.getIdentifier(headerTitle.toLowerCase().replace(" ",""), "drawable",
+                    _context.getPackageName());
+            try {
+                Log.d(TAG, "getGroupView: group name "+headerTitle.toLowerCase().replace(" ",""));
+                lblListHeader.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(resourceId),null,null,null);
+            }catch (Exception ex){
+
+            }
+
 
             return convertView;
         }

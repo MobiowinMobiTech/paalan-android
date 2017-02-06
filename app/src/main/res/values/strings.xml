@@ -134,7 +134,7 @@
         <item>Publish Event</item>
         <item>Social Request</item>
         <item>About Us</item>
-        <item>Contact Us</item>
+        <item>Connect with Paalan</item>
         <item>Sign Out</item>
     </string-array>
 
@@ -149,7 +149,7 @@
         <item>Date with Paalan</item>
         <item>Login with Paalan</item>
         <item>About Us</item>
-        <item>Contact Us</item>
+        <item>Connect with Paalan</item>
     </string-array>
 
 
@@ -159,7 +159,7 @@
         <item>Achievements</item>
         <item>Social Request</item>
         <item>About Us</item>
-        <item>Contact Us</item>
+        <item>Connect with Paalan</item>
     </string-array>
 
     <!--dashboard sub array-->
@@ -356,5 +356,31 @@
 <div class="clearfix">&copy; 2017 Paalan. All rights reserved | mobiOwin</div>
 </div>"]]></string>
 
+    <string name="myProfile">My Profile</string>
+
+    <string name="socialRequest">Social Request</string>
+    <string name="achievemtnt">Achievement</string>
+    <string name="contactPaalan">Connect with Paalan</string>
+    <string name="attachPaalan">Attach with Paalan</string>
+    <string name="dateWithPaalan">Date with Paalan</string>
+    <string name="aboutPaalan">About Paalan</string>
+    <string name="aboutUs">About Us</string>
+    <string name="contactUs">Connect with Paalan</string>
+    <string name="signOut">Signout</string>
+    <string name="userName">Username</string>
+    <string name="feedback_title">Submit feedback</string>
+    <string name="feedback_message_validation_message">Message should not be empty</string>
+    <string name="feedback_submit_success">Feedback submitted successfully.</string>
+    <string name="specify_category">Please specify category</string>
+
+    <string-array name="donate_category">
+        <item>Books</item>
+        <item>Clothes</item>
+        <item>Furniture</item>
+        <item>Food</item>
+        <item>Electronics</item>
+        <item>Stationary</item>
+        <item>Others</item>
+    </string-array>
 
 </resources>

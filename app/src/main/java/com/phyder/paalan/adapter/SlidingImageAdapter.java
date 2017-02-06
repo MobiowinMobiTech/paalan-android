@@ -14,7 +14,6 @@ import com.phyder.paalan.activity.RegisterUser;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +80,12 @@ public class SlidingImageAdapter extends PagerAdapter {
     }
 
     public void getRegistrationVisible_Invisible(int status){
-        btnRegistration.setVisibility(status);
+        try {
+            btnRegistration.setVisibility(status);
+        }catch (Exception ex){
+
+        }
+
     }
 
 }

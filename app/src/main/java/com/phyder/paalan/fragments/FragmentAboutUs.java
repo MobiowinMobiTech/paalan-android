@@ -12,6 +12,11 @@ import android.widget.TextView;
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 
+
+/**
+ * Class used to display Paalan info
+ * @author Pramod Waghmare
+ */
 public class FragmentAboutUs extends Fragment {
 
     @Nullable

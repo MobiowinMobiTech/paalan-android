@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/spinnerSelectCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="7dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/spinnerSelectCategory">
+
+        <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+            android:visibility="gone"
+            android:id="@+id/edtCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/specify_category"
+            android:maxLines="1"
+            android:textColorHint="@color/secondary_text"
+            android:textColor="@color/primary_text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+</RelativeLayout>
