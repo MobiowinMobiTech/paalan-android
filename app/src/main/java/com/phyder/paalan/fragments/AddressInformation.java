@@ -2,11 +2,14 @@ package com.phyder.paalan.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.model.OrgAddressInfo;
@@ -17,6 +20,19 @@ import com.phyder.paalan.model.OrgAddressInfo;
 public class AddressInformation extends Fragment {
 
     EditText edtAddress, edtCity, edtState, edtCountry, edtPincode;
+    private boolean isForDonate;
+    private Spinner spinnerDonateOption;
+    private String[] categories;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            isForDonate = getArguments().getBoolean("isForDonate");
+        }catch (Exception ex){
+
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +44,19 @@ public class AddressInformation extends Fragment {
         edtCountry = (EditText)view.findViewById(R.id.edtOrgCountry);
         edtPincode = (EditText)view.findViewById(R.id.edtOrgPincode);
         edtState = (EditText)view.findViewById(R.id.edtOrgState);
+
+        if (isForDonate){
+
+            categories = new String[2];
+            categories[0] = "Pickup from Home";
+            categories[1] = "Pick up from Address";
+
+            spinnerDonateOption = (Spinner)view.findViewById(R.id.spinnerSelectDonateoption);
+            spinnerDonateOption.setVisibility(View.VISIBLE);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
+            spinnerDonateOption.setAdapter(adapter);
+
+        }
 
         return view;
     }
@@ -46,5 +75,14 @@ public class AddressInformation extends Fragment {
 
        return orgAddressInfo;
 
+    }
+
+    public String getAddress() {
+        return edtAddress.getText().toString() +" "+edtCity.getText().toString()+edtState.getText().toString()+
+                edtPincode.getText().toString() + edtPincode.getText().toString();
+    }
+
+    public int getPickUpOption() {
+        return spinnerDonateOption.getSelectedItemPosition();
     }
 }

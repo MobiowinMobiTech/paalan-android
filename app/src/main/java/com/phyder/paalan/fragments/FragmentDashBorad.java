@@ -186,7 +186,7 @@ public class FragmentDashBorad extends Fragment {
                     } else if(pos==3){
                         fragment =new FragmentAboutUs();
                     }else if(pos==4) {
-                        fragment =new FragmentContactUs();
+                        fragment =new FragmentConnectWithUs();
                     }
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.platform,fragment).
                             addToBackStack(null).commit();

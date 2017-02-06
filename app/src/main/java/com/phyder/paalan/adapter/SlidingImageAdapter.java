@@ -14,7 +14,6 @@ import com.phyder.paalan.activity.RegisterUser;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,6 +85,7 @@ public class SlidingImageAdapter extends PagerAdapter {
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
 }
