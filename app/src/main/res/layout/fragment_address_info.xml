@@ -20,6 +20,13 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
+        <Spinner
+            android:visibility="gone"
+            android:id="@+id/spinnerSelectDonateoption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

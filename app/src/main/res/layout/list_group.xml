@@ -14,7 +14,6 @@
         android:padding="7dp"
         android:textColor="@color/primary_text"
         android:text="@string/dataNotFound"
-        android:drawableLeft="@drawable/groups"
         android:drawablePadding="7dp"
         android:textSize="19sp"/>
 

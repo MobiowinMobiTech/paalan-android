@@ -1,9 +1,11 @@
 package com.phyder.paalan.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
@@ -21,16 +23,20 @@ import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
 
 import java.io.ByteArrayOutputStream;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Pramod Waghmare on 6/2/17.
  */
 public class DonateView extends Fragment {
     private static final String TAG = DonateView.class.getSimpleName();
+    private static final int REQUEST_CODE = 99;
     Spinner spinnerCategory;
     AutoCompleteTextViewOpenSansRegular txtOtherCategory;
     TextInputLayout categoryHolder;
     String[] categories;
     ImageView imgSelectedCategory;
+    String category = "";
 
 
     @Override
@@ -49,6 +55,7 @@ public class DonateView extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
         spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setSelected(true);
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -57,8 +64,10 @@ public class DonateView extends Fragment {
                 Log.d(TAG, "onItemSelected: length "+categories.length);
                 if (position == categories.length - 1)
                     categoryHolder.setVisibility(View.VISIBLE);
-                else
+                else {
                     categoryHolder.setVisibility(View.GONE);
+                    category = categories[position];
+                }
 
             }
 
@@ -68,11 +77,37 @@ public class DonateView extends Fragment {
             }
         });
 
+        imgSelectedCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateImage();
+            }
+        });
+
+
+
         return donateView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imgSelectedCategory.setImageBitmap(photo);
+        }
+    }
+
+    private void updateImage() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,REQUEST_CODE);
+    }
+
     public String getSelectedCategory() {
-        return categories[spinnerCategory.getSelectedItemPosition()];
+        if (category.equalsIgnoreCase(categories[categories.length]))
+            return txtOtherCategory.getText().toString();
+        else
+            return categories[spinnerCategory.getSelectedItemPosition()];
     }
 
     public String getDonateCategoryImage() {
