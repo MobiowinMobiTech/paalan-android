@@ -76,7 +76,7 @@
                 <com.phyder.paalan.utils.ButtonOpenSansSemiBold
                     android:id="@+id/btnView"
                     android:layout_width="70dp"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:textAllCaps="false"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/background_button"

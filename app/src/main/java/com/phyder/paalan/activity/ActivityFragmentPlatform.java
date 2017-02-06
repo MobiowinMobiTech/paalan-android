@@ -26,16 +26,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.adapter.ExpandableListAdapter;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentContactUs;
@@ -56,17 +53,17 @@ import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
 
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity{
+public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
+
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
-    private ExpandableListView expListView;
+
     private Fragment fragment;
     private static RoundedImageView IMG_PROFILE;
     private static TextView TXT_USER_NAME;
@@ -77,6 +74,21 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     private static ActionBar actionBar;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
     private static final int STORAGE_PERMISSION_CODE = 88;
+
+    private View viewIndividual,viewOrganization;
+
+    private LinearLayout llDrawerHolder;
+    private LinearLayout llOrgAchiements,llOrgEvents,llOrgRequest;
+    private TextViewOpenSansRegular txtProfile,txtOrgAchievement,txtOrgCreateAchievement,txtOrgViewAchievement,
+                                    txtOrgEvent,txtOrgCreateEvent,txtOrgViewEvent,txtOrgRequest,
+                                    txtOrgCreateRequest,txtOrgViewRequest,
+                                    txtOrgAboutUs,txtOrgContactUs,txtSignOut;
+
+    private LinearLayout llIndConnectPaalan,llIndDonate;
+    private TextViewOpenSansRegular txtIndEvent,txtIndGroup,txtIndRequest,txtIndAchievement,
+                                    txtConnectPaalan,txtLogin,txtRegister,txtDatePaalan,txtDonate,txtDate,
+                                    txtIndAboutUs,txtIndContactUs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +104,14 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         }
     }
 
+
+
     private void setUpDrawer() {
 
         PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
         DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
+
+        llDrawerHolder = (LinearLayout) findViewById(R.id.llDrawerHolder);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
@@ -108,9 +124,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
-        populatingSideDrawerList();
         //Profile image
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
         // to update profile image
@@ -124,157 +137,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
+            initializingIndDrawerComponants();
             transaction.replace(R.id.platform, new FragmentIndDashboard());
         } else {
+            initializingOrgDrawerComponants();
             transaction.replace(R.id.platform, new FragmentDashBorad());
         }
 
         transaction.addToBackStack(null);
         transaction.commit();
 
-
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (groupPosition == 0) {
-                    fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
-                            new FragmentViewEvent();
-                    getFragmentTransaction(fragment);
-                    mDrawerLayout.closeDrawer(mDrawerList);
-                }else if(groupPosition == 1){
-                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                        getFragmentTransaction(new FragmentViewRequest());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 2){
-                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                        getFragmentTransaction(new FragmentViewGroups());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 3){
-                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                        getFragmentTransaction(new FragmentViewAchievement());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 4 || groupPosition == 7){
-                        getFragmentTransaction(new FragmentAboutUs());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                }else if(groupPosition == 5 || groupPosition == 8){
-                        getFragmentTransaction(new FragmentContactUs());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                }else if(groupPosition == 6){
-                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                        PREF.setLogin(false);
-                        DB_ADAPTER.open();
-                        DB_ADAPTER.deleteProfile();
-                        DB_ADAPTER.close();
-                        PREF.setLoginType(Social.IND_ENTITY);
-                        getProfileUpdate();
-                        populatingSideDrawerList();
-                        getFragmentTransaction(new FragmentIndDashboard());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }
-                return false;
-
-            }
-        });
-
-
-        expListView.setOnChildClickListener(new OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                switch (groupPosition) {
-                    case 1:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentCreateAchievement();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(1);
-                                }
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewAchievement();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(1);
-                                }
-                                break;
-                        }
-                        break;
-
-                    case 2:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentCreateEvent();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(2);
-                                }
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewEvent();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(2);
-                                }
-                                break;
-
-                        }
-                        break;
-
-                    case 3:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentCreateRequest();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(3);
-                                }
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewRequest();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(3);
-                                }
-                                break;
-                        }
-                        break;
-
-                    case 6:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                                    Intent intent = new Intent(ActivityFragmentPlatform.this,Login.class);
-                                    startActivity(intent);
-                                }
-                                expListView.collapseGroup(6);
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                                   Intent intent = new Intent(ActivityFragmentPlatform.this,RegisterUser.class);
-                                   startActivity(intent);
-                                }
-                                expListView.collapseGroup(6);
-                                break;
-
-                        }
-                        break;
-
-                }
-                mDrawerLayout.closeDrawer(mDrawerList);
-                return false;
-            }
-        });
     }
-
 
 
 
@@ -439,77 +312,16 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
     private void getFragmentTransaction(Fragment fragment){
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.platform, fragment)
-                .addToBackStack(null).commit();
-    }
-
-
-
-    private void populatingSideDrawerList() {
-
-        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
-
-            String emptyArray[] = new String[0];
-
-            String[] listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
-            String[] loginItems = getResources().getStringArray(R.array.login_array);
-
-            HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
-            listDataChild.clear();
-
-            Log.d("IND_ENTITY","listDataHeader size : "+listDataHeader.length);
-
-            listDataChild.put(listDataHeader[0], emptyArray);
-            listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
-            listDataChild.put(listDataHeader[2], emptyArray);
-
-            listDataChild.put(listDataHeader[3], emptyArray);
-            listDataChild.put(listDataHeader[4], emptyArray);
-            listDataChild.put(listDataHeader[5], emptyArray);
-
-            listDataChild.put(listDataHeader[6], loginItems);
-            listDataChild.put(listDataHeader[7], emptyArray);
-            listDataChild.put(listDataHeader[8], emptyArray);
-
-            Log.d("IND_ENTITY","listDataChild size : "+listDataChild.size());
-
-            ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
-            expListView.setAdapter(listAdapter);
-
-        } else {
-
-            String emptyArray[] = new String[0];
-            // Adding child data
-            String[] listDataHeader = getResources().getStringArray(R.array.drawer_array);
-            // Adding child data
-            String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
-            // Adding child data
-            String[] eventItems = getResources().getStringArray(R.array.events_array);
-
-            String[] requestItems = getResources().getStringArray(R.array.request_array);
-
-            HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
-            listDataChild.clear();
-
-            Log.d("ORG_ENTITY","listDataHeader size : "+listDataHeader.length);
-
-            listDataChild.put(listDataHeader[0], emptyArray);
-            listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
-            listDataChild.put(listDataHeader[2], eventItems);
-            listDataChild.put(listDataHeader[3], requestItems);
-            listDataChild.put(listDataHeader[4], emptyArray);
-            listDataChild.put(listDataHeader[5], emptyArray);
-            listDataChild.put(listDataHeader[6], emptyArray);
-
-            Log.d("ORG_ENTITY","listDataChild size : "+listDataChild.size());
-
-            ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
-            expListView.setAdapter(listAdapter);
+        if(!fragment.isVisible()){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.platform, fragment)
+                    .addToBackStack(null).commit();
         }
 
+        if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+            mDrawerLayout.closeDrawers();
+        }
     }
-
 
 
 
@@ -560,9 +372,371 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         }
     }
 
+
+    /**
+     * Method to exit from app if user do not give location permission to fetching the location
+     * @param context
+     */
     public static void getFinished(FragmentActivity context){
         context.finish();
     }
 
-}
 
+    /**
+     * Method to defining the side drawer for individual login
+     */
+    private void initializingIndDrawerComponants() {
+
+        LayoutInflater inflater= (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewIndividual  = inflater.inflate(R.layout.individual_drawer, null);
+        llDrawerHolder.removeView(viewIndividual);
+        llDrawerHolder.addView(viewIndividual);
+
+        llIndConnectPaalan = (LinearLayout) viewIndividual.findViewById(R.id.llIndConnect);
+        llIndDonate = (LinearLayout) viewIndividual.findViewById(R.id.llIndDonate);
+
+        txtIndEvent = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndEvent);
+        txtIndGroup = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndGroup);
+        txtIndRequest = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndRequest);
+        txtIndAchievement = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndAchievement);
+
+        txtConnectPaalan = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndConnect);
+        txtLogin = (TextViewOpenSansRegular) llIndConnectPaalan.findViewById(R.id.txtIndLogin);
+        txtRegister = (TextViewOpenSansRegular) llIndConnectPaalan.findViewById(R.id.txtIndRegister);
+
+        txtDatePaalan = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndDonatePaalan);
+        txtDonate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDonate);
+        txtDate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDatePaalan);
+
+        txtIndAboutUs = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndAbout);
+        txtIndContactUs = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndContact);
+
+        txtIndEvent.setOnClickListener(this);
+        txtIndGroup.setOnClickListener(this);
+        txtIndRequest.setOnClickListener(this);
+        txtIndAchievement.setOnClickListener(this);
+        txtConnectPaalan.setOnClickListener(this);
+        txtLogin.setOnClickListener(this);
+        txtRegister.setOnClickListener(this);
+        txtDatePaalan.setOnClickListener(this);
+        txtDonate.setOnClickListener(this);
+        txtDate.setOnClickListener(this);
+        txtIndAboutUs.setOnClickListener(this);
+        txtIndContactUs.setOnClickListener(this);
+
+    }
+
+
+
+    /**
+     * Method to defining the side drawer for organization login
+     */
+    private void initializingOrgDrawerComponants() {
+
+        LayoutInflater inflater= (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewOrganization  = inflater.inflate(R.layout.org_drawer, null);
+        viewIndividual  = inflater.inflate(R.layout.individual_drawer, null);
+        llDrawerHolder.removeView(viewOrganization);
+        llDrawerHolder.removeView(viewIndividual);
+
+        llDrawerHolder.addView(viewOrganization);
+
+        llOrgAchiements = (LinearLayout) viewOrganization.findViewById(R.id.llOrgAchiements);
+        llOrgEvents = (LinearLayout) viewOrganization.findViewById(R.id.llOrgEvent);
+        llOrgRequest = (LinearLayout) viewOrganization.findViewById(R.id.llOrgRequest);
+
+        txtProfile = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgProfile);
+        txtOrgAchievement = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgAchievement);
+        txtOrgCreateAchievement = (TextViewOpenSansRegular) llOrgAchiements.findViewById(R.id.txtOrgCreateAchievement);
+        txtOrgViewAchievement = (TextViewOpenSansRegular) llOrgAchiements.findViewById(R.id.txtOrgViewAchievement);
+
+        txtOrgEvent = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgEvent);
+        txtOrgCreateEvent = (TextViewOpenSansRegular) llOrgEvents.findViewById(R.id.txtOrgCreateEvent);
+        txtOrgViewEvent = (TextViewOpenSansRegular) llOrgEvents.findViewById(R.id.txtOrgViewEvent);
+
+        txtOrgRequest = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgRequest);
+        txtOrgCreateRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgCreateRequest);
+        txtOrgViewRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgViewViewRequest);
+
+        txtOrgAboutUs = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgAbout);
+        txtOrgContactUs = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgContact);
+        txtSignOut = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtSignOut);
+
+
+        txtProfile.setOnClickListener(this);
+        txtOrgAchievement.setOnClickListener(this);
+        txtOrgCreateAchievement.setOnClickListener(this);
+        txtOrgViewAchievement.setOnClickListener(this);
+        txtOrgEvent.setOnClickListener(this);
+        txtOrgCreateEvent.setOnClickListener(this);
+        txtOrgViewEvent.setOnClickListener(this);
+        txtOrgRequest.setOnClickListener(this);
+        txtOrgCreateRequest.setOnClickListener(this);
+        txtOrgViewRequest.setOnClickListener(this);
+        txtOrgAboutUs.setOnClickListener(this);
+        txtOrgContactUs.setOnClickListener(this);
+        txtSignOut.setOnClickListener(this);
+
+    }
+
+
+    /**
+     * Method to animate expand sub options
+     * @param v
+     * @param animResId
+     * @param visibility
+     */
+    protected void animateView(final LinearLayout v, final Animation animResId, final int visibility){
+
+        v.setVisibility(visibility);
+//        v.startAnimation(animResId);
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.platform);
+        //Load animation
+        Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down);
+
+        Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_up);
+
+        switch (v.getId()){
+
+            // for individual clicking event fire
+
+            case R.id.txtIndEvent:
+                if(!(fragment instanceof FragmentViewEvent)) {
+                    getFragmentTransaction(new FragmentViewEvent());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndGroup:
+                if(!(fragment instanceof FragmentViewGroups)) {
+                    getFragmentTransaction(new FragmentViewGroups());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+            case R.id.txtIndRequest:
+                if(!(fragment instanceof FragmentViewRequest)) {
+                    getFragmentTransaction(new FragmentViewRequest());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndAchievement:
+                if(!(fragment instanceof FragmentViewAchievement)) {
+                    getFragmentTransaction(new FragmentViewAchievement());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndConnect:
+
+                if (llIndConnectPaalan.getVisibility() == View.GONE) {
+                    animateView(llIndConnectPaalan, slide_down, View.VISIBLE);
+                } else {
+                    animateView(llIndConnectPaalan, slide_up, View.GONE);
+                }
+                break;
+
+            case R.id.txtIndLogin:
+                startActivity(new Intent(ActivityFragmentPlatform.this,Login.class));
+                break;
+
+            case R.id.txtIndRegister:
+                startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class));
+                break;
+
+            case R.id.txtIndDonatePaalan:
+
+                if(llIndDonate.getVisibility() == View.GONE) {
+                    animateView(llIndDonate, slide_down, View.VISIBLE);
+                }else {
+                    animateView(llIndDonate, slide_up, View.GONE);
+                }
+                break;
+
+            case R.id.txtIndDonate:
+
+                break;
+
+            case R.id.txtIndDatePaalan:
+
+                break;
+            case R.id.txtIndAbout:
+                if(!(fragment instanceof FragmentAboutUs)) {
+                    getFragmentTransaction(new FragmentAboutUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndContact:
+                if(!(fragment instanceof FragmentContactUs)) {
+                    getFragmentTransaction(new FragmentContactUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            // for Organization clicking event fire
+
+            case R.id.txtOrgProfile:
+                if(!(fragment instanceof FragmentMyProfile)) {
+                    getFragmentTransaction(new FragmentMyProfile());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgAchievement:
+
+                if(llOrgAchiements.getVisibility() == View.GONE) {
+                    animateView(llOrgAchiements, slide_down, View.VISIBLE);
+                }else {
+                    animateView(llOrgAchiements, slide_up, View.GONE);
+                }
+                break;
+
+            case R.id.txtOrgCreateAchievement:
+                if(!(fragment instanceof FragmentCreateAchievement)) {
+                    getFragmentTransaction(new FragmentCreateAchievement());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgViewAchievement:
+                if(!(fragment instanceof FragmentViewAchievement)) {
+                    getFragmentTransaction(new FragmentViewAchievement());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgEvent:
+                if(llOrgEvents.getVisibility() == View.GONE) {
+                    animateView(llOrgEvents, slide_down, View.VISIBLE);
+                }else {
+                    animateView(llOrgEvents,slide_up, View.GONE);
+                }
+                break;
+
+            case R.id.txtOrgCreateEvent:
+                if(!(fragment instanceof FragmentCreateEvent)) {
+                    getFragmentTransaction(new FragmentCreateEvent());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgViewEvent:
+                if(!(fragment instanceof FragmentViewEvent)) {
+                    getFragmentTransaction(new FragmentViewEvent());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgRequest:
+                if(llOrgRequest.getVisibility() == View.GONE) {
+                    animateView(llOrgRequest, slide_down, View.VISIBLE);
+                }else {
+                    animateView(llOrgRequest, slide_up, View.GONE);
+                }
+                break;
+
+            case R.id.txtOrgCreateRequest:
+                if(!(fragment instanceof FragmentCreateRequest)) {
+                    getFragmentTransaction(new FragmentCreateRequest());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgViewViewRequest:
+                if(!(fragment instanceof FragmentViewRequest)) {
+                    getFragmentTransaction(new FragmentViewRequest());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgAbout:
+                if(!(fragment instanceof FragmentAboutUs)) {
+                    getFragmentTransaction(new FragmentAboutUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgContact:
+                if(!(fragment instanceof FragmentContactUs)) {
+                    getFragmentTransaction(new FragmentContactUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtSignOut:
+                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
+                    PREF.setLogin(false);
+                    DB_ADAPTER.open();
+                    DB_ADAPTER.deleteProfile();
+                    DB_ADAPTER.close();
+                    PREF.setLoginType(Social.IND_ENTITY);
+                    getProfileUpdate();
+                    try {
+                        llDrawerHolder.removeView(viewOrganization);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    initializingIndDrawerComponants();
+                    getFragmentTransaction(new FragmentIndDashboard());
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+                break;
+        }
+
+    }
+}

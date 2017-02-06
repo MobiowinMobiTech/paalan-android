@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            app:ci_animator="@animator/indicator_no_animator"
+            app:ci_animator="@anim/indicator_no_animator"
             app:ci_drawable="@drawable/white_radius"
             app:ci_drawable_unselected="@drawable/black_radius"/>
 
@@ -354,7 +354,7 @@
             android:textColor="@color/icons"
             android:gravity="center"
             android:background="@color/primary_more_dark"
-            android:text="@string/date_with_paalan"/>
+            android:text="@string/date_paalan"/>
 
 
     </LinearLayout>

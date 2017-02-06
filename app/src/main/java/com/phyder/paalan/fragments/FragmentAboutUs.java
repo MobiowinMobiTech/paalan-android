@@ -22,7 +22,7 @@ public class FragmentAboutUs extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.drawer_array)[4]);
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.dashboard_content_array)[3]);
     }
 
 }
