@@ -458,8 +458,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
             HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
             listDataChild.clear();
 
-            Log.d("IND_ENTITY","listDataHeader size : "+listDataHeader.length);
-
             listDataChild.put(listDataHeader[0], emptyArray);
             listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
             listDataChild.put(listDataHeader[2], emptyArray);
@@ -471,8 +469,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
             listDataChild.put(listDataHeader[6], loginItems);
             listDataChild.put(listDataHeader[7], emptyArray);
             listDataChild.put(listDataHeader[8], emptyArray);
-
-            Log.d("IND_ENTITY","listDataChild size : "+listDataChild.size());
 
             ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
             expListView.setAdapter(listAdapter);
@@ -492,8 +488,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
             HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
             listDataChild.clear();
 
-            Log.d("ORG_ENTITY","listDataHeader size : "+listDataHeader.length);
-
             listDataChild.put(listDataHeader[0], emptyArray);
             listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
             listDataChild.put(listDataHeader[2], eventItems);
@@ -501,8 +495,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
             listDataChild.put(listDataHeader[4], emptyArray);
             listDataChild.put(listDataHeader[5], emptyArray);
             listDataChild.put(listDataHeader[6], emptyArray);
-
-            Log.d("ORG_ENTITY","listDataChild size : "+listDataChild.size());
 
             ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
             expListView.setAdapter(listAdapter);

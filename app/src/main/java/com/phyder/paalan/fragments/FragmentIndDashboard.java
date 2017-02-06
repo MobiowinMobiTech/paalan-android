@@ -89,7 +89,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 View view = inflater.inflate(R.layout.fragment_ind_dashboard, container, false);
                 init(view);
-                handlingSlideShow();
                 clickEventFire();
             return view;
         }
@@ -136,6 +135,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         private void handlingSlideShow() {
 
             images = new ArrayList<>();
+            images.clear();
             if(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")!=null) {
                 for (int i = 0; i < Integer.parseInt(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")); i++) {
                     String bannerImageURL = CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrl" + i);
@@ -556,6 +556,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
 
         public void initializeTimer(){
+
+            handlingSlideShow();
 
             itemPos = mPager.getCurrentItem();
             if(handler!=null){
