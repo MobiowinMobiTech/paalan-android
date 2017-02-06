@@ -128,6 +128,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         transaction.commit();
 
 
+
+
         // Listview Group click listener
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override

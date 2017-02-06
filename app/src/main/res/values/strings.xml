@@ -133,7 +133,7 @@
         <item>Publish Event</item>
         <item>Social Request</item>
         <item>About Us</item>
-        <item>Contact Us</item>
+        <item>Connect with Paalan</item>
         <item>Sign Out</item>
     </string-array>
 
@@ -148,7 +148,7 @@
         <item>Date with Paalan</item>
         <item>Login with Paalan</item>
         <item>About Us</item>
-        <item>Contact Us</item>
+        <item>Connect with Paalan</item>
     </string-array>
 
 
@@ -158,7 +158,7 @@
         <item>Achievements</item>
         <item>Social Request</item>
         <item>About Us</item>
-        <item>Contact Us</item>
+        <item>Connect with Paalan</item>
     </string-array>
 
     <!--dashboard sub array-->
