@@ -62,110 +62,120 @@
             android:src="@drawable/twitter" />
     </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="7dp"
-        android:layout_margin="7dp"
-        android:layout_weight="7"
-        card_view:cardCornerRadius="7dp">
-
-        <LinearLayout
-            android:layout_height="match_parent"
+        android:layout_weight="7">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:weightSum="5.0">
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1">
+            android:layout_height="0dp"
+            android:padding="7dp"
+            android:layout_margin="7dp"
+            android:layout_weight="7"
+            card_view:cardCornerRadius="7dp">
 
-                <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
-                    android:id="@+id/edtName"
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:weightSum="5.0">
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_name"
-                    android:maxLines="1"
-                    android:textColorHint="@color/secondary_text"
-                    android:textColor="@color/primary_text" />
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1">
 
-            </android.support.design.widget.TextInputLayout>
+                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                        android:id="@+id/edtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_name"
+                        android:maxLines="1"
+                        android:textColorHint="@color/secondary_text"
+                        android:textColor="@color/primary_text" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1">
-
-                <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
-                    android:id="@+id/edtMobile"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_mobile"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:textColorHint="@color/secondary_text"
-                    android:textColor="@color/primary_text" />
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1">
 
-            </android.support.design.widget.TextInputLayout>
+                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                        android:id="@+id/edtMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_mobile"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:maxLength="10"
+                        android:textColorHint="@color/secondary_text"
+                        android:textColor="@color/primary_text" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1">
-
-                <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
-                    android:id="@+id/edtEmail"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_email"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:textColorHint="@color/secondary_text"
-                    android:textColor="@color/primary_text" />
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1">
 
-            </android.support.design.widget.TextInputLayout>
+                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                        android:id="@+id/edtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:textColorHint="@color/secondary_text"
+                        android:textColor="@color/primary_text" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1">
-
-                <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
-                    android:id="@+id/edtMessage"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_message"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:textColorHint="@color/secondary_text"
-                    android:textColor="@color/primary_text" />
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1">
 
-            </android.support.design.widget.TextInputLayout>
+                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                        android:id="@+id/edtMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_message"
+                        android:maxLines="1"
+                        android:textColorHint="@color/secondary_text"
+                        android:textColor="@color/primary_text" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:padding="7dp"
-                android:text="@string/submit"
-                android:background="@drawable/background_button"
-                android:layout_weight="1"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                <Button
+                    android:id="@+id/btnSubmitFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:padding="7dp"
+                    android:layout_margin="7dp"
+                    android:text="@string/submit"
+                    android:background="@drawable/background_button"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
+
+
 </LinearLayout>

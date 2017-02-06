@@ -8,12 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +25,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by cmss on 11/1/17.
@@ -45,7 +41,16 @@ public class CommanUtils {
 
     public static boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        Pattern pattern1 = Pattern.compile( "^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\\.([a-zA-Z])+([a-zA-Z])+");
+
+        Matcher matcher1 = pattern1.matcher(email);
+        Log.d("", "isBasicInfoFilled: valid email i/p:"+email);
+        if (!matcher1.matches()) {
+            //show your message if not matches with email pattern
+            return false;
+        }else
+            return true;
+
     }
 
     public static boolean isPasswordValid(String password) {

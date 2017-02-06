@@ -355,5 +355,22 @@
 <div class="clearfix">&copy; 2017 Paalan. All rights reserved | mobiOwin</div>
 </div>"]]></string>
 
+    <string name="myProfile">My Profile</string>
+
+    <string name="socialRequest">Social Request</string>
+    <string name="achievemtnt">Achievement</string>
+    <string name="contactPaalan">Connect with Paalan</string>
+    <string name="attachPaalan">Attach with Paalan</string>
+    <string name="dateWithPaalan">Date with Paalan</string>
+    <string name="aboutPaalan">About Paalan</string>
+    <string name="aboutUs">About Us</string>
+    <string name="contactUs">Connect with Paalan</string>
+    <string name="signOut">Signout</string>
+    <string name="userName">Username</string>
+    <string name="feedback_title">Submit feedback</string>
+    <string name="feedback_message_validation_message">Message should not be empty</string>
+    <string name="feedback_submit_success">Feedback submitted successfully.</string>
+
+
 
 </resources>
