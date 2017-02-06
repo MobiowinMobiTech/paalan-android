@@ -24,7 +24,9 @@
             android:visibility="gone"
             android:id="@+id/spinnerSelectDonateoption"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:layout_margin="7dp"/>
 
 
         <android.support.design.widget.TextInputLayout

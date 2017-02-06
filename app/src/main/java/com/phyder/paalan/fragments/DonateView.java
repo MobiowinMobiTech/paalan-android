@@ -3,7 +3,6 @@ package com.phyder.paalan.fragments;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
@@ -20,6 +19,7 @@ import android.widget.Spinner;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
+import com.phyder.paalan.utils.CommanUtils;
 
 import java.io.ByteArrayOutputStream;
 
@@ -37,6 +37,7 @@ public class DonateView extends Fragment {
     String[] categories;
     ImageView imgSelectedCategory;
     String category = "";
+    Bitmap photo = null;
 
 
     @Override
@@ -55,13 +56,12 @@ public class DonateView extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
         spinnerCategory.setAdapter(adapter);
-        spinnerCategory.setSelected(true);
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Log.d(TAG, "onItemSelected: "+position+" "+l);
-                Log.d(TAG, "onItemSelected: length "+categories.length);
+                Log.d(TAG, "onItemSelected: length "+ categories[position]);
                 if (position == categories.length - 1)
                     categoryHolder.setVisibility(View.VISIBLE);
                 else {
@@ -93,9 +93,33 @@ public class DonateView extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            photo = (Bitmap) data.getExtras().get("data");
             imgSelectedCategory.setImageBitmap(photo);
+            saveProfilePicture(photo);
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Bitmap profilePic = CommanUtils.getUserProfile(getActivity(), "donate");
+        Log.d(TAG, "getProfileUpdate: img "+profilePic);
+        if (profilePic != null)
+            imgSelectedCategory.setImageBitmap(profilePic);
+    }
+
+    /**
+     * Function to save profile picture in Sp
+     * @param bitmap
+     */
+    private void saveProfilePicture(Bitmap bitmap) {
+        Log.d(TAG, "XXsaveProfilePicture: frag ");
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        CommanUtils.saveProfilePic(getActivity(),"donate" ,temp);
     }
 
     private void updateImage() {
@@ -104,20 +128,14 @@ public class DonateView extends Fragment {
     }
 
     public String getSelectedCategory() {
-        if (category.equalsIgnoreCase(categories[categories.length]))
-            return txtOtherCategory.getText().toString();
-        else
-            return categories[spinnerCategory.getSelectedItemPosition()];
+        Log.d(TAG, "validateData: "+category);
+        return category.equalsIgnoreCase("Others") ? txtOtherCategory.getText().toString() : category;
     }
 
     public String getDonateCategoryImage() {
-        BitmapDrawable drawable = (BitmapDrawable) imgSelectedCategory.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        if (photo != null)
+            return CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
+        else
+            return "";
     }
 }

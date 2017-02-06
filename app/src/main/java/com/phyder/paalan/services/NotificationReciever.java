@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.activity.PaalanSplashActivity;
+import com.phyder.paalan.activity.ActivityFragmentPlatform;
 
 /**
  * Created by Gouresh on 25/1/17
@@ -38,7 +38,7 @@ public class NotificationReciever extends BroadcastReceiver {
 
         //// TODO: 30/1/17
         // Open NotificationView Class on Notification Click
-        Intent intent2 = new Intent(context, PaalanSplashActivity.class);
+        Intent intent2 = new Intent(context, ActivityFragmentPlatform.class);
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, intent2,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);

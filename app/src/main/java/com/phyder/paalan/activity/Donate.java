@@ -22,7 +22,7 @@ import com.phyder.paalan.utils.CommanUtils;
 public class Donate extends AppIntro {
 
     private static final String TAG = Donate.class.getSimpleName();
-    DonateView donateView = new DonateView();
+    DonateView donateView;
     AddressInformation addressInformation;
     OrganisationInformation organisationInformation;
 
@@ -41,8 +41,9 @@ public class Donate extends AppIntro {
         addressInformation = new AddressInformation();
         addressInformation.setArguments(bundle);
 
+        donateView = new DonateView();
 
-        addSlide(new DonateView());
+        addSlide(donateView);
         addSlide(organisationInformation);
         addSlide(addressInformation);
 
@@ -77,6 +78,9 @@ public class Donate extends AppIntro {
 
         IndivitualReqRegistration.Data  data = organisationInformation.setIndividualInfo().getData();
         String address = addressInformation.getAddress();
+        int pickUpOption = addressInformation.getPickUpOption();
+
+        Log.d(TAG, "validateData: "+donateImage);
 
         if (TextUtils.isEmpty(donateCategory)){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.select_category));
