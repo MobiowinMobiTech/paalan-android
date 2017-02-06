@@ -372,8 +372,10 @@
     <string name="feedback_message_validation_message">Message should not be empty</string>
     <string name="feedback_submit_success">Feedback submitted successfully.</string>
     <string name="specify_category">Please specify category</string>
+    <string name="donate_category">Donate</string>
 
     <string-array name="donate_category">
+        <item>Select category</item>
         <item>Books</item>
         <item>Clothes</item>
         <item>Furniture</item>

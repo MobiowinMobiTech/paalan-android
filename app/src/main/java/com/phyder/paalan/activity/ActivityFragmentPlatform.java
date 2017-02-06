@@ -157,7 +157,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         getFragmentTransaction(new FragmentViewAchievement());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
-                }else if(groupPosition == 4 || groupPosition == 7){
+                }else if(groupPosition == 7){
                         getFragmentTransaction(new FragmentAboutUs());
                         mDrawerLayout.closeDrawer(mDrawerList);
                 }else if(groupPosition == 5 || groupPosition == 8){
@@ -175,6 +175,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         getFragmentTransaction(new FragmentIndDashboard());
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
+                }else if (groupPosition == 4){
+                    Intent donateIntent = new Intent(ActivityFragmentPlatform.this, Donate.class);
+                    startActivity(donateIntent);
                 }
                 return false;
 
