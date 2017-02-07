@@ -114,6 +114,7 @@ public class DonateView extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 edtDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                edtDate.setTextColor(getResources().getColor(R.color.primary_text));
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.show();
@@ -134,10 +135,10 @@ public class DonateView extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Bitmap profilePic = CommanUtils.getUserProfile(getActivity(), "donate");
-        Log.d(TAG, "getProfileUpdate: img "+profilePic);
-        if (profilePic != null)
-            imgSelectedCategory.setImageBitmap(profilePic);
+        photo = CommanUtils.getUserProfile(getActivity(), "donate");
+        Log.d(TAG, "getProfileUpdate: img "+photo);
+        if (photo != null)
+            imgSelectedCategory.setImageBitmap(photo);
     }
 
     /**
@@ -164,10 +165,14 @@ public class DonateView extends Fragment {
     }
 
     public String getDonateCategoryImage() {
-        if (photo != null)
+        if (photo != null) {
+            Log.d(TAG, "getDonateCategoryImage: image if ");
             return CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
-        else
+        }
+        else {
+            Log.d(TAG, "getDonateCategoryImage: image else ");
             return "";
+        }
     }
 
     public String getSelectedDate() {

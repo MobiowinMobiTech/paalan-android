@@ -95,12 +95,10 @@ public class Donate extends AppIntro {
         String address = addressInformation.getAddress();
         int pickUpOption = addressInformation.getPickUpOption();
 
-
         SubmitDonateForm submitDonateForm = new SubmitDonateForm();
         submitDonateForm.setAction(Social.SUBMIT_ACTION);
         submitDonateForm.setStatus(Social.DONATE);
         submitDonateForm.setEntity(Social.IND_ENTITY);
-
 
         SubmitDonateForm.Data data = new SubmitDonateForm.Data();
         data.setMobileno(indData.getMobileno());
@@ -109,7 +107,8 @@ public class Donate extends AppIntro {
         data.setAddress(address);
         data.setDeliverymode(pickUpOption == 0 ? "Pickup from Home" : "Pick up from Address");
         data.setImg(donateImage);
-
+        data.setDate(donateView.getSelectedDate());
+        submitDonateForm.setData(data);
 
         Retrofit mRetrofit = NetworkUtil.getRetrofit();
         PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -117,11 +116,13 @@ public class Donate extends AppIntro {
         call.enqueue(new Callback<SubmitDonateForm>() {
             @Override
             public void onResponse(Call<SubmitDonateForm> call, Response<SubmitDonateForm> response) {
+                CommanUtils.hideDialog();
                 Log.d(TAG, "onResponse: Succes :: "+response.body().getStatus());
             }
 
             @Override
             public void onFailure(Call<SubmitDonateForm> call, Throwable t) {
+                CommanUtils.hideDialog();
                 Log.d(TAG, "onResponse: Failure :: "+call.toString());
             }
         });

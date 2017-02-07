@@ -78,8 +78,8 @@ public class AddressInformation extends Fragment {
     }
 
     public String getAddress() {
-        return edtAddress.getText().toString() +" "+edtCity.getText().toString()+edtState.getText().toString()+
-                edtPincode.getText().toString() + edtPincode.getText().toString();
+        return edtAddress.getText().toString() +", "+edtCity.getText().toString()+","+edtState.getText().toString()+
+                ", "+edtPincode.getText().toString() +", "+ edtCountry.getText().toString();
     }
 
     public int getPickUpOption() {
