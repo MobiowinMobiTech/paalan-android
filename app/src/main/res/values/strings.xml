@@ -374,6 +374,8 @@
     <string name="specify_category">Please specify category</string>
     <string name="donate_category">Donate</string>
     <string name="select_category">Please select category</string>
+    <string name="enter_date">Select date</string>
+    <string name="date_should_not_be_empty">Please select date.</string>
 
     <string-array name="donate_category">
         <item>Select category</item>

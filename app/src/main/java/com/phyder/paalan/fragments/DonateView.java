@@ -1,5 +1,6 @@
 package com.phyder.paalan.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -22,6 +24,7 @@ import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
 import com.phyder.paalan.utils.CommanUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -32,12 +35,13 @@ public class DonateView extends Fragment {
     private static final String TAG = DonateView.class.getSimpleName();
     private static final int REQUEST_CODE = 99;
     Spinner spinnerCategory;
-    AutoCompleteTextViewOpenSansRegular txtOtherCategory;
+    AutoCompleteTextViewOpenSansRegular txtOtherCategory, edtDate;
     TextInputLayout categoryHolder;
     String[] categories;
     ImageView imgSelectedCategory;
     String category = "";
     Bitmap photo = null;
+    private int mYear, mMonth, mDay;
 
 
     @Override
@@ -47,9 +51,17 @@ public class DonateView extends Fragment {
         categories = getResources().getStringArray(R.array.donate_category);
 
         txtOtherCategory = (AutoCompleteTextViewOpenSansRegular)donateView.findViewById(R.id.edtCategory);
+        edtDate = (AutoCompleteTextViewOpenSansRegular)donateView.findViewById(R.id.edtDate);
         categoryHolder = (TextInputLayout)donateView.findViewById(R.id.viewCategory);
 
         imgSelectedCategory = (ImageView)donateView.findViewById(R.id.imageCategory);
+
+        edtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDate();
+            }
+        });
 
 
         spinnerCategory = (Spinner)donateView.findViewById(R.id.spinnerSelectCategory);
@@ -88,6 +100,25 @@ public class DonateView extends Fragment {
 
         return donateView;
     }
+
+    /**
+     * Function to select date
+     */
+    private void selectDate() {
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                edtDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -137,5 +168,9 @@ public class DonateView extends Fragment {
             return CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
         else
             return "";
+    }
+
+    public String getSelectedDate() {
+        return edtDate.getText().toString();
     }
 }

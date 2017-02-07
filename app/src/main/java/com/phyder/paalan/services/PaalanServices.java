@@ -4,6 +4,7 @@ import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.request.RequestOrganizerProfile;
 import com.phyder.paalan.payload.request.RequestSyncNotification;
+import com.phyder.paalan.payload.request.SubmitDonateForm;
 import com.phyder.paalan.payload.request.SubmitFeedback;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
@@ -124,4 +125,7 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<SubmitFeedback> submitFeedback(@Body SubmitFeedback submitFeedback);
+
+    @POST("paalan/PaalanGateway")
+    Call<SubmitDonateForm> submitDonateForm(@Body SubmitDonateForm submitDonateForm);
 }

@@ -127,8 +127,8 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
         Retrofit mRetrofit = NetworkUtil.getRetrofit();
         PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-        Call<SubmitFeedback> resRegistrationCall = mPaalanServices.submitFeedback(submitFeedback);
-        resRegistrationCall.enqueue(new Callback<SubmitFeedback>() {
+        Call<SubmitFeedback> call = mPaalanServices.submitFeedback(submitFeedback);
+        call.enqueue(new Callback<SubmitFeedback>() {
             @Override
             public void onResponse(Call<SubmitFeedback> call, Response<SubmitFeedback> response) {
                 Log.d("", "submitFeedbackWithServer onResponse: "+call.toString());
