@@ -63,12 +63,16 @@ public class Donate extends AppIntro {
     @Override
     public void onDonePressed() {
         super.onDonePressed();
-
         if (validateData()){
             Log.d(TAG, "onDonePressed: valid");
+            submitDonateRequest();
         }else {
             Log.d(TAG, "onDonePressed: not valid");
         }
+
+    }
+
+    private void submitDonateRequest() {
 
     }
 
