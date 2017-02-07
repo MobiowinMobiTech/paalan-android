@@ -48,8 +48,8 @@ public class AddressInformation extends Fragment {
         if (isForDonate){
 
             categories = new String[2];
-            categories[0] = "Pickup from Home";
-            categories[1] = "Pick up from Address";
+            categories[0] = "Home Pickup";
+            categories[1] = "Other";
 
             spinnerDonateOption = (Spinner)view.findViewById(R.id.spinnerSelectDonateoption);
             spinnerDonateOption.setVisibility(View.VISIBLE);
@@ -78,8 +78,8 @@ public class AddressInformation extends Fragment {
     }
 
     public String getAddress() {
-        return edtAddress.getText().toString() +" "+edtCity.getText().toString()+edtState.getText().toString()+
-                edtPincode.getText().toString() + edtPincode.getText().toString();
+        return edtAddress.getText().toString() +", "+edtCity.getText().toString()+","+edtState.getText().toString()+
+                ", "+edtPincode.getText().toString() +", "+ edtCountry.getText().toString();
     }
 
     public int getPickUpOption() {

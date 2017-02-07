@@ -129,9 +129,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
 
 
-
-
-
         // Listview Group click listener
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
@@ -176,8 +173,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
                         mDrawerLayout.closeDrawer(mDrawerList);
                     }
                 }else if (groupPosition == 4){
-//                    Intent donateIntent = new Intent(ActivityFragmentPlatform.this, Donate.class);
-//                    startActivity(donateIntent);
+                    Intent donateIntent = new Intent(ActivityFragmentPlatform.this, Donate.class);
+                    startActivity(donateIntent);
                 }
                 return false;
 

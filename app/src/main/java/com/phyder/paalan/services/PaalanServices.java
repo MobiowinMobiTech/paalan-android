@@ -4,6 +4,7 @@ import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.request.RequestOrganizerProfile;
 import com.phyder.paalan.payload.request.RequestSyncNotification;
+import com.phyder.paalan.payload.request.SubmitDonateForm;
 import com.phyder.paalan.payload.request.SubmitFeedback;
 import com.phyder.paalan.payload.request.individual.IndivitualReqPublishEvent;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
@@ -25,6 +26,7 @@ import com.phyder.paalan.payload.request.organization.RequestInitialData;
 import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.payload.response.ResponseOrganizerProfile;
+import com.phyder.paalan.payload.response.SubmitDonateResponse;
 import com.phyder.paalan.payload.response.individual.IndivitualResPublishEvent;
 import com.phyder.paalan.payload.response.individual.IndivitualResRegistration;
 import com.phyder.paalan.payload.response.individual.IndivitualResUpdateProfile;
@@ -124,4 +126,7 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<SubmitFeedback> submitFeedback(@Body SubmitFeedback submitFeedback);
+
+    @POST("paalan/PaalanGateway")
+    Call<SubmitDonateResponse> submitDonateForm(@Body SubmitDonateForm submitDonateForm);
 }
