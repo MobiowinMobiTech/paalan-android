@@ -20,10 +20,11 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="7dp"
-        android:layout_margin="10dp"
-        card_view:cardCornerRadius="7dp">
+        android:layout_margin="7dp"
+        card_view:cardCornerRadius="7dp"
+        android:layout_weight="9.5">
 
 
         <LinearLayout
@@ -44,7 +45,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:layout_margin="7dp"
                     android:layout_weight="1"/>
 
                 <android.support.design.widget.TextInputLayout
@@ -53,7 +53,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:layout_margin="7dp"
                     android:layout_weight="1">
 
                     <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
@@ -69,13 +68,20 @@
 
             </LinearLayout>
 
+            <Spinner
+                android:id="@+id/spinnerSelectDonateoption"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="7dp"
+                android:layout_weight="1.5"/>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:padding="7dp"
                 android:layout_margin="7dp"
-                android:layout_weight="2">
+                android:layout_weight="1.5">
 
                 <EditText
                     android:id="@+id/edtDate"
@@ -91,7 +97,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="6">
+                android:layout_weight="4">
 
                 <ImageView
                     android:layout_width="250dp"

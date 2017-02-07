@@ -1,6 +1,5 @@
 package com.phyder.paalan.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,9 +10,8 @@ import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.phyder.paalan.R;
-import com.phyder.paalan.fragments.AddressInformation;
 import com.phyder.paalan.fragments.DonateView;
-import com.phyder.paalan.fragments.OrganisationInformation;
+import com.phyder.paalan.fragments.Donorinformation;
 import com.phyder.paalan.payload.request.SubmitDonateForm;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.payload.response.SubmitDonateResponse;
@@ -35,8 +33,7 @@ public class Donate extends AppIntro {
 
     private static final String TAG = Donate.class.getSimpleName();
     DonateView donateView;
-    AddressInformation addressInformation;
-    OrganisationInformation organisationInformation;
+    Donorinformation donorinformation;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -47,17 +44,13 @@ public class Donate extends AppIntro {
         Bundle bundle = new Bundle();
         bundle.putBoolean("isForDonate",true);
 
-        organisationInformation = new OrganisationInformation();
-        organisationInformation.setArguments(bundle);
 
-        addressInformation = new AddressInformation();
-        addressInformation.setArguments(bundle);
-
+        donorinformation = new Donorinformation();
         donateView = new DonateView();
 
+        addSlide(donorinformation);
         addSlide(donateView);
-        addSlide(organisationInformation);
-        addSlide(addressInformation);
+
 
         // Override bar/separator color.
         setBarColor(Color.parseColor("#00BCD4"));
@@ -94,9 +87,9 @@ public class Donate extends AppIntro {
         String donateCategory = donateView.getSelectedCategory();
         String donateImage = donateView.getDonateCategoryImage();
 
-        IndivitualReqRegistration.Data  indData = organisationInformation.setIndividualInfo().getData();
-        String address = addressInformation.getAddress();
-        int pickUpOption = addressInformation.getPickUpOption();
+        IndivitualReqRegistration.Data  indData = donorinformation.setIndividualInfo().getData();
+        String address = donorinformation.getAddress();
+        int pickUpOption = donateView.getPickUpOption();
 
         SubmitDonateForm submitDonateForm = new SubmitDonateForm();
         submitDonateForm.setAction(Social.SUBMIT_ACTION);
@@ -153,8 +146,8 @@ public class Donate extends AppIntro {
 
         Log.d(TAG, "validateData: CAT "+donateCategory);
 
-        IndivitualReqRegistration.Data  data = organisationInformation.setIndividualInfo().getData();
-        String address = addressInformation.getAddress();
+        IndivitualReqRegistration.Data  data = donorinformation.setIndividualInfo().getData();
+        String address = donorinformation.getAddress();
 
         if (TextUtils.isEmpty(donateCategory)){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.select_category));
@@ -165,13 +158,13 @@ public class Donate extends AppIntro {
         }else if (TextUtils.isEmpty(data.getName())) {
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.error_empty_name));
             return false;
-        }else if(TextUtils.isEmpty(data.getEmailid()) || !organisationInformation.isValidEmailId(data.getEmailid())){
+        }else if(TextUtils.isEmpty(data.getEmailid()) || !donorinformation.isValidEmailId(data.getEmailid())){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.email_validation_mesasage));
             return false;
         }else if (TextUtils.isEmpty(data.getMobileno()) || data.getMobileno().length() < 10 ){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.mobile_validation_mesasage));
             return false;
-        }else if (TextUtils.isEmpty(address)){
+        }else if (TextUtils.isEmpty(address.replace(" ","").replace(",",""))){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.addess_cannot_be_empty));
             return false;
         }

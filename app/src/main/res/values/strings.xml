@@ -328,7 +328,7 @@
     <string name="screent_title">Screen Title</string>
     <string name="fabric_id">815125c9312f62bd30e41300a5c1738d3d6cb349</string>
 
-    <string name="basic_info">Basic Info</string>
+    <string name="donor_info">Donor Information</string>
 
     <string name="first_time_user_without_network">There is no network connection. Please connect to the network to use Paalan.</string>
     <string name="connection_error">Connection Error</string>

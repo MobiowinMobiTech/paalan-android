@@ -43,6 +43,8 @@ public class DonateView extends Fragment {
     Bitmap photo = null;
     private int mYear, mMonth, mDay;
     android.icu.util.Calendar calendar;
+    private String[] pickUpCategories;
+    private Spinner spinnerDonateOption;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -97,6 +99,14 @@ public class DonateView extends Fragment {
             }
         });
 
+        pickUpCategories = new String[2];
+        pickUpCategories[0] = "Home Pickup";
+        pickUpCategories[1] = "Other";
+
+        spinnerDonateOption = (Spinner)donateView.findViewById(R.id.spinnerSelectDonateoption);
+        spinnerDonateOption.setVisibility(View.VISIBLE);
+        ArrayAdapter<String> pickUpAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,pickUpCategories);
+        spinnerDonateOption.setAdapter(pickUpAdapter);
         return donateView;
     }
 
@@ -171,4 +181,10 @@ public class DonateView extends Fragment {
     public String getSelectedDate() {
         return calendar.getTimeInMillis()+"";
     }
+
+
+    public int getPickUpOption() {
+        return spinnerDonateOption.getSelectedItemPosition();
+    }
+
 }
