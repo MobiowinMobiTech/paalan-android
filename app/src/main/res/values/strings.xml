@@ -27,7 +27,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="paalan_social_worker">Paalan Social Worker</string>
 
     <string name="dashborad_fragment">DashBorad Fragment</string>
     <string name="follow_us_on_facebook">Follow Us on Facebook</string>
@@ -48,7 +47,6 @@
 
     <string name="login_as_organization">Login as Organization</string>
     <string name="login_as_Individual">Login as Individual</string>
-    <string name="create_event">Create Event</string>
     <string name="ind">IND</string>
     <string name="org">ORG</string>
     <string name="enter_user_or_password">Enter USer OR Mobile Number</string>
@@ -73,7 +71,6 @@
 
     <string name="toolbar_title">Title</string>
 
-    <string name="sign_out">Sign Out</string>
     <string name="name">Name</string>
     <string name="role_in_organization">Role in Organization</string>
     <string name="organization_id">Organization Id</string>
@@ -151,7 +148,31 @@
         <item>About Us</item>
         <item>Connect with Paalan</item>
     </string-array>
+    <string name="my_profile">My Profile</string>
+    <string name="Achievement">Achievements</string>
+    <string name="publish_event">Publish Event</string>
+    <string name="request">Social Request</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="connect_us">Connect with Us</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="events">Events</string>
+    <string name="group">Groups</string>
+    <string name="achievements">Achievements</string>
+    <string name="donate">Donate</string>
+    <string name="date_paalan">Date with Paalan</string>
+    <string name="login_paalan">Login with Paalan</string>
+    <string name="connect_paalan">Connect with Paalan</string>
+    <string name="donate_paalan">Donate with Paalan</string>
+    <string name="registers">Register</string>
 
+
+    <string name="create_achivement">Create Achiement</string>
+    <string name="view_achivement">View Achievements</string>
+    <string name="create_event">Create Event</string>
+    <string name="view_event">View Events</string>
+    <string name="create_request">Create Social Request</string>
+    <string name="view_request">View Social Requests</string>
 
     <!--dashboard array-->
     <string-array name="dashboard_content_array">
@@ -277,7 +298,6 @@
 
     <!--Request String -->
     <string name="request_details">Social Request Details</string>
-    <string name="request">Social Request</string>
     <string name="groups">Social Groups</string>
     <string name="update_request">Update Social Request</string>
     <string name="delete_request">Delete Social Request</string>
@@ -299,8 +319,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="eventdate">EventDate</string>
 
-    <string name="donate">Donate</string>
-    <string name="date_with_paalan">Date with Paalan</string>
+
     <string name="dataNotFound">Data not found</string>
 
     <string name="notification_message">Notification From Paalan</string>
@@ -347,7 +366,7 @@
     <string name="url_twitter">https://twitter.com/PaalanOffical</string>
 
 
-    <string name="about_us"><![CDATA["<h3><span style="font-size: 12pt;">A Few Words About Paalan</span></h3>
+    <string name="about_us_text"><![CDATA["<h3><span style="font-size: 12pt;">A Few Words About Paalan</span></h3>
 <p><span style="font-size: 12pt;">Paalan follows the philosophy of <em><strong>\"Vasudhaiva Kutumbakam\"</strong></em> that inclucates an understanding that the whole world is one family.It is a philosophy that tries to foster an understanding that the whole of humanity is one family.</span></p>
 <div class="about-grids">
 <div class="col-md-6 about-info">

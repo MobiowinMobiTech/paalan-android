@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            app:ci_animator="@animator/indicator_no_animator"
+            app:ci_animator="@anim/indicator_no_animator"
             app:ci_drawable="@drawable/white_radius"
             app:ci_drawable_unselected="@drawable/black_radius"/>
 
@@ -347,14 +347,14 @@
             android:background="@color/primary"
             android:text="@string/donate"/>
 
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent"
-            android:textColor="@color/icons"
-            android:gravity="center"
-            android:background="@color/primary_more_dark"
-            android:text="@string/date_with_paalan"/>
+        <!--<com.phyder.paalan.utils.TextViewOpenSansSemiBold-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="5"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:textColor="@color/icons"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@color/primary_more_dark"-->
+            <!--android:text="@string/date_paalan"/>-->
 
 
     </LinearLayout>

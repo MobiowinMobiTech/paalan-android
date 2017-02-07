@@ -26,9 +26,9 @@ public class FragmentAboutUs extends Fragment {
 
         TextView txtAboutUs = (TextView)view.findViewById(R.id.txtAboutUs);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            txtAboutUs.setText(Html.fromHtml(getString(R.string.about_us),Html.FROM_HTML_MODE_LEGACY));
+            txtAboutUs.setText(Html.fromHtml(getString(R.string.about_us_text),Html.FROM_HTML_MODE_LEGACY));
         } else {
-            txtAboutUs.setText(Html.fromHtml(getString(R.string.about_us)));
+            txtAboutUs.setText(Html.fromHtml(getString(R.string.about_us_text)));
         }
 
         return view;
@@ -38,7 +38,7 @@ public class FragmentAboutUs extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.drawer_array)[4]);
+        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.about_us));
     }
 
 }
