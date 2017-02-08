@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
+import com.phyder.paalan.activity.Donate;
 import com.phyder.paalan.activity.RegisterUser;
 import com.phyder.paalan.adapter.HorizontalListVAdapter;
 import com.phyder.paalan.adapter.SlidingImageAdapter;
@@ -35,6 +36,7 @@ import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
@@ -71,7 +73,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private PreferenceUtils pref;
 
     private TextViewOpenSansSemiBold txtEventSeeMore,txtSocialSeeMore ,txtGroupSeeMore,txtAchievementsSeeMore;
-
+    private ButtonOpenSansSemiBold btnDonate;
     private LinearLayout llEvent, llGroup, llRequest, llAchievement;
     private RecyclerView recycleEvent, recycleGroup, recycleRequest, recycleAchievement;
 
@@ -117,6 +119,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 txtGroupSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtGroupSeeMore);
                 txtSocialSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtSocialSeeMore);
                 txtAchievementsSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtAchievementSeeMore);
+
+                btnDonate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDonate);
 
                 eventLists = new ArrayList<String>();
                 groupLists = new ArrayList<String>();
@@ -213,6 +217,13 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 }
             });
 
+            btnDonate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), Donate.class));
+                }
+            });
+
         }
 
 
@@ -247,7 +258,14 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             getRetrofitCall();
 
                     } else {
-                        ActivityFragmentPlatform.getFinished(getActivity());
+
+                        if(pref.getLocation()!=null) {
+                            isFetched = true;
+                            callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
+                                    Double.parseDouble(pref.getLocation().split("~")[1]));
+                        }else {
+                            ActivityFragmentPlatform.getFinished(getActivity());
+                        }
                     }
                     return;
                 }

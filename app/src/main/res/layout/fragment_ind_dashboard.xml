@@ -338,7 +338,8 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+            android:id="@+id/btnDonate"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
@@ -24,17 +23,12 @@ import java.util.regex.Pattern;
 public class OrganisationInformation extends Fragment {
 
     private EditText edtName, edtEmail, edtContactNo, edtPassword, edtConfirmPassword;
-    private boolean isForDonate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            isForDonate = getArguments().getBoolean("isForDonate");
-        }catch (Exception ex){
 
-        }
 
     }
 
@@ -48,12 +42,6 @@ public class OrganisationInformation extends Fragment {
         edtPassword = (EditText)view.findViewById(R.id.edtPassword);
         edtConfirmPassword = (EditText)view.findViewById(R.id.edtConfirmPassword);
 
-        if (isForDonate){
-            edtPassword.setVisibility(View.GONE);
-            edtConfirmPassword.setVisibility(View.GONE);
-            TextView txtHeader = (TextView)view.findViewById(R.id.txtHeader);
-            txtHeader.setText(getString(R.string.basic_info));
-        }
 
         return view;
     }
@@ -100,6 +88,5 @@ public class OrganisationInformation extends Fragment {
         return indivitualReqRegistration;
 
     }
-
 
 }

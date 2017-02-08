@@ -1,19 +1,22 @@
 package com.phyder.paalan.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -21,7 +24,7 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
 import com.phyder.paalan.utils.CommanUtils;
 
-import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,24 +36,39 @@ public class DonateView extends Fragment {
     private static final int REQUEST_CODE = 99;
     Spinner spinnerCategory;
     AutoCompleteTextViewOpenSansRegular txtOtherCategory;
+    EditText edtDate;
     TextInputLayout categoryHolder;
     String[] categories;
     ImageView imgSelectedCategory;
-    String category = "";
     Bitmap photo = null;
+    private int mYear, mMonth, mDay;
+    android.icu.util.Calendar calendar;
+    private String[] pickUpCategories;
+    private Spinner spinnerDonateOption;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View donateView = inflater.inflate(R.layout.fragment_donate_view,null);
-        donateView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         categories = getResources().getStringArray(R.array.donate_category);
 
+
+        calendar  = android.icu.util.Calendar.getInstance();
+
         txtOtherCategory = (AutoCompleteTextViewOpenSansRegular)donateView.findViewById(R.id.edtCategory);
+        edtDate = (EditText)donateView.findViewById(R.id.edtDate);
         categoryHolder = (TextInputLayout)donateView.findViewById(R.id.viewCategory);
 
         imgSelectedCategory = (ImageView)donateView.findViewById(R.id.imageCategory);
 
+        edtDate.setFocusable(false);
+        edtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDate();
+            }
+        });
 
         spinnerCategory = (Spinner)donateView.findViewById(R.id.spinnerSelectCategory);
 
@@ -60,13 +78,10 @@ public class DonateView extends Fragment {
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Log.d(TAG, "onItemSelected: "+position+" "+l);
-                Log.d(TAG, "onItemSelected: length "+ categories[position]);
                 if (position == categories.length - 1)
                     categoryHolder.setVisibility(View.VISIBLE);
                 else {
                     categoryHolder.setVisibility(View.GONE);
-                    category = categories[position];
                 }
 
             }
@@ -84,10 +99,41 @@ public class DonateView extends Fragment {
             }
         });
 
+        pickUpCategories = new String[2];
+        pickUpCategories[0] = "Home Pickup";
+        pickUpCategories[1] = "Other";
 
-
+        spinnerDonateOption = (Spinner)donateView.findViewById(R.id.spinnerSelectDonateoption);
+        spinnerDonateOption.setVisibility(View.VISIBLE);
+        ArrayAdapter<String> pickUpAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,pickUpCategories);
+        spinnerDonateOption.setAdapter(pickUpAdapter);
         return donateView;
     }
+
+    /**
+     * Function to select date
+     */
+    private void selectDate() {
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                edtDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                edtDate.setTextColor(getResources().getColor(R.color.primary_text));
+
+                calendar.set(android.icu.util.Calendar.DAY_OF_MONTH,dayOfMonth);
+                calendar.set(android.icu.util.Calendar.MONTH,month);
+                calendar.set(android.icu.util.Calendar.YEAR,year);
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,7 +141,6 @@ public class DonateView extends Fragment {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
             photo = (Bitmap) data.getExtras().get("data");
             imgSelectedCategory.setImageBitmap(photo);
-            saveProfilePicture(photo);
         }
     }
 
@@ -103,23 +148,8 @@ public class DonateView extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Bitmap profilePic = CommanUtils.getUserProfile(getActivity(), "donate");
-        Log.d(TAG, "getProfileUpdate: img "+profilePic);
-        if (profilePic != null)
-            imgSelectedCategory.setImageBitmap(profilePic);
-    }
-
-    /**
-     * Function to save profile picture in Sp
-     * @param bitmap
-     */
-    private void saveProfilePicture(Bitmap bitmap) {
-        Log.d(TAG, "XXsaveProfilePicture: frag ");
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
-        CommanUtils.saveProfilePic(getActivity(),"donate" ,temp);
+        if (photo != null)
+            imgSelectedCategory.setImageBitmap(photo);
     }
 
     private void updateImage() {
@@ -128,14 +158,33 @@ public class DonateView extends Fragment {
     }
 
     public String getSelectedCategory() {
-        Log.d(TAG, "validateData: "+category);
-        return category.equalsIgnoreCase("Others") ? txtOtherCategory.getText().toString() : category;
+        if (spinnerCategory.getSelectedItemPosition() == 0 )
+            return "";
+        else if (spinnerCategory.getSelectedItemPosition() == categories.length - 1)
+            return txtOtherCategory.getText().toString();
+        else
+        return categories[spinnerCategory.getSelectedItemPosition()];
     }
 
     public String getDonateCategoryImage() {
-        if (photo != null)
+        if (photo != null) {
+            Log.d(TAG, "getDonateCategoryImage: image if ");
             return CommanUtils.encodeToBase64(CommanUtils.getSquareBitmap(photo));
-        else
+        }
+        else {
+            Log.d(TAG, "getDonateCategoryImage: image else ");
             return "";
+        }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getSelectedDate() {
+        return calendar.getTimeInMillis()+"";
+    }
+
+
+    public int getPickUpOption() {
+        return spinnerDonateOption.getSelectedItemPosition();
+    }
+
 }

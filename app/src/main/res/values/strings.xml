@@ -77,7 +77,7 @@
     <string name="registration_no">Registration No</string>
     <string name="registration">Registration</string>
 
-    <string name="profile_up_to_date">Profile up-to-date</string>
+    <string name="profile_up_to_date">Profile up-to-daterequest</string>
     <string name="achievement_created">Achievement Created Successfully</string>
     <string name="event_created">Event Created Successfully</string>
     <string name="request_created">Social Request Created Successfully</string>
@@ -115,8 +115,8 @@
     <string name="error_empty_description">Description can not be empty</string>
     <string name="error_empty_others">Others can not be empty</string>
     <string name="error_empty_location">Location can not be empty</string>
-    <string name="error_empty_startdate">Start date can not be empty</string>
-    <string name="error_empty_enddate">End date can not be empty</string>
+    <string name="error_empty_startdate">Start daterequest can not be empty</string>
+    <string name="error_empty_enddate">End daterequest can not be empty</string>
 
     <string name="error_empty_role">Role can not be empty</string>
     <string name="error_empty_regNo">Registration no can not be empty</string>
@@ -347,7 +347,7 @@
     <string name="screent_title">Screen Title</string>
     <string name="fabric_id">815125c9312f62bd30e41300a5c1738d3d6cb349</string>
 
-    <string name="basic_info">Basic Info</string>
+    <string name="donor_info">Donor Information</string>
 
     <string name="first_time_user_without_network">There is no network connection. Please connect to the network to use Paalan.</string>
     <string name="connection_error">Connection Error</string>
@@ -393,6 +393,11 @@
     <string name="specify_category">Please specify category</string>
     <string name="donate_category">Donate</string>
     <string name="select_category">Please select category</string>
+    <string name="enter_date">Select date</string>
+    <string name="date_should_not_be_empty">Please select daterequest.</string>
+    <string name="request_submitted_success">Request submitted successfully</string>
+    <string name="capture_image">Capture image</string>
+
 
     <string-array name="donate_category">
         <item>Select category</item>

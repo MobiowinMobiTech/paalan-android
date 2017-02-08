@@ -1,6 +1,8 @@
 package com.phyder.paalan.activity;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +28,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.view.animation.Animation;
@@ -59,7 +63,7 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener{
+public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
 
@@ -77,20 +81,23 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
     private static final int STORAGE_PERMISSION_CODE = 88;
 
-    private View viewIndividual,viewOrganization;
+    private View viewIndividual, viewOrganization;
 
     private LinearLayout llDrawerHolder;
-    private LinearLayout llOrgAchiements,llOrgEvents,llOrgRequest;
-    private TextViewOpenSansRegular txtProfile,txtOrgAchievement,txtOrgCreateAchievement,txtOrgViewAchievement,
-                                    txtOrgEvent,txtOrgCreateEvent,txtOrgViewEvent,txtOrgRequest,
-                                    txtOrgCreateRequest,txtOrgViewRequest,
-                                    txtOrgAboutUs,txtOrgContactUs,txtSignOut;
 
-    private LinearLayout llIndConnectPaalan,llIndDonate;
-    private TextViewOpenSansRegular txtIndEvent,txtIndGroup,txtIndRequest,txtIndAchievement,
-                                    txtConnectPaalan,txtLogin,txtRegister,txtDatePaalan,txtDonate,txtDate,
-                                    txtIndAboutUs,txtIndContactUs;
+    private TextViewOpenSansRegular txtProfile, txtOrgAchievement, txtOrgCreateAchievement, txtOrgViewAchievement,
+            txtOrgEvent, txtOrgCreateEvent, txtOrgViewEvent, txtOrgRequest,
+            txtOrgCreateRequest, txtOrgViewRequest,
+            txtOrgAboutUs, txtOrgContactUs, txtSignOut;
 
+    private TextViewOpenSansRegular txtIndEvent, txtIndGroup, txtIndRequest, txtIndAchievement,
+            txtConnectPaalan, txtLogin, txtRegister, txtDatePaalan, txtDonate, txtIndAboutUs, txtIndContactUs;
+
+
+    private LinearLayout llOrgAchiements, llOrgEvents, llOrgRequest;
+    private LinearLayout llIndConnectPaalan, llIndDonate;
+    private ValueAnimator mAnimatorOrgAchievements,mAnimatorOrgEvents,mAnimatorOrgRequests;
+    private ValueAnimator mAnimatorIndConnectPaalan,mAnimatorIndDonate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +106,14 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         setUpDrawer();
     }
 
+
+
     public static void getChangeToolbarTitle(String title) {
 
         if (actionBar != null) {
             actionBar.setTitle(title);
         }
     }
-
 
 
     private void setUpDrawer() {
@@ -149,6 +157,60 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         transaction.addToBackStack(null);
         transaction.commit();
 
+
+    }
+
+
+    private void expand(LinearLayout linearLayout,ValueAnimator valueAnimator) {
+        // set Visible
+        linearLayout.setVisibility(View.VISIBLE);
+        valueAnimator.start();
+    }
+
+    private void collapse(final LinearLayout linearLayout) {
+        int finalHeight = linearLayout.getHeight();
+
+        ValueAnimator mAnimator = slideAnimator(linearLayout,finalHeight, 0);
+
+        mAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                // Height=0, but it set visibility to GONE
+                linearLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        mAnimator.start();
+    }
+
+    private ValueAnimator slideAnimator(final LinearLayout linearLayout,int start, int end) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+        animator.addUpdateListener(new     ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                // Update Height
+                int value = (Integer) valueAnimator.getAnimatedValue();
+
+                ViewGroup.LayoutParams layoutParams = linearLayout
+                        .getLayoutParams();
+                layoutParams.height = value;
+                linearLayout.setLayoutParams(layoutParams);
+            }
+        });
+        return animator;
     }
 
 
@@ -405,7 +467,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         txtDatePaalan = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndDonatePaalan);
         txtDonate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDonate);
-        txtDate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDatePaalan);
+//        txtDate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDatePaalan);
 
         txtIndAboutUs = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndAbout);
         txtIndContactUs = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndContact);
@@ -419,9 +481,54 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         txtRegister.setOnClickListener(this);
         txtDatePaalan.setOnClickListener(this);
         txtDonate.setOnClickListener(this);
-        txtDate.setOnClickListener(this);
+//        txtDate.setOnClickListener(this);
         txtIndAboutUs.setOnClickListener(this);
         txtIndContactUs.setOnClickListener(this);
+
+        llIndConnectPaalan.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llIndConnectPaalan.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llIndConnectPaalan.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llIndConnectPaalan.measure(widthSpec, heightSpec);
+
+                        mAnimatorIndConnectPaalan = slideAnimator(llIndConnectPaalan,0,
+                                llIndConnectPaalan.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        llIndDonate.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llIndDonate.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llIndDonate.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llIndDonate.measure(widthSpec, heightSpec);
+
+                        mAnimatorIndDonate = slideAnimator(llIndDonate,0,
+                                llIndDonate.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
 
     }
 
@@ -455,7 +562,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         txtOrgRequest = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgRequest);
         txtOrgCreateRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgCreateRequest);
-        txtOrgViewRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgViewViewRequest);
+        txtOrgViewRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgViewRequest);
 
         txtOrgAboutUs = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgAbout);
         txtOrgContactUs = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgContact);
@@ -476,19 +583,72 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         txtOrgContactUs.setOnClickListener(this);
         txtSignOut.setOnClickListener(this);
 
-    }
 
+        llOrgAchiements.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
 
-    /**
-     * Method to animate expand sub options
-     * @param v
-     * @param animResId
-     * @param visibility
-     */
-    protected void animateView(final LinearLayout v, final Animation animResId, final int visibility){
+                    @Override
+                    public boolean onPreDraw() {
+                        llOrgAchiements.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llOrgAchiements.setVisibility(View.GONE);
 
-        v.setVisibility(visibility);
-//        v.startAnimation(animResId);
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llOrgAchiements.measure(widthSpec, heightSpec);
+
+                        mAnimatorOrgAchievements = slideAnimator(llOrgAchiements,0,
+                                llOrgAchiements.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        llOrgEvents.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llOrgEvents.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llOrgEvents.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llOrgEvents.measure(widthSpec, heightSpec);
+
+                        mAnimatorOrgEvents = slideAnimator(llOrgEvents,0,
+                                llOrgEvents.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        llOrgRequest.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llOrgRequest.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llOrgRequest.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llOrgRequest.measure(widthSpec, heightSpec);
+
+                        mAnimatorOrgRequests = slideAnimator(llOrgRequest,0,
+                                llOrgRequest.getMeasuredHeight());
+                        return true;
+                    }
+                });
 
     }
 
@@ -497,14 +657,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     public void onClick(View v) {
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.platform);
-        //Load animation
-        Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_down);
 
-        Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_up);
-
-        switch (v.getId()){
+       switch (v.getId()){
 
             // for individual clicking event fire
 
@@ -550,36 +704,49 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             case R.id.txtIndConnect:
 
                 if (llIndConnectPaalan.getVisibility() == View.GONE) {
-                    animateView(llIndConnectPaalan, slide_down, View.VISIBLE);
+                    expand(llIndConnectPaalan,mAnimatorIndConnectPaalan);
                 } else {
-                    animateView(llIndConnectPaalan, slide_up, View.GONE);
+                    collapse(llIndConnectPaalan);
                 }
                 break;
 
             case R.id.txtIndLogin:
                 startActivity(new Intent(ActivityFragmentPlatform.this,Login.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndConnectPaalan);
+                }
                 break;
 
             case R.id.txtIndRegister:
                 startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndConnectPaalan);
+                }
                 break;
 
             case R.id.txtIndDonatePaalan:
 
-                if(llIndDonate.getVisibility() == View.GONE) {
-                    animateView(llIndDonate, slide_down, View.VISIBLE);
-                }else {
-                    animateView(llIndDonate, slide_up, View.GONE);
+                if (llIndDonate.getVisibility() == View.GONE) {
+                    expand(llIndDonate,mAnimatorIndDonate);
+                } else {
+                    collapse(llIndDonate);
                 }
+
                 break;
 
             case R.id.txtIndDonate:
-
+                startActivity(new Intent(this, Donate.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndDonate);
+                }
                 break;
 
-            case R.id.txtIndDatePaalan:
-
-                break;
+//            case R.id.txtIndDatePaalan:
+//
+//                break;
             case R.id.txtIndAbout:
                 if(!(fragment instanceof FragmentAboutUs)) {
                     getFragmentTransaction(new FragmentAboutUs());
@@ -614,88 +781,89 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgAchievement:
 
-                if(llOrgAchiements.getVisibility() == View.GONE) {
-                    animateView(llOrgAchiements, slide_down, View.VISIBLE);
-                }else {
-                    animateView(llOrgAchiements, slide_up, View.GONE);
+                if (llOrgAchiements.getVisibility() == View.GONE) {
+                    expand(llOrgAchiements,mAnimatorOrgAchievements);
+                } else {
+                    collapse(llOrgAchiements);
                 }
+
                 break;
 
             case R.id.txtOrgCreateAchievement:
                 if(!(fragment instanceof FragmentCreateAchievement)) {
                     getFragmentTransaction(new FragmentCreateAchievement());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgAchiements);
                 }
                 break;
 
             case R.id.txtOrgViewAchievement:
                 if(!(fragment instanceof FragmentViewAchievement)) {
                     getFragmentTransaction(new FragmentViewAchievement());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgAchiements);
                 }
                 break;
 
             case R.id.txtOrgEvent:
-                if(llOrgEvents.getVisibility() == View.GONE) {
-                    animateView(llOrgEvents, slide_down, View.VISIBLE);
-                }else {
-                    animateView(llOrgEvents,slide_up, View.GONE);
+                if (llOrgEvents.getVisibility() == View.GONE) {
+                    expand(llOrgEvents,mAnimatorOrgEvents);
+                } else {
+                    collapse(llOrgEvents);
                 }
                 break;
 
             case R.id.txtOrgCreateEvent:
                 if(!(fragment instanceof FragmentCreateEvent)) {
                     getFragmentTransaction(new FragmentCreateEvent());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgEvents);
                 }
                 break;
 
             case R.id.txtOrgViewEvent:
                 if(!(fragment instanceof FragmentViewEvent)) {
                     getFragmentTransaction(new FragmentViewEvent());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgEvents);
                 }
                 break;
 
-            case R.id.txtOrgRequest:
-                if(llOrgRequest.getVisibility() == View.GONE) {
-                    animateView(llOrgRequest, slide_down, View.VISIBLE);
-                }else {
-                    animateView(llOrgRequest, slide_up, View.GONE);
-                }
-                break;
+           case R.id.txtOrgRequest:
+               if (llOrgRequest.getVisibility() == View.GONE) {
+                   expand(llOrgRequest,mAnimatorOrgRequests);
+               } else {
+                   collapse(llOrgRequest);
+               }
+               break;
 
-            case R.id.txtOrgCreateRequest:
-                if(!(fragment instanceof FragmentCreateRequest)) {
-                    getFragmentTransaction(new FragmentCreateRequest());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
-                }
-                break;
+           case R.id.txtOrgCreateRequest:
+               if(!(fragment instanceof FragmentCreateRequest)) {
+                   getFragmentTransaction(new FragmentCreateRequest());
+               }
+               if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                   mDrawerLayout.closeDrawers();
+                   collapse(llOrgRequest);
+               }
+               break;
 
-            case R.id.txtOrgViewViewRequest:
-                if(!(fragment instanceof FragmentViewRequest)) {
-                    getFragmentTransaction(new FragmentViewRequest());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
-                }
-                break;
+           case R.id.txtOrgViewRequest:
+               if(!(fragment instanceof FragmentViewRequest)) {
+                   getFragmentTransaction(new FragmentViewRequest());
+               }
+               if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                   mDrawerLayout.closeDrawers();
+                   collapse(llOrgRequest);
+               }
+               break;
 
             case R.id.txtOrgAbout:
                 if(!(fragment instanceof FragmentAboutUs)) {
@@ -738,4 +906,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         }
 
     }
+
+
 }
