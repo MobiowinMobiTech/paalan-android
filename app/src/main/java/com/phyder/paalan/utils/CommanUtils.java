@@ -328,12 +328,8 @@ public class CommanUtils {
         try {
             byte [] encodeByte=Base64.decode(profilePic,Base64.DEFAULT);
             Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            Log.d(TAG, "getProfileUpdate: found "+bitmap.toString());
             return bitmap;
         } catch(Exception e) {
-            Log.d(TAG, "getProfileUpdate: error "+e.toString());
-            e.getMessage();
-            e.printStackTrace();
             return null;
         }
 

@@ -82,8 +82,8 @@ public class SlidingImageAdapter extends PagerAdapter {
     public void getRegistrationVisible_Invisible(int status){
         try {
             btnRegistration.setVisibility(status);
-        }catch (Exception ex){
-
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

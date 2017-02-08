@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 /**
  * Created by yashika on 7/2/17.
  */
-public class Donorinformation extends Fragment{
+public class Donorinformation extends Fragment {
     private EditText edtName, edtEmail, edtContactNo;
     EditText edtAddress, edtCity, edtState, edtCountry, edtPincode;
 

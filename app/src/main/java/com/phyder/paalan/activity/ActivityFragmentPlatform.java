@@ -1,7 +1,10 @@
 package com.phyder.paalan.activity;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,18 +23,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phyder.paalan.R;
-import com.phyder.paalan.adapter.ExpandableListAdapter;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
 import com.phyder.paalan.fragments.FragmentConnectWithUs;
@@ -45,23 +49,25 @@ import com.phyder.paalan.fragments.FragmentViewAchievement;
 import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewGroups;
 import com.phyder.paalan.fragments.FragmentViewRequest;
+import com.phyder.paalan.helper.DialogPopupListener;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
 
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity{
+public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener, DialogPopupListener {
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
+
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
-    private ExpandableListView expListView;
+
     private Fragment fragment;
     private static RoundedImageView IMG_PROFILE;
     private static TextView TXT_USER_NAME;
@@ -73,6 +79,24 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
     private static final int STORAGE_PERMISSION_CODE = 88;
 
+    private View viewIndividual, viewOrganization;
+
+    private LinearLayout llDrawerHolder;
+
+    private TextViewOpenSansRegular txtProfile, txtOrgAchievement, txtOrgCreateAchievement, txtOrgViewAchievement,
+            txtOrgEvent, txtOrgCreateEvent, txtOrgViewEvent, txtOrgRequest,
+            txtOrgCreateRequest, txtOrgViewRequest,
+            txtOrgAboutUs, txtOrgContactUs, txtSignOut;
+
+    private TextViewOpenSansRegular txtIndEvent, txtIndGroup, txtIndRequest, txtIndAchievement,
+            txtConnectPaalan, txtLogin, txtRegister, txtDatePaalan, txtDonate, txtIndAboutUs, txtIndContactUs;
+
+
+    private LinearLayout llOrgAchiements, llOrgEvents, llOrgRequest;
+    private LinearLayout llIndConnectPaalan, llIndDonate;
+    private ValueAnimator mAnimatorOrgAchievements,mAnimatorOrgEvents,mAnimatorOrgRequests;
+    private ValueAnimator mAnimatorIndConnectPaalan,mAnimatorIndDonate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,17 +104,22 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         setUpDrawer();
     }
 
+
+
     public static void getChangeToolbarTitle(String title) {
 
         if (actionBar != null) {
-            actionBar.setTitle(title);
+            actionBar.setTitle(Html.fromHtml("<font color=\"#FFFFFF\">" + title + "</font>"));
         }
     }
+
 
     private void setUpDrawer() {
 
         PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
         DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
+
+        llDrawerHolder = (LinearLayout) findViewById(R.id.llDrawerHolder);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
@@ -98,14 +127,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
-        populatingSideDrawerList();
         //Profile image
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
         // to update profile image
@@ -119,8 +146,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
+            initializingIndDrawerComponants();
             transaction.replace(R.id.platform, new FragmentIndDashboard());
         } else {
+            initializingOrgDrawerComponants();
             transaction.replace(R.id.platform, new FragmentDashBorad());
         }
 
@@ -128,154 +157,60 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         transaction.commit();
 
 
-
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                Log.d(TAG, "onGroupClick: "+groupPosition);
-                if (groupPosition == 0) {
-                    fragment = PREF.getLoginType().equals(Social.ORG_ENTITY) ? new FragmentMyProfile() :
-                            new FragmentViewEvent();
-                    getFragmentTransaction(fragment);
-                    mDrawerLayout.closeDrawer(mDrawerList);
-                }else if(groupPosition == 1){
-                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                        getFragmentTransaction(new FragmentViewRequest());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 2){
-                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                        getFragmentTransaction(new FragmentViewGroups());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 3){
-                    if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                        getFragmentTransaction(new FragmentViewAchievement());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if(groupPosition == 7){
-                        getFragmentTransaction(new FragmentAboutUs());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                }else if(groupPosition == 5 || groupPosition == 8){
-                        getFragmentTransaction(new FragmentConnectWithUs());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                }else if(groupPosition == 6){
-                    if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                        PREF.setLogin(false);
-                        DB_ADAPTER.open();
-                        DB_ADAPTER.deleteProfile();
-                        DB_ADAPTER.close();
-                        PREF.setLoginType(Social.IND_ENTITY);
-                        getProfileUpdate();
-                        populatingSideDrawerList();
-                        getFragmentTransaction(new FragmentIndDashboard());
-                        mDrawerLayout.closeDrawer(mDrawerList);
-                    }
-                }else if (groupPosition == 4){
-                    Intent donateIntent = new Intent(ActivityFragmentPlatform.this, Donate.class);
-                    startActivity(donateIntent);
-                }
-                return false;
-
-            }
-        });
-
-
-        expListView.setOnChildClickListener(new OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                switch (groupPosition) {
-                    case 1:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentCreateAchievement();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(1);
-                                }
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewAchievement();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(1);
-                                }
-                                break;
-                        }
-                        break;
-
-                    case 2:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentCreateEvent();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(2);
-                                }
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewEvent();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(2);
-                                }
-                                break;
-
-                        }
-                        break;
-
-                    case 3:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentCreateRequest();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(3);
-                                }
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
-                                    fragment = new FragmentViewRequest();
-                                    getFragmentTransaction(fragment);
-                                    expListView.collapseGroup(3);
-                                }
-                                break;
-                        }
-                        break;
-
-                    case 6:
-                        switch (childPosition) {
-                            case 0:
-                                if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                                    Intent intent = new Intent(ActivityFragmentPlatform.this,Login.class);
-                                    startActivity(intent);
-                                }
-                                expListView.collapseGroup(6);
-                                break;
-
-                            case 1:
-                                if(PREF.getLoginType().equals(Social.IND_ENTITY)) {
-                                   Intent intent = new Intent(ActivityFragmentPlatform.this,RegisterUser.class);
-                                   startActivity(intent);
-                                }
-                                expListView.collapseGroup(6);
-                                break;
-
-                        }
-                        break;
-
-                }
-                mDrawerLayout.closeDrawer(mDrawerList);
-                return false;
-            }
-        });
     }
 
 
+    private void expand(LinearLayout linearLayout,ValueAnimator valueAnimator) {
+        // set Visible
+        linearLayout.setVisibility(View.VISIBLE);
+        valueAnimator.start();
+    }
+
+    private void collapse(final LinearLayout linearLayout) {
+        int finalHeight = linearLayout.getHeight();
+
+        ValueAnimator mAnimator = slideAnimator(linearLayout,finalHeight, 0);
+
+        mAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                // Height=0, but it set visibility to GONE
+                linearLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        mAnimator.start();
+    }
+
+    private ValueAnimator slideAnimator(final LinearLayout linearLayout,int start, int end) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+        animator.addUpdateListener(new     ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                // Update Height
+                int value = (Integer) valueAnimator.getAnimatedValue();
+
+                ViewGroup.LayoutParams layoutParams = linearLayout
+                        .getLayoutParams();
+                layoutParams.height = value;
+                linearLayout.setLayoutParams(layoutParams);
+            }
+        });
+        return animator;
+    }
 
 
     /**
@@ -442,74 +377,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.platform, fragment)
                 .addToBackStack(null).commit();
-    }
 
-
-
-    private void populatingSideDrawerList() {
-
-        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
-
-            String emptyArray[] = new String[0];
-
-            String[] listDataHeader = getResources().getStringArray(R.array.ind_drawer_array);
-            String[] loginItems = getResources().getStringArray(R.array.login_array);
-
-            HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
-            listDataChild.clear();
-
-            Log.d("IND_ENTITY","listDataHeader size : "+listDataHeader.length);
-
-            listDataChild.put(listDataHeader[0], emptyArray);
-            listDataChild.put(listDataHeader[1], emptyArray); // Header, Child data
-            listDataChild.put(listDataHeader[2], emptyArray);
-
-            listDataChild.put(listDataHeader[3], emptyArray);
-            listDataChild.put(listDataHeader[4], emptyArray);
-            listDataChild.put(listDataHeader[5], emptyArray);
-
-            listDataChild.put(listDataHeader[6], loginItems);
-            listDataChild.put(listDataHeader[7], emptyArray);
-            listDataChild.put(listDataHeader[8], emptyArray);
-
-            Log.d("IND_ENTITY","listDataChild size : "+listDataChild.size());
-
-            ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
-            expListView.setAdapter(listAdapter);
-
-        } else {
-
-            String emptyArray[] = new String[0];
-            // Adding child data
-            String[] listDataHeader = getResources().getStringArray(R.array.drawer_array);
-            // Adding child data
-            String[] achievementItems = getResources().getStringArray(R.array.achievements_array);
-            // Adding child data
-            String[] eventItems = getResources().getStringArray(R.array.events_array);
-
-            String[] requestItems = getResources().getStringArray(R.array.request_array);
-
-            HashMap<String, String[]> listDataChild = new HashMap<String, String[]>();
-            listDataChild.clear();
-
-            Log.d("ORG_ENTITY","listDataHeader size : "+listDataHeader.length);
-
-            listDataChild.put(listDataHeader[0], emptyArray);
-            listDataChild.put(listDataHeader[1], achievementItems); // Header, Child data
-            listDataChild.put(listDataHeader[2], eventItems);
-            listDataChild.put(listDataHeader[3], requestItems);
-            listDataChild.put(listDataHeader[4], emptyArray);
-            listDataChild.put(listDataHeader[5], emptyArray);
-            listDataChild.put(listDataHeader[6], emptyArray);
-
-            Log.d("ORG_ENTITY","listDataChild size : "+listDataChild.size());
-
-            ExpandableListAdapter listAdapter = new ExpandableListAdapter(ActivityFragmentPlatform.this, listDataHeader, listDataChild);
-            expListView.setAdapter(listAdapter);
+        if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+            mDrawerLayout.closeDrawers();
         }
-
     }
-
 
 
 
@@ -519,13 +391,38 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
             mDrawerLayout.closeDrawers();
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentIndDashboard ) {
-            ActivityFragmentPlatform.this.finish();
+            showExitAlert();
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
-            ActivityFragmentPlatform.this.finish();
+            showExitAlert();
         } else{
             super.onBackPressed();
         }
     }
+
+    /**
+     * Function to display exit app dialogue with options
+     */
+    private void showExitAlert(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle(getString(R.string.app_name));
+        alertBuilder.setMessage(getString(R.string.exit_app_message));
+        alertBuilder.setIcon(R.drawable.paalan_logo);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alertBuilder.show();
+    }
+
 
     @Override
     protected void onResume() {
@@ -547,7 +444,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
     }
 
     /**
-     * Function to get profile image from sp
+    * Function to get profile image from sp
      */
     public void getProfileUpdate(){
         Log.d("", "XXgetProfileUpdate: "+PREF.getLoginType());
@@ -560,9 +457,487 @@ public class ActivityFragmentPlatform extends AppCompatActivity{
         }
     }
 
+
+    /**
+     * Method to exit from app if user do not give location permission to fetching the location
+     * @param context
+     */
     public static void getFinished(FragmentActivity context){
         context.finish();
     }
 
-}
 
+    /**
+     * Method to defining the side drawer for individual login
+     */
+    private void initializingIndDrawerComponants() {
+
+        LayoutInflater inflater= (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewIndividual  = inflater.inflate(R.layout.individual_drawer, null);
+        llDrawerHolder.removeView(viewIndividual);
+        llDrawerHolder.addView(viewIndividual);
+
+        llIndConnectPaalan = (LinearLayout) viewIndividual.findViewById(R.id.llIndConnect);
+        llIndDonate = (LinearLayout) viewIndividual.findViewById(R.id.llIndDonate);
+
+        txtIndEvent = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndEvent);
+        txtIndGroup = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndGroup);
+        txtIndRequest = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndRequest);
+        txtIndAchievement = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndAchievement);
+
+        txtConnectPaalan = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndConnect);
+        txtLogin = (TextViewOpenSansRegular) llIndConnectPaalan.findViewById(R.id.txtIndLogin);
+        txtRegister = (TextViewOpenSansRegular) llIndConnectPaalan.findViewById(R.id.txtIndRegister);
+
+        txtDatePaalan = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndDonatePaalan);
+        txtDonate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDonate);
+//        txtDate = (TextViewOpenSansRegular) llIndDonate.findViewById(R.id.txtIndDatePaalan);
+
+        txtIndAboutUs = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndAbout);
+        txtIndContactUs = (TextViewOpenSansRegular) viewIndividual.findViewById(R.id.txtIndContact);
+
+        txtIndEvent.setOnClickListener(this);
+        txtIndGroup.setOnClickListener(this);
+        txtIndRequest.setOnClickListener(this);
+        txtIndAchievement.setOnClickListener(this);
+        txtConnectPaalan.setOnClickListener(this);
+        txtLogin.setOnClickListener(this);
+        txtRegister.setOnClickListener(this);
+        txtDatePaalan.setOnClickListener(this);
+        txtDonate.setOnClickListener(this);
+//        txtDate.setOnClickListener(this);
+        txtIndAboutUs.setOnClickListener(this);
+        txtIndContactUs.setOnClickListener(this);
+
+        llIndConnectPaalan.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llIndConnectPaalan.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llIndConnectPaalan.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llIndConnectPaalan.measure(widthSpec, heightSpec);
+
+                        mAnimatorIndConnectPaalan = slideAnimator(llIndConnectPaalan,0,
+                                llIndConnectPaalan.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        llIndDonate.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llIndDonate.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llIndDonate.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llIndDonate.measure(widthSpec, heightSpec);
+
+                        mAnimatorIndDonate = slideAnimator(llIndDonate,0,
+                                llIndDonate.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+
+    }
+
+
+
+    /**
+     * Method to defining the side drawer for organization login
+     */
+    private void initializingOrgDrawerComponants() {
+
+        LayoutInflater inflater= (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewOrganization  = inflater.inflate(R.layout.org_drawer, null);
+        viewIndividual  = inflater.inflate(R.layout.individual_drawer, null);
+        llDrawerHolder.removeView(viewOrganization);
+        llDrawerHolder.removeView(viewIndividual);
+
+        llDrawerHolder.addView(viewOrganization);
+
+        llOrgAchiements = (LinearLayout) viewOrganization.findViewById(R.id.llOrgAchiements);
+        llOrgEvents = (LinearLayout) viewOrganization.findViewById(R.id.llOrgEvent);
+        llOrgRequest = (LinearLayout) viewOrganization.findViewById(R.id.llOrgRequest);
+
+        txtProfile = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgProfile);
+        txtOrgAchievement = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgAchievement);
+        txtOrgCreateAchievement = (TextViewOpenSansRegular) llOrgAchiements.findViewById(R.id.txtOrgCreateAchievement);
+        txtOrgViewAchievement = (TextViewOpenSansRegular) llOrgAchiements.findViewById(R.id.txtOrgViewAchievement);
+
+        txtOrgEvent = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgEvent);
+        txtOrgCreateEvent = (TextViewOpenSansRegular) llOrgEvents.findViewById(R.id.txtOrgCreateEvent);
+        txtOrgViewEvent = (TextViewOpenSansRegular) llOrgEvents.findViewById(R.id.txtOrgViewEvent);
+
+        txtOrgRequest = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgRequest);
+        txtOrgCreateRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgCreateRequest);
+        txtOrgViewRequest = (TextViewOpenSansRegular) llOrgRequest.findViewById(R.id.txtOrgViewRequest);
+
+        txtOrgAboutUs = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgAbout);
+        txtOrgContactUs = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtOrgContact);
+        txtSignOut = (TextViewOpenSansRegular) viewOrganization.findViewById(R.id.txtSignOut);
+
+
+        txtProfile.setOnClickListener(this);
+        txtOrgAchievement.setOnClickListener(this);
+        txtOrgCreateAchievement.setOnClickListener(this);
+        txtOrgViewAchievement.setOnClickListener(this);
+        txtOrgEvent.setOnClickListener(this);
+        txtOrgCreateEvent.setOnClickListener(this);
+        txtOrgViewEvent.setOnClickListener(this);
+        txtOrgRequest.setOnClickListener(this);
+        txtOrgCreateRequest.setOnClickListener(this);
+        txtOrgViewRequest.setOnClickListener(this);
+        txtOrgAboutUs.setOnClickListener(this);
+        txtOrgContactUs.setOnClickListener(this);
+        txtSignOut.setOnClickListener(this);
+
+
+        llOrgAchiements.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llOrgAchiements.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llOrgAchiements.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llOrgAchiements.measure(widthSpec, heightSpec);
+
+                        mAnimatorOrgAchievements = slideAnimator(llOrgAchiements,0,
+                                llOrgAchiements.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        llOrgEvents.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llOrgEvents.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llOrgEvents.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llOrgEvents.measure(widthSpec, heightSpec);
+
+                        mAnimatorOrgEvents = slideAnimator(llOrgEvents,0,
+                                llOrgEvents.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+        llOrgRequest.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+
+                    @Override
+                    public boolean onPreDraw() {
+                        llOrgRequest.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        llOrgRequest.setVisibility(View.GONE);
+
+                        final int widthSpec =     View.MeasureSpec.makeMeasureSpec(
+                                0, View.MeasureSpec.UNSPECIFIED);
+                        final int heightSpec = View.MeasureSpec
+                                .makeMeasureSpec(0,
+                                        View.MeasureSpec.UNSPECIFIED);
+                        llOrgRequest.measure(widthSpec, heightSpec);
+
+                        mAnimatorOrgRequests = slideAnimator(llOrgRequest,0,
+                                llOrgRequest.getMeasuredHeight());
+                        return true;
+                    }
+                });
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.platform);
+
+       switch (v.getId()){
+
+            // for individual clicking event fire
+
+            case R.id.txtIndEvent:
+                if(!(fragment instanceof FragmentViewEvent)) {
+                    getFragmentTransaction(new FragmentViewEvent());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndGroup:
+                if(!(fragment instanceof FragmentViewGroups)) {
+                    getFragmentTransaction(new FragmentViewGroups());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+            case R.id.txtIndRequest:
+                if(!(fragment instanceof FragmentViewRequest)) {
+                    getFragmentTransaction(new FragmentViewRequest());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndAchievement:
+                if(!(fragment instanceof FragmentViewAchievement)) {
+                    getFragmentTransaction(new FragmentViewAchievement());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndConnect:
+
+                if (llIndConnectPaalan.getVisibility() == View.GONE) {
+                    expand(llIndConnectPaalan,mAnimatorIndConnectPaalan);
+                } else {
+                    collapse(llIndConnectPaalan);
+                }
+                break;
+
+            case R.id.txtIndLogin:
+                startActivity(new Intent(ActivityFragmentPlatform.this,Login.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndConnectPaalan);
+                }
+                break;
+
+            case R.id.txtIndRegister:
+                startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndConnectPaalan);
+                }
+                break;
+
+            case R.id.txtIndDonatePaalan:
+
+//                if (llIndDonate.getVisibility() == View.GONE) {
+//                    expand(llIndDonate,mAnimatorIndDonate);
+//                } else {
+//                    collapse(llIndDonate);
+//                }
+                startActivity(new Intent(this, Donate.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndDonate);
+                }
+
+                break;
+
+            case R.id.txtIndDonate:
+                startActivity(new Intent(this, Donate.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndDonate);
+                }
+                break;
+
+//            case R.id.txtIndDatePaalan:
+//
+//                break;
+            case R.id.txtIndAbout:
+                if(!(fragment instanceof FragmentAboutUs)) {
+                    getFragmentTransaction(new FragmentAboutUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtIndContact:
+                if(!(fragment instanceof FragmentConnectWithUs)) {
+                    getFragmentTransaction(new FragmentConnectWithUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            // for Organization clicking event fire
+
+            case R.id.txtOrgProfile:
+                if(!(fragment instanceof FragmentMyProfile)) {
+                    getFragmentTransaction(new FragmentMyProfile());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgAchievement:
+
+                if (llOrgAchiements.getVisibility() == View.GONE) {
+                    expand(llOrgAchiements,mAnimatorOrgAchievements);
+                } else {
+                    collapse(llOrgAchiements);
+                }
+
+                break;
+
+            case R.id.txtOrgCreateAchievement:
+                if(!(fragment instanceof FragmentCreateAchievement)) {
+                    getFragmentTransaction(new FragmentCreateAchievement());
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgAchiements);
+                }
+                break;
+
+            case R.id.txtOrgViewAchievement:
+                if(!(fragment instanceof FragmentViewAchievement)) {
+                    getFragmentTransaction(new FragmentViewAchievement());
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgAchiements);
+                }
+                break;
+
+            case R.id.txtOrgEvent:
+                if (llOrgEvents.getVisibility() == View.GONE) {
+                    expand(llOrgEvents,mAnimatorOrgEvents);
+                } else {
+                    collapse(llOrgEvents);
+                }
+                break;
+
+            case R.id.txtOrgCreateEvent:
+                if(!(fragment instanceof FragmentCreateEvent)) {
+                    getFragmentTransaction(new FragmentCreateEvent());
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgEvents);
+                }
+                break;
+
+            case R.id.txtOrgViewEvent:
+                if(!(fragment instanceof FragmentViewEvent)) {
+                    getFragmentTransaction(new FragmentViewEvent());
+                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llOrgEvents);
+                }
+                break;
+
+           case R.id.txtOrgRequest:
+               if (llOrgRequest.getVisibility() == View.GONE) {
+                   expand(llOrgRequest,mAnimatorOrgRequests);
+               } else {
+                   collapse(llOrgRequest);
+               }
+               break;
+
+           case R.id.txtOrgCreateRequest:
+               if(!(fragment instanceof FragmentCreateRequest)) {
+                   getFragmentTransaction(new FragmentCreateRequest());
+               }
+               if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                   mDrawerLayout.closeDrawers();
+                   collapse(llOrgRequest);
+               }
+               break;
+
+           case R.id.txtOrgViewRequest:
+               if(!(fragment instanceof FragmentViewRequest)) {
+                   getFragmentTransaction(new FragmentViewRequest());
+               }
+               if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                   mDrawerLayout.closeDrawers();
+                   collapse(llOrgRequest);
+               }
+               break;
+
+            case R.id.txtOrgAbout:
+                if(!(fragment instanceof FragmentAboutUs)) {
+                    getFragmentTransaction(new FragmentAboutUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtOrgContact:
+                if(!(fragment instanceof FragmentConnectWithUs)) {
+                    getFragmentTransaction(new FragmentConnectWithUs());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }
+                break;
+
+            case R.id.txtSignOut:
+                if(PREF.getLoginType().equals(Social.ORG_ENTITY)) {
+                    PREF.setLogin(false);
+                    DB_ADAPTER.open();
+                    DB_ADAPTER.deleteProfile();
+                    DB_ADAPTER.close();
+                    PREF.setLoginType(Social.IND_ENTITY);
+                    getProfileUpdate();
+                    try {
+                        llDrawerHolder.removeView(viewOrganization);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    initializingIndDrawerComponants();
+                    getFragmentTransaction(new FragmentIndDashboard());
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    public void onCancelClicked(String label) {
+        onBackPressed();
+    }
+}

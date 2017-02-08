@@ -60,6 +60,7 @@ public class DonateView extends Fragment {
         edtDate = (EditText)donateView.findViewById(R.id.edtDate);
         categoryHolder = (TextInputLayout)donateView.findViewById(R.id.viewCategory);
 
+        // image of donate item
         imgSelectedCategory = (ImageView)donateView.findViewById(R.id.imageCategory);
 
         edtDate.setFocusable(false);
@@ -70,6 +71,7 @@ public class DonateView extends Fragment {
             }
         });
 
+        // donate category
         spinnerCategory = (Spinner)donateView.findViewById(R.id.spinnerSelectCategory);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
@@ -111,7 +113,7 @@ public class DonateView extends Fragment {
     }
 
     /**
-     * Function to select date
+     * Function to select date of donate
      */
     private void selectDate() {
         final Calendar c = Calendar.getInstance();
@@ -152,11 +154,18 @@ public class DonateView extends Fragment {
             imgSelectedCategory.setImageBitmap(photo);
     }
 
+    /**
+     * Function to update image of donate product
+     */
     private void updateImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,REQUEST_CODE);
     }
 
+    /**
+     * Function to get selected categort of donate type
+     * @return
+     */
     public String getSelectedCategory() {
         if (spinnerCategory.getSelectedItemPosition() == 0 )
             return "";
@@ -166,6 +175,10 @@ public class DonateView extends Fragment {
         return categories[spinnerCategory.getSelectedItemPosition()];
     }
 
+    /**
+     * Get image of donated product
+     * @return : image of product
+     */
     public String getDonateCategoryImage() {
         if (photo != null) {
             Log.d(TAG, "getDonateCategoryImage: image if ");
