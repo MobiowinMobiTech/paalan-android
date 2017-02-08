@@ -164,13 +164,15 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-                <Button
+                <com.phyder.paalan.utils.ButtonOpenSansSemiBold
                     android:id="@+id/btnSubmitFeedback"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:padding="7dp"
                     android:layout_margin="7dp"
                     android:text="@string/submit"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@drawable/button_text_color"
                     android:background="@drawable/background_button"
                     android:layout_weight="1"/>
             </LinearLayout>

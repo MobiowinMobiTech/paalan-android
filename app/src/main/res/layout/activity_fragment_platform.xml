@@ -66,8 +66,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/icons"
                     android:text="@string/app_name"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textStyle="bold"
+                    android:textAppearance="@android:style/TextAppearance.Large"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"/>
 

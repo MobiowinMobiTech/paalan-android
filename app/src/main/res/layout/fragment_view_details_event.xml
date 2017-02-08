@@ -8,7 +8,7 @@
     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/icons"
         android:background="@color/primary"
         android:text="@string/event_details"
@@ -70,14 +70,14 @@
 
                 <com.phyder.paalan.utils.ButtonOpenSansSemiBold
                     android:id="@+id/btnView"
-                    android:layout_width="70dp"
+                    android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:textAllCaps="false"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/background_button"
                     android:text="@string/view_profile"
                     android:textColor="@drawable/button_text_color"
-                    android:textSize="10sp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                     android:layout_margin="10dp"/>
 
 
@@ -363,8 +363,7 @@
                     android:background="@drawable/background_button"
                     android:text="@string/upate"
                     android:textColor="@drawable/button_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
 
@@ -377,8 +376,7 @@
                     android:background="@drawable/background_button"
                     android:text="@string/delete"
                     android:textColor="@drawable/button_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
 

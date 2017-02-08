@@ -75,7 +75,7 @@
     <string name="role_in_organization">Role in Organization</string>
     <string name="organization_id">Organization Id</string>
     <string name="registration_no">Registration No</string>
-    <string name="registration">Registration</string>
+    <string name="registration">Register</string>
 
     <string name="profile_up_to_date">Profile up-to-daterequest</string>
     <string name="achievement_created">Achievement Created Successfully</string>
@@ -97,9 +97,9 @@
     <string name="achiver_name">Achiever Name</string>
     <string name="requester_name">Requester Name</string>
 
-    <string name="organized_by">Organized by</string>
-    <string name="achiver">Achiever</string>
-    <string name="requested_by">Requested by</string>
+    <string name="organized_by">ORGANIZED BY</string>
+    <string name="achiver">ACHIEVER</string>
+    <string name="requested_by">REQUESTED BY</string>
 
     <string name="title">Title</string>
     <string name="subtitle">Sub Title</string>
@@ -180,7 +180,7 @@
         <item>Achievements</item>
         <item>Social Request</item>
         <item>About Us</item>
-        <item>Connect with Paalan</item>
+        <item>Connect with Us</item>
     </string-array>
 
     <!--dashboard sub array-->
@@ -189,7 +189,7 @@
         <item>Testing for Achievements</item>
         <item>Testing for Social Request</item>
         <item>Testing for About Us</item>
-        <item>Testing for Contact Us</item>
+        <item>Testing for Connect with Us</item>
     </string-array>
 
 

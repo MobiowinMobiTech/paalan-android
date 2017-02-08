@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.phyder.paalan.R;
@@ -34,7 +35,9 @@ public class FragmentDashBorad extends Fragment {
     private Handler handler = new Handler();
     private Runnable refresh;
     private int itemPos = 0;
-    List<String> images;
+    private List<String> images;
+
+    private ScrollView scrollView;
 
     private ArrayList<DashboardModel> listitems = new ArrayList<>();
 
@@ -68,6 +71,8 @@ public class FragmentDashBorad extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        scrollView.smoothScrollTo(0,0);
     }
 
     private void initSlider(View view) {

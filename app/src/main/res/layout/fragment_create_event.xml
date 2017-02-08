@@ -228,7 +228,7 @@
                 android:background="@drawable/background_button"
                 android:text="@string/Create"
                 android:textColor="@drawable/button_text_color"
-                android:textSize="20dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="25dp"

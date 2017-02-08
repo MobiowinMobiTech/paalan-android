@@ -24,6 +24,7 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
 import com.phyder.paalan.utils.CommanUtils;
 
+
 import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
@@ -42,7 +43,7 @@ public class DonateView extends Fragment {
     ImageView imgSelectedCategory;
     Bitmap photo = null;
     private int mYear, mMonth, mDay;
-    android.icu.util.Calendar calendar;
+    Calendar calendar;
     private String[] pickUpCategories;
     private Spinner spinnerDonateOption;
 
@@ -54,7 +55,7 @@ public class DonateView extends Fragment {
         categories = getResources().getStringArray(R.array.donate_category);
 
 
-        calendar  = android.icu.util.Calendar.getInstance();
+        calendar  = Calendar.getInstance();
 
         txtOtherCategory = (AutoCompleteTextViewOpenSansRegular)donateView.findViewById(R.id.edtCategory);
         edtDate = (EditText)donateView.findViewById(R.id.edtDate);
@@ -126,9 +127,9 @@ public class DonateView extends Fragment {
                 edtDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
                 edtDate.setTextColor(getResources().getColor(R.color.primary_text));
 
-                calendar.set(android.icu.util.Calendar.DAY_OF_MONTH,dayOfMonth);
-                calendar.set(android.icu.util.Calendar.MONTH,month);
-                calendar.set(android.icu.util.Calendar.YEAR,year);
+                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.YEAR,year);
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.show();

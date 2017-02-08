@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,48 +6,48 @@
     android:background="@color/light_grey"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3.5"
-        android:layout_marginTop="-2dp"
-        android:layout_marginRight="-3dp"
-        android:layout_marginLeft="-3dp">
-
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/image_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-        <com.phyder.paalan.helper.CircleIndicator
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            app:ci_animator="@anim/indicator_no_animator"
-            app:ci_drawable="@drawable/white_radius"
-            app:ci_drawable_unselected="@drawable/black_radius"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/primary"/>
-
-    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6.5"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="-2dp"
+                android:layout_marginRight="-3dp"
+                android:layout_marginLeft="-3dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/image_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+                <com.phyder.paalan.helper.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    app:ci_animator="@anim/indicator_no_animator"
+                    app:ci_drawable="@drawable/white_radius"
+                    app:ci_drawable_unselected="@drawable/black_radius"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/primary"/>
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="@string/event"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:textColor="@color/icons"/>
@@ -79,7 +79,9 @@
                         android:id="@+id/txtEventSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="5dp"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:layout_alignParentRight="true"
                         android:gravity="center_vertical"
                         android:text="@string/more"
@@ -144,16 +146,19 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:text="@string/groups"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/icons"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtGroupSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="5dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
                         android:gravity="center_vertical"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/icons"
                         android:drawableRight="@drawable/ic_see_more"
                         />
@@ -214,15 +219,18 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:text="@string/request"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/icons"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtSocialSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="5dp"
                         android:layout_alignParentRight="true"
                         android:text="@string/more"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:gravity="center_vertical"
                         android:textColor="@color/icons"
                         android:drawableRight="@drawable/ic_see_more"
@@ -283,14 +291,17 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:text="@string/acheivements"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/icons" />
 
                     <com.phyder.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtAchievementSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="5dp"
                         android:layout_alignParentRight="true"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:text="@string/more"
                         android:gravity="center_vertical"
                         android:textColor="@color/icons"
@@ -329,35 +340,29 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+                    android:id="@+id/btnDonate"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/icons"
+                    android:gravity="center"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:background="@color/primary"
+                    android:text="@string/donate"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
 
-        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
-            android:id="@+id/btnDonate"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent"
-            android:textColor="@color/icons"
-            android:gravity="center"
-            android:background="@color/primary"
-            android:text="@string/donate"/>
-
-        <!--<com.phyder.paalan.utils.TextViewOpenSansSemiBold-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="5"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:textColor="@color/icons"-->
-            <!--android:gravity="center"-->
-            <!--android:background="@color/primary_more_dark"-->
-            <!--android:text="@string/date_paalan"/>-->
-
-
-    </LinearLayout>
 
 </LinearLayout>
