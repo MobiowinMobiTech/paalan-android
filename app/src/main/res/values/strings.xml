@@ -42,7 +42,7 @@
     <string name="ngo_registration">NGO Registration</string>
     <string name="join_ngo">JOIN NGO + </string>
     <string name="testing">Testing</string>
-    <string name="register">REGISTER</string>
+    <string name="register">Register</string>
     <string name="test_service">Test Service</string>
 
     <string name="login_as_organization">Login as Organization</string>
@@ -397,6 +397,7 @@
     <string name="date_should_not_be_empty">Please select daterequest.</string>
     <string name="request_submitted_success">Request submitted successfully</string>
     <string name="capture_image">Capture image</string>
+    <string name="exit_app_message">Do you want to close application</string>
 
 
     <string-array name="donate_category">

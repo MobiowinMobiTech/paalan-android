@@ -122,7 +122,7 @@
         android:id="@+id/txtIndDonatePaalan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/donate_paalan"
+        android:text="@string/donate"
         android:drawableLeft="@drawable/ic_donation"
         android:gravity="center_vertical"
         android:layout_marginTop="10dp"
@@ -146,6 +146,7 @@
             android:text="@string/donate"
             android:textColor="@color/primary_text"
             android:drawableLeft="@drawable/ic_dot"
+            android:drawablePadding="7dp"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"  />

@@ -12,9 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.activity.Donate;
-import com.phyder.paalan.activity.RegisterUser;
 import com.phyder.paalan.adapter.HorizontalListVAdapter;
 import com.phyder.paalan.adapter.SlidingImageAdapter;
 import com.phyder.paalan.db.Attributes;
@@ -40,7 +37,6 @@ import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
-import com.phyder.paalan.utils.TextViewOpenSansRegular;
 import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
 
 import java.util.ArrayList;
@@ -160,6 +156,11 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     int visibility = position == images.size()-1 ? View.VISIBLE : View.INVISIBLE;
                     slidingImageAdapter.getRegistrationVisible_Invisible(visibility);
+                    if(position == images.size()-1){
+                        slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
+                    }else{
+                        slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
+                    }
                 }
 
                 @Override

@@ -123,8 +123,6 @@ public class Donate extends AppIntro {
                 CommanUtils.hideDialog();
                 Log.d(TAG, "onResponse: success :: "+call.toString());
                 Toast.makeText(Donate.this,getString(R.string.request_submitted_success),Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(Donate.this,ActivityFragmentPlatform.class);
-//                startActivity(intent);
                 finish();
             }
 

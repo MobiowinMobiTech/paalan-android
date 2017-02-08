@@ -32,10 +32,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +62,7 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener,DialogPopupListener{
+public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener, DialogPopupListener {
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
 
@@ -397,13 +393,38 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentIndDashboard ) {
-            ActivityFragmentPlatform.this.finish();
+            showExitAlert();
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
-            ActivityFragmentPlatform.this.finish();
+            showExitAlert();
         } else{
             super.onBackPressed();
         }
     }
+
+    /**
+     * Function to display exit app dialogue with options
+     */
+    private void showExitAlert(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle(getString(R.string.app_name));
+        alertBuilder.setMessage(getString(R.string.exit_app_message));
+        alertBuilder.setIcon(R.drawable.paalan_logo);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alertBuilder.show();
+    }
+
 
     @Override
     protected void onResume() {
@@ -734,11 +755,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtIndDonatePaalan:
                 startActivity(new Intent(this, Donate.class));
-//                if (llIndDonate.getVisibility() == View.GONE) {
-//                    expand(llIndDonate,mAnimatorIndDonate);
-//                } else {
-//                    collapse(llIndDonate);
-//                }
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndDonate);
+                }
 
                 break;
 
@@ -920,7 +940,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         }
 
     }
-
 
     @Override
     public void onCancelClicked(String label) {
