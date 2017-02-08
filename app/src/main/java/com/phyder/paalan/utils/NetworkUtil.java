@@ -7,16 +7,14 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.phyder.paalan.BuildConfig;
 import com.phyder.paalan.R;
 import com.phyder.paalan.helper.OrganizerProfileListener;
 import com.phyder.paalan.payload.request.RequestOrganizerProfile;
-import com.phyder.paalan.payload.request.organization.OrgReqDeleteAchievement;
 import com.phyder.paalan.payload.response.ResponseOrganizerProfile;
-import com.phyder.paalan.payload.response.organization.OrgResDeleteAchievement;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.HeaderInterceptor;
 import com.phyder.paalan.services.PaalanServices;
@@ -73,7 +71,7 @@ public class NetworkUtil {
 //            Log.i("SERVER", "" + BuildConfig.DEBUG);
 //            http://192.168.0.15:8080/paalan/PaalanGateway
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.15:8090/")
+                    .baseUrl(BuildConfig.SERVER_URL)
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .client(clientBuilder.build())
                     .build();

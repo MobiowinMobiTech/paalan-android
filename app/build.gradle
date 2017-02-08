@@ -14,56 +14,89 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+// Configurations
+apply from: 'properties.gradle'
+Properties config = loadProperties('config.properties')
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
         applicationId "com.phyder.paalan"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
-
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     defaultConfig {
         multiDexEnabled true
-//        manifestPlaceholders = [onesignal_app_id               : "a4b23c45-801e-4f2e-bc40-3b3b2b16f568",
-//                                // Project number pulled from dashboard, local value is ignored.
-//                                onesignal_google_project_number: "165334093563"]
+//        manifestPlaceholders = [
+//                onesignal_app_id: "a4b23c45-801e-4f2e-bc40-3b3b2b16f568",
+//                // Project number pulled from dashboard, local value is ignored.
+//                onesignal_google_project_number: "165334093563"
+//        ]
     }
+
+    productFlavors {
+        live {
+            buildConfigField "String", "SERVER_URL", "\"${config.getProperty("server.url")}\""
+        }
+        uat {
+            applicationIdSuffix ".uat"
+            versionNameSuffix "-uat"
+            versionCode 10
+            versionName "0.3.2"
+
+            buildConfigField "String", "SERVER_URL", "\"${config.getProperty("uat.server.url")}\""
+        }
+    }
+}
+
+ext {
+    supportLibraryVersion = '25.1.0'
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:cardview-v7:25.0.+'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
+    // Android Support Library
+    compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    compile "com.android.support:design:${supportLibraryVersion}"
+    compile "com.android.support:cardview-v7:${supportLibraryVersion}"
+    compile "com.android.support:recyclerview-v7:${supportLibraryVersion}"
 
+    // Firebase
+    compile 'com.google.firebase:firebase-messaging:9.6.0'
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.github.paolorotolo:appintro:4.1.0'
-    compile 'com.google.firebase:firebase-messaging:9.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    testCompile 'junit:junit:4.12'
+    compile 'com.github.paolorotolo:appintro:4.1.0'
+
+    // Fabric: migrate to firebase crash reporting
     compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
         transitive = true;
     }
 
+    testCompile 'junit:junit:4.12'
+    // Android Support Testing Library
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
+
 apply plugin: 'com.google.gms.google-services'
