@@ -131,7 +131,7 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
         resRegistrationCall.enqueue(new Callback<SubmitFeedback>() {
             @Override
             public void onResponse(Call<SubmitFeedback> call, Response<SubmitFeedback> response) {
-                Log.d("", "submitFeedbackWithServer onResponse: "+call.toString());
+                Log.d("", "submitFeedbackWithServer onResponse : "+call.toString());
                 CommanUtils.hideDialog();
                 if (response.body().getStatus().equalsIgnoreCase("success")){
                     CommanUtils.showAlert(getActivity(),getString(R.string.feedback_title),
@@ -144,7 +144,7 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
 
             @Override
             public void onFailure(Call<SubmitFeedback> call, Throwable t) {
-                Log.d("", "submitFeedbackWithServer onResponse: "+call.toString());
+                Log.d("", "submitFeedbackWithServer onResponse : "+call.toString());
                 CommanUtils.hideDialog();
                 CommanUtils.showAlert(getActivity(),getString(R.string.feedback_title),
                         getString(R.string.technical_issue));

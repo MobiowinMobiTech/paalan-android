@@ -58,6 +58,8 @@ public class Donate extends AppIntro {
         //set text to done button
         setDoneText("Donate");
 
+
+
     }
 
     @Override
