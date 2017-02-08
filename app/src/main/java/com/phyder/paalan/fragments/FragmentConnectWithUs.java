@@ -16,7 +16,9 @@ import android.widget.ImageView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
+import com.phyder.paalan.helper.DialogPopupListener;
 import com.phyder.paalan.payload.request.SubmitFeedback;
+import com.phyder.paalan.payload.response.SubmitDonateResponse;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
@@ -33,9 +35,8 @@ import retrofit2.Retrofit;
  * @author Pramod Waghmare
  */
 public class FragmentConnectWithUs extends Fragment implements View.OnClickListener {
-
     private AutoCompleteTextViewOpenSansRegular edtEmail, edtName, edtMobile, edtMessage;
-
+    private DialogPopupListener dialogPopupListener;
 
     @Nullable
     @Override
@@ -108,9 +109,11 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
         }
     }
 
+    /**
+     * Function to submit feedback data  to server
+     */
     private void submitFeedbackWithServer() {
         Log.d("", "submitFeedbackWithServer: success with valid");
-
 
         CommanUtils.showDialog(getActivity());
 
@@ -125,18 +128,21 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
         data.setMessage(edtMessage.getText().toString());
         submitFeedback.setData(data);
 
+
+        // server call for submit feedback
+
         Retrofit mRetrofit = NetworkUtil.getRetrofit();
         PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-        Call<SubmitFeedback> call = mPaalanServices.submitFeedback(submitFeedback);
-        call.enqueue(new Callback<SubmitFeedback>() {
+        Call<SubmitDonateResponse> resRegistrationCall = mPaalanServices.submitFeedback(submitFeedback);
+        resRegistrationCall.enqueue(new Callback<SubmitDonateResponse>() {
             @Override
-            public void onResponse(Call<SubmitFeedback> call, Response<SubmitFeedback> response) {
-                Log.d("", "submitFeedbackWithServer onResponse : "+call.toString());
+            public void onResponse(Call<SubmitDonateResponse> call, Response<SubmitDonateResponse> response) {
                 CommanUtils.hideDialog();
                 if (response.body().getStatus().equalsIgnoreCase("success")){
                     CommanUtils.showAlert(getActivity(),getString(R.string.feedback_title),
                             getString(R.string.feedback_submit_success));
+                    dialogPopupListener.onCancelClicked("");
                 }else {
                     CommanUtils.showAlert(getActivity(),getString(R.string.feedback_title),
                             getString(R.string.technical_issue));
@@ -144,8 +150,8 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
             }
 
             @Override
-            public void onFailure(Call<SubmitFeedback> call, Throwable t) {
-                Log.d("", "submitFeedbackWithServer onResponse : "+call.toString());
+            public void onFailure(Call<SubmitDonateResponse> call, Throwable t) {
+                Log.d("", "submitFeedbackWithServer onResponse: "+call.toString());
                 CommanUtils.hideDialog();
                 CommanUtils.showAlert(getActivity(),getString(R.string.feedback_title),
                         getString(R.string.technical_issue));
@@ -156,6 +162,10 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
 
     }
 
+    /**
+     * Function to validate data
+     * @return : validation result
+     */
     private boolean isValidData() {
         String email = edtEmail.getText().toString();
         String name = edtName.getText().toString();
@@ -178,5 +188,9 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
         return true;
     }
 
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dialogPopupListener = (DialogPopupListener)context;
+    }
 }

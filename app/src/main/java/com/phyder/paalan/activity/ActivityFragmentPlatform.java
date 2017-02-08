@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -112,7 +114,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     public static void getChangeToolbarTitle(String title) {
 
         if (actionBar != null) {
-            actionBar.setTitle(title);
+            actionBar.setTitle(Html.fromHtml("<font color=\"#FFFFFF\">" + title + "</font>"));
         }
     }
 
@@ -130,30 +132,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//
-//        mDrawerLayout.setDrawerListener(new );
-//        toggle.syncState();
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                // Do whatever you want here
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                // Do whatever you want here
-            }
-        };
-        // Set the drawer toggle as the DrawerListener
-
-        mDrawerLayout.addDrawerListener(toggle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
 
 
         //Profile image

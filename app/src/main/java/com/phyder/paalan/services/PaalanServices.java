@@ -125,7 +125,7 @@ public interface PaalanServices {
     Call<ResponseOrganizerProfile> orgProfile(@Body RequestOrganizerProfile requestOrganizerProfile);
 
     @POST("paalan/PaalanGateway")
-    Call<SubmitFeedback> submitFeedback(@Body SubmitFeedback submitFeedback);
+    Call<SubmitDonateResponse> submitFeedback(@Body SubmitFeedback submitFeedback);
 
     @POST("paalan/PaalanGateway")
     Call<SubmitDonateResponse> submitDonateForm(@Body SubmitDonateForm submitDonateForm);
