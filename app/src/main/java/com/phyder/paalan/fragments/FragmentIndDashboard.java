@@ -272,16 +272,19 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                             grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
+                        Log.e("permission","Granted");
                         if(!isFetched)
                             getRetrofitCall();
 
                     } else {
-
+                        Log.e("permission","Not Granted");
                         if(pref.getLocation()!=null) {
                             isFetched = true;
                             callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
                                     Double.parseDouble(pref.getLocation().split("~")[1]));
+                            Log.e("permission","saved Granted");
                         }else {
+                            Log.e("permission","exit");
                             ActivityFragmentPlatform.getFinished(getActivity());
                         }
                     }
