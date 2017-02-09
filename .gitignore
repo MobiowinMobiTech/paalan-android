@@ -40,6 +40,8 @@ captures/
 # Keystore files
 *.jks
 
+app/fabric.properties
+
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 .idea/file.template.settings.xml
