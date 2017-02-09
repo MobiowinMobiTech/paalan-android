@@ -165,6 +165,27 @@ public class CommanUtils {
     }
 
 
+    public static void showRetryDialog(final Context context,DialogPopupListener _dialogPopupListener){
+        dialogPopupListener = _dialogPopupListener;
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setMessage(context.getString(R.string.error_gps_location));
+        alert.setCancelable(false);
+
+        alert.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogPopupListener.onCancelClicked("Retry");
+            }
+        });
+        alert.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogPopupListener.onCancelClicked("Exit");
+            }
+        });
+        alert.show();
+    }
+
 
     public static void showAlert(Context context, String title, String message){
         AlertDialog.Builder alert = new AlertDialog.Builder(context);

@@ -59,7 +59,7 @@ public class FCMTokenGeneratorService extends FirebaseInstanceIdService {
         requestSyncNotificationCall.enqueue(new Callback<RequestSyncNotification>() {
             @Override
             public void onResponse(Call<RequestSyncNotification> call, Response<RequestSyncNotification> response) {
-                Log.d(TAG, "onTokenRefresh onResponse: "+response.body().toString());
+                Log.d(TAG, "onTokenRefresh onResponse: "+response.body());
             }
 
             @Override

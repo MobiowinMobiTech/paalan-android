@@ -71,19 +71,24 @@ public class PaalanSplashActivity extends AppCompatActivity {
             appSyncBanner.enqueue(new Callback<ResponseInitialData>() {
                 @Override
                 public void onResponse(Call<ResponseInitialData> call, Response<ResponseInitialData> response) {
-                    Log.d(TAG, "onFailure: ");
-                    ResponseInitialData.Bannerlist[] banners = response.body().getData()[0].getBannerlist();
 
-                    CommanUtils.setDataInSharedPrefs(PaalanSplashActivity.this, "bannerUrlLength", banners);
+                    if(response.body()!=null) {
 
-                    ResponseInitialData.Screenlist[] screenlist = response.body().getData()[0].getScreenlist();
-                    Log.d(TAG, "onResponse: "+screenlist.length);
-                    if (screenlist.length > 0) {
-                        isScreensAvailable = true;
-                        CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
-                    }
+                        ResponseInitialData.Bannerlist[] banners = response.body().getData()[0].getBannerlist();
+
+                        CommanUtils.setDataInSharedPrefs(PaalanSplashActivity.this, "bannerUrlLength", banners);
+
+                        ResponseInitialData.Screenlist[] screenlist = response.body().getData()[0].getScreenlist();
+                        Log.d(TAG, "onResponse: "+screenlist.length);
+                        if (screenlist.length > 0) {
+                            isScreensAvailable = true;
+                            CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
+                        }
 
                     launchDashboard(!isScreensAvailable);
+                    }else{
+                        showExitAlert(getString(R.string.technical_issue));
+                    }
                 }
 
                 @Override
