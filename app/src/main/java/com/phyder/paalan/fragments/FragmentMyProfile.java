@@ -375,6 +375,7 @@ public class FragmentMyProfile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.profile));
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.profile),
+                R.drawable.ic_arrow_back_black_24dp);
     }
 }

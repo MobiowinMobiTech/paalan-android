@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.text.Html;
 import android.view.View;
 
 import com.github.paolorotolo.appintro.AppIntro;
@@ -70,6 +71,7 @@ public class WhatsNew extends AppIntro {
 
         setFadeAnimation();
         //set text to done button
+
         setDoneText("Ok got it");
 
     }

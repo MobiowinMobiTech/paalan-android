@@ -154,6 +154,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    int visibility = position == images.size()-1 ? View.VISIBLE : View.INVISIBLE;
+                    slidingImageAdapter.getRegistrationVisible_Invisible(visibility);
                     if(position == images.size()-1){
                         slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
                     }else{
@@ -606,7 +608,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     if (mPager.getCurrentItem() < images.size()-1) {
                         mPager.setCurrentItem(itemPos, true);
                         itemPos = itemPos + 1;
-                    }else{
+                      }else{
                         itemPos = 0;
                         mPager.setCurrentItem(itemPos, true);
                     }
@@ -621,7 +623,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public void onResume() {
             super.onResume();
 
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.dash_borad));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
+                    R.drawable.ic_menu_black_24dp);
             initializeTimer();
             getPopulated();
 

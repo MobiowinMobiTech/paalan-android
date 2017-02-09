@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/light_grey">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:padding="10dp"
+        android:scrollbars="none">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -83,7 +84,7 @@
                     android:hint="@string/category"
                     android:inputType="text"
                     android:textColor="@color/divider"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"/>
 
@@ -133,8 +134,7 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
-                    android:text="SELECT DATE"
-                    android:src="@drawable/ic_calendar_date"/>
+                    android:src="@drawable/ic_calendar_o"/>
             </LinearLayout>
 
             <View
@@ -177,8 +177,7 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
-                    android:text="SELECT DATE"
-                    android:src="@drawable/ic_calendar_date"/>
+                    android:src="@drawable/ic_calendar_o"/>
 
             </LinearLayout>
 
@@ -228,7 +227,7 @@
                 android:background="@drawable/background_button"
                 android:text="@string/Create"
                 android:textColor="@drawable/button_text_color"
-                android:textSize="20dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="25dp"

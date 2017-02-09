@@ -144,7 +144,8 @@ public class FragmentGroupsProfile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-           ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.Organization_profile));
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.Organization_profile),
+                R.drawable.ic_arrow_back_black_24dp);
            getPoulatedData();
     }
 }

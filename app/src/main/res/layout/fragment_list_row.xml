@@ -62,7 +62,7 @@
             android:id="@+id/txtPrimaryRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/primary_text"/>
 
         <com.phyder.paalan.utils.TextViewOpenSansRegular
@@ -70,7 +70,7 @@
             android:layout_marginTop="-5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:textColor="@color/secondary_text"/>
     </LinearLayout>
 </LinearLayout>

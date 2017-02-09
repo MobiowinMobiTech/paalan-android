@@ -18,10 +18,11 @@
         android:text="@string/events"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/events"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
-        android:textColor="@color/primary_text"/>
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     <com.phyder.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtIndGroup"
@@ -30,10 +31,11 @@
         android:text="@string/groups"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/groups"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
-        android:textColor="@color/primary_text"/>
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
     <com.phyder.paalan.utils.TextViewOpenSansRegular
@@ -43,10 +45,11 @@
         android:text="@string/request"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/ic_request_35"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
-        android:textColor="@color/primary_text"/>
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     <com.phyder.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtIndAchievement"
@@ -55,10 +58,11 @@
         android:text="@string/Achievement"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/ic_achievement_35"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
-        android:textColor="@color/primary_text"/>
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
     <com.phyder.paalan.utils.TextViewOpenSansRegular
@@ -67,11 +71,12 @@
         android:layout_height="wrap_content"
         android:text="@string/manage_organisation"
         android:drawableLeft="@drawable/connectwithpaalan"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/primary_text"/>
+        android:drawablePadding="20dp"
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
 
@@ -80,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="40dp"
         android:visibility="gone">
 
         <com.phyder.paalan.utils.TextViewOpenSansRegular
@@ -90,10 +95,12 @@
             android:text="@string/signin"
             android:textColor="@color/primary_text"
             android:drawableLeft="@drawable/ic_dot"
-            android:drawablePadding="7dp"
+            android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"  />
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
         <com.phyder.paalan.utils.TextViewOpenSansRegular
@@ -101,12 +108,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registers"
+            android:drawablePadding="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:drawableLeft="@drawable/ic_dot"
-            android:drawablePadding="7dp"
             android:gravity="center_vertical"
-            android:textColor="@color/primary_text"/>
+            android:textColor="@color/primary_text"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     </LinearLayout>
 
@@ -116,11 +124,12 @@
         android:layout_height="wrap_content"
         android:text="@string/donate"
         android:drawableLeft="@drawable/ic_donation"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/primary_text"/>
+        android:drawablePadding="20dp"
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     <LinearLayout
         android:id="@+id/llIndDonate"
@@ -142,18 +151,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"  />
 
-
-        <!--<com.phyder.paalan.utils.TextViewOpenSansRegular-->
-            <!--android:id="@+id/txtIndDatePaalan"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/date_paalan"-->
-            <!--android:drawableLeft="@drawable/twitter"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:textColor="@color/primary_text"/>-->
-
     </LinearLayout>
 
 
@@ -164,10 +161,11 @@
         android:text="@string/about_us"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/ic_about_us"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
-        android:textColor="@color/primary_text"/>
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     <com.phyder.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtIndContact"
@@ -175,12 +173,13 @@
         android:layout_height="wrap_content"
         android:text="@string/connect_us"
         android:drawableLeft="@drawable/ic_contact_mail"
-        android:drawablePadding="7dp"
         android:gravity="center_vertical"
+        android:drawablePadding="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/primary_text"/>
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 </LinearLayout>
 

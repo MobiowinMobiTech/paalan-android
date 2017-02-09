@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,10 +21,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +51,7 @@ import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.helper.DialogPopupListener;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.Config;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
@@ -75,7 +75,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static DBAdapter DB_ADAPTER;
     final static int IMG_RESULT = 1;
     final int CAMERA_REQUEST = 1888;
-    private static ActionBar actionBar;
+
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
     private static final int STORAGE_PERMISSION_CODE = 88;
 
@@ -97,25 +97,48 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private ValueAnimator mAnimatorOrgAchievements,mAnimatorOrgEvents,mAnimatorOrgRequests;
     private ValueAnimator mAnimatorIndConnectPaalan,mAnimatorIndDonate;
 
+    private static Toolbar TOOLBAR;
+    private static boolean IS_LAST = true;
+    private static AppCompatActivity _CONTEXT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
+
         setUpDrawer();
+
+        try {
+            String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
+            if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
+                viewEvents();
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
+                viewAchievements();
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_social_request))){
+                viewSocialRequest();
+            }
+        }catch (Exception ex){
+
+        }
+
     }
 
+    public static void changeToolbarTitleIcon(String title,int icon) {
 
+        if (TOOLBAR != null) {
+            TOOLBAR.setTitle(title);
+            TOOLBAR.setNavigationIcon(icon);
 
-    public static void getChangeToolbarTitle(String title) {
-
-        if (actionBar != null) {
-            actionBar.setTitle(Html.fromHtml("<font color=\"#FFFFFF\">" + title + "</font>"));
+            if(_CONTEXT!=null){
+                IS_LAST = title.equals(_CONTEXT.getString(R.string.dash_borad)) ? true : false;
+            }
         }
     }
 
 
     private void setUpDrawer() {
 
+        _CONTEXT = this;
         PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
         DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
 
@@ -123,15 +146,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
 
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
+        TOOLBAR = (Toolbar) findViewById(R.id.toolbar);
+        TOOLBAR.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(TOOLBAR);
 
         //Profile image
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
@@ -388,8 +406,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     @Override
     public void onBackPressed() {
 
-        if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-            mDrawerLayout.closeDrawers();
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentIndDashboard ) {
             showExitAlert();
         } else if (getSupportFragmentManager().findFragmentById(R.id.platform) instanceof FragmentDashBorad) {
@@ -406,7 +424,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle(getString(R.string.app_name));
         alertBuilder.setMessage(getString(R.string.exit_app_message));
-        alertBuilder.setIcon(R.drawable.paalan_logo);
+        alertBuilder.setIcon(R.mipmap.ic_launcher);
         alertBuilder.setCancelable(false);
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -427,6 +445,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     @Override
     protected void onResume() {
         super.onResume();
+        _CONTEXT = this;
         getProfileUpdate();
     }
 
@@ -434,10 +453,18 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
-                    mDrawerLayout.closeDrawers();  // CLOSE DRAWER
-                else
-                    mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+
+                if(IS_LAST){
+
+                    if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+                        mDrawerLayout.closeDrawers();  // CLOSE DRAWER
+                    else
+                        mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+
+                }else{
+                    onBackPressed();
+                }
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -690,8 +717,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentViewEvent)) {
                     getFragmentTransaction(new FragmentViewEvent());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
                 }
                 break;
@@ -700,29 +727,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentViewGroups)) {
                     getFragmentTransaction(new FragmentViewGroups());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
                 }
                 break;
             case R.id.txtIndRequest:
-                if(!(fragment instanceof FragmentViewRequest)) {
-                    getFragmentTransaction(new FragmentViewRequest());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
-                }
+               viewSocialRequest();
                 break;
 
             case R.id.txtIndAchievement:
-                if(!(fragment instanceof FragmentViewAchievement)) {
-                    getFragmentTransaction(new FragmentViewAchievement());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
-                    }
-                }
+               viewAchievements();
                 break;
 
             case R.id.txtIndConnect:
@@ -736,42 +751,37 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtIndLogin:
                 startActivity(new Intent(ActivityFragmentPlatform.this,Login.class));
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llIndConnectPaalan);
                 }
+
                 break;
 
             case R.id.txtIndRegister:
                 startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class));
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llIndConnectPaalan);
                 }
                 break;
 
             case R.id.txtIndDonatePaalan:
+                startActivity(new Intent(this, Donate.class));
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawers();
+                    collapse(llIndDonate);
+                }
 
-//                if (llIndDonate.getVisibility() == View.GONE) {
-//                    expand(llIndDonate,mAnimatorIndDonate);
-//                } else {
+                break;
+
+//            case R.id.txtIndDonate:
+//                startActivity(new Intent(this, Donate.class));
+//                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+//                    mDrawerLayout.closeDrawers();
 //                    collapse(llIndDonate);
 //                }
-                startActivity(new Intent(this, Donate.class));
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
-                    collapse(llIndDonate);
-                }
-
-                break;
-
-            case R.id.txtIndDonate:
-                startActivity(new Intent(this, Donate.class));
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
-                    collapse(llIndDonate);
-                }
-                break;
+//                break;
 
 //            case R.id.txtIndDatePaalan:
 //
@@ -780,8 +790,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentAboutUs)) {
                     getFragmentTransaction(new FragmentAboutUs());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
                 }
                 break;
@@ -790,8 +800,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentConnectWithUs)) {
                     getFragmentTransaction(new FragmentConnectWithUs());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
                 }
                 break;
@@ -802,8 +812,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentMyProfile)) {
                     getFragmentTransaction(new FragmentMyProfile());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
                 }
                 break;
@@ -822,8 +832,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentCreateAchievement)) {
                     getFragmentTransaction(new FragmentCreateAchievement());
                 }
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llOrgAchiements);
                 }
                 break;
@@ -832,10 +842,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentViewAchievement)) {
                     getFragmentTransaction(new FragmentViewAchievement());
                 }
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llOrgAchiements);
                 }
+
                 break;
 
             case R.id.txtOrgEvent:
@@ -850,20 +861,15 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentCreateEvent)) {
                     getFragmentTransaction(new FragmentCreateEvent());
                 }
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llOrgEvents);
                 }
-                break;
+               break;
 
             case R.id.txtOrgViewEvent:
-                if(!(fragment instanceof FragmentViewEvent)) {
-                    getFragmentTransaction(new FragmentViewEvent());
-                }
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawers();
-                    collapse(llOrgEvents);
-                }
+               viewEvents();
+
                 break;
 
            case R.id.txtOrgRequest:
@@ -878,29 +884,32 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                if(!(fragment instanceof FragmentCreateRequest)) {
                    getFragmentTransaction(new FragmentCreateRequest());
                }
-               if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                   mDrawerLayout.closeDrawers();
+               if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                   mDrawerLayout.closeDrawer(GravityCompat.START);
                    collapse(llOrgRequest);
                }
+
                break;
 
            case R.id.txtOrgViewRequest:
                if(!(fragment instanceof FragmentViewRequest)) {
                    getFragmentTransaction(new FragmentViewRequest());
                }
-               if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                   mDrawerLayout.closeDrawers();
+               if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                   mDrawerLayout.closeDrawer(GravityCompat.START);
                    collapse(llOrgRequest);
                }
+
                break;
 
             case R.id.txtOrgAbout:
                 if(!(fragment instanceof FragmentAboutUs)) {
                     getFragmentTransaction(new FragmentAboutUs());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
+
                 }
                 break;
 
@@ -908,8 +917,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 if(!(fragment instanceof FragmentConnectWithUs)) {
                     getFragmentTransaction(new FragmentConnectWithUs());
                 }else{
-                    if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                        mDrawerLayout.closeDrawers();
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                     }
                 }
                 break;
@@ -929,11 +938,44 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     }
                     initializingIndDrawerComponants();
                     getFragmentTransaction(new FragmentIndDashboard());
-                    mDrawerLayout.closeDrawer(mDrawerList);
+
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                    }
                 }
                 break;
         }
 
+    }
+
+    private void viewSocialRequest() {
+        if(!(fragment instanceof FragmentViewRequest)) {
+            getFragmentTransaction(new FragmentViewRequest());
+        }else{
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }
+    }
+
+    private void viewAchievements() {
+        if(!(fragment instanceof FragmentViewAchievement)) {
+            getFragmentTransaction(new FragmentViewAchievement());
+        }else{
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }
+    }
+
+    private void viewEvents() {
+        if(!(fragment instanceof FragmentViewEvent)) {
+            getFragmentTransaction(new FragmentViewEvent());
+        }
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            collapse(llOrgEvents);
+        }
     }
 
     @Override
