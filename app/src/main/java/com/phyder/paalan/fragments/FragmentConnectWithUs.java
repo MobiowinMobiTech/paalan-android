@@ -69,7 +69,8 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.drawer_array)[5]);
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getStringArray(R.array.drawer_array)[5],
+                R.drawable.ic_arrow_back_black_24dp);
     }
 
     @Override

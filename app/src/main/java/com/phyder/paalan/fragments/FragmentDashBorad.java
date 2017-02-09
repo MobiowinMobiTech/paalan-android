@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -71,6 +72,7 @@ public class FragmentDashBorad extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+        recyclerView.setNestedScrollingEnabled(false);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         scrollView.smoothScrollTo(0,0);
     }
@@ -216,7 +218,9 @@ public class FragmentDashBorad extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.dash_borad));
+
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
+                R.drawable.ic_menu_black_24dp);
         initializeTimer();
     }
 

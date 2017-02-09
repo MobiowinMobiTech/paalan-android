@@ -38,7 +38,8 @@ public class FragmentAboutUs extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.about_us));
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.about_us),
+                R.drawable.ic_arrow_back_black_24dp);
     }
 
 }

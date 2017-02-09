@@ -5,21 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/light_grey">
 
-    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/icons"
-        android:background="@color/primary"
-        android:text="@string/acheivement_details"
-        android:paddingLeft="10dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"/>
-
     <ScrollView
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:scrollbars="none">
 
         <LinearLayout

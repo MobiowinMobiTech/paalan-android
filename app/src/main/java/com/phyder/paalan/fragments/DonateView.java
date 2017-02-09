@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import com.phyder.paalan.R;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 
 
 import java.util.Calendar;
@@ -37,7 +38,7 @@ public class DonateView extends Fragment {
     private static final int REQUEST_CODE = 99;
     Spinner spinnerCategory;
     AutoCompleteTextViewOpenSansRegular txtOtherCategory;
-    EditText edtDate;
+    EditTextOpenSansRegular edtDate;
     TextInputLayout categoryHolder;
     String[] categories;
     ImageView imgSelectedCategory;
@@ -58,7 +59,7 @@ public class DonateView extends Fragment {
         calendar  = Calendar.getInstance();
 
         txtOtherCategory = (AutoCompleteTextViewOpenSansRegular)donateView.findViewById(R.id.edtCategory);
-        edtDate = (EditText)donateView.findViewById(R.id.edtDate);
+        edtDate = (EditTextOpenSansRegular)donateView.findViewById(R.id.edtDate);
         categoryHolder = (TextInputLayout)donateView.findViewById(R.id.viewCategory);
 
         // image of donate item

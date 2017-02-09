@@ -623,7 +623,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public void onResume() {
             super.onResume();
 
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.dash_borad));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
+                    R.drawable.ic_menu_black_24dp);
             initializeTimer();
             getPopulated();
 

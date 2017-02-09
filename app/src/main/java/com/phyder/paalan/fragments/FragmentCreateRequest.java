@@ -215,9 +215,11 @@ public class FragmentCreateRequest extends Fragment{
     public void onResume() {
         super.onResume();
         if(!shouldBeUpdated) {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.request_array)[0]);
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getStringArray(R.array.request_array)[0],
+                    R.drawable.ic_arrow_back_black_24dp);
         }else{
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_request));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.update_request),
+                    R.drawable.ic_arrow_back_black_24dp);
         }
     }
 

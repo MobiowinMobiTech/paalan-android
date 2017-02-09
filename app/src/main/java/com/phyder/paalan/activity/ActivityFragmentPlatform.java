@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -76,7 +78,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static DBAdapter DB_ADAPTER;
     final static int IMG_RESULT = 1;
     final int CAMERA_REQUEST = 1888;
-    private static ActionBar actionBar;
+
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 99;
     private static final int STORAGE_PERMISSION_CODE = 88;
 
@@ -98,6 +100,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private ValueAnimator mAnimatorOrgAchievements,mAnimatorOrgEvents,mAnimatorOrgRequests;
     private ValueAnimator mAnimatorIndConnectPaalan,mAnimatorIndDonate;
 
+    private static Toolbar TOOLBAR;
+    private static boolean IS_LAST = true;
+    private static AppCompatActivity _CONTEXT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,16 +113,22 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
 
 
-    public static void getChangeToolbarTitle(String title) {
+    public static void changeToolbarTitleIcon(String title,int icon) {
 
-        if (actionBar != null) {
-            actionBar.setTitle(Html.fromHtml("<font color=\"#FFFFFF\">" + title + "</font>"));
+        if (TOOLBAR != null) {
+            TOOLBAR.setTitle(title);
+            TOOLBAR.setNavigationIcon(icon);
+
+            if(_CONTEXT!=null){
+                IS_LAST = title.equals(_CONTEXT.getString(R.string.dash_borad)) ? true : false;
+            }
         }
     }
 
 
     private void setUpDrawer() {
 
+        _CONTEXT = this;
         PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
         DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
 
@@ -124,16 +136,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
 
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-
+        TOOLBAR = (Toolbar) findViewById(R.id.toolbar);
+        TOOLBAR.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(TOOLBAR);
 
         //Profile image
         IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
@@ -408,7 +414,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle(getString(R.string.app_name));
         alertBuilder.setMessage(getString(R.string.exit_app_message));
-        alertBuilder.setIcon(R.drawable.paalan_logo);
+        alertBuilder.setIcon(R.mipmap.ic_launcher);
         alertBuilder.setCancelable(false);
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -429,6 +435,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     @Override
     protected void onResume() {
         super.onResume();
+        _CONTEXT = this;
         getProfileUpdate();
     }
 
@@ -436,10 +443,18 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
-                    mDrawerLayout.closeDrawers();  // CLOSE DRAWER
-                else
-                    mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+
+                if(IS_LAST){
+
+                    if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+                        mDrawerLayout.closeDrawers();  // CLOSE DRAWER
+                    else
+                        mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+
+                }else{
+                    onBackPressed();
+                }
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

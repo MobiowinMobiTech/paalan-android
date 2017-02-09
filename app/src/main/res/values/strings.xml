@@ -123,6 +123,8 @@
     <string name="error_empty_presence">Presence area can not be empty</string>
     <string name="error_internet">Enable your internet connection</string>
     <string name="error_location">Failed to fetch location,please turn on wifi also</string>
+    <string name="error_startdate">Please select start date first</string>
+    <string name="error_enddate">End date must be greater than start date</string>
 
     <!--drawer menu array-->
     <string-array name="drawer_array">

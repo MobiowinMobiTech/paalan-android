@@ -190,7 +190,8 @@ public class FragmentViewEvent extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.events_array)[1]);
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getStringArray(R.array.events_array)[1],
+                R.drawable.ic_arrow_back_black_24dp);
         getPopulated();
         PaalanGetterSetter.setEventID(null);
     }

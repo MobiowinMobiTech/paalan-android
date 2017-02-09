@@ -192,7 +192,8 @@ public class FragmentViewAchievement extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.achievements_array)[1]);
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getStringArray(R.array.achievements_array)[1],
+                R.drawable.ic_arrow_back_black_24dp);
         getPopulated();
         PaalanGetterSetter.setAchivementID(null);
     }
