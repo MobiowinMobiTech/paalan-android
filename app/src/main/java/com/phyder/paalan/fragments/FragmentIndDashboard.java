@@ -150,29 +150,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             slidingImageAdapter =new SlidingImageAdapter(getActivity(), images);
             mPager.setAdapter(slidingImageAdapter);
             mCircleIndicator.setViewPager(mPager);
-            mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    int visibility = position == images.size()-1 ? View.VISIBLE : View.INVISIBLE;
-                    slidingImageAdapter.getRegistrationVisible_Invisible(visibility);
-                    if(position == images.size()-1){
-                        slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
-                    }else{
-                        slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
-                    }
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-
         }
 
         private void clickEventFire() {
