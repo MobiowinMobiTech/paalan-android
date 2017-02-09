@@ -150,7 +150,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             slidingImageAdapter =new SlidingImageAdapter(getActivity(), images);
             mPager.setAdapter(slidingImageAdapter);
             mCircleIndicator.setViewPager(mPager);
-
             mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -273,16 +272,19 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                             grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
+                        Log.e("permission","Granted");
                         if(!isFetched)
                             getRetrofitCall();
 
                     } else {
-
+                        Log.e("permission","Not Granted");
                         if(pref.getLocation()!=null) {
                             isFetched = true;
                             callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
                                     Double.parseDouble(pref.getLocation().split("~")[1]));
+                            Log.e("permission","saved Granted");
                         }else {
+                            Log.e("permission","exit");
                             ActivityFragmentPlatform.getFinished(getActivity());
                         }
                     }
@@ -305,13 +307,14 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
                 double latitude = gps.getLatitude();
                 double longitude = gps.getLongitude();
-                Log.e(TAG,"lat : "+latitude+"\nlong : "+longitude);
                 if(latitude != 0.0 && longitude != 0.0){
                     pref.setLocation(latitude + "~" + longitude);
                     isFetched = true;
                     callApi(latitude, longitude);
                 }else if(!NetworkUtil.isWifiConnected(getActivity())){
                     CommanUtils.showWifiLocationDialog(getActivity(),this);
+                }else{
+                    CommanUtils.showRetryDialog(getActivity(),this);
                 }
             }
         }
@@ -628,9 +631,13 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             initializeTimer();
             getPopulated();
 
+            Log.e("isFetched","isFetched : "+isFetched);
             if (requestPermission()) {
-                if(!isFetched)
+                Log.e("isFetched","requestPermission ");
+                if(!isFetched) {
                     getRetrofitCall();
+                    Log.e("isFetched", "getRetrofitCall ");
+                }
             }
 
         }
@@ -639,12 +646,16 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
     @Override
     public void onCancelClicked(String label) {
-        if(label.equals("Cancel")){
+        if(label.equals("Cancel") || label.equals("Exit")){
             getActivity().finish();
         }else if(label.equals("Use Existing")){
             isFetched = true;
             callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
                     Double.parseDouble(pref.getLocation().split("~")[1]));
+        }else if(label.equals("Retry")){
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.platform, new FragmentIndDashboard())
+                    .addToBackStack(null).commit();
         }
     }
 }

@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
@@ -14,22 +13,12 @@ import com.phyder.paalan.utils.Config;
  * Created by Gouresh on 25/1/17
  * Company PhyderCmss.
  */
-
-
-
 public class NotificationReciever extends BroadcastReceiver {
-
-    private Bitmap remote_picture;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
-
-        android.widget.Toast.makeText(context,"broadcast Reciever", android.widget.Toast.LENGTH_LONG).show();
-
         String title = intent.getStringExtra(Config.TITLE);
         String body = intent.getStringExtra(Config.BODY);
-        String imageurl = intent.getStringExtra(Config.IMAGE_URL);
         String clickEvent = intent.getStringExtra(Config.CLICK_EVENT);
 
         // Open NotificationView Class on Notification Click
@@ -38,7 +27,6 @@ public class NotificationReciever extends BroadcastReceiver {
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, resultIntent,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         Notification builder =
                 new android.support.v4.app.NotificationCompat.Builder(context)
@@ -51,7 +39,6 @@ public class NotificationReciever extends BroadcastReceiver {
                         .setSmallIcon(R.drawable.paalan_logo).build();
 
         int notificationId = (int) android.os.SystemClock.currentThreadTimeMillis();
-
 
         // Create Notification Manager
         android.app.NotificationManager notificationmanager = (android.app.NotificationManager)

@@ -125,6 +125,7 @@
     <string name="error_location">Failed to fetch location,please turn on wifi also</string>
     <string name="error_startdate">Please select start date first</string>
     <string name="error_enddate">End date must be greater than start date</string>
+    <string name="error_gps_location">Could not get your location.</string>
 
     <!--drawer menu array-->
     <string-array name="drawer_array">
