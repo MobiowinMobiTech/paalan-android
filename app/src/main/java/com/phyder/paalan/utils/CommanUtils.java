@@ -165,6 +165,27 @@ public class CommanUtils {
     }
 
 
+    public static void showRetryDialog(final Context context,DialogPopupListener _dialogPopupListener){
+        dialogPopupListener = _dialogPopupListener;
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setMessage(context.getString(R.string.error_gps_location));
+        alert.setCancelable(false);
+
+        alert.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogPopupListener.onCancelClicked("Retry");
+            }
+        });
+        alert.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogPopupListener.onCancelClicked("Exit");
+            }
+        });
+        alert.show();
+    }
+
 
     public static void showAlert(Context context, String title, String message){
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -328,12 +349,8 @@ public class CommanUtils {
         try {
             byte [] encodeByte=Base64.decode(profilePic,Base64.DEFAULT);
             Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            Log.d(TAG, "getProfileUpdate: found "+bitmap.toString());
             return bitmap;
         } catch(Exception e) {
-            Log.d(TAG, "getProfileUpdate: error "+e.toString());
-            e.getMessage();
-            e.printStackTrace();
             return null;
         }
 

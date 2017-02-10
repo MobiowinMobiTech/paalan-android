@@ -251,9 +251,11 @@ public class FragmentViewDetailsRequest extends Fragment {
     public void onResume() {
         super.onResume();
         if(pref.getLoginType().equals(Social.IND_ENTITY)){
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.request_details));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.request_details),
+                    R.drawable.ic_arrow_back_black_24dp);
         }else {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_request));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.update_delete_request),
+                    R.drawable.ic_arrow_back_black_24dp);
         }
         getPoulatedData();
     }

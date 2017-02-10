@@ -2,97 +2,122 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#ebebeb">
 
-    <TextView
+    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="7dp"
-        android:layout_margin="7dp"
         style="@style/NewTaskHeaderText"
         android:text="@string/donate_category"
         android:textSize="@dimen/dp_25"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_weight="1"/>
+        android:layout_weight="0.5"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="3"
-        android:weightSum="2">
-
-        <Spinner
-            android:id="@+id/spinnerSelectCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:layout_margin="7dp"
-            android:layout_weight="1"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/viewCategory"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:layout_margin="7dp"
-            android:layout_weight="1">
-
-            <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
-                android:id="@+id/edtCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/specify_category"
-                android:maxLines="1"
-                android:textColorHint="@color/secondary_text"
-                android:textColor="@color/primary_text" />
-
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-
-    <android.support.design.widget.TextInputLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="7dp"
         android:layout_margin="7dp"
-        android:layout_weight="2">
+        card_view:cardCornerRadius="7dp"
+        android:layout_weight="9.5">
 
-        <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
-            android:id="@+id/edtDate"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/enter_date"
-            android:maxLines="1"
-            android:textColorHint="@color/secondary_text"
-            android:textColor="@color/primary_text" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
 
-    </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:weightSum="2">
+
+                <Spinner
+                    android:id="@+id/spinnerSelectCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:layout_weight="1"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/viewCategory"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:layout_weight="1">
+
+                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                        android:id="@+id/edtCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/specify_category"
+                        android:maxLines="1"
+                        android:textColorHint="@color/secondary_text"
+                        android:textColor="@color/primary_text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinnerSelectDonateoption"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="7dp"
+                android:layout_weight="1.5"/>
 
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="7dp"
+                android:layout_margin="7dp"
+                android:layout_weight="1.5">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="23dp">
+                <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    android:id="@+id/edtDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_date"
+                    android:maxLines="1"
+                    android:textColorHint="@color/secondary_text"
+                    android:textColor="@color/primary_text" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/unknown"
-            android:id="@+id/imageCategory"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+            </android.support.design.widget.TextInputLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/unknown"
+                    android:id="@+id/imageCategory"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+                <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/capture_image"
+                    android:layout_below="@+id/imageCategory"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:layout_margin="7dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

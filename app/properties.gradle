@@ -1,0 +1,13 @@
+def Properties loadProperty(filename) {
+    Properties props = new Properties()
+    try {
+        props.load(file(filename).newDataInputStream())
+    } catch (Exception ex) {
+        throw new GradleException("Missing ${filename}, check the ${filename}.sample file.");
+    }
+    return props
+}
+
+ext {
+    loadProperties = { filename -> loadProperty(filename) }
+}

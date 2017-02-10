@@ -70,6 +70,7 @@ public class WhatsNew extends AppIntro {
 
         setFadeAnimation();
         //set text to done button
+
         setDoneText("Ok got it");
 
     }

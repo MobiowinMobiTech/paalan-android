@@ -292,9 +292,11 @@ public class FragmentViewDetailsAchievement extends Fragment  {
     public void onResume() {
         super.onResume();
         if(pref.getLoginType().equals(Social.IND_ENTITY)){
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.acheivement_details));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.acheivement_details),
+                    R.drawable.ic_arrow_back_black_24dp);
         }else {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_acheivement));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.update_delete_acheivement),
+                    R.drawable.ic_arrow_back_black_24dp);
         }
         getPoulatedData();
     }

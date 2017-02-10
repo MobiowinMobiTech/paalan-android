@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.phyder.paalan.R;
-import com.phyder.paalan.fragments.AddressInformation;
 import com.phyder.paalan.fragments.DonateView;
-import com.phyder.paalan.fragments.OrganisationInformation;
+import com.phyder.paalan.fragments.Donorinformation;
 import com.phyder.paalan.payload.request.SubmitDonateForm;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
+import com.phyder.paalan.payload.response.SubmitDonateResponse;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
@@ -32,8 +33,7 @@ public class Donate extends AppIntro {
 
     private static final String TAG = Donate.class.getSimpleName();
     DonateView donateView;
-    AddressInformation addressInformation;
-    OrganisationInformation organisationInformation;
+    Donorinformation donorinformation;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -44,17 +44,13 @@ public class Donate extends AppIntro {
         Bundle bundle = new Bundle();
         bundle.putBoolean("isForDonate",true);
 
-        organisationInformation = new OrganisationInformation();
-        organisationInformation.setArguments(bundle);
 
-        addressInformation = new AddressInformation();
-        addressInformation.setArguments(bundle);
-
+        donorinformation = new Donorinformation();
         donateView = new DonateView();
 
+        addSlide(donorinformation);
         addSlide(donateView);
-        addSlide(organisationInformation);
-        addSlide(addressInformation);
+
 
         // Override bar/separator color.
         setBarColor(Color.parseColor("#00BCD4"));
@@ -67,37 +63,39 @@ public class Donate extends AppIntro {
         //set text to done button
         setDoneText("Donate");
 
+
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onDonePressed() {
         super.onDonePressed();
-
         if (validateData()){
             Log.d(TAG, "onDonePressed: valid");
             submitDonateForm();
         }else {
             Log.d(TAG, "onDonePressed: not valid");
         }
-
     }
 
     /**
      * Function to submit donate request
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void submitDonateForm() {
         CommanUtils.showDialog(this);
 
         String donateCategory = donateView.getSelectedCategory();
         String donateImage = donateView.getDonateCategoryImage();
 
-        IndivitualReqRegistration.Data  indData = organisationInformation.setIndividualInfo().getData();
-        String address = addressInformation.getAddress();
-        int pickUpOption = addressInformation.getPickUpOption();
+        IndivitualReqRegistration.Data  indData = donorinformation.setIndividualInfo().getData();
+        String address = donorinformation.getAddress();
+        int pickUpOption = donateView.getPickUpOption();
 
         SubmitDonateForm submitDonateForm = new SubmitDonateForm();
         submitDonateForm.setAction(Social.SUBMIT_ACTION);
-        submitDonateForm.setStatus(Social.DONATE);
+        submitDonateForm.setType(Social.DONATE);
         submitDonateForm.setEntity(Social.IND_ENTITY);
 
         SubmitDonateForm.Data data = new SubmitDonateForm.Data();
@@ -105,25 +103,34 @@ public class Donate extends AppIntro {
         data.setEmailid(indData.getEmailid());
         data.setCategory(donateCategory);
         data.setAddress(address);
-        data.setDeliverymode(pickUpOption == 0 ? "Pickup from Home" : "Pick up from Address");
+        data.setCollectionMode(pickUpOption == 0 ? "Home Pickup" : "Other");
         data.setImg(donateImage);
-        data.setDate(donateView.getSelectedDate());
+        data.setDaterequest(donateView.getSelectedDate());
+        data.setFreetext1("");
+        data.setFreetext2("");
+        data.setFreetext3("");
+        data.setFreetext4("");
+
         submitDonateForm.setData(data);
+
 
         Retrofit mRetrofit = NetworkUtil.getRetrofit();
         PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
-        Call<SubmitDonateForm> call = mPaalanServices.submitDonateForm(submitDonateForm);
-        call.enqueue(new Callback<SubmitDonateForm>() {
+        Call<SubmitDonateResponse> call = mPaalanServices.submitDonateForm(submitDonateForm);
+        call.enqueue(new Callback<SubmitDonateResponse>() {
             @Override
-            public void onResponse(Call<SubmitDonateForm> call, Response<SubmitDonateForm> response) {
+            public void onResponse(Call<SubmitDonateResponse> call, Response<SubmitDonateResponse> response) {
                 CommanUtils.hideDialog();
-                Log.d(TAG, "onResponse: Succes :: "+response.body().getStatus());
+                Log.d(TAG, "onResponse: success :: "+call.toString());
+                Toast.makeText(Donate.this,getString(R.string.request_submitted_success),Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override
-            public void onFailure(Call<SubmitDonateForm> call, Throwable t) {
+            public void onFailure(Call<SubmitDonateResponse> call, Throwable t) {
                 CommanUtils.hideDialog();
                 Log.d(TAG, "onResponse: Failure :: "+call.toString());
+                Toast.makeText(Donate.this,getString(R.string.technical_issue),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -133,11 +140,14 @@ public class Donate extends AppIntro {
      * Function to validate data
      * @return : validation result
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean validateData() {
         String donateCategory = donateView.getSelectedCategory();
 
-        IndivitualReqRegistration.Data  data = organisationInformation.setIndividualInfo().getData();
-        String address = addressInformation.getAddress();
+        Log.d(TAG, "validateData: CAT "+donateCategory);
+
+        IndivitualReqRegistration.Data  data = donorinformation.setIndividualInfo().getData();
+        String address = donorinformation.getAddress();
 
         if (TextUtils.isEmpty(donateCategory)){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.select_category));
@@ -148,13 +158,13 @@ public class Donate extends AppIntro {
         }else if (TextUtils.isEmpty(data.getName())) {
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.error_empty_name));
             return false;
-        }else if(TextUtils.isEmpty(data.getEmailid()) || !organisationInformation.isValidEmailId(data.getEmailid())){
+        }else if(TextUtils.isEmpty(data.getEmailid()) || !donorinformation.isValidEmailId(data.getEmailid())){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.email_validation_mesasage));
             return false;
         }else if (TextUtils.isEmpty(data.getMobileno()) || data.getMobileno().length() < 10 ){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.mobile_validation_mesasage));
             return false;
-        }else if (TextUtils.isEmpty(address)){
+        }else if (TextUtils.isEmpty(address.replace(" ","").replace(",",""))){
             CommanUtils.showAlert(this,getString(R.string.donate),getString(R.string.addess_cannot_be_empty));
             return false;
         }

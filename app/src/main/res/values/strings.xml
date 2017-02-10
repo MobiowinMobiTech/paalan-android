@@ -27,7 +27,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="paalan_social_worker">Paalan Social Worker</string>
 
     <string name="dashborad_fragment">DashBorad Fragment</string>
     <string name="follow_us_on_facebook">Follow Us on Facebook</string>
@@ -43,17 +42,16 @@
     <string name="ngo_registration">NGO Registration</string>
     <string name="join_ngo">JOIN NGO + </string>
     <string name="testing">Testing</string>
-    <string name="register">REGISTER</string>
+    <string name="register">Register</string>
     <string name="test_service">Test Service</string>
 
     <string name="login_as_organization">Login as Organization</string>
     <string name="login_as_Individual">Login as Individual</string>
-    <string name="create_event">Create Event</string>
     <string name="ind">IND</string>
     <string name="org">ORG</string>
     <string name="enter_user_or_password">Enter USer OR Mobile Number</string>
     <string name="enter_password">Enter Password</string>
-    <string name="signin">SIGNIN</string>
+    <string name="signin">Sign In</string>
     <string name="login_as_org">Login as ORG</string>
     <string name="ngo_achievments">NGO Achievments</string>
     <string name="syncdata">SyncData</string>
@@ -73,14 +71,13 @@
 
     <string name="toolbar_title">Title</string>
 
-    <string name="sign_out">Sign Out</string>
     <string name="name">Name</string>
     <string name="role_in_organization">Role in Organization</string>
     <string name="organization_id">Organization Id</string>
     <string name="registration_no">Registration No</string>
-    <string name="registration">Registration</string>
+    <string name="registration">Register</string>
 
-    <string name="profile_up_to_date">Profile up-to-date</string>
+    <string name="profile_up_to_date">Profile up-to-daterequest</string>
     <string name="achievement_created">Achievement Created Successfully</string>
     <string name="event_created">Event Created Successfully</string>
     <string name="request_created">Social Request Created Successfully</string>
@@ -100,9 +97,9 @@
     <string name="achiver_name">Achiever Name</string>
     <string name="requester_name">Requester Name</string>
 
-    <string name="organized_by">Organized by</string>
-    <string name="achiver">Achiever</string>
-    <string name="requested_by">Requested by</string>
+    <string name="organized_by">ORGANIZED BY</string>
+    <string name="achiver">ACHIEVER</string>
+    <string name="requested_by">REQUESTED BY</string>
 
     <string name="title">Title</string>
     <string name="subtitle">Sub Title</string>
@@ -118,14 +115,17 @@
     <string name="error_empty_description">Description can not be empty</string>
     <string name="error_empty_others">Others can not be empty</string>
     <string name="error_empty_location">Location can not be empty</string>
-    <string name="error_empty_startdate">Start date can not be empty</string>
-    <string name="error_empty_enddate">End date can not be empty</string>
+    <string name="error_empty_startdate">Start daterequest can not be empty</string>
+    <string name="error_empty_enddate">End daterequest can not be empty</string>
 
     <string name="error_empty_role">Role can not be empty</string>
     <string name="error_empty_regNo">Registration no can not be empty</string>
     <string name="error_empty_presence">Presence area can not be empty</string>
     <string name="error_internet">Enable your internet connection</string>
     <string name="error_location">Failed to fetch location,please turn on wifi also</string>
+    <string name="error_startdate">Please select start date first</string>
+    <string name="error_enddate">End date must be greater than start date</string>
+    <string name="error_gps_location">Could not get your location.</string>
 
     <!--drawer menu array-->
     <string-array name="drawer_array">
@@ -151,7 +151,31 @@
         <item>About Us</item>
         <item>Connect with Paalan</item>
     </string-array>
+    <string name="my_profile">My Profile</string>
+    <string name="Achievement">Achievements</string>
+    <string name="publish_event">Publish Event</string>
+    <string name="request">Social Request</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="connect_us">Connect with Us</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="events">Events</string>
+    <string name="group">Groups</string>
+    <string name="achievements">Achievements</string>
+    <string name="donate">Donate</string>
+    <string name="date_paalan">Date with Paalan</string>
+    <string name="login_paalan">Login with Paalan</string>
+    <string name="connect_paalan">Connect with Paalan</string>
+    <string name="donate_paalan">Donate with Paalan</string>
+    <string name="registers">Register</string>
 
+
+    <string name="create_achivement">Create Achiement</string>
+    <string name="view_achivement">View Achievements</string>
+    <string name="create_event">Create Event</string>
+    <string name="view_event">View Events</string>
+    <string name="create_request">Create Social Request</string>
+    <string name="view_request">View Social Requests</string>
 
     <!--dashboard array-->
     <string-array name="dashboard_content_array">
@@ -159,7 +183,7 @@
         <item>Achievements</item>
         <item>Social Request</item>
         <item>About Us</item>
-        <item>Connect with Paalan</item>
+        <item>Connect with Us</item>
     </string-array>
 
     <!--dashboard sub array-->
@@ -168,7 +192,7 @@
         <item>Testing for Achievements</item>
         <item>Testing for Social Request</item>
         <item>Testing for About Us</item>
-        <item>Testing for Contact Us</item>
+        <item>Testing for Connect with Us</item>
     </string-array>
 
 
@@ -277,7 +301,6 @@
 
     <!--Request String -->
     <string name="request_details">Social Request Details</string>
-    <string name="request">Social Request</string>
     <string name="groups">Social Groups</string>
     <string name="update_request">Update Social Request</string>
     <string name="delete_request">Delete Social Request</string>
@@ -299,8 +322,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="eventdate">EventDate</string>
 
-    <string name="donate">Donate</string>
-    <string name="date_with_paalan">Date with Paalan</string>
+
     <string name="dataNotFound">Data not found</string>
 
     <string name="notification_message">Notification From Paalan</string>
@@ -328,7 +350,7 @@
     <string name="screent_title">Screen Title</string>
     <string name="fabric_id">815125c9312f62bd30e41300a5c1738d3d6cb349</string>
 
-    <string name="basic_info">Basic Info</string>
+    <string name="donor_info">Donor Information</string>
 
     <string name="first_time_user_without_network">There is no network connection. Please connect to the network to use Paalan.</string>
     <string name="connection_error">Connection Error</string>
@@ -347,7 +369,7 @@
     <string name="url_twitter">https://twitter.com/PaalanOffical</string>
 
 
-    <string name="about_us"><![CDATA["<h3><span style="font-size: 12pt;">A Few Words About Paalan</span></h3>
+    <string name="about_us_text"><![CDATA["<h3><span style="font-size: 12pt;">A Few Words About Paalan</span></h3>
 <p><span style="font-size: 12pt;">Paalan follows the philosophy of <em><strong>\"Vasudhaiva Kutumbakam\"</strong></em> that inclucates an understanding that the whole world is one family.It is a philosophy that tries to foster an understanding that the whole of humanity is one family.</span></p>
 <div class="about-grids">
 <div class="col-md-6 about-info">
@@ -375,7 +397,12 @@
     <string name="donate_category">Donate</string>
     <string name="select_category">Please select category</string>
     <string name="enter_date">Select date</string>
-    <string name="date_should_not_be_empty">Please select date.</string>
+    <string name="date_should_not_be_empty">Please select daterequest.</string>
+    <string name="request_submitted_success">Request submitted successfully</string>
+    <string name="capture_image">Capture image</string>
+    <string name="exit_app_message">Do you want to close application</string>
+    <string name="manage_organisation">Manage organisation</string>
+
 
     <string-array name="donate_category">
         <item>Select category</item>
@@ -387,5 +414,13 @@
         <item>Stationary</item>
         <item>Others</item>
     </string-array>
+
+
+    <string name="click_event_register">register</string>
+    <string name="click_event_event">event</string>
+    <string name="click_event_achievement">achievement</string>
+    <string name="click_event_social_request">socialrequest</string>
+
+
 
 </resources>

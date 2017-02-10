@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.phyder.paalan.R;
+import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.utils.Config;
 
 /**
  * Created by Gouresh on 22/11/16
@@ -21,24 +24,42 @@ public class NotificationRecieverService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // Handle data payload of FCM messages.
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
-        Log.d(TAG, "FCM Notification Message: " +
+        Log.d(TAG, "ad Message: " +
                 remoteMessage.getNotification());
 
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getData());
 
-        String imageurl = remoteMessage.getData().get("imageurl");
-        String title = remoteMessage.getData().get("title");
-        String body = remoteMessage.getData().get("body");
+        try {
 
-        Intent intent1 = new Intent();
-        intent1.putExtra("title",title);
-        intent1.putExtra("body",body);
-        intent1.putExtra("imageurl",imageurl);
-        intent1.setAction("com.phyder.paalan.SendBroadcast");
-        intent1.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            DBAdapter dbAdapter = new DBAdapter(this);
+            dbAdapter.open();
+
+            String clickEvent = remoteMessage.getData().get(Config.CLICK_EVENT);
+            Log.d(TAG, "PUSH : click event"+clickEvent);
+            if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
+                Log.d(TAG, "PUSH : click event = event");
+//                dbAdapter.populatingEventsIntoDB()
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
+
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_social_request))){
+
+            }
+        }catch (Exception ex){
+
+        }
+
+
+
+
+        Intent intent = new Intent();
+        intent.putExtra(Config.TITLE,remoteMessage.getData().get(Config.TITLE));
+        intent.putExtra(Config.BODY,remoteMessage.getData().get(Config.BODY));
+        intent.putExtra(Config.IMAGE_URL,remoteMessage.getData().get(Config.IMAGE_URL));
+        intent.putExtra(Config.CLICK_EVENT,remoteMessage.getData().get(Config.CLICK_EVENT));
+        intent.setAction("com.phyder.paalan.SendBroadcast");
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         //  intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        sendBroadcast(intent1);
-
+        sendBroadcast(intent);
 
     }
 

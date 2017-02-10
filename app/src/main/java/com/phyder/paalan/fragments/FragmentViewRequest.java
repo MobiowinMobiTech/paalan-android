@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
@@ -190,7 +189,8 @@ public class FragmentViewRequest extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.request_array)[1]);
+        ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getStringArray(R.array.request_array)[1],
+                R.drawable.ic_arrow_back_black_24dp);
         getPopulated();
         PaalanGetterSetter.setRequestID(null);
     }

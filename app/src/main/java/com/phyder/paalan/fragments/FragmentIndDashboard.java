@@ -12,9 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -22,7 +20,7 @@ import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
-import com.phyder.paalan.activity.RegisterUser;
+import com.phyder.paalan.activity.Donate;
 import com.phyder.paalan.adapter.HorizontalListVAdapter;
 import com.phyder.paalan.adapter.SlidingImageAdapter;
 import com.phyder.paalan.db.Attributes;
@@ -35,10 +33,10 @@ import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.services.Device;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
-import com.phyder.paalan.utils.TextViewOpenSansRegular;
 import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
 
 import java.util.ArrayList;
@@ -71,7 +69,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private PreferenceUtils pref;
 
     private TextViewOpenSansSemiBold txtEventSeeMore,txtSocialSeeMore ,txtGroupSeeMore,txtAchievementsSeeMore;
-
+    private ButtonOpenSansSemiBold btnDonate;
     private LinearLayout llEvent, llGroup, llRequest, llAchievement;
     private RecyclerView recycleEvent, recycleGroup, recycleRequest, recycleAchievement;
 
@@ -89,7 +87,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 View view = inflater.inflate(R.layout.fragment_ind_dashboard, container, false);
                 init(view);
-                handlingSlideShow();
                 clickEventFire();
             return view;
         }
@@ -119,6 +116,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 txtSocialSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtSocialSeeMore);
                 txtAchievementsSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtAchievementSeeMore);
 
+                btnDonate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDonate);
+
                 eventLists = new ArrayList<String>();
                 groupLists = new ArrayList<String>();
                 requestLists = new ArrayList<String>();
@@ -136,6 +135,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         private void handlingSlideShow() {
 
             images = new ArrayList<>();
+            images.clear();
             if(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")!=null) {
                 for (int i = 0; i < Integer.parseInt(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")); i++) {
                     String bannerImageURL = CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrl" + i);
@@ -150,6 +150,28 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             slidingImageAdapter =new SlidingImageAdapter(getActivity(), images);
             mPager.setAdapter(slidingImageAdapter);
             mCircleIndicator.setViewPager(mPager);
+            mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    int visibility = position == images.size()-1 ? View.VISIBLE : View.INVISIBLE;
+                    slidingImageAdapter.getRegistrationVisible_Invisible(visibility);
+                    if(position == images.size()-1){
+                        slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
+                    }else{
+                        slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
 
         }
 
@@ -213,6 +235,13 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 }
             });
 
+            btnDonate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), Donate.class));
+                }
+            });
+
         }
 
 
@@ -243,11 +272,21 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                             grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
+                        Log.e("permission","Granted");
                         if(!isFetched)
                             getRetrofitCall();
 
                     } else {
-                        ActivityFragmentPlatform.getFinished(getActivity());
+                        Log.e("permission","Not Granted");
+                        if(pref.getLocation()!=null) {
+                            isFetched = true;
+                            callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
+                                    Double.parseDouble(pref.getLocation().split("~")[1]));
+                            Log.e("permission","saved Granted");
+                        }else {
+                            Log.e("permission","exit");
+                            ActivityFragmentPlatform.getFinished(getActivity());
+                        }
                     }
                     return;
                 }
@@ -268,13 +307,14 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
                 double latitude = gps.getLatitude();
                 double longitude = gps.getLongitude();
-                Log.e(TAG,"lat : "+latitude+"\nlong : "+longitude);
                 if(latitude != 0.0 && longitude != 0.0){
                     pref.setLocation(latitude + "~" + longitude);
                     isFetched = true;
                     callApi(latitude, longitude);
                 }else if(!NetworkUtil.isWifiConnected(getActivity())){
                     CommanUtils.showWifiLocationDialog(getActivity(),this);
+                }else{
+                    CommanUtils.showRetryDialog(getActivity(),this);
                 }
             }
         }
@@ -557,6 +597,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
         public void initializeTimer(){
 
+            handlingSlideShow();
+
             itemPos = mPager.getCurrentItem();
             if(handler!=null){
                 handler.removeCallbacks(refresh);
@@ -569,13 +611,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     if (mPager.getCurrentItem() < images.size()-1) {
                         mPager.setCurrentItem(itemPos, true);
                         itemPos = itemPos + 1;
-                        if(mPager.getCurrentItem() == images.size()-1){
-                            slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
-                        }else{
-                            slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
-                        }
-                    }else{
-                        slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
+                      }else{
                         itemPos = 0;
                         mPager.setCurrentItem(itemPos, true);
                     }
@@ -590,13 +626,18 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public void onResume() {
             super.onResume();
 
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.dash_borad));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
+                    R.drawable.ic_menu_black_24dp);
             initializeTimer();
             getPopulated();
 
+            Log.e("isFetched","isFetched : "+isFetched);
             if (requestPermission()) {
-                if(!isFetched)
+                Log.e("isFetched","requestPermission ");
+                if(!isFetched) {
                     getRetrofitCall();
+                    Log.e("isFetched", "getRetrofitCall ");
+                }
             }
 
         }
@@ -605,12 +646,16 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
     @Override
     public void onCancelClicked(String label) {
-        if(label.equals("Cancel")){
+        if(label.equals("Cancel") || label.equals("Exit")){
             getActivity().finish();
         }else if(label.equals("Use Existing")){
             isFetched = true;
             callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
                     Double.parseDouble(pref.getLocation().split("~")[1]));
+        }else if(label.equals("Retry")){
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.platform, new FragmentIndDashboard())
+                    .addToBackStack(null).commit();
         }
     }
 }

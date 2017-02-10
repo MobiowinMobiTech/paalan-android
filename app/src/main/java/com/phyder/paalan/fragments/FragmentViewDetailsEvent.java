@@ -269,9 +269,11 @@ public class FragmentViewDetailsEvent extends Fragment {
         super.onResume();
 
         if(pref.getLoginType().equals(Social.IND_ENTITY)){
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.event_details));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.event_details),
+                    R.drawable.ic_arrow_back_black_24dp);
         }else {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_delete_event));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.update_delete_event),
+                    R.drawable.ic_arrow_back_black_24dp);
         }
         getPoulatedData();
     }

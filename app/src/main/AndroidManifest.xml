@@ -45,7 +45,6 @@
 
         <activity
             android:name=".activity.Donate"
-            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
 

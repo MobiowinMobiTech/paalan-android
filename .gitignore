@@ -6,7 +6,7 @@
 *.dex
 
 # Java class files
-*.class
+
 
 # Generated files
 bin/
@@ -35,6 +35,8 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
 .idea/libraries
 
 # Keystore files
@@ -44,37 +46,6 @@ app/fabric.properties
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
-.idea/file.template.settings.xml
-.idea/libraries/
-4: splash.png
-build.gradle
-ComplaintAction.png
-Fullerton Last Transaction.png
-Fullerton Last transaction dashboard.png
-Not you.png
-RootShell/
-RootTools/
-Screenshot/
-app/Fullerton.apk
-app/fabric.properties
-app/google-services-old.json
-app/keystore/
-app/src/main/jniLibs/
-app/src/main/res/values-v17/
-app/src/main/java/test/TestActivity/
-complaint_comment_dialog.png
-databiding/libs/
-databiding/src/main/res/drawable/
-device-2016-07-15-154415.png
-fileProvider/
-import-summary.txt
-keystore/
-projectFilesBackup/
-reactivetutorial/libs/
-reactivetutorial/src/main/res/drawable/
-sms/libs/
-sms/src/main/res/drawable/
-socialauthandroid 3.2/libs/
-socialauthandroid 3.2/lint.xml
-socialauthandroid 3.2/src/
-.gradle/2.14.1/tasks/
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json

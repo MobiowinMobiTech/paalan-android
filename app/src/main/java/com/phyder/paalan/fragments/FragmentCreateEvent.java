@@ -10,13 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
@@ -33,7 +29,10 @@ import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -180,7 +179,14 @@ public class FragmentCreateEvent extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edtStartDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+
+                        String day = ""+dayOfMonth;
+                        day=day.length()<2 ? "0"+day : day;
+
+                        String months = ""+(month+1);
+                        months=months.length()<2 ? "0"+months : months;
+
+                        edtStartDate.setText(day + "-" + months + "-" + year);
                         edtStartDate.setTextColor(getResources().getColor(R.color.primary_text));
                     }
                 }, mYear, mMonth, mDay);
@@ -198,13 +204,38 @@ public class FragmentCreateEvent extends Fragment {
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edtEndDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
-                        edtEndDate.setTextColor(getResources().getColor(R.color.primary_text));
+
+                        if(!edtStartDate.getText().toString().isEmpty()){
+
+                            String day = ""+dayOfMonth;
+                            day=day.length()<2 ? "0"+day : day;
+                            String months = ""+(month+1);
+                            months=months.length()<2 ? "0"+months : months;
+
+                            try {
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                                Date startDate = formatter.parse(edtStartDate.getText().toString());
+                                Date endDate = formatter.parse(day + "-" + months + "-" + year);
+
+                                if(endDate.getTime()>startDate.getTime()){
+                                    edtEndDate.setText(day + "-" + months + "-" + year);
+                                    edtEndDate.setTextColor(getResources().getColor(R.color.primary_text));
+                                }else{
+                                    CommanUtils.showToast(getActivity(),getString(R.string.error_enddate));
+
+                                }
+
+                            }catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            CommanUtils.showToast(getActivity(),getString(R.string.error_startdate));
+                        }
                     }
-                }, mYear, mMonth, mDay);
+                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }
         });
@@ -298,9 +329,11 @@ public class FragmentCreateEvent extends Fragment {
     public void onResume() {
         super.onResume();
         if(!shouldBeUpdated) {
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getStringArray(R.array.events_array)[0]);
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getStringArray(R.array.events_array)[0],
+                    R.drawable.ic_arrow_back_black_24dp);
         }else{
-            ActivityFragmentPlatform.getChangeToolbarTitle(getResources().getString(R.string.update_event));
+            ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.update_event),
+                    R.drawable.ic_arrow_back_black_24dp);
         }
 
     }
