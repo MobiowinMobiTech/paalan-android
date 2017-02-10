@@ -52,7 +52,7 @@
     <string name="org">ORG</string>
     <string name="enter_user_or_password">Enter USer OR Mobile Number</string>
     <string name="enter_password">Enter Password</string>
-    <string name="signin">SIGNIN</string>
+    <string name="signin">Sign In</string>
     <string name="login_as_org">Login as ORG</string>
     <string name="ngo_achievments">NGO Achievments</string>
     <string name="syncdata">SyncData</string>
@@ -70,7 +70,7 @@
     <string name="pincode">Pincode</string>
     <string name="login">Login</string>
     <string name="signIn">SignIn</string>
-    <string name="signUp">SignUp</string>
+    <string name="signUp">Sign Up</string>
     <string name="toolbar_title">Title</string>
 
     <string name="name">Name</string>
@@ -403,6 +403,7 @@
     <string name="request_submitted_success">Request submitted successfully</string>
     <string name="capture_image">Capture image</string>
     <string name="exit_app_message">Do you want to close application</string>
+    <string name="manage_organisation">Manage organisation</string>
 
 
     <string-array name="donate_category">
@@ -415,5 +416,13 @@
         <item>Stationary</item>
         <item>Others</item>
     </string-array>
+
+
+    <string name="click_event_register">register</string>
+    <string name="click_event_event">event</string>
+    <string name="click_event_achievement">achievement</string>
+    <string name="click_event_social_request">socialrequest</string>
+
+
 
 </resources>

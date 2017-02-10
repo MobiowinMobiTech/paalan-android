@@ -12,7 +12,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,11 +21,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +51,7 @@ import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.helper.DialogPopupListener;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.Config;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
@@ -108,10 +105,23 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
+
         setUpDrawer();
+
+        try {
+            String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
+            if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
+                viewEvents();
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
+                viewAchievements();
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_social_request))){
+                viewSocialRequest();
+            }
+        }catch (Exception ex){
+
+        }
+
     }
-
-
 
     public static void changeToolbarTitleIcon(String title,int icon) {
 
@@ -723,23 +733,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 }
                 break;
             case R.id.txtIndRequest:
-                if(!(fragment instanceof FragmentViewRequest)) {
-                    getFragmentTransaction(new FragmentViewRequest());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                }
+               viewSocialRequest();
                 break;
 
             case R.id.txtIndAchievement:
-                if(!(fragment instanceof FragmentViewAchievement)) {
-                    getFragmentTransaction(new FragmentViewAchievement());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                }
+               viewAchievements();
                 break;
 
             case R.id.txtIndConnect:
@@ -870,13 +868,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                break;
 
             case R.id.txtOrgViewEvent:
-                if(!(fragment instanceof FragmentViewEvent)) {
-                    getFragmentTransaction(new FragmentViewEvent());
-                }
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                    collapse(llOrgEvents);
-                }
+               viewEvents();
 
                 break;
 
@@ -954,6 +946,36 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 break;
         }
 
+    }
+
+    private void viewSocialRequest() {
+        if(!(fragment instanceof FragmentViewRequest)) {
+            getFragmentTransaction(new FragmentViewRequest());
+        }else{
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }
+    }
+
+    private void viewAchievements() {
+        if(!(fragment instanceof FragmentViewAchievement)) {
+            getFragmentTransaction(new FragmentViewAchievement());
+        }else{
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }
+    }
+
+    private void viewEvents() {
+        if(!(fragment instanceof FragmentViewEvent)) {
+            getFragmentTransaction(new FragmentViewEvent());
+        }
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            collapse(llOrgEvents);
+        }
     }
 
     @Override

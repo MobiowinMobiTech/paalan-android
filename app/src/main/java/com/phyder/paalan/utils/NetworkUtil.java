@@ -10,7 +10,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.phyder.paalan.BuildConfig;
 import com.phyder.paalan.R;
 import com.phyder.paalan.helper.OrganizerProfileListener;
 import com.phyder.paalan.payload.request.RequestOrganizerProfile;
@@ -71,7 +70,7 @@ public class NetworkUtil {
 //            Log.i("SERVER", "" + BuildConfig.DEBUG);
 //            http://192.168.0.15:8080/paalan/PaalanGateway
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.SERVER_URL)
+                    .baseUrl("http://192.168.0.15:8090/")
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .client(clientBuilder.build())
                     .build();
