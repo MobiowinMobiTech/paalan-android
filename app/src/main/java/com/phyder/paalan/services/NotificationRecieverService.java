@@ -1,11 +1,12 @@
 package com.phyder.paalan.services;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.phyder.paalan.R;
+import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.utils.Config;
 
 /**
@@ -16,16 +17,34 @@ import com.phyder.paalan.utils.Config;
 public class NotificationRecieverService extends FirebaseMessagingService {
 
     private static final String TAG = NotificationRecieverService.class.getName();
-    private Bitmap remote_picture;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // Handle data payload of FCM messages.
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
-        Log.d(TAG, "FCM Notification Message: " +
+        Log.d(TAG, "ad Message: " +
                 remoteMessage.getNotification());
 
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getData());
+
+        try {
+
+            DBAdapter dbAdapter = new DBAdapter(this);
+            dbAdapter.open();
+
+            String clickEvent = remoteMessage.getData().get(Config.CLICK_EVENT);
+            Log.d(TAG, "PUSH : click event"+clickEvent);
+            if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
+                Log.d(TAG, "PUSH : click event = event");
+//                dbAdapter.populatingEventsIntoDB()
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
+
+            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_social_request))){
+
+            }
+        }catch (Exception ex){
+
+        }
 
         Intent intent = new Intent();
         intent.putExtra(Config.TITLE,remoteMessage.getData().get(Config.TITLE));

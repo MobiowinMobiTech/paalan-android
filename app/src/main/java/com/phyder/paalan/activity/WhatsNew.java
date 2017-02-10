@@ -1,18 +1,24 @@
 package com.phyder.paalan.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.text.Html;
+import android.util.Log;
 import android.view.View;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.phyder.paalan.fragments.WhatsNewSlide;
 import com.phyder.paalan.model.WhatsNewScreenModel;
+import com.phyder.paalan.services.CronJobService;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.Config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,17 +31,34 @@ public class WhatsNew extends AppIntro {
 
     private static final String TAG = WhatsNew.class.getSimpleName();
     ArrayList<WhatsNewScreenModel> screensToRender;
-    final int PERMISSION_READ_STATE = 1;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CommanUtils.setNewUserStatus(this,true);
-
+        Log.d(TAG, "onCreate: scheduleAlarm");
+        if (CommanUtils.isNewUser(this))
+            scheduleAlarm();
         getScreensList();
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void scheduleAlarm() {
+
+        Log.d("", "scheduleAlarm: new user "+ CommanUtils.isNewUser(this));
+        AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, CronJobService.class);
+        PendingIntent alarmIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(),
+                Config.TRIGGER_TIME, alarmIntent);
+
+        CommanUtils.setNewUserStatus(this,false);
+
+    }
+
+
 
 
     /**

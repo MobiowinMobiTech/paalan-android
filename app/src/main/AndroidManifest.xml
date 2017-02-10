@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
 
     <!-- android:name=".activity.TestOneSignal" -->
@@ -52,6 +53,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.ActivityFragmentPlatform"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
 
         <!-- <activity android:name=".activity.RegisterUserActivity"/> -->
@@ -75,10 +77,13 @@
         <receiver android:name=".services.NotificationReciever">
             <intent-filter>
                 <action android:name="com.phyder.paalan.SendBroadcast"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
         <!-- ./Firebase Notifications -->
+
+        <service android:name=".services.CronJobService"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"

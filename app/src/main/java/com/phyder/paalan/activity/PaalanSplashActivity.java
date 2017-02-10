@@ -55,8 +55,6 @@ public class PaalanSplashActivity extends AppCompatActivity {
 
         getRetrofitCallBannerSlider();
 
-        Log.d(TAG, "onCreate: "+Device.getDeviceId(this));
-
     }
 
     public void getRetrofitCallBannerSlider() {

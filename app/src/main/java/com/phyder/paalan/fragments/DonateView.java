@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -24,7 +23,6 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.EditTextOpenSansRegular;
-
 
 import java.util.Calendar;
 

@@ -31,9 +31,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.phyder.paalan.R;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.fragments.FragmentAboutUs;
@@ -101,16 +105,35 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static boolean IS_LAST = true;
     private static AppCompatActivity _CONTEXT;
 
+
+    private AdView mAdView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
 
+        //render admob
+        ViewGroup adContainer = (ViewGroup) findViewById(R.id.adMobView);
+
+        AdView mAdView = new AdView(this);
+        mAdView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mAdView.setPadding(7,7,7,7);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        adContainer.addView(mAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
         setUpDrawer();
 
         try {
             String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
+            Log.d(TAG, "viewEvents PUSH : click event"+clickEvent);
             if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
+                Log.d(TAG, "viewEvents PUSH : click event = event");
                 viewEvents();
             }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
                 viewAchievements();
@@ -122,6 +145,28 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         }
 
     }
+
+
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
+
+
 
     public static void changeToolbarTitleIcon(String title,int icon) {
 
@@ -446,7 +491,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     protected void onResume() {
         super.onResume();
         _CONTEXT = this;
+        if (mAdView != null) {
+            mAdView.resume();
+        }
         getProfileUpdate();
+
     }
 
     @Override
@@ -733,11 +782,24 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 }
                 break;
             case R.id.txtIndRequest:
-               viewSocialRequest();
+                if(!(fragment instanceof FragmentViewRequest)) {
+                    getFragmentTransaction(new FragmentViewRequest());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                }
                 break;
 
             case R.id.txtIndAchievement:
-               viewAchievements();
+                if(!(fragment instanceof FragmentViewAchievement)) {
+                    Log.d(TAG, "PUSH : click event instance of");
+                    getFragmentTransaction(new FragmentViewAchievement());
+                }else{
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                }
                 break;
 
             case R.id.txtIndConnect:
@@ -868,8 +930,13 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                break;
 
             case R.id.txtOrgViewEvent:
-               viewEvents();
-
+                if(!(fragment instanceof FragmentViewEvent)) {
+                    getFragmentTransaction(new FragmentViewEvent());
+                }
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                    collapse(llOrgEvents);
+                }
                 break;
 
            case R.id.txtOrgRequest:
@@ -949,30 +1016,24 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     }
 
     private void viewSocialRequest() {
-        if(!(fragment instanceof FragmentViewRequest)) {
-            getFragmentTransaction(new FragmentViewRequest());
-        }else{
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-            }
+        getFragmentTransaction(new FragmentViewRequest());
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
     private void viewAchievements() {
-        if(!(fragment instanceof FragmentViewAchievement)) {
-            getFragmentTransaction(new FragmentViewAchievement());
-        }else{
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-            }
+        getFragmentTransaction(new FragmentViewAchievement());
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
     private void viewEvents() {
-        if(!(fragment instanceof FragmentViewEvent)) {
-            getFragmentTransaction(new FragmentViewEvent());
-        }
+        Log.d(TAG, "viewEvents: ");
+        getFragmentTransaction(new FragmentViewEvent());
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            Log.d(TAG, "viewEvents: if drawer ");
             mDrawerLayout.closeDrawer(GravityCompat.START);
             collapse(llOrgEvents);
         }

@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.model.WhatsNewScreenModel;
-import com.phyder.paalan.utils.TextViewOpenSansRegular;
 import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
 import com.squareup.picasso.Picasso;
 
