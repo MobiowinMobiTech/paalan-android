@@ -249,7 +249,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                             grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
-                        Log.e("permission","Granted");
                         if(!isFetched)
                             getRetrofitCall();
 
@@ -608,15 +607,11 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             initializeTimer();
             getPopulated();
 
-            Log.e("isFetched","isFetched : "+isFetched);
             if (requestPermission()) {
-                Log.e("isFetched","requestPermission ");
                 if(!isFetched) {
                     getRetrofitCall();
-                    Log.e("isFetched", "getRetrofitCall ");
                 }
             }
-
         }
 
 

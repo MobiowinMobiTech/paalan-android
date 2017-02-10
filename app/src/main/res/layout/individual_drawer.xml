@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:text="@string/signIn"
             android:textColor="@color/primary_text"
-            android:drawableLeft="@drawable/ic_dot"
+            android:drawableLeft="@drawable/ic_login"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
@@ -111,7 +111,7 @@
             android:drawablePadding="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:drawableLeft="@drawable/ic_dot"
+            android:drawableLeft="@drawable/ic_signup"
             android:gravity="center_vertical"
             android:textColor="@color/primary_text"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
