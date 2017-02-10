@@ -43,6 +43,7 @@
     <string name="join_ngo">JOIN NGO + </string>
     <string name="testing">Testing</string>
     <string name="register">Register</string>
+    <string name="register_ord">Register your organization</string>
     <string name="test_service">Test Service</string>
 
     <string name="login_as_organization">Login as Organization</string>
@@ -68,7 +69,8 @@
     <string name="city">City</string>
     <string name="pincode">Pincode</string>
     <string name="login">Login</string>
-
+    <string name="signIn">SignIn</string>
+    <string name="signUp">Sign Up</string>
     <string name="toolbar_title">Title</string>
 
     <string name="name">Name</string>

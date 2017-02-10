@@ -10,7 +10,7 @@
         android:gravity="center"
         android:padding="7dp"
         style="@style/NewTaskHeaderText"
-        android:text="@string/login"
+        android:text="@string/signIn"
         android:textSize="@dimen/dp_25"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_above="@+id/card_view"

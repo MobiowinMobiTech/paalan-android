@@ -11,8 +11,10 @@ import android.widget.ImageView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.RegisterUser;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.PreferenceUtils;
 
 import java.util.List;
 
@@ -27,11 +29,13 @@ public class SlidingImageAdapter extends PagerAdapter {
     private Context context;
     private ButtonOpenSansSemiBold btnRegistration;
     private ImageView imageView;
+    private PreferenceUtils pref;
 
     public SlidingImageAdapter(Context context, List<String> IMAGES) {
         this.context = context;
         this.IMAGES = IMAGES;
         inflater = LayoutInflater.from(context);
+        pref = new PreferenceUtils(context);
     }
 
     @Override
@@ -61,6 +65,19 @@ public class SlidingImageAdapter extends PagerAdapter {
             }
         });
         CommanUtils.updateImage(context, imageView, IMAGES.get(position),R.drawable.paalan_logo);
+
+        try {
+            if(pref.getLoginType().equals(Social.IND_ENTITY)) {
+                if (position == 1) {
+                    btnRegistration.setVisibility(View.VISIBLE);
+                } else {
+                    btnRegistration.setVisibility(View.INVISIBLE);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         view.addView(imageLayout, 0);
         return imageLayout;
     }
@@ -79,13 +96,5 @@ public class SlidingImageAdapter extends PagerAdapter {
         return null;
     }
 
-    public void getRegistrationVisible_Invisible(int status){
-        try {
-            btnRegistration.setVisibility(status);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
 }

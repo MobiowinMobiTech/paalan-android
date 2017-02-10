@@ -56,6 +56,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private static final String TAG = FragmentIndDashboard.class.getSimpleName();
     private static final int PERMISSION = 1;
     private boolean isFetched = false;
+    private boolean isDeny = false;
 
     private ViewPager mPager;
     private CircleIndicator mCircleIndicator;
@@ -81,7 +82,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private ArrayList<String> eventLogo,eventIdsLists,groupLogo, groupIdsLists, groupOrgIdsLists, requestIdsLists, achievementIdsLists;
 
     private SlidingImageAdapter slidingImageAdapter;
-
 
     @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -150,29 +150,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             slidingImageAdapter =new SlidingImageAdapter(getActivity(), images);
             mPager.setAdapter(slidingImageAdapter);
             mCircleIndicator.setViewPager(mPager);
-            mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    int visibility = position == images.size()-1 ? View.VISIBLE : View.INVISIBLE;
-                    slidingImageAdapter.getRegistrationVisible_Invisible(visibility);
-                    if(position == images.size()-1){
-                        slidingImageAdapter.getRegistrationVisible_Invisible(View.VISIBLE);
-                    }else{
-                        slidingImageAdapter.getRegistrationVisible_Invisible(View.INVISIBLE);
-                    }
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-
         }
 
         private void clickEventFire() {
@@ -245,54 +222,46 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         }
 
 
-        private boolean requestPermission() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                return true;
-            }
-
-            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED &&
-                    getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                getActivity().requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION},
-                        PERMISSION);
-            }
-            return false;
+    private boolean requestPermission(String permissionName, int permissionRequestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
         }
+        if (getActivity().checkSelfPermission(permissionName) == PackageManager.PERMISSION_GRANTED ) {
+            return true;
+        } else {
 
-        @Override
-        public void onRequestPermissionsResult(int requestCode,
-                                               String permissions[], int[] grantResults) {
-            switch (requestCode) {
-                case PERMISSION: {
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                            grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            if(!isDeny) {
+                requestPermissions(new String[]{permissionName}, permissionRequestCode);
+            }
+        }
+        return false;
+    }
 
-                        Log.e("permission","Granted");
-                        if(!isFetched)
-                            getRetrofitCall();
 
-                    } else {
-                        Log.e("permission","Not Granted");
-                        if(pref.getLocation()!=null) {
-                            isFetched = true;
-                            callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
-                                    Double.parseDouble(pref.getLocation().split("~")[1]));
-                            Log.e("permission","saved Granted");
-                        }else {
-                            Log.e("permission","exit");
-                            ActivityFragmentPlatform.getFinished(getActivity());
-                        }
-                    }
-                    return;
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+       switch (requestCode) {
+            case PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (!isFetched)
+                        getRetrofitCall();
+
+                }else if(pref.getLocation()!=null) {
+                    isFetched = true;
+                    isDeny =true;
+                    callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
+                    Double.parseDouble(pref.getLocation().split("~")[1]));
+                }else {
+                    ActivityFragmentPlatform.getFinished(getActivity());
                 }
-
             }
         }
+    }
+
 
 
         public void getRetrofitCall() {
@@ -311,7 +280,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     pref.setLocation(latitude + "~" + longitude);
                     isFetched = true;
                     callApi(latitude, longitude);
-                }else if(!NetworkUtil.isWifiConnected(getActivity())){
+                }
+                else if(!NetworkUtil.isWifiConnected(getActivity())){
                     CommanUtils.showWifiLocationDialog(getActivity(),this);
                 }else{
                     CommanUtils.showRetryDialog(getActivity(),this);
@@ -625,21 +595,16 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         @Override
         public void onResume() {
             super.onResume();
-
             ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
                     R.drawable.ic_menu_black_24dp);
             initializeTimer();
             getPopulated();
 
-            Log.e("isFetched","isFetched : "+isFetched);
-            if (requestPermission()) {
-                Log.e("isFetched","requestPermission ");
+             if (requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSION)){
                 if(!isFetched) {
                     getRetrofitCall();
-                    Log.e("isFetched", "getRetrofitCall ");
                 }
-            }
-
+             }
         }
 
 
