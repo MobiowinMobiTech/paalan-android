@@ -117,7 +117,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         //render admob
         ViewGroup adContainer = (ViewGroup) findViewById(R.id.adMobView);
 
-        AdView mAdView = new AdView(this);
+        mAdView = new AdView(this);
         mAdView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mAdView.setPadding(7,7,7,7);
         mAdView.setAdSize(AdSize.BANNER);
