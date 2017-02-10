@@ -6,33 +6,21 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="IndDashOnRequestPermissionsResult" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="341af490-f496-450e-b788-298889725911" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_contact_mail.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_create.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_view_headline.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/layout/customnotification.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Application.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Config.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/individual_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/individual_drawer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/org_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/org_drawer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
     </list>
     <ignored path="android-paalan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,18 +53,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="individual_drawer.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/individual_drawer.xml">
+      <file leaf-file-name="FragmentIndDashboard.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+            <state relative-caret-position="65">
+              <caret line="243" column="85" selection-start-line="243" selection-start-column="85" selection-end-line="243" selection-end-column="85" />
               <folding>
-                <element signature="e#3718#3734#0" expanded="true" />
+                <element signature="method#init#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#handlingSlideShow#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#clickEventFire#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#onRequestPermissionsResult#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#getRetrofitCall#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#getPopulated#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#callApi#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#insertIntoDB#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#initializeTimer#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="method#onResume#0;class#FragmentIndDashboard#0" expanded="false" />
+                <element signature="e#27835#27880#0" expanded="true" />
+                <element signature="method#onCancelClicked#0;class#FragmentIndDashboard#0" expanded="false" />
               </folding>
             </state>
           </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="ActivityFragmentPlatform.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="245">
+              <caret line="314" column="0" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
+              <folding>
+                <element signature="method#changeToolbarTitleIcon#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#setUpDrawer#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#expand#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#collapse#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#slideAnimator#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#updateProfileImage#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#openCameraForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#onActivityResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#saveProfilePicture#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#getFragmentTransaction#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#onBackPressed#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#showExitAlert#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#onResume#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#onOptionsItemSelected#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#getProfileUpdate#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#initializingIndDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#initializingOrgDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#onClick#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#viewSocialRequest#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#viewAchievements#0;class#ActivityFragmentPlatform#0" expanded="false" />
+                <element signature="method#viewEvents#0;class#ActivityFragmentPlatform#0" expanded="false" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -3265,7 +3293,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewGroups.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsAchievement.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewRequest.java" />
@@ -3288,7 +3315,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_address_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/WhatsNewSlide.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/WhatsNew.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/ZoomOutTranformer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/BaseTransformer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/ViewPagerEx.java" />
@@ -3311,11 +3337,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/slidingimages_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/individual_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_contact_mail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
       </list>
     </option>
   </component>
@@ -3369,13 +3397,19 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="android-paalan" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -3388,8 +3422,12 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paalan" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -3402,12 +3440,16 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+              <option name="myItemId" value="paalan" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -3418,6 +3460,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3784,7 +3830,7 @@
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25257325" sideWeight="0.50630915" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.78322786" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.568038" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3796,10 +3842,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27137256" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27137256" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6313291" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.556962" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28235295" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
@@ -3840,18 +3886,6 @@
           <line>203</line>
           <properties class="com.phyder.paalan.activity.ActivityFragmentPlatform" method="slideAnimator" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java</url>
-          <line>396</line>
-          <properties class="com.phyder.paalan.activity.ActivityFragmentPlatform" method="onBackPressed" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java</url>
-          <line>86</line>
-          <properties class="com.phyder.paalan.fragments.FragmentIndDashboard" method="onCreateView" />
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="5" />
@@ -3901,17 +3935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/org_drawer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="186" column="41" selection-start-line="186" selection-start-column="41" selection-end-line="186" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -3944,6 +3967,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
           <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3966,12 +3990,10 @@
             <element signature="method#collapse#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#slideAnimator#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#updateProfileImage#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#openGalleryForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#openCameraForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#requestPermission#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#onActivityResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#saveProfilePicture#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#getFragmentTransaction#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#onBackPressed#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#showExitAlert#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#onResume#0;class#ActivityFragmentPlatform#0" expanded="false" />
@@ -3980,6 +4002,9 @@
             <element signature="method#initializingIndDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#initializingOrgDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#onClick#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#viewSocialRequest#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#viewAchievements#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#viewEvents#0;class#ActivityFragmentPlatform#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4057,35 +4082,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="386" column="47" selection-start-line="384" selection-start-column="7" selection-end-line="386" selection-end-column="47" />
-          <folding>
-            <element signature="method#changeToolbarTitleIcon#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#setUpDrawer#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#expand#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#collapse#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#slideAnimator#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#updateProfileImage#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#openGalleryForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#openCameraForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#requestPermission#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onActivityResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#saveProfilePicture#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onBackPressed#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#showExitAlert#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onResume#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onOptionsItemSelected#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#getProfileUpdate#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#initializingIndDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#initializingOrgDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onClick#0;class#ActivityFragmentPlatform#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/FCMTokenGeneratorService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
@@ -4127,38 +4123,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="63" selection-start-line="11" selection-start-column="63" selection-end-line="11" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="255" column="58" selection-start-line="255" selection-start-column="58" selection-end-line="255" selection-end-column="58" />
-          <folding>
-            <element signature="method#onCreateView#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#init#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#handlingSlideShow#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#clickEventFire#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#requestPermission#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#getPopulated#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#callApi#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#insertIntoDB#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#initializeTimer#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="e#27768#28236#0" expanded="true" />
-            <element signature="e#28235#28236#0" expanded="true" />
-            <element signature="method#onCancelClicked#0;class#FragmentIndDashboard#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_login.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -4197,6 +4161,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/org_drawer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="201" column="56" selection-start-line="201" selection-start-column="56" selection-end-line="201" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/individual_drawer.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="409">
@@ -4208,6 +4183,68 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="314" column="0" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
+          <folding>
+            <element signature="method#changeToolbarTitleIcon#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#setUpDrawer#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#expand#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#collapse#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#slideAnimator#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#updateProfileImage#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#openCameraForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#onActivityResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#saveProfilePicture#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#getFragmentTransaction#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#onBackPressed#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#showExitAlert#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#onResume#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#getProfileUpdate#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#initializingIndDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#initializingOrgDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#onClick#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#viewSocialRequest#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#viewAchievements#0;class#ActivityFragmentPlatform#0" expanded="false" />
+            <element signature="method#viewEvents#0;class#ActivityFragmentPlatform#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="243" column="85" selection-start-line="243" selection-start-column="85" selection-end-line="243" selection-end-column="85" />
+          <folding>
+            <element signature="method#init#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#handlingSlideShow#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#clickEventFire#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#onRequestPermissionsResult#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#getRetrofitCall#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#getPopulated#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#callApi#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#insertIntoDB#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#initializeTimer#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="method#onResume#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="e#27835#27880#0" expanded="true" />
+            <element signature="method#onCancelClicked#0;class#FragmentIndDashboard#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

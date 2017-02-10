@@ -310,7 +310,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d(TAG, "onRequestPermissionsResult: reqCode "+requestCode);
 
         switch (requestCode) {

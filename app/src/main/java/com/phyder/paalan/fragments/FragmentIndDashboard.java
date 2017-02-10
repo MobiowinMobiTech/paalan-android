@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,6 +57,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private static final String TAG = FragmentIndDashboard.class.getSimpleName();
     private static final int PERMISSION = 1;
     private boolean isFetched = false;
+    private boolean isDeny = false;
 
     private ViewPager mPager;
     private CircleIndicator mCircleIndicator;
@@ -81,7 +83,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private ArrayList<String> eventLogo,eventIdsLists,groupLogo, groupIdsLists, groupOrgIdsLists, requestIdsLists, achievementIdsLists;
 
     private SlidingImageAdapter slidingImageAdapter;
-
 
     @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -222,53 +223,46 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         }
 
 
-        private boolean requestPermission() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                return true;
-            }
-
-            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED &&
-                    getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                getActivity().requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION},
-                        PERMISSION);
-            }
-            return false;
+    private boolean requestPermission(String permissionName, int permissionRequestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
         }
+        if (getActivity().checkSelfPermission(permissionName) == PackageManager.PERMISSION_GRANTED ) {
+            return true;
+        } else {
 
-        @Override
-        public void onRequestPermissionsResult(int requestCode,
-                                               String permissions[], int[] grantResults) {
-            switch (requestCode) {
-                case PERMISSION: {
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                            grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            if(!isDeny) {
+                requestPermissions(new String[]{permissionName}, permissionRequestCode);
+            }
+        }
+        return false;
+    }
 
-                        if(!isFetched)
-                            getRetrofitCall();
 
-                    } else {
-                        Log.e("permission","Not Granted");
-                        if(pref.getLocation()!=null) {
-                            isFetched = true;
-                            callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
-                                    Double.parseDouble(pref.getLocation().split("~")[1]));
-                            Log.e("permission","saved Granted");
-                        }else {
-                            Log.e("permission","exit");
-                            ActivityFragmentPlatform.getFinished(getActivity());
-                        }
-                    }
-                    return;
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+       switch (requestCode) {
+            case PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (!isFetched)
+                        getRetrofitCall();
+
+                }else if(pref.getLocation()!=null) {
+                    isFetched = true;
+                    isDeny =true;
+                    callApi(Double.parseDouble(pref.getLocation().split("~")[0]),
+                    Double.parseDouble(pref.getLocation().split("~")[1]));
+                }else {
+                    ActivityFragmentPlatform.getFinished(getActivity());
                 }
-
             }
         }
+    }
+
 
 
         public void getRetrofitCall() {
@@ -287,7 +281,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     pref.setLocation(latitude + "~" + longitude);
                     isFetched = true;
                     callApi(latitude, longitude);
-                }else if(!NetworkUtil.isWifiConnected(getActivity())){
+                }
+                else if(!NetworkUtil.isWifiConnected(getActivity())){
                     CommanUtils.showWifiLocationDialog(getActivity(),this);
                 }else{
                     CommanUtils.showRetryDialog(getActivity(),this);
@@ -601,17 +596,16 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         @Override
         public void onResume() {
             super.onResume();
-
             ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
                     R.drawable.ic_menu_black_24dp);
             initializeTimer();
             getPopulated();
 
-            if (requestPermission()) {
+             if (requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSION)){
                 if(!isFetched) {
                     getRetrofitCall();
                 }
-            }
+             }
         }
 
 
