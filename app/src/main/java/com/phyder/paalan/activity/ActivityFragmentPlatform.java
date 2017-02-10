@@ -110,9 +110,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         try {
             String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
-            Log.d(TAG, "PUSH : click event"+clickEvent);
+            Log.d(TAG, "viewEvents PUSH : click event"+clickEvent);
             if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
-                Log.d(TAG, "PUSH : click event = event");
+                Log.d(TAG, "viewEvents PUSH : click event = event");
                 viewEvents();
             }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
                 viewAchievements();
@@ -983,8 +983,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     }
 
     private void viewEvents() {
+        Log.d(TAG, "viewEvents: ");
         getFragmentTransaction(new FragmentViewEvent());
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            Log.d(TAG, "viewEvents: if drawer ");
             mDrawerLayout.closeDrawer(GravityCompat.START);
             collapse(llOrgEvents);
         }

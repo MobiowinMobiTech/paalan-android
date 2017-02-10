@@ -1,9 +1,15 @@
 package com.phyder.paalan.services;
 
+import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
@@ -15,13 +21,42 @@ import com.phyder.paalan.utils.Config;
  */
 public class NotificationReciever extends BroadcastReceiver {
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onReceive(Context context, Intent intent) {
-        String title = intent.getStringExtra(Config.TITLE);
-        String body = intent.getStringExtra(Config.BODY);
-        String clickEvent = intent.getStringExtra(Config.CLICK_EVENT);
+        if (intent.getAction().equalsIgnoreCase("com.phyder.paalan.SendBroadcast")){
+            String title = intent.getStringExtra(Config.TITLE);
+            String body = intent.getStringExtra(Config.BODY);
+            String clickEvent = intent.getStringExtra(Config.CLICK_EVENT);
+
+            displayNotification(title,body,clickEvent,context);
+
+        }else {
+            scheduleAlarm(context);
+        }
 
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void scheduleAlarm(Context context) {
+        Log.d("", "scheduleAlarm: new user ");
+        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, CronJobService.class);
+        PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(),
+                Config.TRIGGER_TIME, alarmIntent);
+
+    }
+
+    /**
+     * Function used to display notification
+     * @param title : title of notification
+     * @param body : message of notification
+     * @param clickEvent : event should fire after notification
+     * @param context : current context
+     */
+    private void displayNotification(String title, String body, String clickEvent, Context context) {
         // Using RemoteViews to bind custom layouts into Notification
         android.widget.RemoteViews remoteViews = new android.widget.RemoteViews(context.getPackageName(),
                 R.layout.customnotification);
@@ -29,6 +64,7 @@ public class NotificationReciever extends BroadcastReceiver {
         // Open NotificationView Class on Notification Click
         Intent resultIntent = new Intent(context, ActivityFragmentPlatform.class);
         resultIntent.putExtra(Config.CLICK_EVENT,clickEvent);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, resultIntent,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);

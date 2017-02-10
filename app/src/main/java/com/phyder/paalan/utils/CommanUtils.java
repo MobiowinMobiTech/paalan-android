@@ -324,7 +324,7 @@ public class CommanUtils {
     public static void setNewUserStatus(Context context, boolean status) {
         SharedPreferences sharedPref = context.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("isNewUser",true);
+        editor.putBoolean("isNewUser",status);
         editor.apply();
     }
 

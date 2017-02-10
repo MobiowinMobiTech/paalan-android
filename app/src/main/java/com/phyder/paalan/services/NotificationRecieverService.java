@@ -48,9 +48,6 @@ public class NotificationRecieverService extends FirebaseMessagingService {
 
         }
 
-
-
-
         Intent intent = new Intent();
         intent.putExtra(Config.TITLE,remoteMessage.getData().get(Config.TITLE));
         intent.putExtra(Config.BODY,remoteMessage.getData().get(Config.BODY));
