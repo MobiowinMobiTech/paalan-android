@@ -5,9 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import org.w3c.dom.Attr;
 
 
 public class DBAdapter {
@@ -46,11 +43,11 @@ public class DBAdapter {
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.Database.ACHIEVEMENT_ORG_ID,(orgId!=null ? orgId : ""));
-			cv.put(Attributes.Database.ACHIEVEMENT_NAME,(name!=null ? name : "-"));
-			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : "-"));
-			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : "-"));
-			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : "-"));
-			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, (achieve_others!=null ? achieve_others : "-"));
+			cv.put(Attributes.Database.ACHIEVEMENT_NAME,(name!=null ? name : "NA"));
+			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : "NA"));
+			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : "NA"));
+			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : "NA"));
+			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, (achieve_others!=null ? achieve_others : "NA"));
 			cv.put(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE, (achieve_img1!=null ? achieve_img1 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, (achieve_img2!=null ? achieve_img2 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, (achieve_img3!=null ? achieve_img3 : ""));
@@ -121,16 +118,16 @@ public class DBAdapter {
 		ContentValues cv = new ContentValues();
 		try {
 			cv.put(Attributes.Database.EVENT_ORG_ID, (orgId != null ? orgId : ""));
-			cv.put(Attributes.Database.EVENT_NAME, (name != null ? name : "-"));
-			cv.put(Attributes.Database.EVENT_TITLE, (event_title != null ? event_title : "-"));
-			cv.put(Attributes.Database.EVENT_SUB_TITLE, (event_sub_title != null ? event_sub_title : "-"));
-			cv.put(Attributes.Database.EVENT_DESCRIPTION, (event_desc != null ? event_desc : "-"));
-			cv.put(Attributes.Database.EVENT_OTHERS, (event_others != null ? event_others : "-"));
-			cv.put(Attributes.Database.EVENT_START_DATE, (event_startdate != null ? event_startdate : "-"));
-			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate != null ? event_enddate : "-"));
-			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : "-"));
-			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : "-"));
-			cv.put(Attributes.Database.EVENT_LOGO, (logo != null ? logo : "-"));
+			cv.put(Attributes.Database.EVENT_NAME, (name != null ? name : "NA"));
+			cv.put(Attributes.Database.EVENT_TITLE, (event_title != null ? event_title : "NA"));
+			cv.put(Attributes.Database.EVENT_SUB_TITLE, (event_sub_title != null ? event_sub_title : "NA"));
+			cv.put(Attributes.Database.EVENT_DESCRIPTION, (event_desc != null ? event_desc : "NA"));
+			cv.put(Attributes.Database.EVENT_OTHERS, (event_others != null ? event_others : "NA"));
+			cv.put(Attributes.Database.EVENT_START_DATE, (event_startdate != null ? event_startdate : "NA"));
+			cv.put(Attributes.Database.EVENT_END_DATE, (event_enddate != null ? event_enddate : "NA"));
+			cv.put(Attributes.Database.EVENT_CATEGORY, (event_category != null ? event_category : "NA"));
+			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : "NA"));
+			cv.put(Attributes.Database.EVENT_LOGO, (logo != null ? logo : "NA"));
 			cv.put(Attributes.Database.EVENT_IS_DELETED, event_is_Deleted);
 
 			String id = tempId==null ? event_id : tempId;
@@ -199,14 +196,14 @@ public class DBAdapter {
 		try {
 
 			cv.put(Attributes.Database.GROUPS_ORGANIZATION_ID, (org_id != null ? org_id : ""));
-			cv.put(Attributes.Database.GROUPS_NAME, (name != null ? name : "-"));
-			cv.put(Attributes.Database.GROUPS_MOBILE_NO, (mobile_no != null ? mobile_no : "-"));
-			cv.put(Attributes.Database.GROUPS_EMAIL, (email != null ? email : "-"));
-			cv.put(Attributes.Database.GROUPS_ADDRESS, (address != null ? address : "-"));
-			cv.put(Attributes.Database.GROUPS_CITY, (city != null ? city : "-"));
-			cv.put(Attributes.Database.GROUPS_STATE, (state != null ? state : "-"));
-			cv.put(Attributes.Database.GROUPS_PINCODE, (pincode != null ? pincode : "-"));
-			cv.put(Attributes.Database.GROUPS_COUNTRY, (country != null ? country : "-"));
+			cv.put(Attributes.Database.GROUPS_NAME, (name != null ? name : "NA"));
+			cv.put(Attributes.Database.GROUPS_MOBILE_NO, (mobile_no != null ? mobile_no : "NA"));
+			cv.put(Attributes.Database.GROUPS_EMAIL, (email != null ? email : "NA"));
+			cv.put(Attributes.Database.GROUPS_ADDRESS, (address != null ? address : "NA"));
+			cv.put(Attributes.Database.GROUPS_CITY, (city != null ? city : "NA"));
+			cv.put(Attributes.Database.GROUPS_STATE, (state != null ? state : "NA"));
+			cv.put(Attributes.Database.GROUPS_PINCODE, (pincode != null ? pincode : "NA"));
+			cv.put(Attributes.Database.GROUPS_COUNTRY, (country != null ? country : "NA"));
 			cv.put(Attributes.Database.GROUPS_DELETED, deleted);
 
 			if(!isGroupsExist(id)) {
@@ -257,20 +254,20 @@ public class DBAdapter {
 		ContentValues cv = new ContentValues();
 		try {
 			cv.put(Attributes.Database.GROUPS_PROFILE_ORG_ID, (org_id != null ? org_id : ""));
-			cv.put(Attributes.Database.GROUPS_PROFILE_NAME, (name != null ? name : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_MOBILE_NO, (mobile_no != null ? mobile_no : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_EMAIL, (email != null ? email : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_ADDRESS, (address != null ? address : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_ROLE, (role != null ? role : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER, (is_news_latter != null ? is_news_latter : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER, (is_govt != null ? is_govt : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_REGISTER, (is_register != null ? is_register : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_DP_IMG, (dp_img != null ? dp_img : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_FB_LINK, (fb_link != null ? fb_link : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_LINKEDIN, (linkedin != null ? linkedin : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_WEBSITE, (website != null ? website : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_TWITTER, (twitter != null ? twitter : "-"));
-			cv.put(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA, (presence_area != null ? presence_area : "-"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_NAME, (name != null ? name : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_MOBILE_NO, (mobile_no != null ? mobile_no : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_EMAIL, (email != null ? email : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_ADDRESS, (address != null ? address : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_ROLE, (role != null ? role : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_IS_NEWS_LETTER, (is_news_latter != null ? is_news_latter : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_IS_GOVT_REGISTER, (is_govt != null ? is_govt : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_REGISTER, (is_register != null ? is_register : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_DP_IMG, (dp_img != null ? dp_img : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_FB_LINK, (fb_link != null ? fb_link : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_LINKEDIN, (linkedin != null ? linkedin : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_WEBSITE, (website != null ? website : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_TWITTER, (twitter != null ? twitter : "NA"));
+			cv.put(Attributes.Database.GROUPS_PROFILE_PRESENCE_AREA, (presence_area != null ? presence_area : "NA"));
 			cv.put(Attributes.Database.GROUPS_PROFILE_DELETED, deleted);
 
 			if(!isGroupsProfileExist(id)) {
@@ -417,12 +414,12 @@ public class DBAdapter {
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.Database.REQUEST_ORG_ID,(orgId!=null ? orgId : ""));
-			cv.put(Attributes.Database.REQUEST_NAME,(name!=null ? name : "-"));
-			cv.put(Attributes.Database.REQUEST_TITLE,(request_title!=null ? request_title : "-"));
-			cv.put(Attributes.Database.REQUEST_SUB_TITLE, (request_sub_title!=null ? request_sub_title : "-"));
-			cv.put(Attributes.Database.REQUEST_DESCRIPTION, (request_desc!=null ? request_desc : "-"));
-			cv.put(Attributes.Database.REQUEST_OTHER, (request_others!=null ? request_others : "-"));
-			cv.put(Attributes.Database.REQUEST_LOCATION, (request_location!=null ? request_location : "-"));
+			cv.put(Attributes.Database.REQUEST_NAME,(name!=null ? name : "NA"));
+			cv.put(Attributes.Database.REQUEST_TITLE,(request_title!=null ? request_title : "NA"));
+			cv.put(Attributes.Database.REQUEST_SUB_TITLE, (request_sub_title!=null ? request_sub_title : "NA"));
+			cv.put(Attributes.Database.REQUEST_DESCRIPTION, (request_desc!=null ? request_desc : "NA"));
+			cv.put(Attributes.Database.REQUEST_OTHER, (request_others!=null ? request_others : "NA"));
+			cv.put(Attributes.Database.REQUEST_LOCATION, (request_location!=null ? request_location : "NA"));
 			cv.put(Attributes.Database.REQUEST_IS_DELETED, isDeleted);
 
 			String id = tempId==null ? request_id : tempId;
@@ -487,13 +484,13 @@ public class DBAdapter {
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.Database.PROFILE_IMAGE, (image!=null ? image : ""));
-			cv.put(Attributes.Database.PROFILE_ROLE,(role!=null ? role : "-"));
-			cv.put(Attributes.Database.PROFILE_REGISTER_NO,(regNo!=null ? regNo : "-"));
-			cv.put(Attributes.Database.PROFILE_FB_LINK, (fbLink!=null ? fbLink : "-"));
-			cv.put(Attributes.Database.PROFILE_LINKED_IN_LINK, (linkedIn!=null ? linkedIn : "-"));
-			cv.put(Attributes.Database.PROFILE_WEB_LINK, (webLink!=null ? webLink : "-"));
-			cv.put(Attributes.Database.PROFILE_TWITTER_LINK, (twitter!=null ? twitter : "-"));
-			cv.put(Attributes.Database.PROFILE_PRESENCE_AREA, (presenceArea!=null ? presenceArea : "-"));
+			cv.put(Attributes.Database.PROFILE_ROLE,(role!=null ? role : "NA"));
+			cv.put(Attributes.Database.PROFILE_REGISTER_NO,(regNo!=null ? regNo : "NA"));
+			cv.put(Attributes.Database.PROFILE_FB_LINK, (fbLink!=null ? fbLink : "NA"));
+			cv.put(Attributes.Database.PROFILE_LINKED_IN_LINK, (linkedIn!=null ? linkedIn : "NA"));
+			cv.put(Attributes.Database.PROFILE_WEB_LINK, (webLink!=null ? webLink : "NA"));
+			cv.put(Attributes.Database.PROFILE_TWITTER_LINK, (twitter!=null ? twitter : "NA"));
+			cv.put(Attributes.Database.PROFILE_PRESENCE_AREA, (presenceArea!=null ? presenceArea : "NA"));
 		}
 		catch (Exception e) {
 			e.printStackTrace();

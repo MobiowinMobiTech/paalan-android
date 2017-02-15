@@ -15,8 +15,10 @@ import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.utils.Config;
 
+
 /**
- * Created by Gouresh on 25/1/17
+ * @author  Pramod Waghmare
+ * created on 3/02/17
  * Company PhyderCmss.
  */
 public class NotificationReciever extends BroadcastReceiver {
@@ -35,7 +37,6 @@ public class NotificationReciever extends BroadcastReceiver {
             scheduleAlarm(context);
         }
 
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -46,7 +47,6 @@ public class NotificationReciever extends BroadcastReceiver {
         PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(),
                 Config.TRIGGER_TIME, alarmIntent);
-
     }
 
     /**

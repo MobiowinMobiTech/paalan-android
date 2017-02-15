@@ -114,6 +114,7 @@ public class FragmentMyProfile extends Fragment {
                     edtRole.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_ROLE)));
                     edtRegistrationNo.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_REGISTER_NO)));
                     edtFacebookLink.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_FB_LINK)));
+                    Log.d(TAG, "populatingData: LI LINK"+cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_LINKED_IN_LINK)));
                     edtLinkedInLink.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_LINKED_IN_LINK)));
                     edtWebsiteLink.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_WEB_LINK)));
                     edtTwitterLink.setText(cursor.getString(cursor.getColumnIndex(Attributes.Database.PROFILE_TWITTER_LINK)));

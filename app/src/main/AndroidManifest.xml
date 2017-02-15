@@ -36,6 +36,9 @@
         </activity>
 
 
+        <activity android:name=".activity.ForgotPassword"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity android:name=".activity.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 

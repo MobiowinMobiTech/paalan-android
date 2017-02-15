@@ -38,30 +38,15 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            buildConfigField "String", "SERVER_URL", "\"${config.getProperty("server.url")}\""
+        }
     }
 
     defaultConfig {
         multiDexEnabled true
-//        manifestPlaceholders = [
-//                onesignal_app_id: "a4b23c45-801e-4f2e-bc40-3b3b2b16f568",
-//                // Project number pulled from dashboard, local value is ignored.
-//                onesignal_google_project_number: "165334093563"
-//        ]
     }
 
-    productFlavors {
-        live {
-            buildConfigField "String", "SERVER_URL", "\"${config.getProperty("server.url")}\""
-        }
-        uat {
-            applicationIdSuffix ".uat"
-            versionNameSuffix "-uat"
-            versionCode 10
-            versionName "0.3.2"
-
-            buildConfigField "String", "SERVER_URL", "\"${config.getProperty("uat.server.url")}\""
-        }
-    }
 }
 
 ext {

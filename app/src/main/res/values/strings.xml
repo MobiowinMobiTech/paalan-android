@@ -173,11 +173,11 @@
 
 
     <string name="create_achivement">Create Achiement</string>
-    <string name="view_achivement">View Achievements</string>
+    <string name="view_achivement">Achievements</string>
     <string name="create_event">Create Event</string>
-    <string name="view_event">View Events</string>
+    <string name="view_event">Events</string>
     <string name="create_request">Create Social Request</string>
-    <string name="view_request">View Social Requests</string>
+    <string name="view_request">Social Requests</string>
 
     <!--dashboard array-->
     <string-array name="dashboard_content_array">
@@ -201,19 +201,19 @@
     <!--acheivement menu array-->
     <string-array name="achievements_array">
         <item>Create Achievement</item>
-        <item>View Achievement</item>
+        <item>Achievement</item>
     </string-array>
 
     <!--event menu array-->
     <string-array name="events_array">
         <item>Create Events</item>
-        <item>View Events</item>
+        <item>Events</item>
     </string-array>
 
     <!--event menu array-->
     <string-array name="request_array">
         <item>Create Social Request</item>
-        <item>View Social Request</item>
+        <item>Social Request</item>
     </string-array>
 
     <!--event menu array-->
@@ -236,16 +236,16 @@
 
 
 
-    <string name="acheivements">Acheivements</string>
-    <string name="acheivement_details">Acheivement Details</string>
-    <string name="update_acheivement">Update Acheivement</string>
-    <string name="delete_acheivement">Delete Acheivement</string>
-    <string name="update_delete_acheivement">Update/Delete Acheivement</string>
+    <string name="acheivements">Achievement</string>
+    <string name="acheivement_details">Achievement Details</string>
+    <string name="update_acheivement">Update Achievement</string>
+    <string name="delete_acheivement">Delete Achievement</string>
+    <string name="update_delete_acheivement">Manage Achievement</string>
 
     <string name="event_details">Event Details</string>
     <string name="update_event">Update Event</string>
     <string name="delete_event">Delete Event</string>
-    <string name="update_delete_event">Update/Delete Event</string>
+    <string name="update_delete_event">Manage Event</string>
 
     <string name="event_id">Event Id</string>
     <string name="oraginization_id">Oraginization Id</string>
@@ -306,7 +306,7 @@
     <string name="groups">Social Groups</string>
     <string name="update_request">Update Social Request</string>
     <string name="delete_request">Delete Social Request</string>
-    <string name="update_delete_request">Update/Delete Social Request</string>
+    <string name="update_delete_request">Manage Social Request</string>
 
     <!--Request String -->
     <string name="event">Publish Event</string>
@@ -359,6 +359,10 @@
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="dont_have_account">Not a member?</string>
     <string name="sign_up_now"> <![CDATA[<a href=""> Signup now</a>]]></string>
+
+    <string name="login_trouble"><![CDATA[<a href=""> Forgot password?</a>]]></string>
+
+
     <string name="technical_issue">Some technical issue occure. Please try later.</string>
     <string name="enter_mobile">Mobile No</string>
     <string name="enter_email">Email</string>
@@ -424,7 +428,16 @@
     <string name="click_event_social_request">socialrequest</string>
 
 
-    <string name="banner_ad_unit_id">ca-app-pub-8352537985411717/7426312782</string>
+    <string name="banner_ad_unit_id">ca-app-pub-8352537985411717/5479616389</string>
+    <string name="event_not_found">There is no Event near by you.</string>
+    <string name="achievement_not_found">There is no Achievement near by you.</string>
+    <string name="group_not_found">There is no Group near by you.</string>
+    <string name="social_request_not_found">There is no Social Request near by you.</string>
+    <string name="verify">Verify</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="password_empty_message">Please enter password</string>
+    <string name="password_length_message">Password should be greater than 7 characters</string>
+    <string name="reset_password">Reset password</string>
 
 
 </resources>

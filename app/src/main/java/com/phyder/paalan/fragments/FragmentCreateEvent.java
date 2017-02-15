@@ -80,6 +80,23 @@ public class FragmentCreateEvent extends Fragment {
 
         strCategory = getResources().getStringArray(R.array.event_category)[0];
 
+
+        edtStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgStartDate.performClick();
+            }
+        });
+
+
+        edtEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgEndDate.performClick();
+            }
+        });
+
+
         spinnerOsversions = (Spinner) view.findViewById(R.id.osversions);
         ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.event_category));

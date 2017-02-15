@@ -105,7 +105,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static boolean IS_LAST = true;
     private static AppCompatActivity _CONTEXT;
 
-
     private AdView mAdView;
 
 
@@ -126,8 +125,16 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-
         setUpDrawer();
+
+        DB_ADAPTER = new DBAdapter(this);
+        DB_ADAPTER.open();
+
+        Log.d(TAG, "onCreate: event "+DB_ADAPTER.getAllEvent("F").getCount());
+        Log.d(TAG, "onCreate: ach "+DB_ADAPTER.getAllAchievements("F").getCount());
+        Log.d(TAG, "onCreate: grp "+DB_ADAPTER.getAllGroups("F").getCount());
+        Log.d(TAG, "onCreate: reg "+DB_ADAPTER.getAllRequests("F").getCount());
+
 
         try {
             String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
@@ -469,7 +476,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle(getString(R.string.app_name));
         alertBuilder.setMessage(getString(R.string.exit_app_message));
-        alertBuilder.setIcon(R.mipmap.ic_launcher);
+        alertBuilder.setIcon(R.drawable.paalan_logo);
         alertBuilder.setCancelable(false);
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -763,47 +770,58 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             // for individual clicking event fire
 
             case R.id.txtIndEvent:
-                if(!(fragment instanceof FragmentViewEvent)) {
-                    getFragmentTransaction(new FragmentViewEvent());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (DB_ADAPTER.getAllEvent("F").getCount() > 0)
+                    if(!(fragment instanceof FragmentViewEvent)) {
+                        getFragmentTransaction(new FragmentViewEvent());
+                    }else{
+                        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                            mDrawerLayout.closeDrawer(GravityCompat.START);
+                        }
                     }
-                }
+                else
+                    Toast.makeText(getApplicationContext(),getString(R.string.event_not_found),Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.txtIndGroup:
-                if(!(fragment instanceof FragmentViewGroups)) {
-                    getFragmentTransaction(new FragmentViewGroups());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (DB_ADAPTER.getAllGroups("F").getCount() > 0)
+                    if(!(fragment instanceof FragmentViewGroups)) {
+                        getFragmentTransaction(new FragmentViewGroups());
+                    }else{
+                        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                            mDrawerLayout.closeDrawer(GravityCompat.START);
+                        }
                     }
-                }
+                else
+                    Toast.makeText(getApplicationContext(),getString(R.string.group_not_found),Toast.LENGTH_LONG).show();
                 break;
             case R.id.txtIndRequest:
-                if(!(fragment instanceof FragmentViewRequest)) {
-                    getFragmentTransaction(new FragmentViewRequest());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (DB_ADAPTER.getAllRequests("F").getCount() > 0)
+                    if(!(fragment instanceof FragmentViewRequest)) {
+                        getFragmentTransaction(new FragmentViewRequest());
+                    }else{
+                        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                            mDrawerLayout.closeDrawer(GravityCompat.START);
+                        }
                     }
-                }
+                else
+                    Toast.makeText(getApplicationContext(),getString(R.string.social_request_not_found),Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.txtIndAchievement:
-                if(!(fragment instanceof FragmentViewAchievement)) {
-                    Log.d(TAG, "PUSH : click event instance of");
-                    getFragmentTransaction(new FragmentViewAchievement());
-                }else{
-                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (DB_ADAPTER.getAllEvent("F").getCount() > 0)
+                    if(!(fragment instanceof FragmentViewAchievement)) {
+                        Log.d(TAG, "PUSH : click event instance of");
+                        getFragmentTransaction(new FragmentViewAchievement());
+                    }else{
+                        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                            mDrawerLayout.closeDrawer(GravityCompat.START);
+                        }
                     }
-                }
+                else
+                    Toast.makeText(getApplicationContext(),getString(R.string.achievement_not_found),Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.txtIndConnect:
-
                 if (llIndConnectPaalan.getVisibility() == View.GONE) {
                     expand(llIndConnectPaalan,mAnimatorIndConnectPaalan);
                 } else {

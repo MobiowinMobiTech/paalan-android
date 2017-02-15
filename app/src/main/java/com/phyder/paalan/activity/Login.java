@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
     private String deviceID = "", email = "", password = "";
     private PreferenceUtils pref;
     private DBAdapter dbAdapter;
-    private TextViewOpenSansRegular txtSignUp;
+    private TextViewOpenSansRegular txtSignUp, txtForgotPassword;
 
 
     @Override
@@ -56,7 +56,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initializations();
         clickEventFire();
-
         //merge comment
     }
 
@@ -72,12 +71,20 @@ public class Login extends AppCompatActivity {
         mPasswordView = (EditTextOpenSansRegular) findViewById(R.id.password);
 
         txtSignUp = (TextViewOpenSansRegular)findViewById(R.id.txtSignup);
+        txtForgotPassword = (TextViewOpenSansRegular)findViewById(R.id.txtForgotPassword);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             txtSignUp.setText(Html.fromHtml(getString(R.string.sign_up_now),Html.FROM_HTML_MODE_LEGACY));
         } else {
             txtSignUp.setText(Html.fromHtml(getString(R.string.sign_up_now)));
         }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            txtForgotPassword.setText(Html.fromHtml(getString(R.string.login_trouble),Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            txtForgotPassword.setText(Html.fromHtml(getString(R.string.login_trouble)));
+        }
+
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -105,24 +112,20 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        txtForgotPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent forgotPasswordIntent = new Intent(Login.this,ForgotPassword.class);
+                startActivity(forgotPasswordIntent);
+            }
+        });
+
 
         btnSignIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
             email = mEmailView.getText().toString();
             password = mPasswordView.getText().toString();
-
-
-//                if(TextUtils.isEmpty(email)){
-//                    mEmailView.setError(getString(R.string.error_field_required));
-//                } else if(!CommanUtils.isEmailValid(email)){
-//                    mEmailView.setError(getString(R.string.error_invalid_email));
-//                } else if (TextUtils.isEmpty(password)) {
-//                    mPasswordView.setError(getString(R.string.error_empty_password));
-//                } else if(!CommanUtils.isPasswordValid(password)){
-//                    mPasswordView.setError(getString(R.string.error_invalid_password));
-//                } else {
-
             if (isValidData())
                 getRetrofitCall();
 
@@ -188,18 +191,15 @@ public class Login extends AppCompatActivity {
                             pref.setLogin(true);
                             pref.setLoginType(Social.ORG_ENTITY);
                             Intent intent = new Intent(Login.this, ActivityFragmentPlatform.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             Login.this.finish();
+                            Log.d(TAG, "onResponse: after login success");
 
                         } else {
-                            Toast.makeText(Login.this, getResources().getString(R.string.error_went_wrong),
-                                    Toast.LENGTH_LONG)
-                                    .show();
+                            Toast.makeText(Login.this, response.body().getData()[0].getErrmsg(),Toast.LENGTH_LONG).show();
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(Login.this, getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(Login.this, response.body().getData()[0].getErrmsg(),Toast.LENGTH_LONG).show();
                     }
                 }
 

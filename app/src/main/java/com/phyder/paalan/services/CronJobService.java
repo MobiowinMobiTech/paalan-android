@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.phyder.paalan.db.DBAdapter;
+
+
 /**
- * Created by yashika on 9/2/17.
+ * @author  Pramod Waghmare
+ * created on 3/02/17
+ * Company PhyderCmss.
  */
 public class CronJobService extends Service{
     private static final String TAG = CronJobService.class.getSimpleName();
@@ -36,5 +41,12 @@ public class CronJobService extends Service{
      */
     private void getLatestTopics() {
         Log.d(TAG, "scheduleAlarm getLatestTopics: ");
+        DBAdapter dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
+
+//        DBHelper dbHelper = new DBHelper(this);
+
+
+
     }
 }

@@ -10,7 +10,8 @@ import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.utils.Config;
 
 /**
- * Created by Gouresh on 22/11/16
+ * @author  Pramod Waghmare
+ * created on 3/02/17
  * Company PhyderCmss.
  */
 
@@ -21,22 +22,19 @@ public class NotificationRecieverService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // Handle data payload of FCM messages.
-        Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
         Log.d(TAG, "ad Message: " +
                 remoteMessage.getNotification());
 
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getData());
+        DBAdapter dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
 
         try {
-
-            DBAdapter dbAdapter = new DBAdapter(this);
-            dbAdapter.open();
-
             String clickEvent = remoteMessage.getData().get(Config.CLICK_EVENT);
             Log.d(TAG, "PUSH : click event"+clickEvent);
             if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
                 Log.d(TAG, "PUSH : click event = event");
-//                dbAdapter.populatingEventsIntoDB()
+
             }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
 
             }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_social_request))){
@@ -46,6 +44,7 @@ public class NotificationRecieverService extends FirebaseMessagingService {
 
         }
 
+        // call local broadcast to display notification
         Intent intent = new Intent();
         intent.putExtra(Config.TITLE,remoteMessage.getData().get(Config.TITLE));
         intent.putExtra(Config.BODY,remoteMessage.getData().get(Config.BODY));
