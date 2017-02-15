@@ -53,9 +53,11 @@ import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewGroups;
 import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.helper.DialogPopupListener;
+import com.phyder.paalan.helper.InternetConnectionListener;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.Config;
+import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
@@ -65,7 +67,8 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by cmss on 13/1/17.
  */
-public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener, DialogPopupListener {
+public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener,
+        DialogPopupListener ,InternetConnectionListener{
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
 
@@ -106,6 +109,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static AppCompatActivity _CONTEXT;
 
     private AdView mAdView;
+    private ViewGroup adContainer;
 
 
     @Override
@@ -114,27 +118,21 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         setContentView(R.layout.activity_fragment_platform);
 
         //render admob
-        ViewGroup adContainer = (ViewGroup) findViewById(R.id.adMobView);
-
+        adContainer = (ViewGroup) findViewById(R.id.adMobView);
         mAdView = new AdView(this);
         mAdView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mAdView.setPadding(7,7,7,7);
+        mAdView.setPadding(7, 7, 7, 7);
         mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
         adContainer.addView(mAdView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        showAdsMob();
         setUpDrawer();
 
         DB_ADAPTER = new DBAdapter(this);
         DB_ADAPTER.open();
-
-        Log.d(TAG, "onCreate: event "+DB_ADAPTER.getAllEvent("F").getCount());
-        Log.d(TAG, "onCreate: ach "+DB_ADAPTER.getAllAchievements("F").getCount());
-        Log.d(TAG, "onCreate: grp "+DB_ADAPTER.getAllGroups("F").getCount());
-        Log.d(TAG, "onCreate: reg "+DB_ADAPTER.getAllRequests("F").getCount());
-
 
         try {
             String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
@@ -148,7 +146,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 viewSocialRequest();
             }
         }catch (Exception ex){
-
+            ex.printStackTrace();
         }
 
     }
@@ -229,6 +227,18 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
     }
 
+    private void showAdsMob(){
+
+        Log.e(TAG,"showAdsMob_adContainer :"+adContainer);
+        if(adContainer!=null) {
+            if (NetworkUtil.isInternetConnected(this)) {
+                adContainer.setVisibility(View.VISIBLE);
+            } else {
+                adContainer.setVisibility(View.GONE);
+            }
+        }
+
+    }
 
     private void expand(LinearLayout linearLayout,ValueAnimator valueAnimator) {
         // set Visible
@@ -1057,8 +1067,21 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         }
     }
 
+
+
     @Override
     public void onCancelClicked(String label) {
         onBackPressed();
+    }
+
+
+    /**
+     * InternetConnectionListener
+     * internetConnectionChanged will be called while net connection state changed
+     */
+
+    @Override
+    public void internetConnectionChanged() {
+        showAdsMob();
     }
 }
