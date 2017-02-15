@@ -37,7 +37,7 @@ public class DBAdapter {
 //	Database methods for achievement insertion,updation,deletion,selection operations
 
 	public int populatingAchievementsIntoDB(String orgId,String tempId, String achieve_id,String name,String achieve_title, String achieve_sub_title, String achieve_desc,
-								  String achieve_others, String achieve_img1, String achieve_img2, String achieve_img3,
+								  String achieve_remarks, String achieve_img1, String achieve_img2, String achieve_img3,
 								  String achieve_img4,String isDeleted) {
 		int status = 0;
 		ContentValues cv=new ContentValues();
@@ -47,7 +47,7 @@ public class DBAdapter {
 			cv.put(Attributes.Database.ACHIEVEMENT_TITLE,(achieve_title!=null ? achieve_title : "NA"));
 			cv.put(Attributes.Database.ACHIEVEMENT_SUB_TITLE, (achieve_sub_title!=null ? achieve_sub_title : "NA"));
 			cv.put(Attributes.Database.ACHIEVEMENT_DESCRIPTION, (achieve_desc!=null ? achieve_desc : "NA"));
-			cv.put(Attributes.Database.ACHIEVEMENT_OTHERS, (achieve_others!=null ? achieve_others : "NA"));
+			cv.put(Attributes.Database.ACHIEVEMENT_REMARKS, (achieve_remarks!=null ? achieve_remarks : "NA"));
 			cv.put(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE, (achieve_img1!=null ? achieve_img1 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE, (achieve_img2!=null ? achieve_img2 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, (achieve_img3!=null ? achieve_img3 : ""));

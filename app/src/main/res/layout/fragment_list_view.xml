@@ -11,29 +11,14 @@
         android:divider="@color/divider"
         android:dividerHeight="1dp"></ListView>
 
-    <LinearLayout
-        android:id="@+id/llStatus"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Medium"
-            android:textColor="@color/primary_text"
-            android:text="@string/oops"/>
 
         <com.phyder.paalan.utils.TextViewOpenSansRegular
+            android:id="@+id/txtDataNotFound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/secondary_text"
-            android:text="@string/no_data"/>
-
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
 
 </RelativeLayout>

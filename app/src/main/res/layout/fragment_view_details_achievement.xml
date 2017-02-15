@@ -175,7 +175,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/view_Other"/>
+                android:text="@string/view_Remark"/>
 
             <View
                 android:id="@+id/viewOther"
@@ -184,7 +184,7 @@
                 android:background="@color/primary_more_dark"/>
 
             <com.phyder.paalan.utils.TextViewOpenSansRegular
-                android:id="@+id/txtOtherValue"
+                android:id="@+id/txtRemarkValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"

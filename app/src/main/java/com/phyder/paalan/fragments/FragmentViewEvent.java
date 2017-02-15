@@ -26,6 +26,7 @@ import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +41,7 @@ public class FragmentViewEvent extends Fragment {
 
     private static final String TAG = FragmentViewEvent.class.getCanonicalName();
     private ListView listView;
-    private LinearLayout llNoData;
+    private TextViewOpenSansRegular txtNoData;
     private String[] listOfEventIds;
     private String[] listOfEventTitles;
     private String[] listOfEventSubTitles;
@@ -70,7 +71,8 @@ public class FragmentViewEvent extends Fragment {
         pref = new PreferenceUtils(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
-        llNoData = (LinearLayout) view.findViewById(R.id.llStatus);
+        txtNoData = (TextViewOpenSansRegular) view.findViewById(R.id.txtDataNotFound);
+        txtNoData.setText(getString(R.string.event_not_found));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,10 +114,10 @@ public class FragmentViewEvent extends Fragment {
         if(listOfEventTitles!=null && listOfEventTitles.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfEventTitles,listOfEventSubTitles,listStartDate));
             listView.setVisibility(View.VISIBLE);
-            llNoData.setVisibility(View.GONE);
+            txtNoData.setVisibility(View.GONE);
         }else{
             listView.setVisibility(View.GONE);
-            llNoData.setVisibility(View.VISIBLE);
+            txtNoData.setVisibility(View.VISIBLE);
         }
 
     }

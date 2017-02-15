@@ -107,6 +107,7 @@
     <string name="subtitle">Sub Title</string>
     <string name="descrition">Description</string>
     <string name="others">Others</string>
+    <string name="remarks">Remarks</string>
     <string name="location">Location</string>
 
 
@@ -291,6 +292,7 @@
     <string name="view_sub_title">SUB TITLE</string>
     <string name="view_desc">DESCRIPTION</string>
     <string name="view_Other">OTHER</string>
+    <string name="view_Remark">REMARK</string>
     <string name="view_Category">CATEGORY</string>
     <string name="view_Location">LOCATION</string>
     <string name="view_S_dates">START DATE</string>
@@ -312,13 +314,13 @@
     <string name="event">Publish Event</string>
     <string name="more">See more</string>
 
-    <string name="oops">Oops!</string>
-    <string name="no_data">No Data Availables</string>
-    <string name="no_events">Events not available</string>
-    <string name="no_achievements">Achievements not available</string>
-    <string name="no_requests">Social Requests not available</string>
-    <string name="no_groups">Social Groups not available</string>
-    <string name="page_not_found">Page not found</string>
+    <!--<string name="oops">Oops!</string>-->
+    <!--<string name="no_data">No Data Availables</string>-->
+    <!--<string name="no_events">Events not available</string>-->
+    <!--<string name="no_achievements">Achievements not available</string>-->
+    <!--<string name="no_requests">Social Requests not available</string>-->
+    <!--<string name="no_groups">Social Groups not available</string>-->
+    <!--<string name="page_not_found">Page not found</string>-->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

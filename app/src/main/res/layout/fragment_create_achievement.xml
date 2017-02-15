@@ -80,10 +80,10 @@
                 android:layout_marginRight="10dp">
 
                 <com.phyder.paalan.utils.EditTextOpenSansRegular
-                    android:id="@+id/edt_other"
+                    android:id="@+id/edt_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/others" />
+                    android:hint="@string/remarks" />
 
             </android.support.design.widget.TextInputLayout>
 

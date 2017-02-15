@@ -4,9 +4,11 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -53,7 +55,6 @@ import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewGroups;
 import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.helper.DialogPopupListener;
-import com.phyder.paalan.helper.InternetConnectionListener;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.Config;
@@ -68,7 +69,7 @@ import java.io.ByteArrayOutputStream;
  * Created by cmss on 13/1/17.
  */
 public class ActivityFragmentPlatform extends AppCompatActivity implements View.OnClickListener,
-        DialogPopupListener ,InternetConnectionListener{
+        DialogPopupListener {
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
 
@@ -491,6 +492,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                unregisterReceiver(broadcastReceiver);
                 finish();
             }
         });
@@ -512,6 +514,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             mAdView.resume();
         }
         getProfileUpdate();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(broadcastReceiver, filter);
 
     }
 
@@ -648,7 +653,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
 
     }
-
 
 
     /**
@@ -1075,13 +1079,16 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     }
 
 
-    /**
-     * InternetConnectionListener
-     * internetConnectionChanged will be called while net connection state changed
-     */
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
-    @Override
-    public void internetConnectionChanged() {
-        showAdsMob();
-    }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            try {
+                showAdsMob();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    };
 }

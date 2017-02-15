@@ -164,7 +164,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                                 .replace(R.id.platform, new FragmentViewEvent())
                                 .addToBackStack(null).commit();
                     }else{
-                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_events));
+                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.event_not_found));
                     }
                 }
             });
@@ -179,7 +179,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                                 .replace(R.id.platform, new FragmentViewRequest())
                                 .addToBackStack(null).commit();
                     }else{
-                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_requests));
+                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.social_request_not_found));
                     }
                 }
             });
@@ -194,7 +194,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                                 .replace(R.id.platform, new FragmentViewAchievement())
                                 .addToBackStack(null).commit();
                     }else{
-                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_achievements));
+                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.achievement_not_found));
                     }
                 }
             });
@@ -207,7 +207,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                                 .replace(R.id.platform, new FragmentViewGroups())
                                 .addToBackStack(null).commit();
                     }else{
-                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.no_groups));
+                        CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.group_not_found));
                     }
                 }
             });

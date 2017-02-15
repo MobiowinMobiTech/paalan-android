@@ -18,50 +18,50 @@
             android:orientation="vertical">
 
 
-   <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginRight="-3dp"
-        android:layout_marginLeft="-3dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="-2dp"
+                android:layout_marginRight="-3dp"
+                android:layout_marginLeft="-3dp">
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/image_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/image_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
 
-    <com.phyder.paalan.helper.CircleIndicator
-        android:id="@+id/indicator"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        app:ci_animator="@anim/indicator_no_animator"
-        app:ci_drawable="@drawable/white_radius"
-        app:ci_drawable_unselected="@drawable/black_radius"/>
+                <com.phyder.paalan.helper.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    app:ci_animator="@anim/indicator_no_animator"
+                    app:ci_drawable="@drawable/white_radius"
+                    app:ci_drawable_unselected="@drawable/black_radius"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/primary"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/primary"/>
 
-    </RelativeLayout>
+            </RelativeLayout>
 
 
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/light_grey"
-            android:layout_margin="-5dp"
-            android:layout_weight="6.5"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/light_grey"
+                android:layout_margin="-5dp"
+                android:layout_weight="6.5"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </LinearLayout>
-
-
-</ScrollView>
-
-    </LinearLayout>

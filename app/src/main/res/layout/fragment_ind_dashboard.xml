@@ -103,21 +103,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:layout_gravity="center_horizontal">
-
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/oops"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_events"/>
+                        android:text="@string/event_not_found"/>
 
                 </LinearLayout>
 
@@ -178,20 +175,17 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_gravity="center">
-
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/oops"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_groups"/>
+                        android:text="@string/group_not_found"/>
 
                 </LinearLayout>
 
@@ -251,20 +245,17 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_gravity="center">
-
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/oops"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_requests"/>
+                        android:text="@string/social_request_not_found"/>
 
                 </LinearLayout>
 
@@ -323,20 +314,17 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_gravity="center_horizontal">
-
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/oops"/>
 
                     <com.phyder.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
-                        android:text="@string/no_achievements"/>
+                        android:text="@string/achievement_not_found"/>
 
                 </LinearLayout>
 

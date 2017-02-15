@@ -48,14 +48,14 @@ public class FragmentViewDetailsAchievement extends Fragment  {
     private final static String TAG = FragmentViewDetailsAchievement.class.getCanonicalName();
 
     private LinearLayout llAttachmentblock,llAchiever;
-    private TextViewOpenSansRegular txtName,txtTitle,txtSubTitle,txtDesc,txtOther;
+    private TextViewOpenSansRegular txtName,txtTitle,txtSubTitle,txtDesc,txtRemarks;
     private ImageView imgFirst,imgSecond,imgThird,imgForth;
     private ButtonOpenSansSemiBold btnUpdate,btnDelete,btnViewProfile;
 
     private DBAdapter dbAdapter;
     private PreferenceUtils pref;
 
-    private String achievementID,orgId,strName,strTitle,strSubTitle,strDescriptions,strOthers,
+    private String achievementID,orgId,strName,strTitle,strSubTitle,strDescriptions,strRemarks,
             strFirstImage,strSecondImage,strThirdImage,strForthImage;
 
     private Cursor cursor;
@@ -84,7 +84,7 @@ public class FragmentViewDetailsAchievement extends Fragment  {
         txtTitle = (TextViewOpenSansRegular) view.findViewById(R.id.txtTitleValue);
         txtSubTitle = (TextViewOpenSansRegular) view.findViewById(R.id.txtSubTitleValue);
         txtDesc = (TextViewOpenSansRegular) view.findViewById(R.id.txtDescValue);
-        txtOther = (TextViewOpenSansRegular) view.findViewById(R.id.txtOtherValue);
+        txtRemarks = (TextViewOpenSansRegular) view.findViewById(R.id.txtRemarkValue);
 
         imgFirst = (ImageView) view.findViewById(R.id.imgFirstView);
         imgSecond = (ImageView) view.findViewById(R.id.imgSecondView);
@@ -122,7 +122,7 @@ public class FragmentViewDetailsAchievement extends Fragment  {
                     strTitle = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_TITLE));
                     strSubTitle = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_SUB_TITLE));
                     strDescriptions = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_DESCRIPTION));
-                    strOthers = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_OTHERS));
+                    strRemarks = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_REMARKS));
 
                     strFirstImage = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_FIRST_IMAGE));
                     strSecondImage = cursor.getString(cursor.getColumnIndex(Attributes.Database.ACHIEVEMENT_SECOND_IMAGE));
@@ -156,7 +156,7 @@ public class FragmentViewDetailsAchievement extends Fragment  {
         txtTitle.setText(strTitle);
         txtSubTitle.setText(strSubTitle);
         txtDesc.setText(strDescriptions);
-        txtOther.setText(strOthers);
+        txtRemarks.setText(strRemarks);
 
     }
 
@@ -176,7 +176,7 @@ public class FragmentViewDetailsAchievement extends Fragment  {
                 bundle.putString("TITLE",strTitle);
                 bundle.putString("SUB_TITLE",strSubTitle);
                 bundle.putString("DESCRIPTION",strDescriptions);
-                bundle.putString("OTHER",strOthers);
+                bundle.putString("REMARKS",strRemarks);
                 bundle.putString("IMAGE1",strFirstImage);
                 bundle.putString("IMAGE2",strSecondImage);
                 bundle.putString("IMAGE3",strThirdImage);

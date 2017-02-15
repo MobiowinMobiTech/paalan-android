@@ -16,6 +16,7 @@ import com.phyder.paalan.adapter.ListsAdapter;
 import com.phyder.paalan.db.Attributes;
 import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.helper.PaalanGetterSetter;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class FragmentViewGroups extends Fragment {
 
     private static final String TAG = FragmentViewGroups.class.getCanonicalName();
     private ListView listView;
-    private LinearLayout llNoData;
+    private TextViewOpenSansRegular txtNoData;
     private String[] listOfGroupProfileIds;
     private String[] listOfGroupName;
     private String[] listOfGroupAddress;
@@ -50,7 +51,8 @@ public class FragmentViewGroups extends Fragment {
         dbAdapter = new DBAdapter(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
-        llNoData = (LinearLayout) view.findViewById(R.id.llStatus);
+        txtNoData = (TextViewOpenSansRegular) view.findViewById(R.id.txtDataNotFound);
+        txtNoData.setText(getString(R.string.group_not_found));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,10 +94,10 @@ public class FragmentViewGroups extends Fragment {
         if(listOfGroupName!=null && listOfGroupName.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 1, listOfGroupName,listOfGroupAddress,groupLogo));
             listView.setVisibility(View.VISIBLE);
-            llNoData.setVisibility(View.GONE);
+            txtNoData.setVisibility(View.GONE);
         }else{
             listView.setVisibility(View.GONE);
-            llNoData.setVisibility(View.VISIBLE);
+            txtNoData.setVisibility(View.VISIBLE);
         }
 
     }
