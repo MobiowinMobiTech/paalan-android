@@ -35,4 +35,6 @@ public class Social {
     public static final String NOTIFICATION = "notification";
     public static final String CONNECT = "connect";
     public static final String DONATE = "donate";
+
+    public static final String FORGOT = "forgot";
 }

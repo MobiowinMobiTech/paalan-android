@@ -178,15 +178,17 @@ public class Login extends AppCompatActivity {
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
                             pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
                             dbAdapter.open();
-                            dbAdapter.insertProfile(
-                                    response.body().getData()[0].getOrgprofiledata()[0].getDpImgLink(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getRole(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getRegistrationNo(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getFbLink(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getLinkedinLink(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getWebsiteLink(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getTwitterLink(),
-                                    response.body().getData()[0].getOrgprofiledata()[0].getPresenceArea());
+
+                            if (response.body().getData()[0].getOrgprofiledata().length > 0)
+                                dbAdapter.insertProfile(
+                                        response.body().getData()[0].getOrgprofiledata()[0].getDpImgLink(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getRole(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getRegistrationNo(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getFbLink(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getLinkedinLink(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getWebsiteLink(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getTwitterLink(),
+                                        response.body().getData()[0].getOrgprofiledata()[0].getPresenceArea());
                             dbAdapter.close();
                             pref.setLogin(true);
                             pref.setLoginType(Social.ORG_ENTITY);

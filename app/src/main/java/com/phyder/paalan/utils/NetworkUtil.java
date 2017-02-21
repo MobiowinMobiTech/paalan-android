@@ -61,21 +61,17 @@ public class NetworkUtil {
             heaederInterceptor.setUserAgent(Device.getInstance().getUserAgent());
             clientBuilder.addInterceptor(heaederInterceptor);
 
-//            if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             clientBuilder.addInterceptor(loggingInterceptor);
-//
-//            }
 
-//            Log.i("SERVER", "" + BuildConfig.DEBUG);
-//            http://192.168.0.15:8080/paalan/PaalanGateway
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.SERVER_URL)
+                    .baseUrl(BuildConfig.UAT_SERVER_URL)
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .client(clientBuilder.build())
                     .build();
         }
+
         return sRetrofit;
     }
 

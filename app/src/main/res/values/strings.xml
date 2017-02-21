@@ -440,6 +440,12 @@
     <string name="password_empty_message">Please enter password</string>
     <string name="password_length_message">Password should be greater than 7 characters</string>
     <string name="reset_password">Reset password</string>
+    <string name="prompt_otp">OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="error_empty_otp">OTP should be 4 digit</string>
+    <string name="wrong_otp">Invalid OTP</string>
+    <string name="confirm_password_empty_message">Please enter confirmed password</string>
+    <string name="password_update_success">Your password has be updated successfully.</string>
 
 
 </resources>
