@@ -17,7 +17,7 @@ public class Attributes {
         public static final String ACHIEVEMENT_TITLE = "achievement_title";
         public static final String ACHIEVEMENT_SUB_TITLE = "achievement_sub_title";
         public static final String ACHIEVEMENT_DESCRIPTION = "achievement_description";
-        public static final String ACHIEVEMENT_OTHERS = "achievement_others";
+        public static final String ACHIEVEMENT_REMARKS = "achievement_remarks";
         public static final String ACHIEVEMENT_FIRST_IMAGE = "achievement_first_image";
         public static final String ACHIEVEMENT_SECOND_IMAGE = "achievement_second_image";
         public static final String ACHIEVEMENT_THIRD_IMAGE = "achievement_third_image";
@@ -28,7 +28,7 @@ public class Attributes {
                 " (_id integer primary key autoincrement, " + ACHIEVEMENT_ID + " text not null, "+ ACHIEVEMENT_ORG_ID + " text not null, "
                 + ACHIEVEMENT_NAME + " text not null, "+ ACHIEVEMENT_TITLE + " text not null, "
                 + ACHIEVEMENT_SUB_TITLE + " text not null, " + ACHIEVEMENT_DESCRIPTION + " text not null, "
-                + ACHIEVEMENT_OTHERS + " text not null, " + ACHIEVEMENT_FIRST_IMAGE + " text not null, "
+                + ACHIEVEMENT_REMARKS + " text not null, " + ACHIEVEMENT_FIRST_IMAGE + " text not null, "
                 + ACHIEVEMENT_SECOND_IMAGE + " text not null, " + ACHIEVEMENT_THIRD_IMAGE + " text not null, "
                 + ACHIEVEMENT_FORTH_IMAGE + " text not null, " + ACHIEVEMENT_IS_DELETED + " text not null);";
 

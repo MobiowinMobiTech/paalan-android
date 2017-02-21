@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10">
+        >
 
         <include
             android:id="@+id/toolbar"
@@ -22,13 +22,14 @@
             android:id="@+id/platform"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8.5"/>
+            android:layout_weight="9"/>
 
         <RelativeLayout
             android:id="@+id/adMobView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"/>
+            android:layout_weight="1"
+            />
 
 
 

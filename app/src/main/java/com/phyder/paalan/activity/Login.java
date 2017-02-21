@@ -193,6 +193,7 @@ public class Login extends AppCompatActivity {
                             pref.setLogin(true);
                             pref.setLoginType(Social.ORG_ENTITY);
                             Intent intent = new Intent(Login.this, ActivityFragmentPlatform.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             Login.this.finish();
                             Log.d(TAG, "onResponse: after login success");

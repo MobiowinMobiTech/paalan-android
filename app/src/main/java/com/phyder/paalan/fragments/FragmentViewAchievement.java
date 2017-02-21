@@ -25,6 +25,7 @@ import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +40,7 @@ public class FragmentViewAchievement extends Fragment {
 
     private static final String TAG = FragmentViewAchievement.class.getCanonicalName();
     private ListView listView;
-    private LinearLayout llNoData;
+    private TextViewOpenSansRegular txtNoData;
     private String[] listOfAchievementIds;
     private String[] listOfAchievementTitles;
     private String[] listOfAchievementSubTitles;
@@ -68,7 +69,8 @@ public class FragmentViewAchievement extends Fragment {
         pref = new PreferenceUtils(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
-        llNoData = (LinearLayout) view.findViewById(R.id.llStatus);
+        txtNoData = (TextViewOpenSansRegular) view.findViewById(R.id.txtDataNotFound);
+        txtNoData.setText(getString(R.string.social_request_not_found));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -108,10 +110,10 @@ public class FragmentViewAchievement extends Fragment {
         if(listOfAchievementTitles!=null && listOfAchievementTitles.length>0 ) {
             listView.setAdapter(new ListsAdapter(getActivity(), 0, listOfAchievementTitles,listOfAchievementSubTitles,null));
             listView.setVisibility(View.VISIBLE);
-            llNoData.setVisibility(View.GONE);
+            txtNoData.setVisibility(View.GONE);
         }else{
             listView.setVisibility(View.GONE);
-            llNoData.setVisibility(View.VISIBLE);
+            txtNoData.setVisibility(View.VISIBLE);
         }
 
     }

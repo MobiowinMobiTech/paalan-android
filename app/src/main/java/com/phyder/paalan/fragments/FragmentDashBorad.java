@@ -32,7 +32,6 @@ public class FragmentDashBorad extends Fragment {
     private ViewPager mPager;
     private CircleIndicator mCircleIndicator;
     private RecyclerView recyclerView;
-    private RecyclerView MyRecyclerView;
     private Handler handler = new Handler();
     private Runnable refresh;
     private int itemPos = 0;
@@ -52,15 +51,15 @@ public class FragmentDashBorad extends Fragment {
 
         LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        MyRecyclerView = (RecyclerView) view.findViewById(R.id.cardView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        if (listitems.size() > 0 & MyRecyclerView != null) {
+        if (listitems.size() > 0 & recyclerView != null) {
 
-            MyRecyclerView.setAdapter(new ORGDashboardAdapter(listitems));
+            recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
         }
 
-            MyRecyclerView.setLayoutManager(MyLayoutManager);
+        recyclerView.setLayoutManager(MyLayoutManager);
 
         initSlider(view);
         initializeList();
@@ -70,7 +69,6 @@ public class FragmentDashBorad extends Fragment {
 
     private void init(View view) {
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
         recyclerView.setNestedScrollingEnabled(false);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
@@ -221,6 +219,7 @@ public class FragmentDashBorad extends Fragment {
 
         ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
                 R.drawable.ic_menu_black_24dp);
+
         initializeTimer();
     }
 
