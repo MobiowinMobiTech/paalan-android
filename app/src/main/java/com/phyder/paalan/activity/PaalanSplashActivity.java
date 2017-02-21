@@ -30,13 +30,9 @@ import retrofit2.Retrofit;
 public class PaalanSplashActivity extends AppCompatActivity {
 
     private static final String TAG = PaalanSplashActivity.class.getSimpleName();
-    private static final int PERMISSION_READ_STATE = 1;
     private boolean isScreensAvailable = false;
 
-    Set<String> bannerList = new HashSet<>();
-
     private DBAdapter dbAdapter;
-    private PreferenceUtils pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +41,10 @@ public class PaalanSplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paalan_splash);
 
         dbAdapter = new DBAdapter(com.phyder.paalan.activity.PaalanSplashActivity.this);
-        pref = new PreferenceUtils(com.phyder.paalan.activity.PaalanSplashActivity.this);
 
         dbAdapter.open();
         if(dbAdapter.getMasterTableCount()<1){
-            dbAdapter.insertTimeSpan("0","0","0","0");
+            dbAdapter.insertTimeSpan("0","0","0","0","0");
         }
         dbAdapter.close();
 
@@ -60,8 +55,9 @@ public class PaalanSplashActivity extends AppCompatActivity {
     public void getRetrofitCallBannerSlider() {
         if (NetworkUtil.isInternetConnected(PaalanSplashActivity.this)) {
             Device.newInstance(PaalanSplashActivity.this);
-
-            RequestInitialData slidingBanner = RequestInitialData.get("", "", "0");
+            dbAdapter.open();
+            RequestInitialData slidingBanner = RequestInitialData.get("", "", dbAdapter.getlastSyncdate("WhatsNew"));
+            dbAdapter.close();
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
             final Call<ResponseInitialData> appSyncBanner = mPaalanServices.appSyncBanner(slidingBanner);
@@ -82,7 +78,9 @@ public class PaalanSplashActivity extends AppCompatActivity {
                             isScreensAvailable = true;
                             CommanUtils.setDataForScreens(PaalanSplashActivity.this, screenlist);
                         }
-
+                        dbAdapter.open();
+                        dbAdapter.updateWhatsNewTimeSpan(response.body().getMessage());
+                        dbAdapter.close();
                     launchDashboard(!isScreensAvailable);
                     }else{
                         showExitAlert(getString(R.string.technical_issue));

@@ -98,22 +98,22 @@ public class NetworkUtil {
         return  wifiManager.isWifiEnabled();
     }
 
-    public static boolean alert(final Context context, final String message) {
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-
-        alertDialog.setTitle("No Internet Connection Found");
-
-        alertDialog.setMessage(message);
-
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Log.i("Please enable ", message);
-            }
-        });
-        alertDialog.show();
-        return true;
-    }
+//    public static boolean alert(final Context context, final String message) {
+//
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+//
+//        alertDialog.setTitle("No Internet Connection Found");
+//
+//        alertDialog.setMessage(message);
+//
+//        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int which) {
+//                Log.i("Please enable ", message);
+//            }
+//        });
+//        alertDialog.show();
+//        return true;
+//    }
 
 
 

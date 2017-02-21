@@ -108,6 +108,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent registerIntent = new Intent(Login.this,RegisterUser.class);
+                registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(registerIntent);
             }
         });
@@ -115,7 +116,7 @@ public class Login extends AppCompatActivity {
         txtForgotPassword.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent forgotPasswordIntent = new Intent(Login.this,ForgotPassword.class);
+                Intent forgotPasswordIntent = new Intent(Login.this,ForgotPassword.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(forgotPasswordIntent);
             }
         });
@@ -191,7 +192,7 @@ public class Login extends AppCompatActivity {
                             pref.setLogin(true);
                             pref.setLoginType(Social.ORG_ENTITY);
                             Intent intent = new Intent(Login.this, ActivityFragmentPlatform.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             Login.this.finish();
                             Log.d(TAG, "onResponse: after login success");
