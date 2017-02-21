@@ -26,7 +26,7 @@ import retrofit2.Retrofit;
 
 
 /**
- * Created by yashika on 14/2/17.
+ * Created by Pramod Waghmare on 14/2/17.
  */
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
 
