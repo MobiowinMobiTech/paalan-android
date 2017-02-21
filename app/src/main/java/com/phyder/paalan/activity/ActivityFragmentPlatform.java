@@ -121,8 +121,10 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         //render admob
         adContainer = (ViewGroup) findViewById(R.id.adMobView);
         mAdView = new AdView(this);
-        mAdView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mAdView.setPadding(7, 7, 7, 7);
+        mAdView.setLayoutParams(new RelativeLayout.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        //mAdView.setPadding(7, 7, 7, 7);
         mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
         adContainer.addView(mAdView);
@@ -844,7 +846,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 break;
 
             case R.id.txtIndLogin:
-                startActivity(new Intent(ActivityFragmentPlatform.this,Login.class));
+                startActivity(new Intent(ActivityFragmentPlatform.this,Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llIndConnectPaalan);
@@ -853,7 +855,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 break;
 
             case R.id.txtIndRegister:
-                startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class));
+                startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llIndConnectPaalan);

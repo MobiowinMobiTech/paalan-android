@@ -161,12 +161,13 @@ public class Attributes {
         public static final String EVENT_TIMESPAN = "event_timespan";
         public static final String REQUEST_TIMESPAN = "request_timespan";
         public static final String IND_DASH_TIMESPAN = "ind_dash_timespan";
+        public static final String WHATS_NEW_TIMESPAN = "whats_new_timespan";
 
 
         public static final String CREATE_MASTER_QUERY = "create table " + MASTER_TABLE +
                 " (_id integer primary key autoincrement, " + ACHIEVEMENT_TIMESPAN + " text not null, "
                 + EVENT_TIMESPAN + " text not null, "+ REQUEST_TIMESPAN + " text not null, "
-                + IND_DASH_TIMESPAN + " text not null);";
+                + IND_DASH_TIMESPAN + " text not null, "+ WHATS_NEW_TIMESPAN + " text not null);";
     }
 
 

@@ -272,7 +272,7 @@ public class RegisterUser extends AppIntro {
      * Function used to call dashboard
      */
     private void launchDashboard() {
-        Intent intent = new Intent(this,ActivityFragmentPlatform.class);
+        Intent intent = new Intent(this,ActivityFragmentPlatform.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

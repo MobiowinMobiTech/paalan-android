@@ -337,7 +337,7 @@ public class DBAdapter {
 	}
 
 	public long insertTimeSpan(String achieve_time_span,String event_time_span, String request_time_span,
-							   String ind_time_span)
+							   String ind_time_span,String whats_new_time_span)
 	{
 		ContentValues cv=new ContentValues();
 		try{
@@ -345,6 +345,7 @@ public class DBAdapter {
 			cv.put(Attributes.MasterDatabase.EVENT_TIMESPAN,event_time_span);
 			cv.put(Attributes.MasterDatabase.REQUEST_TIMESPAN, request_time_span);
 			cv.put(Attributes.MasterDatabase.IND_DASH_TIMESPAN, ind_time_span);
+			cv.put(Attributes.MasterDatabase.WHATS_NEW_TIMESPAN, whats_new_time_span);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -402,6 +403,17 @@ public class DBAdapter {
 		return sqLiteDatabase.update(Attributes.MasterDatabase.MASTER_TABLE,cv,null,null);
 	}
 
+	public long updateWhatsNewTimeSpan(String timespan)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.MasterDatabase.WHATS_NEW_TIMESPAN, timespan);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.update(Attributes.MasterDatabase.MASTER_TABLE,cv,null,null);
+	}
 
 
 
@@ -535,6 +547,8 @@ public class DBAdapter {
 					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.REQUEST_TIMESPAN));
 				}else if(status.equals("IND")){
 					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.IND_DASH_TIMESPAN));
+				}else if(status.equals("WhatsNew")){
+					date = cursor.getString(cursor.getColumnIndex(Attributes.MasterDatabase.WHATS_NEW_TIMESPAN));
 				}
 			}while (cursor.moveToNext());
 		}

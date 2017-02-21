@@ -42,7 +42,6 @@ public class CronJobService extends Service{
     private void getLatestTopics() {
         Log.d(TAG, "scheduleAlarm getLatestTopics: ");
         DBAdapter dbAdapter = new DBAdapter(this);
-        dbAdapter.open();
 
 //        DBHelper dbHelper = new DBHelper(this);
 
