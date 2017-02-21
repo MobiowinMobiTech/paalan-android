@@ -1,5 +1,6 @@
 package com.phyder.paalan.services;
 
+import com.phyder.paalan.payload.request.ForgotPasswordRequest;
 import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.request.RequestOrganizerProfile;
@@ -23,6 +24,7 @@ import com.phyder.paalan.payload.request.organization.OrgReqUpdateEvent;
 import com.phyder.paalan.payload.request.organization.OrganisationReqProfile;
 import com.phyder.paalan.payload.request.organization.OrganizationReqResistration;
 import com.phyder.paalan.payload.request.organization.RequestInitialData;
+import com.phyder.paalan.payload.response.ForgotPasswordResponse;
 import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.payload.response.ResponseLogin;
 import com.phyder.paalan.payload.response.ResponseOrganizerProfile;
@@ -129,4 +131,7 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<SubmitDonateResponse> submitDonateForm(@Body SubmitDonateForm submitDonateForm);
+
+    @POST("paalan/PaalanGateway")
+    Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest forgotPassword);
 }
