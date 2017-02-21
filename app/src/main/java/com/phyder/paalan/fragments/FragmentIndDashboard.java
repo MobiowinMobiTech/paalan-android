@@ -31,6 +31,7 @@ import com.phyder.paalan.helper.GPSTracker;
 import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.services.Device;
+import com.phyder.paalan.services.FCMTokenGeneratorService;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
@@ -70,7 +71,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
     private PreferenceUtils pref;
 
     private TextViewOpenSansSemiBold txtEventSeeMore,txtSocialSeeMore ,txtGroupSeeMore,txtAchievementsSeeMore;
-    private ButtonOpenSansSemiBold btnDonate;
     private LinearLayout llEvent, llGroup, llRequest, llAchievement;
     private RecyclerView recycleEvent, recycleGroup, recycleRequest, recycleAchievement;
 
@@ -115,8 +115,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 txtGroupSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtGroupSeeMore);
                 txtSocialSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtSocialSeeMore);
                 txtAchievementsSeeMore = (TextViewOpenSansSemiBold) view.findViewById(R.id.txtAchievementSeeMore);
-
-                btnDonate = (ButtonOpenSansSemiBold) view.findViewById(R.id.btnDonate);
 
                 eventLists = new ArrayList<String>();
                 groupLists = new ArrayList<String>();
@@ -212,13 +210,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 }
             });
 
-            btnDonate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), Donate.class));
-                }
-            });
-
         }
 
 
@@ -306,7 +297,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
 
             dbAdapter.open();
-            eventCursor = dbAdapter.getAllEvent("F");
+            eventCursor = dbAdapter.getAllEvent("F",pref.getLoginType());
 
             if(eventCursor != null)
                 eventCursor.moveToFirst();
@@ -318,7 +309,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 }while (eventCursor.moveToNext());
             }
 
-            requestCursor = dbAdapter.getAllRequests("F");
+            requestCursor = dbAdapter.getAllRequests("F",pref.getLoginType());
 
             if(requestCursor != null)
                 requestCursor.moveToFirst();
@@ -342,7 +333,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                 }while (groupCursor.moveToNext());
             }
 
-            achievementCursor = dbAdapter.getAllAchievements("F");
+            achievementCursor = dbAdapter.getAllAchievements("F",pref.getLoginType());
 
             if(achievementCursor != null)
                 achievementCursor.moveToFirst();
@@ -465,6 +456,9 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
             } else {
                 CommanUtils.showAlertDialog(getActivity(),getResources().getString(R.string.error_internet));
             }
+
+            FCMTokenGeneratorService.sendNotificationToServer(getActivity(),pref.getLocation().split("~")[0],
+                    pref.getLocation().split("~")[1]);
         }
 
 
@@ -487,7 +481,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             response.body().getData()[0].getEventlist()[i].getDeleteFlag(),
                             response.body().getData()[0].getEventlist()[i].getCategory(),
                             response.body().getData()[0].getEventlist()[i].getLocation(),
-                            response.body().getData()[0].getEventlist()[i].getEventLogo());
+                            response.body().getData()[0].getEventlist()[i].getEventLogo(),
+                            pref.getLoginType());
             }
 
             for(int i=0;i<response.body().getData()[0].getOrgachievementlist().length;i++) {
@@ -503,7 +498,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                             response.body().getData()[0].getOrgachievementlist()[i].getImage2(),
                             response.body().getData()[0].getOrgachievementlist()[i].getImage3(),
                             response.body().getData()[0].getOrgachievementlist()[i].getImage4(),
-                            response.body().getData()[0].getOrgachievementlist()[i].getDeleteFlag());
+                            response.body().getData()[0].getOrgachievementlist()[i].getDeleteFlag(),
+                            pref.getLoginType());
             }
 
 
@@ -517,7 +513,8 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                         response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
                         response.body().getData()[0].getOrgreqlist()[i].getOthers(),
                         response.body().getData()[0].getOrgreqlist()[i].getLocation(),
-                        response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag());
+                        response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag(),
+                        pref.getLoginType());
             }
 
 

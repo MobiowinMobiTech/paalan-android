@@ -37,4 +37,8 @@ public class Social {
     public static final String DONATE = "donate";
 
     public static final String FORGOT = "forgot";
+
+    public static final String PEER_TO_PEER = "peertopeer";
+    public static final String BROADCAST = "broadcast";
+
 }

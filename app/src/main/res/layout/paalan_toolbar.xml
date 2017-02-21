@@ -7,4 +7,38 @@
     android:elevation="4dp"
     >
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            android:id="@+id/txtDashTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/icons"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            />
+
+
+        <ImageView
+        android:id="@+id/action_donate"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_donation_white"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:id="@+id/action_notification"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_notifications_black_24dp"
+        android:layout_toLeftOf="@+id/action_donate"/>
+
+
+    </RelativeLayout>
 </android.support.v7.widget.Toolbar>

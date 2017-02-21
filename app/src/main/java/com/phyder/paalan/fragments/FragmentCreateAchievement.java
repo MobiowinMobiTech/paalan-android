@@ -314,9 +314,8 @@ public class FragmentCreateAchievement extends Fragment{
             Device.newInstance(getActivity());
             String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
             String achiId = shouldBeUpdated ? achievementID : "";
-
             OrgReqCreateAchievments orgReqCreateAchiement = OrgReqCreateAchievments.get(pref.getOrgId(),achiId,
-                    listOfImages,strDescription,strRemarks,strSubTitle,strTitle,strName,action);
+                    listOfImages,strDescription,strRemarks,strSubTitle,strTitle,strName,action,Device.getNotificationId(getActivity()));
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -334,7 +333,7 @@ public class FragmentCreateAchievement extends Fragment{
                             dbAdapter.open();
                             int status = dbAdapter.populatingAchievementsIntoDB(pref.getOrgId(),response.body().getData()[0].getAchievementid(),
                                     achievementID, strName,strTitle, strSubTitle, strDescription, strRemarks,
-                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F");
+                                        imgDecodableFirst, imgDecodableSecond, imgDecodableThird, imgDecodableForth,"F",pref.getLoginType());
                             String message = status==0 ? getResources().getString(R.string.achievement_created) :
                                     getResources().getString(R.string.achievement_updated);
                             CommanUtils.showToast(getActivity(),message);

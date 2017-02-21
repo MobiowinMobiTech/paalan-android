@@ -29,9 +29,9 @@ public class NotificationReciever extends BroadcastReceiver {
         if (intent.getAction().equalsIgnoreCase("com.phyder.paalan.SendBroadcast")){
             String title = intent.getStringExtra(Config.TITLE);
             String body = intent.getStringExtra(Config.BODY);
-            String clickEvent = intent.getStringExtra(Config.CLICK_EVENT);
-
-            displayNotification(title,body,clickEvent,context);
+            String clickEvent = intent.getStringExtra(Config.ENTITY);
+            String type = intent.getStringExtra(Config.TYPE);
+            displayNotification(title,body,clickEvent,type,context);
 
         }else {
             scheduleAlarm(context);
@@ -56,7 +56,7 @@ public class NotificationReciever extends BroadcastReceiver {
      * @param clickEvent : event should fire after notification
      * @param context : current context
      */
-    private void displayNotification(String title, String body, String clickEvent, Context context) {
+    private void displayNotification(String title, String body, String clickEvent, String type,Context context) {
         // Using RemoteViews to bind custom layouts into Notification
         android.widget.RemoteViews remoteViews = new android.widget.RemoteViews(context.getPackageName(),
                 R.layout.customnotification);
@@ -64,11 +64,12 @@ public class NotificationReciever extends BroadcastReceiver {
         // Open NotificationView Class on Notification Click
         Intent resultIntent = new Intent(context, ActivityFragmentPlatform.class);
         resultIntent.putExtra(Config.CLICK_EVENT,clickEvent);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        resultIntent.putExtra(Config.TYPE,type);
+        resultIntent.putExtra(Config.BODY,body);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, resultIntent,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         // Locate and set the Text into customnotificationtext.xml TextViews
         remoteViews.setTextViewText(R.id.title ,title);

@@ -22,6 +22,7 @@ public class Attributes {
         public static final String ACHIEVEMENT_SECOND_IMAGE = "achievement_second_image";
         public static final String ACHIEVEMENT_THIRD_IMAGE = "achievement_third_image";
         public static final String ACHIEVEMENT_FORTH_IMAGE = "achievement_forth_image";
+        public static final String ACHIEVEMENT_ENTITY = "achievement_entity";
         public static final String ACHIEVEMENT_IS_DELETED = "achievement_is_deleted";
 
         public static final String CREATE_ACHIEVEMENT_QUERY = "create table " + ACHIEVEMENT_TABLE_NAME +
@@ -30,7 +31,8 @@ public class Attributes {
                 + ACHIEVEMENT_SUB_TITLE + " text not null, " + ACHIEVEMENT_DESCRIPTION + " text not null, "
                 + ACHIEVEMENT_REMARKS + " text not null, " + ACHIEVEMENT_FIRST_IMAGE + " text not null, "
                 + ACHIEVEMENT_SECOND_IMAGE + " text not null, " + ACHIEVEMENT_THIRD_IMAGE + " text not null, "
-                + ACHIEVEMENT_FORTH_IMAGE + " text not null, " + ACHIEVEMENT_IS_DELETED + " text not null);";
+                + ACHIEVEMENT_FORTH_IMAGE + " text not null, "+ ACHIEVEMENT_ENTITY + " text not null, "
+                + ACHIEVEMENT_IS_DELETED + " text not null);";
 
 
         public static final String REQUEST_TABLE_NAME = "request_table";
@@ -42,6 +44,7 @@ public class Attributes {
         public static final String REQUEST_DESCRIPTION = "request_description";
         public static final String REQUEST_OTHER = "request_others";
         public static final String REQUEST_LOCATION = "request_location";
+        public static final String REQUEST_ENTITY = "request_entity";
         public static final String REQUEST_IS_DELETED = "request_is_deleted";
 
         public static final String CREATE_REQUEST_QUERY = "create table " + REQUEST_TABLE_NAME +
@@ -49,7 +52,7 @@ public class Attributes {
                 + REQUEST_NAME + " text not null, "+ REQUEST_TITLE + " text not null, "
                 + REQUEST_SUB_TITLE + " text not null, "+ REQUEST_DESCRIPTION + " text not null, "
                 + REQUEST_OTHER + " text not null, "+ REQUEST_LOCATION + " text not null, "
-                + REQUEST_IS_DELETED + " text not null);";
+                + REQUEST_ENTITY + " text not null, "+ REQUEST_IS_DELETED + " text not null);";
 
 
 
@@ -66,6 +69,7 @@ public class Attributes {
         public static final String EVENT_END_DATE = "event_end_date";
         public static final String EVENT_LOCATION = "event_location";
         public static final String EVENT_LOGO = "event_logo";
+        public static final String EVENT_ENTITY = "event_entity";
         public static final String EVENT_IS_DELETED = "event_is_deleted";
 
         public static final String CREATE_EVENT_QUERY = "create table " + EVENT_TABLE_NAME +
@@ -75,7 +79,7 @@ public class Attributes {
                 + EVENT_OTHERS + " text not null, "+ EVENT_START_DATE + " text not null, "
                 + EVENT_END_DATE + " text not null, "+ EVENT_CATEGORY + " text not null, "
                 + EVENT_LOCATION + " text not null, " + EVENT_LOGO + " text not null, "
-                + EVENT_IS_DELETED + " text not null);";
+                + EVENT_ENTITY + " text not null, "+ EVENT_IS_DELETED + " text not null);";
 
 
         public static final String GROUPS_PROFILE_TABLE_NAME = "groups_profile_table";
@@ -150,6 +154,19 @@ public class Attributes {
                 + PROFILE_REGISTER_NO + " text not null, " + PROFILE_FB_LINK + " text not null, "
                 + PROFILE_LINKED_IN_LINK + " text not null, " + PROFILE_WEB_LINK + " text not null, "
                 + PROFILE_TWITTER_LINK + " text not null, " + PROFILE_PRESENCE_AREA + " text not null);";
+
+
+
+        public static final String NOTIFICATION_TABLE_NAME = "notification_table";
+        public static final String NOTIFICATION_ID = "notification_id";
+        public static final String NOTIFICATION_TYPE = "notification_type";
+        public static final String NOTIFICATION_MESSAGE = "notification_message";
+        public static final String NOTIFICATION_READED = "notification_readed";
+
+        public static final String CREATE_NOTIFICATION_QUERY = "create table " + NOTIFICATION_TABLE_NAME +
+                " (_id integer primary key autoincrement, "
+                + NOTIFICATION_ID + " text not null, " + NOTIFICATION_TYPE + " text not null, "
+                + NOTIFICATION_MESSAGE + " text not null, "+ NOTIFICATION_READED + " text not null);";
     }
 
 

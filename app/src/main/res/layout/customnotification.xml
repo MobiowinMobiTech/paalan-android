@@ -14,7 +14,8 @@
             android:id="@+id/leftimageicon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/paalan_logo"/>
+            android:src="@drawable/paalan_logo"
+            android:layout_gravity="center_vertical"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,20 +23,20 @@
             android:orientation="vertical"
             android:layout_marginLeft="8dp">
 
-        <TextView
+        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/secondary_text"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:text="@string/dataNotFound"/>
-        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            />
+        <com.phyder.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:textColor="@color/secondary_text"
-            android:text="@string/dataNotFound"/>
+            />
         </LinearLayout>
 
     </LinearLayout>

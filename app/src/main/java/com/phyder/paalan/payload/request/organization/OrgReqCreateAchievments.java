@@ -24,7 +24,7 @@ public class OrgReqCreateAchievments {
     private String type;
 
     public static OrgReqCreateAchievments get(String orgs, String achiId,ArrayList<String> imgs, String description, String others,
-                                              String subTitle, String title,String name,String action) {
+                                              String subTitle, String title,String name,String action,String notifyId) {
 
         Achievementimg[] achievements = new Achievementimg[imgs.size()];
         for (int i = 0; i < achievements.length; i++) {
@@ -34,6 +34,7 @@ public class OrgReqCreateAchievments {
         }
 
         Data data = new Data();
+        data.setNotificationId(notifyId);
         data.setOrgid(orgs);
         data.setAchiId(achiId);
         data.setName(name);
@@ -112,6 +113,8 @@ public class OrgReqCreateAchievments {
 
         private String discription;
 
+        private String notificationid;
+
         public String getTitle() {
             return title;
         }
@@ -177,6 +180,14 @@ public class OrgReqCreateAchievments {
             this.discription = discription;
         }
 
+        public String getNotificationId() {
+            return notificationid;
+        }
+
+        public void setNotificationId(String notificationid) {
+            this.notificationid = notificationid;
+        }
+
         @Override
         public String toString() {
             return "Data{" +
@@ -188,6 +199,7 @@ public class OrgReqCreateAchievments {
                     ", achievementid='" + achievementid + '\'' +
                     ", subtitle='" + subtitle + '\'' +
                     ", discription='" + discription + '\'' +
+                    ", notificationid='" + notificationid + '\'' +
                     '}';
         }
     }

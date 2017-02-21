@@ -38,7 +38,7 @@ public class DBAdapter {
 
 	public int populatingAchievementsIntoDB(String orgId,String tempId, String achieve_id,String name,String achieve_title, String achieve_sub_title, String achieve_desc,
 								  String achieve_remarks, String achieve_img1, String achieve_img2, String achieve_img3,
-								  String achieve_img4,String isDeleted) {
+								  String achieve_img4,String isDeleted,String entity) {
 		int status = 0;
 		ContentValues cv=new ContentValues();
 		try{
@@ -53,6 +53,7 @@ public class DBAdapter {
 			cv.put(Attributes.Database.ACHIEVEMENT_THIRD_IMAGE, (achieve_img3!=null ? achieve_img3 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_FORTH_IMAGE, (achieve_img4!=null ? achieve_img4 : ""));
 			cv.put(Attributes.Database.ACHIEVEMENT_IS_DELETED, isDeleted);
+			cv.put(Attributes.Database.ACHIEVEMENT_ENTITY, entity);
 
 			String id = tempId==null ? achieve_id : tempId;
 			if(!isAchievementExist(id)) {
@@ -78,9 +79,10 @@ public class DBAdapter {
 				+" = '"+ achieve_id + "'",null);
 	}
 
-	public Cursor getAllAchievements(String isDeleted){
+	public Cursor getAllAchievements(String isDeleted,String entity){
 		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.ACHIEVEMENT_TABLE_NAME+" where "+
-				Attributes.Database.ACHIEVEMENT_IS_DELETED+" = '"+isDeleted+"'", null);
+				Attributes.Database.ACHIEVEMENT_IS_DELETED+" = ? AND "+Attributes.Database.ACHIEVEMENT_ENTITY+" = ?",
+				new String[]{isDeleted,entity});
 	}
 
 	public Cursor getAchievementById(String id){
@@ -112,7 +114,7 @@ public class DBAdapter {
 
 	public int populatingEventsIntoDB(String orgId,String tempId,String event_id, String name,String event_title, String event_sub_title, String event_desc,
 							String event_others, String event_startdate, String event_enddate,
-							String event_is_Deleted,String event_category,String location,String logo) {
+							String event_is_Deleted,String event_category,String location,String logo,String entity) {
 
 		int status = 0;
 		ContentValues cv = new ContentValues();
@@ -129,6 +131,7 @@ public class DBAdapter {
 			cv.put(Attributes.Database.EVENT_LOCATION, (location != null ? location : "NA"));
 			cv.put(Attributes.Database.EVENT_LOGO, (logo != null ? logo : "NA"));
 			cv.put(Attributes.Database.EVENT_IS_DELETED, event_is_Deleted);
+			cv.put(Attributes.Database.EVENT_ENTITY, entity);
 
 			String id = tempId==null ? event_id : tempId;
 
@@ -155,9 +158,10 @@ public class DBAdapter {
 				+ " = '" + event_id + "'", null);
 	}
 
-	public Cursor getAllEvent(String isDeleted) {
+	public Cursor getAllEvent(String isDeleted,String entity) {
 		return sqLiteDatabase.rawQuery("Select * from " + Attributes.Database.EVENT_TABLE_NAME + " where " +
-				Attributes.Database.EVENT_IS_DELETED + " = '" + isDeleted + "'", null);
+				Attributes.Database.EVENT_IS_DELETED + " = ? AND " + Attributes.Database.EVENT_ENTITY + " = ?", new String[]
+				{isDeleted,entity});
 	}
 
 	public Cursor getEventById(String id) {
@@ -420,7 +424,7 @@ public class DBAdapter {
 //	Database methods for request insertion,updation,deletion,selection operations
 
 	public int populatingRequestIntoDB(String orgId,String tempId,String request_id,String name,String request_title, String request_sub_title, String request_desc,
-							  String request_others, String request_location, String isDeleted){
+							  String request_others, String request_location, String isDeleted,String entity){
 
 		int status = 0;
 		ContentValues cv=new ContentValues();
@@ -433,6 +437,7 @@ public class DBAdapter {
 			cv.put(Attributes.Database.REQUEST_OTHER, (request_others!=null ? request_others : "NA"));
 			cv.put(Attributes.Database.REQUEST_LOCATION, (request_location!=null ? request_location : "NA"));
 			cv.put(Attributes.Database.REQUEST_IS_DELETED, isDeleted);
+			cv.put(Attributes.Database.REQUEST_ENTITY, entity);
 
 			String id = tempId==null ? request_id : tempId;
 
@@ -458,9 +463,9 @@ public class DBAdapter {
 				+" = '"+ id + "'",null);
 	}
 
-	public Cursor getAllRequests(String isDeleted){
+	public Cursor getAllRequests(String isDeleted,String entity){
 		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.REQUEST_TABLE_NAME+" where "+
-				Attributes.Database.REQUEST_IS_DELETED+" = '"+isDeleted+"'", null);
+				Attributes.Database.REQUEST_IS_DELETED+ " = ? AND "+ Attributes.Database.REQUEST_ENTITY + " = ?",new String[]{isDeleted,entity});
 	}
 
 	public Cursor getRequestById(String id){
@@ -531,6 +536,54 @@ public class DBAdapter {
 		}
 		return encodedDp;
 	}
+
+
+
+
+	//	Database methods for notification insertion,updation,deletion,selection operations
+
+	public long insertNotification(String id,String type,String message)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.NOTIFICATION_ID, id);
+			cv.put(Attributes.Database.NOTIFICATION_TYPE,(type!=null ? type : "NA"));
+			cv.put(Attributes.Database.NOTIFICATION_MESSAGE,(message!=null ? message : "NA"));
+			cv.put(Attributes.Database.NOTIFICATION_READED,"false");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.insert(Attributes.Database.NOTIFICATION_TABLE_NAME, null, cv);
+	}
+
+	public long updateNotification(String id)
+	{
+		ContentValues cv=new ContentValues();
+		try{
+			cv.put(Attributes.Database.NOTIFICATION_READED,"true");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqLiteDatabase.update(Attributes.Database.NOTIFICATION_TABLE_NAME, cv, Attributes.Database.NOTIFICATION_ID
+				+ " = '" + id + "'", null);
+	}
+
+	public Cursor getAllNotification(){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.NOTIFICATION_TABLE_NAME, null);
+	}
+
+	public int deleteAllNotifications(){
+		return sqLiteDatabase.delete(Attributes.Database.NOTIFICATION_TABLE_NAME, null,null);
+	}
+
+	public long deleteSingleNotification(String id){
+		return sqLiteDatabase.delete(Attributes.Database.NOTIFICATION_TABLE_NAME,Attributes.Database.NOTIFICATION_ID
+				+" = '"+ id + "'",null);
+	}
+
+
 
 	public String getlastSyncdate(String status) {
 		String date = "0";

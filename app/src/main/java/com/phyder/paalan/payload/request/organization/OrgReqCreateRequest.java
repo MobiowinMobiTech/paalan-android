@@ -22,9 +22,10 @@ public class OrgReqCreateRequest {
     private String type;
 
     public static OrgReqCreateRequest get(String orgs, String reqId,String name,String title, String subTitle,String description,
-                                          String others,String location, String action) {
+                                          String others,String location, String action,String notifyId) {
 
         Data data = new Data();
+        data.setNotificationId(notifyId);
         data.setOrgid(orgs);
         data.setReqid(reqId);
         data.setName(name);
@@ -103,6 +104,8 @@ public class OrgReqCreateRequest {
         private String subtitle;
 
         private String discription;
+
+        private String notificationid;
 
         public String getTitle ()
         {
@@ -184,6 +187,16 @@ public class OrgReqCreateRequest {
             this.discription = discription;
         }
 
+        public String getNotificationId()
+        {
+            return notificationid;
+        }
+
+        public void setNotificationId (String notificationid)
+        {
+            this.notificationid = notificationid;
+        }
+
         @Override
         public String toString() {
             return "Data{" +
@@ -195,6 +208,7 @@ public class OrgReqCreateRequest {
                     ", location='" + location + '\'' +
                     ", subtitle='" + subtitle + '\'' +
                     ", discription='" + discription + '\'' +
+                    ", notificationid='" + notificationid + '\'' +
                     '}';
         }
     }

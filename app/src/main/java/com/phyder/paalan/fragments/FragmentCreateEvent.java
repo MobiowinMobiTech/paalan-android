@@ -269,7 +269,7 @@ public class FragmentCreateEvent extends Fragment {
             Device.newInstance(getActivity());
             String action = shouldBeUpdated ? Social.UPDATE_ACTION : Social.EVENT_ACTION;
             OrgReqCreateEvent reqCreateEvent = OrgReqCreateEvent.get(orgId, eventId, strName,strTitle, strSubtitle,
-                    strDescription, strStartDate, strEndDate, strOther,strCategory,strLocation,action);
+                    strDescription, strStartDate, strEndDate, strOther,strCategory,strLocation,action,Device.getNotificationId(getActivity()));
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -288,7 +288,7 @@ public class FragmentCreateEvent extends Fragment {
                             int status = dbAdapter.populatingEventsIntoDB(pref.getOrgId(),
                                     response.body().getData()[0].getEventid()
                                     ,eventId,strName,strTitle, strSubtitle, strDescription, strOther, strStartDate,
-                                    strEndDate,"F",strCategory,strLocation,null);
+                                    strEndDate,"F",strCategory,strLocation,null,pref.getLoginType());
                             String message = status==0 ? getResources().getString(R.string.event_created) :
                                     getResources().getString(R.string.event_updated);
                             CommanUtils.showToast(getActivity(),message);

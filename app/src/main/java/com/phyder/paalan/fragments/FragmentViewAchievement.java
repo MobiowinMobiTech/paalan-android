@@ -88,7 +88,7 @@ public class FragmentViewAchievement extends Fragment {
     public void getPopulated(){
 
         dbAdapter.open();
-        Cursor cursor = dbAdapter.getAllAchievements("F");
+        Cursor cursor = dbAdapter.getAllAchievements("F",pref.getLoginType());
         listOfAchievementIds =new String[cursor.getCount()];
         listOfAchievementTitles =new String[cursor.getCount()];
         listOfAchievementSubTitles =new String[cursor.getCount()];
@@ -160,7 +160,8 @@ public class FragmentViewAchievement extends Fragment {
                                         response.body().getData()[0].getOrglist()[i].getImage2(),
                                         response.body().getData()[0].getOrglist()[i].getImage3(),
                                         response.body().getData()[0].getOrglist()[i].getImage4(),
-                                        response.body().getData()[0].getOrglist()[i].getDeleteFlag());
+                                        response.body().getData()[0].getOrglist()[i].getDeleteFlag(),
+                                        pref.getLoginType());
                             }
                             dbAdapter.updateAchievementTimeSpan(response.body().getMessage());
                             dbAdapter.close();

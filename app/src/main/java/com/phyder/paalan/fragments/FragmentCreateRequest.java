@@ -146,7 +146,7 @@ public class FragmentCreateRequest extends Fragment{
             String reqId = shouldBeUpdated ? requestID : "";
 
             OrgReqCreateRequest orgReqCreateRequest = OrgReqCreateRequest.get(pref.getOrgId(),reqId,
-                    strName,strTitle,strSubTitle,strDescription,strOthers,strLocation,action);
+                    strName,strTitle,strSubTitle,strDescription,strOthers,strLocation,action,Device.getNotificationId(getActivity()));
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
@@ -165,7 +165,7 @@ public class FragmentCreateRequest extends Fragment{
 
                             int status = dbAdapter.populatingRequestIntoDB(pref.getOrgId(),response.body().getData()[0].getRequestid(),
                                     requestID, strName,strTitle, strSubTitle, strDescription, strOthers,
-                                        strLocation,"F");
+                                        strLocation,"F",pref.getLoginType());
                             String message = status == 0 ? getResources().getString(R.string.request_created) :
                                     getResources().getString(R.string.request_updated);
                             CommanUtils.showToast(getActivity(),message);

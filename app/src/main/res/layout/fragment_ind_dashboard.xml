@@ -334,23 +334,4 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="7dp"
-        android:orientation="horizontal">
-
-        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
-            android:id="@+id/btnDonate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/icons"
-            android:gravity="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:background="@color/primary"
-            android:text="@string/donate"/>
-
-    </LinearLayout>
-
-
 </LinearLayout>

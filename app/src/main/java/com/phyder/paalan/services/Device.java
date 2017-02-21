@@ -157,7 +157,7 @@ public class Device {
      * Function to get notification token
      * @return : token
      */
-    public String getNotificationId(Context context) {
+    public static String getNotificationId(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("notification",Context.MODE_PRIVATE);
         return sharedPreferences.getString("regId","");
     }

@@ -21,5 +21,7 @@ public class Config {
     public static final String BODY = "body";
     public static final String IMAGE_URL = "imageurl";
     public static final String CLICK_EVENT = "click_event";
+    public static final String TYPE = "notificationtype";
+    public static final String ENTITY = "notificationentity";
     public static final long TRIGGER_TIME = 86400000;
 }

@@ -22,9 +22,10 @@ public class OrgReqCreateEvent {
 
     public static OrgReqCreateEvent get(String orgId, String eventId, String name,String title, String subTitle,
                                         String description, String startDate, String endDate,
-                                        String other,String category,String location, String action) {
+                                        String other,String category,String location, String action,String notifyId) {
 
         Data data = new Data();
+        data.setNotificationid(notifyId);
         data.setOrgid(orgId);
         data.setEventid(eventId);
         data.setName(name);
@@ -113,6 +114,8 @@ public class OrgReqCreateEvent {
 
         private String eventid;
 
+        private String notificationid;
+
         public String getName() {
             return orgName;
         }
@@ -200,6 +203,13 @@ public class OrgReqCreateEvent {
         public void setEventid(String eventid) {
             this.eventid = eventid;
         }
+        public String getNotificationid() {
+            return notificationid;
+        }
+
+        public void setNotificationid(String notificationid) {
+            this.notificationid = notificationid;
+        }
 
         @Override
         public String toString() {
@@ -215,6 +225,7 @@ public class OrgReqCreateEvent {
                     ", category='" + category + '\'' +
                     ", enddate='" + enddate + '\'' +
                     ", eventid='" + eventid + '\'' +
+                    ", notificationid='" + notificationid + '\'' +
                     '}';
         }
     }

@@ -260,7 +260,7 @@
     <string name="Oraginization_id">Organization Id</string>
 
     <string name="Organization_profile">Organizer Profile</string>
-
+    <string name="notification">Notifications</string>
 
     <!--toolbar titles-->
     <string name="profile">Profile</string>
@@ -427,7 +427,7 @@
     <string name="click_event_register">register</string>
     <string name="click_event_event">event</string>
     <string name="click_event_achievement">achievement</string>
-    <string name="click_event_social_request">socialrequest</string>
+    <string name="click_event_social_request">request</string>
 
 
     <string name="banner_ad_unit_id">ca-app-pub-8352537985411717/5479616389</string>
@@ -435,6 +435,7 @@
     <string name="achievement_not_found">There is no Achievement near by you.</string>
     <string name="group_not_found">There is no Group near by you.</string>
     <string name="social_request_not_found">There is no Social Request near by you.</string>
+    <string name="notification_not_found">There is no Notifications for you.</string>
     <string name="verify">Verify</string>
     <string name="forgot_password">Forgot password</string>
     <string name="password_empty_message">Please enter password</string>

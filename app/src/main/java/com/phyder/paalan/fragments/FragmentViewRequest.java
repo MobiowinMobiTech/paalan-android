@@ -87,7 +87,7 @@ public class FragmentViewRequest extends Fragment {
     public void getPopulated(){
 
         dbAdapter.open();
-        Cursor cursor = dbAdapter.getAllRequests("F");
+        Cursor cursor = dbAdapter.getAllRequests("F",pref.getLoginType());
         listOfRequestIds =new String[cursor.getCount()];
         listOfRequestTitles =new String[cursor.getCount()];
         listOfRequestSubTitles =new String[cursor.getCount()];
@@ -156,7 +156,8 @@ public class FragmentViewRequest extends Fragment {
                                         response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
                                         response.body().getData()[0].getOrgreqlist()[i].getOthers(),
                                         response.body().getData()[0].getOrgreqlist()[i].getLocation(),
-                                        response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag());
+                                        response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag(),
+                                        pref.getLoginType());
                             }
 
                             dbAdapter.updateRequestTimeSpan(response.body().getMessage());

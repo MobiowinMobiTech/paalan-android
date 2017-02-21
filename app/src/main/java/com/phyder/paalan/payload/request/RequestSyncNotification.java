@@ -61,7 +61,8 @@ public class RequestSyncNotification {
 
     public static RequestSyncNotification get(String syncAction, String entityApp, String type,
                                               String model, String notificationId,
-                                              String osVersion, String deviceId) {
+                                              String osVersion, String deviceId,
+                                              String latitude,String longitude) {
 
         Data data = new Data();
         data.setDeviceid(deviceId);
@@ -69,7 +70,8 @@ public class RequestSyncNotification {
         data.setImeino("");
         data.setNotificationid(notificationId);
         data.setOsversion(osVersion);
-
+        data.setLatitude(latitude);
+        data.setLongitude(longitude);
         RequestSyncNotification requestSyncNotification = new RequestSyncNotification();
         requestSyncNotification.setType(type);
         requestSyncNotification.setEntity(entityApp);
@@ -91,6 +93,11 @@ public class RequestSyncNotification {
         private String osversion;
 
         private String deviceid;
+
+        private String longitude;
+
+        private String latitude;
+
 
         public String getDevicemodel ()
         {
@@ -142,10 +149,37 @@ public class RequestSyncNotification {
             this.deviceid = deviceid;
         }
 
-        @Override
-        public String toString()
+        public String getLongitude ()
         {
-            return "ClassPojo [devicemodel = "+devicemodel+", imeino = "+imeino+", notificationid = "+notificationid+", osversion = "+osversion+", deviceid = "+deviceid+"]";
+            return longitude;
+        }
+
+        public void setLongitude (String longitude)
+        {
+            this.longitude = longitude;
+        }
+
+        public String getLatitude ()
+        {
+            return latitude;
+        }
+
+        public void setLatitude (String latitude)
+        {
+            this.latitude = latitude;
+        }
+
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "devicemodel='" + devicemodel + '\'' +
+                    ", imeino='" + imeino + '\'' +
+                    ", notificationid='" + notificationid + '\'' +
+                    ", osversion='" + osversion + '\'' +
+                    ", deviceid='" + deviceid + '\'' +
+                    ", longitude='" + longitude + '\'' +
+                    ", latitude='" + latitude + '\'' +
+                    '}';
         }
     }
 

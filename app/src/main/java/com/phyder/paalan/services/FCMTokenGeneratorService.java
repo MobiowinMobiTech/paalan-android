@@ -1,5 +1,6 @@
 package com.phyder.paalan.services;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -33,7 +34,7 @@ public class FCMTokenGeneratorService extends FirebaseInstanceIdService {
             Device.newInstance(this);
             Device.setNotificationId(token,this);
 
-            sendNotificationToServer();
+            //sendNotificationToServer();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,9 +45,9 @@ public class FCMTokenGeneratorService extends FirebaseInstanceIdService {
     /**
      * Function used to send notification id to server
      */
-    private void sendNotificationToServer() {
+    public static void sendNotificationToServer(Context context,String latitude,String longitude) {
 
-        Device.newInstance(this);
+        Device.newInstance(context);
         Device device = Device.getInstance();
 
         Retrofit mRetrofit = NetworkUtil.getRetrofit();
@@ -54,7 +55,8 @@ public class FCMTokenGeneratorService extends FirebaseInstanceIdService {
 
         RequestSyncNotification requestSyncNotification = RequestSyncNotification.get(Social.EVENT_SYNC_ACTION,
                 Social.ENTITY_APP,Social.NOTIFICATION,device.getModel(),
-                device.getNotificationId(this),device.getOSVersion(),device.getDeviceId(this));
+                device.getNotificationId(context),device.getOSVersion(),device.getDeviceId(context),
+                latitude,longitude);
 
         Call<RequestSyncNotification> requestSyncNotificationCall = mPaalanServices.syncNotificationId(requestSyncNotification);
         requestSyncNotificationCall.enqueue(new Callback<RequestSyncNotification>() {

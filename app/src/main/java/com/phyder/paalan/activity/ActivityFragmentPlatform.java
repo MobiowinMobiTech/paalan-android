@@ -28,10 +28,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,6 +53,7 @@ import com.phyder.paalan.fragments.FragmentCreateRequest;
 import com.phyder.paalan.fragments.FragmentDashBorad;
 import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
+import com.phyder.paalan.fragments.FragmentNotifications;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
 import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewGroups;
@@ -62,6 +66,7 @@ import com.phyder.paalan.utils.NetworkUtil;
 import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 import com.phyder.paalan.utils.TextViewOpenSansRegular;
+import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
 
 import java.io.ByteArrayOutputStream;
 
@@ -112,11 +117,84 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private AdView mAdView;
     private ViewGroup adContainer;
 
+    private static ImageView IMG_DONATE,IMG_NOTIFICATION;
+    private static TextViewOpenSansSemiBold TOOLBAR_TITLE;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
+
+        initComponents();
+        initAdsMob();
+        initSideDrawer();
+    }
+
+
+    private void initComponents() {
+
+        _CONTEXT = this;
+        PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
+        DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
+        llDrawerHolder = (LinearLayout) findViewById(R.id.llDrawerHolder);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
+            initializingIndDrawerComponants();
+            transaction.replace(R.id.platform, new FragmentIndDashboard());
+        } else {
+            initializingOrgDrawerComponants();
+            transaction.replace(R.id.platform, new FragmentDashBorad());
+        }
+
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
+        try {
+
+            String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
+            String clickType = getIntent().getExtras().getString(Config.TYPE);
+
+            if(clickType.equals(Social.PEER_TO_PEER)){
+                if(PREF.getLoginType().equals(Social.ORG_ENTITY)){
+                    if (clickEvent.contains(getString(R.string.click_event_event))){
+                        getFragmentTransaction(new FragmentViewEvent());
+                    }else if (clickEvent.contains(getString(R.string.click_event_achievement))){
+                        getFragmentTransaction(new FragmentViewAchievement());
+                    }else if (clickEvent.contains(getString(R.string.click_event_social_request))){
+                        getFragmentTransaction(new FragmentViewRequest());
+                    }
+                }else{
+                    CommanUtils.showToast(ActivityFragmentPlatform.this,"Please login with organization to view");
+                }
+            }else if(clickType.equals(Social.BROADCAST)){
+
+                if(PREF.getLoginType().equals(Social.IND_ENTITY)){
+
+                    if (clickEvent.contains(getString(R.string.click_event_event))){
+
+                    }else if (clickEvent.contains(getString(R.string.click_event_achievement))){
+
+                    }else if (clickEvent.contains(getString(R.string.click_event_social_request))){
+
+                    }
+                }else{
+                    DB_ADAPTER.open();
+                    DB_ADAPTER.insertNotification("",clickEvent,getIntent().getExtras().getString(Config.BODY));
+                    DB_ADAPTER.close();
+                    CommanUtils.showToast(ActivityFragmentPlatform.this,"Please sign out organization");
+                }
+            }
+
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void initAdsMob() {
 
         //render admob
         adContainer = (ViewGroup) findViewById(R.id.adMobView);
@@ -130,30 +208,38 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         adContainer.addView(mAdView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
         showAdsMob();
-        setUpDrawer();
-
-        DB_ADAPTER = new DBAdapter(this);
-        DB_ADAPTER.open();
-
-        try {
-            String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
-            Log.d(TAG, "viewEvents PUSH : click event"+clickEvent);
-            if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_event))){
-                Log.d(TAG, "viewEvents PUSH : click event = event");
-                viewEvents();
-            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_achievement))){
-                viewAchievements();
-            }else if (clickEvent.equalsIgnoreCase(getString(R.string.click_event_social_request))){
-                viewSocialRequest();
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
     }
 
+
+    private void initSideDrawer() {
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
+
+        IMG_DONATE = (ImageView) findViewById(R.id.action_donate);
+        IMG_NOTIFICATION = (ImageView) findViewById(R.id.action_notification);
+        TOOLBAR_TITLE = (TextViewOpenSansSemiBold) findViewById(R.id.txtDashTitle);
+
+        IMG_DONATE.setOnClickListener(this);
+        IMG_NOTIFICATION.setOnClickListener(this);
+
+        TOOLBAR = (Toolbar) findViewById(R.id.toolbar);
+        TOOLBAR.setTitle("");
+        setSupportActionBar(TOOLBAR);
+
+        //Profile image
+        IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
+        // to update profile image
+        IMG_PROFILE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateProfileImage();
+            }
+        });
+        TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
+
+    }
 
     /** Called when leaving the activity */
     @Override
@@ -179,56 +265,25 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     public static void changeToolbarTitleIcon(String title,int icon) {
 
         if (TOOLBAR != null) {
-            TOOLBAR.setTitle(title);
+            TOOLBAR_TITLE.setText(title);
             TOOLBAR.setNavigationIcon(icon);
 
             if(_CONTEXT!=null){
                 IS_LAST = title.equals(_CONTEXT.getString(R.string.dash_borad)) ? true : false;
             }
-        }
-    }
 
-
-    private void setUpDrawer() {
-
-        _CONTEXT = this;
-        PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
-        DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
-
-        llDrawerHolder = (LinearLayout) findViewById(R.id.llDrawerHolder);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
-
-        TOOLBAR = (Toolbar) findViewById(R.id.toolbar);
-        TOOLBAR.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(TOOLBAR);
-
-        //Profile image
-        IMG_PROFILE = (RoundedImageView) findViewById(R.id.img_user_profile);
-        // to update profile image
-        IMG_PROFILE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateProfileImage();
+            if(title.equals(_CONTEXT.getString(R.string.dash_borad)) && PREF.getLoginType().equals(Social.IND_ENTITY)){
+                IMG_DONATE.setVisibility(View.VISIBLE);
+                IMG_NOTIFICATION.setVisibility(View.VISIBLE);
+            }else{
+                IMG_DONATE.setVisibility(View.GONE);
+                IMG_NOTIFICATION.setVisibility(View.GONE);
             }
-        });
-        TXT_USER_NAME = (TextView) findViewById(R.id.textView2);
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
-            initializingIndDrawerComponants();
-            transaction.replace(R.id.platform, new FragmentIndDashboard());
-        } else {
-            initializingOrgDrawerComponants();
-            transaction.replace(R.id.platform, new FragmentDashBorad());
         }
-
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-
     }
+
+
+
 
     private void showAdsMob(){
 
@@ -489,7 +544,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle(getString(R.string.app_name));
         alertBuilder.setMessage(getString(R.string.exit_app_message));
-        alertBuilder.setIcon(R.drawable.paalan_logo);
+        alertBuilder.setIcon(R.mipmap.ic_launcher);
         alertBuilder.setCancelable(false);
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -522,6 +577,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -538,7 +594,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     onBackPressed();
                 }
 
-                return true;
+               return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -786,7 +842,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             // for individual clicking event fire
 
             case R.id.txtIndEvent:
-                if (DB_ADAPTER.getAllEvent("F").getCount() > 0)
+                DB_ADAPTER.open();
+                if (DB_ADAPTER.getAllEvent("F",PREF.getLoginType()).getCount() > 0)
                     if(!(fragment instanceof FragmentViewEvent)) {
                         getFragmentTransaction(new FragmentViewEvent());
                     }else{
@@ -796,9 +853,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     }
                 else
                     Toast.makeText(getApplicationContext(),getString(R.string.event_not_found),Toast.LENGTH_LONG).show();
+
+                DB_ADAPTER.close();
                 break;
 
             case R.id.txtIndGroup:
+                DB_ADAPTER.open();
                 if (DB_ADAPTER.getAllGroups("F").getCount() > 0)
                     if(!(fragment instanceof FragmentViewGroups)) {
                         getFragmentTransaction(new FragmentViewGroups());
@@ -809,9 +869,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     }
                 else
                     Toast.makeText(getApplicationContext(),getString(R.string.group_not_found),Toast.LENGTH_LONG).show();
+                DB_ADAPTER.close();
                 break;
             case R.id.txtIndRequest:
-                if (DB_ADAPTER.getAllRequests("F").getCount() > 0)
+                DB_ADAPTER.open();
+                if (DB_ADAPTER.getAllRequests("F",PREF.getLoginType()).getCount() > 0)
                     if(!(fragment instanceof FragmentViewRequest)) {
                         getFragmentTransaction(new FragmentViewRequest());
                     }else{
@@ -821,12 +883,13 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     }
                 else
                     Toast.makeText(getApplicationContext(),getString(R.string.social_request_not_found),Toast.LENGTH_LONG).show();
+                DB_ADAPTER.close();
                 break;
 
             case R.id.txtIndAchievement:
-                if (DB_ADAPTER.getAllEvent("F").getCount() > 0)
+                DB_ADAPTER.open();
+                if (DB_ADAPTER.getAllAchievements("F",PREF.getLoginType()).getCount() > 0)
                     if(!(fragment instanceof FragmentViewAchievement)) {
-                        Log.d(TAG, "PUSH : click event instance of");
                         getFragmentTransaction(new FragmentViewAchievement());
                     }else{
                         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -835,6 +898,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     }
                 else
                     Toast.makeText(getApplicationContext(),getString(R.string.achievement_not_found),Toast.LENGTH_LONG).show();
+                DB_ADAPTER.close();
                 break;
 
             case R.id.txtIndConnect:
@@ -1045,34 +1109,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                     }
                 }
                 break;
+
+           case R.id.action_notification:
+               getFragmentTransaction(new FragmentNotifications());
+               break;
+
+           case R.id.action_donate:
+              startActivity(new Intent(ActivityFragmentPlatform.this,Donate.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+              break;
         }
 
     }
-
-    private void viewSocialRequest() {
-        getFragmentTransaction(new FragmentViewRequest());
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    private void viewAchievements() {
-        getFragmentTransaction(new FragmentViewAchievement());
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    private void viewEvents() {
-        Log.d(TAG, "viewEvents: ");
-        getFragmentTransaction(new FragmentViewEvent());
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            Log.d(TAG, "viewEvents: if drawer ");
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            collapse(llOrgEvents);
-        }
-    }
-
 
 
     @Override
