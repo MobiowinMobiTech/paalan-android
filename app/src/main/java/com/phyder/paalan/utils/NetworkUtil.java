@@ -76,7 +76,7 @@ public class NetworkUtil {
     }
 
 
-    public static boolean isInternetConnected(Activity mActivity) {
+    public static boolean isInternetConnected(Context mActivity) {
         ConnectivityManager connec = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
         android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);

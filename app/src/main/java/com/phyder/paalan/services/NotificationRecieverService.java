@@ -32,14 +32,10 @@ public class NotificationRecieverService extends FirebaseMessagingService {
         Intent intent = new Intent();
         intent.putExtra(Config.TITLE,remoteMessage.getData().get(Config.TITLE));
         intent.putExtra(Config.BODY,remoteMessage.getData().get(Config.BODY));
-        intent.putExtra(Config.IMAGE_URL,remoteMessage.getData().get(Config.IMAGE_URL));
-        intent.putExtra(Config.TYPE,remoteMessage.getData().get(Config.TYPE));
+       // intent.putExtra(Config.IMAGE_URL,remoteMessage.getData().get(Config.IMAGE_URL));
         intent.putExtra(Config.ENTITY,remoteMessage.getData().get(Config.ENTITY));
-
-        if(remoteMessage.getData().get(Config.TYPE).equals(Social.BROADCAST)){
-            intent.putExtra(Config.ORG_ID,remoteMessage.getData().get(Config.ORG_ID));
-            intent.putExtra(Config.RECORD_ID,remoteMessage.getData().get(Config.RECORD_ID));
-        }
+        intent.putExtra(Config.ORG_ID,remoteMessage.getData().get(Config.ORG_ID));
+        intent.putExtra(Config.RECORD_ID,remoteMessage.getData().get(Config.RECORD_ID));
         intent.setAction("com.phyder.paalan.SendBroadcast");
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         //  intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

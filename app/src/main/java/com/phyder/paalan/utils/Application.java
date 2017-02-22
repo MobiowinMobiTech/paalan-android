@@ -28,7 +28,7 @@ public class Application extends android.app.Application {
 
         FirebaseMessaging.getInstance().subscribeToTopic("event");
         FirebaseMessaging.getInstance().subscribeToTopic("achievement");
-        FirebaseMessaging.getInstance().subscribeToTopic("request");
+        FirebaseMessaging.getInstance().subscribeToTopic("socialrequest");
 
     }
 

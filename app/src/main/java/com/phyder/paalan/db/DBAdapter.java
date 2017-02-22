@@ -542,11 +542,12 @@ public class DBAdapter {
 
 	//	Database methods for notification insertion,updation,deletion,selection operations
 
-	public long insertNotification(String id,String type,String message)
+	public long insertNotification(String id,String type,String message,String orgId)
 	{
 		ContentValues cv=new ContentValues();
 		try{
 			cv.put(Attributes.Database.NOTIFICATION_ID, id);
+			cv.put(Attributes.Database.NOTIFICATION_ORG_ID, orgId);
 			cv.put(Attributes.Database.NOTIFICATION_TYPE,(type!=null ? type : "NA"));
 			cv.put(Attributes.Database.NOTIFICATION_MESSAGE,(message!=null ? message : "NA"));
 			cv.put(Attributes.Database.NOTIFICATION_READED,"false");
@@ -568,6 +569,11 @@ public class DBAdapter {
 		}
 		return sqLiteDatabase.update(Attributes.Database.NOTIFICATION_TABLE_NAME, cv, Attributes.Database.NOTIFICATION_ID
 				+ " = '" + id + "'", null);
+	}
+
+	public int getUnreadNotificationCounts(){
+		return sqLiteDatabase.rawQuery("Select * from "+Attributes.Database.NOTIFICATION_TABLE_NAME+" where "+
+				Attributes.Database.NOTIFICATION_READED+" = '"+ "false" + "'",null).getCount();
 	}
 
 	public Cursor getAllNotification(){

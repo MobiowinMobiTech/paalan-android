@@ -5,17 +5,36 @@
     android:layout_height="match_parent"
     android:padding="5dp">
 
-
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
-            android:id="@+id/txtMessage"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:layout_margin="5dp"
-            android:textColor="@color/secondary_text"
             android:layout_gravity="center_vertical"
-            />
+            android:padding="5dp">
+
+        <com.phyder.paalan.utils.TextViewOpenSansRegular
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/primary_text"
+            android:text="Title"/>
+
+        <com.phyder.paalan.utils.TextViewOpenSansRegular
+            android:id="@+id/txtMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/secondary_text"
+            android:text="Message"/>
+
+        </LinearLayout>
 
         <com.phyder.paalan.utils.TextViewOpenSansSemiBold
             android:id="@+id/txtNew"

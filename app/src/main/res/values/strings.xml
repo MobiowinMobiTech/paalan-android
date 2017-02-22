@@ -235,8 +235,6 @@
         <item>Misc</item>
     </string-array>
 
-
-
     <string name="acheivements">Achievement</string>
     <string name="acheivement_details">Achievement Details</string>
     <string name="update_acheivement">Update Achievement</string>

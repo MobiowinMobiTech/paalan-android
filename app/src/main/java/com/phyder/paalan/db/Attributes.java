@@ -159,14 +159,16 @@ public class Attributes {
 
         public static final String NOTIFICATION_TABLE_NAME = "notification_table";
         public static final String NOTIFICATION_ID = "notification_id";
+        public static final String NOTIFICATION_ORG_ID = "notification_orgid";
         public static final String NOTIFICATION_TYPE = "notification_type";
         public static final String NOTIFICATION_MESSAGE = "notification_message";
         public static final String NOTIFICATION_READED = "notification_readed";
 
         public static final String CREATE_NOTIFICATION_QUERY = "create table " + NOTIFICATION_TABLE_NAME +
                 " (_id integer primary key autoincrement, "
-                + NOTIFICATION_ID + " text not null, " + NOTIFICATION_TYPE + " text not null, "
-                + NOTIFICATION_MESSAGE + " text not null, "+ NOTIFICATION_READED + " text not null);";
+                + NOTIFICATION_ID + " text not null, " + NOTIFICATION_ORG_ID + " text not null, "
+                + NOTIFICATION_TYPE + " text not null, " + NOTIFICATION_MESSAGE + " text not null, "
+                + NOTIFICATION_READED + " text not null);";
     }
 
 

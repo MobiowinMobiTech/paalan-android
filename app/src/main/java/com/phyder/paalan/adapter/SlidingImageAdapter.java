@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +25,20 @@ import java.util.List;
  */
 public class SlidingImageAdapter extends PagerAdapter {
 
-    private List<String> IMAGES;
+    private final static String TAG=SlidingImageAdapter.class.getSimpleName();
+    private String[] IMAGES;
     private LayoutInflater inflater;
     private Context context;
     private ButtonOpenSansSemiBold btnRegistration;
     private ImageView imageView;
     private PreferenceUtils pref;
 
-    public SlidingImageAdapter(Context context, List<String> IMAGES) {
+    public SlidingImageAdapter(Context context, String[] IMAGES) {
         this.context = context;
         this.IMAGES = IMAGES;
         inflater = LayoutInflater.from(context);
         pref = new PreferenceUtils(context);
+
     }
 
     @Override
@@ -46,7 +49,7 @@ public class SlidingImageAdapter extends PagerAdapter {
     @Override
     public int getCount() {
 
-        return IMAGES.size();
+        return IMAGES.length;
     }
 
     @Override
@@ -64,7 +67,7 @@ public class SlidingImageAdapter extends PagerAdapter {
                 context.startActivity(new Intent(context, RegisterUser.class));
             }
         });
-        CommanUtils.updateImage(context, imageView, IMAGES.get(position),R.drawable.paalan_logo);
+        CommanUtils.updateImage(context, imageView, IMAGES[position],R.drawable.paalan_logo);
 
         try {
             if(pref.getLoginType().equals(Social.IND_ENTITY)) {

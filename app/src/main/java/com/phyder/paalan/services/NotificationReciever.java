@@ -29,9 +29,7 @@ public class NotificationReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equalsIgnoreCase("com.phyder.paalan.SendBroadcast")){
-
             displayNotification(intent,context);
-
         }else {
             scheduleAlarm(context);
         }
@@ -55,53 +53,43 @@ public class NotificationReciever extends BroadcastReceiver {
      */
     private void displayNotification(Intent intent,Context context) {
         // Using RemoteViews to bind custom layouts into Notification
-        android.widget.RemoteViews remoteViews = new android.widget.RemoteViews(context.getPackageName(),
-                R.layout.customnotification);
+//        android.widget.RemoteViews remoteViews = new android.widget.RemoteViews(context.getPackageName(),
+//                R.layout.customnotification);
 
         // Open NotificationView Class on Notification Click
 
-
+        String entity = intent.getStringExtra(Config.ENTITY);
         String title = intent.getStringExtra(Config.TITLE);
         String body = intent.getStringExtra(Config.BODY);
-        String clickEvent = intent.getStringExtra(Config.ENTITY);
-        String type = intent.getStringExtra(Config.TYPE);
 
         Intent resultIntent = new Intent(context, ActivityFragmentPlatform.class);
 
-        resultIntent.putExtra(Config.CLICK_EVENT,clickEvent);
-        resultIntent.putExtra(Config.TYPE,type);
-        resultIntent.putExtra(Config.BODY,body);
+        String orgId = intent.getStringExtra(Config.ORG_ID);
+        String recordId = intent.getStringExtra(Config.RECORD_ID);
 
-        if(type.equals(Social.BROADCAST)){
-
-            String orgId = intent.getStringExtra(Config.ORG_ID);
-            String recordId = intent.getStringExtra(Config.RECORD_ID);
-
-            DBAdapter dbAdapter =new DBAdapter(context);
-            dbAdapter.open();
-            dbAdapter.insertNotification(recordId,clickEvent,body);
-            dbAdapter.close();
-
-            resultIntent.putExtra(Config.ORG_ID,orgId);
-            resultIntent.putExtra(Config.RECORD_ID,recordId);
-        }
-
+        resultIntent.putExtra(Config.ENTITY,entity);
+        resultIntent.putExtra(Config.ORG_ID,orgId);
+        resultIntent.putExtra(Config.RECORD_ID,recordId);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        DBAdapter dbAdapter = new DBAdapter(context);
+        dbAdapter.open();
+        dbAdapter.insertNotification(recordId, entity, body,orgId);
+        dbAdapter.close();
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, resultIntent,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Locate and set the Text into customnotificationtext.xml TextViews
-        remoteViews.setTextViewText(R.id.title ,title);
-        remoteViews.setTextViewText(R.id.body ,body);
+//        remoteViews.setTextViewText(R.id.title ,title);
+//        remoteViews.setTextViewText(R.id.body ,body);
 
         Notification builder =
                 new android.support.v4.app.NotificationCompat.Builder(context)
                         .setPriority(Notification.PRIORITY_HIGH)
                         .setAutoCancel(true)
-                        .setTicker(title)
-                        .setCustomContentView(remoteViews)
-                        .setCustomBigContentView(remoteViews)
+                        .setContentText(body)
+                        .setContentTitle(title)
                         .setContentIntent(pIntent)
                         .setDefaults(Notification.DEFAULT_SOUND)
                         .setSmallIcon(R.drawable.paalan_logo).build();

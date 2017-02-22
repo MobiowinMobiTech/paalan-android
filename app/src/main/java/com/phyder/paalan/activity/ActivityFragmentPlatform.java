@@ -94,8 +94,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
     private static final String TAG = ActivityFragmentPlatform.class.getSimpleName();
 
-    private DrawerLayout mDrawerLayout;
-    private LinearLayout mDrawerList;
+    private static DrawerLayout mDrawerLayout;
+    private static LinearLayout mDrawerList;
 
     private Fragment fragment;
     private static RoundedImageView IMG_PROFILE;
@@ -141,7 +141,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
-
         initComponents();
         initAdsMob();
         initSideDrawer();
@@ -156,6 +155,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         llDrawerHolder = (LinearLayout) findViewById(R.id.llDrawerHolder);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
         if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
             initializingIndDrawerComponants();
             transaction.replace(R.id.platform, new FragmentIndDashboard());
@@ -167,41 +167,26 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         transaction.addToBackStack(null);
         transaction.commit();
 
+            if(getIntent().getData() != null) {
 
-        try {
+                try {
 
-            String clickEvent = getIntent().getExtras().getString(Config.CLICK_EVENT);
-            String clickType = getIntent().getExtras().getString(Config.TYPE);
+                    if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
 
-            if(clickType.equals(Social.PEER_TO_PEER)){
-                if(PREF.getLoginType().equals(Social.ORG_ENTITY)){
-                    if (clickEvent.contains(getString(R.string.click_event_event))){
-                        getFragmentTransaction(new FragmentViewEvent());
-                    }else if (clickEvent.contains(getString(R.string.click_event_achievement))){
-                        getFragmentTransaction(new FragmentViewAchievement());
-                    }else if (clickEvent.contains(getString(R.string.click_event_social_request))){
-                        getFragmentTransaction(new FragmentViewRequest());
+                        String entity = getIntent().getExtras().getString(Config.ENTITY);
+                        String orgId = getIntent().getExtras().getString(Config.ORG_ID);
+                        String recordId = getIntent().getExtras().getString(Config.RECORD_ID);
+                        setRetrofitRequest(ActivityFragmentPlatform.this,orgId,recordId, entity);
+
+                    } else {
+                        CommanUtils.showToast(ActivityFragmentPlatform.this, "Please sign out organization");
                     }
-                }else{
-                    CommanUtils.showToast(ActivityFragmentPlatform.this,"You are not logged in with organization");
-                }
-            }else if(clickType.equals(Social.BROADCAST)){
 
-                if(PREF.getLoginType().equals(Social.IND_ENTITY)){
-
-                    String orgId = getIntent().getExtras().getString(Config.ORG_ID);
-                    String recordId = getIntent().getExtras().getString(Config.RECORD_ID);
-                    setRetrofitRequest(recordId,clickEvent);
-
-                }else{
-                    CommanUtils.showToast(ActivityFragmentPlatform.this,"Please sign out organization");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
 
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
     }
 
     private void initAdsMob() {
@@ -264,10 +249,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     /** Called before the activity is destroyed */
     @Override
     public void onDestroy() {
+        super.onDestroy();
         if (mAdView != null) {
             mAdView.destroy();
         }
-        super.onDestroy();
+
     }
 
 
@@ -285,6 +271,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             if(title.equals(_CONTEXT.getString(R.string.dash_borad)) && PREF.getLoginType().equals(Social.IND_ENTITY)){
                 IMG_DONATE.setVisibility(View.VISIBLE);
                 IMG_NOTIFICATION.setVisibility(View.VISIBLE);
+                DB_ADAPTER.open();
+                DB_ADAPTER.getUnreadNotificationCounts();
+                DB_ADAPTER.close();
             }else{
                 IMG_DONATE.setVisibility(View.GONE);
                 IMG_NOTIFICATION.setVisibility(View.GONE);
@@ -370,7 +359,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             Log.d("", "updateProfileImage: org");
             try {
                 fragment = new FragmentMyProfile();
-                getFragmentTransaction(fragment);
+                getFragmentTransaction(ActivityFragmentPlatform.this,fragment);
                 mDrawerLayout.closeDrawer(mDrawerList);
             } catch (Exception ex) {
 
@@ -520,9 +509,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     }
 
 
-    private void getFragmentTransaction(Fragment fragment){
+    private static void getFragmentTransaction(final FragmentActivity context,Fragment fragment){
 
-        getSupportFragmentManager().beginTransaction()
+        context.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.platform, fragment)
                 .addToBackStack(null).commit();
 
@@ -580,6 +569,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         if (mAdView != null) {
             mAdView.resume();
         }
+
         getProfileUpdate();
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
@@ -855,7 +845,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 DB_ADAPTER.open();
                 if (DB_ADAPTER.getAllEvent("F",PREF.getLoginType()).getCount() > 0)
                     if(!(fragment instanceof FragmentViewEvent)) {
-                        getFragmentTransaction(new FragmentViewEvent());
+                        getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewEvent());
                     }else{
                         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                             mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -871,7 +861,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 DB_ADAPTER.open();
                 if (DB_ADAPTER.getAllGroups("F").getCount() > 0)
                     if(!(fragment instanceof FragmentViewGroups)) {
-                        getFragmentTransaction(new FragmentViewGroups());
+                        getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewGroups());
                     }else{
                         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                             mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -885,7 +875,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 DB_ADAPTER.open();
                 if (DB_ADAPTER.getAllRequests("F",PREF.getLoginType()).getCount() > 0)
                     if(!(fragment instanceof FragmentViewRequest)) {
-                        getFragmentTransaction(new FragmentViewRequest());
+                        getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewRequest());
                     }else{
                         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                             mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -900,7 +890,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 DB_ADAPTER.open();
                 if (DB_ADAPTER.getAllAchievements("F",PREF.getLoginType()).getCount() > 0)
                     if(!(fragment instanceof FragmentViewAchievement)) {
-                        getFragmentTransaction(new FragmentViewAchievement());
+                        getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewAchievement());
                     }else{
                         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                             mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -920,7 +910,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 break;
 
             case R.id.txtIndLogin:
-                startActivity(new Intent(ActivityFragmentPlatform.this,Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(ActivityFragmentPlatform.this,Login.class));
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llIndConnectPaalan);
@@ -929,7 +919,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 break;
 
             case R.id.txtIndRegister:
-                startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(ActivityFragmentPlatform.this,RegisterUser.class));
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                     collapse(llIndConnectPaalan);
@@ -945,20 +935,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
                 break;
 
-//            case R.id.txtIndDonate:
-//                startActivity(new Intent(this, Donate.class));
-//                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-//                    mDrawerLayout.closeDrawers();
-//                    collapse(llIndDonate);
-//                }
-//                break;
-
-//            case R.id.txtIndDatePaalan:
-//
-//                break;
             case R.id.txtIndAbout:
                 if(!(fragment instanceof FragmentAboutUs)) {
-                    getFragmentTransaction(new FragmentAboutUs());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentAboutUs());
                 }else{
                     if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -968,7 +947,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtIndContact:
                 if(!(fragment instanceof FragmentConnectWithUs)) {
-                    getFragmentTransaction(new FragmentConnectWithUs());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentConnectWithUs());
                 }else{
                     if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -980,7 +959,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgProfile:
                 if(!(fragment instanceof FragmentMyProfile)) {
-                    getFragmentTransaction(new FragmentMyProfile());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentMyProfile());
                 }else{
                     if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1000,7 +979,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgCreateAchievement:
                 if(!(fragment instanceof FragmentCreateAchievement)) {
-                    getFragmentTransaction(new FragmentCreateAchievement());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentCreateAchievement());
                 }
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1010,7 +989,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgViewAchievement:
                 if(!(fragment instanceof FragmentViewAchievement)) {
-                    getFragmentTransaction(new FragmentViewAchievement());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewAchievement());
                 }
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1029,7 +1008,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgCreateEvent:
                 if(!(fragment instanceof FragmentCreateEvent)) {
-                    getFragmentTransaction(new FragmentCreateEvent());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentCreateEvent());
                 }
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1039,7 +1018,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgViewEvent:
                 if(!(fragment instanceof FragmentViewEvent)) {
-                    getFragmentTransaction(new FragmentViewEvent());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewEvent());
                 }
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1057,7 +1036,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
            case R.id.txtOrgCreateRequest:
                if(!(fragment instanceof FragmentCreateRequest)) {
-                   getFragmentTransaction(new FragmentCreateRequest());
+                   getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentCreateRequest());
                }
                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                    mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1068,7 +1047,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
            case R.id.txtOrgViewRequest:
                if(!(fragment instanceof FragmentViewRequest)) {
-                   getFragmentTransaction(new FragmentViewRequest());
+                   getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentViewRequest());
                }
                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                    mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1079,7 +1058,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgAbout:
                 if(!(fragment instanceof FragmentAboutUs)) {
-                    getFragmentTransaction(new FragmentAboutUs());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentAboutUs());
                 }else{
                     if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1090,7 +1069,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
             case R.id.txtOrgContact:
                 if(!(fragment instanceof FragmentConnectWithUs)) {
-                    getFragmentTransaction(new FragmentConnectWithUs());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentConnectWithUs());
                 }else{
                     if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1112,7 +1091,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         e.printStackTrace();
                     }
                     initializingIndDrawerComponants();
-                    getFragmentTransaction(new FragmentIndDashboard());
+                    getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentIndDashboard());
 
                     if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -1121,11 +1100,11 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 break;
 
            case R.id.action_notification:
-               getFragmentTransaction(new FragmentNotifications());
+               getFragmentTransaction(ActivityFragmentPlatform.this,new FragmentNotifications());
                break;
 
            case R.id.action_donate:
-              startActivity(new Intent(ActivityFragmentPlatform.this,Donate.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+              startActivity(new Intent(ActivityFragmentPlatform.this,Donate.class));
               break;
         }
 
@@ -1157,34 +1136,33 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
      * @param recordId notification type id
      * @param notificationType identify which type of notification such as events,achievements,social requests
      */
-    public void setRetrofitRequest(String recordId,final String notificationType){
+    public static void setRetrofitRequest(final FragmentActivity context,String orgId,String recordId,final String notificationType){
 
-        if(NetworkUtil.isInternetConnected(ActivityFragmentPlatform.this)) {
+        if(NetworkUtil.isInternetConnected(context)) {
 
-            CommanUtils.showDialog(ActivityFragmentPlatform.this);
-            Device.newInstance(ActivityFragmentPlatform.this);
+            CommanUtils.showDialog(context);
+            Device.newInstance(context);
 
-            PreferenceUtils pref = new PreferenceUtils(ActivityFragmentPlatform.this);
-            RequestBroadcastNotification requestBroadcastNotification = RequestBroadcastNotification.get(pref.getOrgId(),
+            RequestBroadcastNotification requestBroadcastNotification = RequestBroadcastNotification.get(orgId,
                     recordId, notificationType);
 
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
-            if (notificationType.contains(getString(R.string.click_event_event))) {
-                getEventsCallBack(requestBroadcastNotification, mPaalanServices);
-            } else if (notificationType.contains(getString(R.string.click_event_achievement))) {
-                getAchiementsCallBack(requestBroadcastNotification, mPaalanServices);
-            } else if (notificationType.contains(getString(R.string.click_event_social_request))) {
-                getRequestsCallBack(requestBroadcastNotification, mPaalanServices);
+            if (notificationType.contains(context.getString(R.string.click_event_event))) {
+                getEventsCallBack(context,requestBroadcastNotification, mPaalanServices);
+            } else if (notificationType.contains(context.getString(R.string.click_event_achievement))) {
+                getAchiementsCallBack(context,requestBroadcastNotification, mPaalanServices);
+            } else if (notificationType.contains(context.getString(R.string.click_event_social_request))) {
+                getRequestsCallBack(context,requestBroadcastNotification, mPaalanServices);
             }
         }else {
-            CommanUtils.showAlertDialog(ActivityFragmentPlatform.this,getResources().getString(R.string.error_internet));
+            CommanUtils.showAlertDialog(context,context.getResources().getString(R.string.error_internet));
         }
 
     }
 
-    public void getEventsCallBack(final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
+    public static void getEventsCallBack(final FragmentActivity context,final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
 
         Call<OrgResSyncEvent> resBroadcast = mPaalanServices.eventBroadcastNotification(broadcastNotification);
 
@@ -1215,17 +1193,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
                         }
 
-                        DB_ADAPTER.updateEventTimeSpan(response.body().getData()[0].getLastsyncdate());
+                        DB_ADAPTER.updateNotification(broadcastNotification.getData().getRecordid());
                         DB_ADAPTER.close();
 
                         PaalanGetterSetter.setEventID(broadcastNotification.getData().getRecordid());
-                        getFragmentTransaction(new FragmentViewDetailsEvent());
+                        getFragmentTransaction(context,new FragmentViewDetailsEvent());
 
                     } else {
-                        CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_went_wrong));
+                        CommanUtils.showToast(context,context.getResources().getString(R.string.error_went_wrong));
                     }
                 } else if (response.body() == null) {
-                    CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_server));
+                    CommanUtils.showToast(context,context.getResources().getString(R.string.error_server));
                 }
             }
 
@@ -1233,13 +1211,13 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             public void onFailure(Call<OrgResSyncEvent> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
                 CommanUtils.hideDialog();
-                CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_timeout));
+                CommanUtils.showToast(context,context.getResources().getString(R.string.error_timeout));
             }
         });
 
     }
 
-    public void getRequestsCallBack(final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
+    public static void getRequestsCallBack(final FragmentActivity context,final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
 
         Call<OrgResSyncRequest> resBroadcast = mPaalanServices.requestBroadcastNotification(broadcastNotification);
 
@@ -1267,17 +1245,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                                     PREF.getLoginType());
                         }
 
-                        DB_ADAPTER.updateRequestTimeSpan(response.body().getMessage());
+                        DB_ADAPTER.updateNotification(broadcastNotification.getData().getRecordid());
                         DB_ADAPTER.close();
 
                         PaalanGetterSetter.setRequestID(broadcastNotification.getData().getRecordid());
-                        getFragmentTransaction(new FragmentViewDetailsRequest());
+                        getFragmentTransaction(context,new FragmentViewDetailsRequest());
 
                     } else {
-                        CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_went_wrong));
+                        CommanUtils.showToast(context,context.getResources().getString(R.string.error_went_wrong));
                     }
                 }else if(response.body()==null){
-                    CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_server));
+                    CommanUtils.showToast(context,context.getResources().getString(R.string.error_server));
                 }
             }
 
@@ -1285,12 +1263,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             public void onFailure(Call<OrgResSyncRequest> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
                 CommanUtils.hideDialog();
-                CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_timeout));
+                CommanUtils.showToast(context,context.getResources().getString(R.string.error_timeout));
             }
         });
     }
 
-    public void getAchiementsCallBack(final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
+    public static void getAchiementsCallBack(final FragmentActivity context,final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
 
         Call<OrgResSyncAchievement> resBroadcast = mPaalanServices.achievementBroadcastNotification(broadcastNotification);
 
@@ -1321,17 +1299,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                                     response.body().getData()[0].getOrglist()[i].getDeleteFlag(),
                                     PREF.getLoginType());
                         }
-                        DB_ADAPTER.updateAchievementTimeSpan(response.body().getMessage());
+                        DB_ADAPTER.updateNotification(broadcastNotification.getData().getRecordid());
                         DB_ADAPTER.close();
 
                         PaalanGetterSetter.setAchivementID(broadcastNotification.getData().getRecordid());
-                        getFragmentTransaction(new FragmentViewDetailsAchievement());
+                        getFragmentTransaction(context,new FragmentViewDetailsAchievement());
 
                     } else {
-                        CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_went_wrong));
+                        CommanUtils.showToast(context,context.getResources().getString(R.string.error_went_wrong));
                     }
                 }else if(response.body()==null){
-                    CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_server));
+                    CommanUtils.showToast(context,context.getResources().getString(R.string.error_server));
                 }
             }
 
@@ -1339,7 +1317,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             public void onFailure(Call<OrgResSyncAchievement> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
                 CommanUtils.hideDialog();
-                CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_timeout));
+                CommanUtils.showToast(context,context.getResources().getString(R.string.error_timeout));
             }
         });
     }

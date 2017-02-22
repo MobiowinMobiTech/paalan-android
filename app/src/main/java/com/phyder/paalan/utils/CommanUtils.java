@@ -223,32 +223,35 @@ public class CommanUtils {
     }
 
 
-    public static void setDataInSharedPrefs(Activity baseActivity, String key, ResponseInitialData.Bannerlist[] banners) {
-        SharedPreferences sharedPref = baseActivity.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-
-        editor.putString("bannerUrlLength", banners.length + "");
-
-        for (int index = 0; index < banners.length; index++) {
-            Log.d(TAG, "onResponse: " + banners[index].getBannerLink());
-            editor.putString("bannerUrl" + index, banners[index].getBannerLink());
-        }
-
-        editor.apply();
-
-
-        // to get banner url data from shared preference
-        for (int bannerIndex = 0; bannerIndex < Integer.parseInt(getDataFromSharedPrefs(baseActivity, "bannerUrlLength"))
-                ; bannerIndex++) {
-            Log.d(TAG, "onResponse setDataInSharedPrefs: " + getDataFromSharedPrefs(baseActivity, "bannerUrl" + bannerIndex));
-            getDataFromSharedPrefs(baseActivity, "bannerUrl" + bannerIndex);
-        }
-    }
-
-    public static String getDataFromSharedPrefs(Activity baseActivity, String key) {
-        SharedPreferences sharedPref = baseActivity.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
-        return sharedPref.getString(key, null);
-    }
+//    public static void setDataInSharedPrefs(Activity baseActivity, ResponseInitialData.Bannerlist[] banners) {
+//
+//
+//
+//        SharedPreferences sharedPref = baseActivity.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//
+//        editor.putString("bannerUrlLength", ""+banners.length);
+//
+//        for (int index = 0; index < banners.length; index++) {
+//            Log.d(TAG, "onResponse: " + banners[index].getBannerLink());
+//            editor.putString("bannerUrl" + index, banners[index].getBannerLink());
+//        }
+//
+//        editor.commit();
+//
+//
+//        // to get banner url data from shared preference
+//        for (int bannerIndex = 0; bannerIndex < Integer.parseInt(getDataFromSharedPrefs(baseActivity, "bannerUrlLength"))
+//                ; bannerIndex++) {
+//            Log.d(TAG, "onResponse setDataInSharedPrefs: " + getDataFromSharedPrefs(baseActivity, "bannerUrl" + bannerIndex));
+//            getDataFromSharedPrefs(baseActivity, "bannerUrl" + bannerIndex);
+//        }
+//    }
+//
+//    public static String getDataFromSharedPrefs(Activity baseActivity, String key) {
+//        SharedPreferences sharedPref = baseActivity.getApplicationContext().getSharedPreferences("shared_prefrence", Context.MODE_PRIVATE);
+//        return sharedPref.getString(key, null);
+//    }
 
     public static void updateImage(Context context, ImageView img, String imgUrl,int defaultImage) {
 

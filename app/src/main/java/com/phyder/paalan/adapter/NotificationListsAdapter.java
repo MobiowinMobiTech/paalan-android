@@ -18,14 +18,16 @@ public class NotificationListsAdapter extends  ArrayAdapter<String> {
 
     private final static String TAG = NotificationListsAdapter.class.getSimpleName();
 
-    private String[] messages,readed;
+    private String[] title,messages,readed;
     private Context context;
 
 
-    public NotificationListsAdapter(Context context, int resource, String[] objects1, String[] objects2) {
+    public NotificationListsAdapter(Context context, int resource, String[] objects1, String[] objects2,
+                                    String[] objects3) {
         super(context, resource, objects1);
-        messages = objects1;
-        readed = objects2;
+        title = objects1;
+        messages = objects2;
+        readed = objects3;
         this.context = context;
     }
 
@@ -41,6 +43,7 @@ public class NotificationListsAdapter extends  ArrayAdapter<String> {
         if(convertView==null){
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.fragment_notification_list_row,null);
+            viewHolder.txtTitle = (TextViewOpenSansRegular) convertView.findViewById(R.id.txtTitle);
             viewHolder.txtMessage = (TextViewOpenSansRegular) convertView.findViewById(R.id.txtMessage);
             viewHolder.txtNew = (TextViewOpenSansSemiBold) convertView.findViewById(R.id.txtNew);
             convertView.setTag(viewHolder);
@@ -49,6 +52,7 @@ public class NotificationListsAdapter extends  ArrayAdapter<String> {
         }
 
         try {
+            viewHolder.txtTitle.setText(title[position]);
             viewHolder.txtMessage.setText(messages[position]);
             int messageReaded = readed[position].equals("false") ? View.VISIBLE : View.GONE;
             viewHolder.txtNew.setVisibility(messageReaded);
@@ -61,7 +65,7 @@ public class NotificationListsAdapter extends  ArrayAdapter<String> {
 
     class ViewHolder {
 
-        TextViewOpenSansRegular txtMessage;
+        TextViewOpenSansRegular txtTitle,txtMessage;
         TextViewOpenSansSemiBold txtNew;
     }
 }

@@ -61,7 +61,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
     private ViewPager mPager;
     private CircleIndicator mCircleIndicator;
-    private List<String> images;
+    private String[] images;
     private Handler handler = new Handler();
     private Runnable refresh;
     private int itemPos = 0;
@@ -87,6 +87,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 View view = inflater.inflate(R.layout.fragment_ind_dashboard, container, false);
                 init(view);
+                handlingSlideShow();
                 clickEventFire();
             return view;
         }
@@ -132,16 +133,12 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
         private void handlingSlideShow() {
 
-            images = new ArrayList<>();
-            images.clear();
-            if(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")!=null) {
-                for (int i = 0; i < Integer.parseInt(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")); i++) {
-                    String bannerImageURL = CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrl" + i);
-                    images.add(bannerImageURL);
-                }
+            if(!pref.getBanners().isEmpty()){
+                images = pref.getBanners().split("~");
             }else{
-                for(int i=0;i<4;i++){
-                    images.add("Drawables");
+                images = new String[3];
+                for(int i=0;i<3;i++){
+                    images[i] = "www.error.com";
                 }
             }
 
@@ -564,8 +561,6 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
         public void initializeTimer(){
 
-            handlingSlideShow();
-
             itemPos = mPager.getCurrentItem();
             if(handler!=null){
                 handler.removeCallbacks(refresh);
@@ -575,7 +570,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
             refresh = new Runnable() {
                 public void run() {
-                    if (mPager.getCurrentItem() < images.size()-1) {
+                    if (mPager.getCurrentItem() < images.length-1) {
                         mPager.setCurrentItem(itemPos, true);
                         itemPos = itemPos + 1;
                       }else{

@@ -1,10 +1,13 @@
 package com.phyder.paalan.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
+import com.phyder.paalan.payload.response.organization.ResponseInitialData;
 import com.phyder.paalan.social.Social;
 
 
@@ -71,5 +74,29 @@ public class PreferenceUtils {
 
     public String getLocation() {
         return preferences.getString("LOCATION", null);
+    }
+
+
+    public void setBanners(ResponseInitialData.Bannerlist[] banners) {
+
+        Editor editor = preferences.edit();
+        editor.putString("BANNERS_SIZE" , ""+banners.length);
+
+        for (int index = 0; index < banners.length; index++) {
+            editor.putString("BANNERS"+ index, banners[index].getBannerLink());
+        }
+        editor.commit();
+    }
+
+    public String getBanners() {
+
+        String urls = "";
+        int size = Integer.parseInt(preferences.getString("BANNERS_SIZE",null));
+
+        for (int index = 0; index < size; index++) {
+            urls = (index != size -1) ? urls + preferences.getString("BANNERS"+ index,null)+"~" : urls +
+                    preferences.getString("BANNERS"+ index,null);
+        }
+        return urls;
     }
 }

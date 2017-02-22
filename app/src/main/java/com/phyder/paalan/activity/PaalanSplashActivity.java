@@ -33,6 +33,7 @@ public class PaalanSplashActivity extends AppCompatActivity {
     private boolean isScreensAvailable = false;
 
     private DBAdapter dbAdapter;
+    private PreferenceUtils pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,8 @@ public class PaalanSplashActivity extends AppCompatActivity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_paalan_splash);
 
-        dbAdapter = new DBAdapter(com.phyder.paalan.activity.PaalanSplashActivity.this);
+        dbAdapter = new DBAdapter(this);
+        pref = new PreferenceUtils(this);
 
         dbAdapter.open();
         if(dbAdapter.getMasterTableCount()<1){
@@ -69,9 +71,9 @@ public class PaalanSplashActivity extends AppCompatActivity {
                     if(response.body()!=null) {
 
                         ResponseInitialData.Bannerlist[] banners = response.body().getData()[0].getBannerlist();
-
-                        CommanUtils.setDataInSharedPrefs(PaalanSplashActivity.this, "bannerUrlLength", banners);
-
+                        if(banners.length>0) {
+                            pref.setBanners(banners);
+                        }
                         ResponseInitialData.Screenlist[] screenlist = response.body().getData()[0].getScreenlist();
                         Log.d(TAG, "onResponse: "+screenlist.length);
                         if (screenlist.length > 0) {

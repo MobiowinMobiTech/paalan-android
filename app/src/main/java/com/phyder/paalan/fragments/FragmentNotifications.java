@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.phyder.paalan.R;
@@ -28,6 +29,7 @@ public class FragmentNotifications extends Fragment {
     private ListView listView;
     private TextViewOpenSansRegular txtNoData;
     private String[] listOfIds;
+    private String[] listOfOrgIds;
     private String[] listOfMessages;
     private String[] listOfTypes;
     private String[] listOfReaded;
@@ -35,7 +37,6 @@ public class FragmentNotifications extends Fragment {
     private int counter = 0;
 
     private DBAdapter dbAdapter;
-    private PreferenceUtils pref;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,10 +48,50 @@ public class FragmentNotifications extends Fragment {
     private void initializingComponents(View view) {
 
         dbAdapter = new DBAdapter(getActivity());
-        pref = new PreferenceUtils(getActivity());
 
         listView = (ListView) view.findViewById(R.id.listView);
         txtNoData = (TextViewOpenSansRegular) view.findViewById(R.id.txtDataNotFound);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Fragment fragment = null;
+
+                if(listOfTypes[position].equals(getString(R.string.click_event_event))){
+
+                    if(listOfReaded[position].equals("false")){
+                         ActivityFragmentPlatform.setRetrofitRequest(getActivity(),listOfOrgIds[position],listOfIds[position],listOfTypes[position]);
+                    }else {
+                        PaalanGetterSetter.setEventID(listOfIds[position]);
+                        getActivity().getSupportFragmentManager().beginTransaction().
+                                replace(R.id.platform,new FragmentViewDetailsEvent()).addToBackStack(null).commit();
+                    }
+                }else if(listOfTypes[position].equals(getString(R.string.click_event_achievement))){
+
+                    if(listOfReaded[position].equals("false")){
+                        ActivityFragmentPlatform.setRetrofitRequest(getActivity(),listOfOrgIds[position],listOfIds[position],listOfTypes[position]);
+                    }else {
+                        PaalanGetterSetter.setAchivementID(listOfIds[position]);
+                        getActivity().getSupportFragmentManager().beginTransaction().
+                                replace(R.id.platform,new FragmentViewDetailsAchievement()).addToBackStack(null).commit();
+                    }
+
+                }else if(listOfTypes[position].equals(getString(R.string.click_event_social_request))){
+
+                    if(listOfReaded[position].equals("false")){
+                        ActivityFragmentPlatform.setRetrofitRequest(getActivity(),listOfOrgIds[position],listOfIds[position],listOfTypes[position]);
+                    }else {
+                        PaalanGetterSetter.setRequestID(listOfIds[position]);
+                        getActivity().getSupportFragmentManager().beginTransaction().
+                                replace(R.id.platform,new FragmentViewDetailsRequest()).addToBackStack(null).commit();
+                    }
+
+                }
+
+            }
+        });
+
     }
 
 
@@ -62,7 +103,7 @@ public class FragmentNotifications extends Fragment {
         listOfMessages =new String[cursor.getCount()];
         listOfTypes =new String[cursor.getCount()];
         listOfReaded =new String[cursor.getCount()];
-
+        listOfOrgIds =new String[cursor.getCount()];
         if(cursor !=null){
             cursor.moveToFirst();
             if(cursor.moveToFirst()){
@@ -71,6 +112,7 @@ public class FragmentNotifications extends Fragment {
                     listOfMessages[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.NOTIFICATION_MESSAGE)));
                     listOfTypes[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.NOTIFICATION_TYPE)));
                     listOfReaded[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.NOTIFICATION_READED)));
+                    listOfOrgIds[counter] = (cursor.getString(cursor.getColumnIndex(Attributes.Database.NOTIFICATION_ORG_ID)));
                     counter = counter+1;
                 }while(cursor.moveToNext());
             }
@@ -79,7 +121,7 @@ public class FragmentNotifications extends Fragment {
         dbAdapter.close();
 
         if(listOfIds!=null && listOfIds.length>0 ) {
-            listView.setAdapter(new NotificationListsAdapter(getActivity(), 0, listOfReaded,listOfMessages));
+            listView.setAdapter(new NotificationListsAdapter(getActivity(), 0, listOfTypes,listOfMessages,listOfReaded));
             listView.setVisibility(View.VISIBLE);
             txtNoData.setVisibility(View.GONE);
         }else{

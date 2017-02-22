@@ -56,11 +56,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.ActivityFragmentPlatform"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
 
-        <!-- <activity android:name=".activity.RegisterUserActivity"/> -->
-        <!-- Firebase Notifications -->
+
         <service android:name=".services.NotificationRecieverService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -71,6 +69,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
         <service android:name=".services.FCMTokenGeneratorService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

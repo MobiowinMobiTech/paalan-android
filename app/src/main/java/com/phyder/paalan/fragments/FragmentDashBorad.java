@@ -21,6 +21,7 @@ import com.phyder.paalan.adapter.SlidingImageAdapter;
 import com.phyder.paalan.helper.CircleIndicator;
 import com.phyder.paalan.model.DashboardModel;
 import com.phyder.paalan.utils.CommanUtils;
+import com.phyder.paalan.utils.PreferenceUtils;
 import com.phyder.paalan.utils.RoundedImageView;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class FragmentDashBorad extends Fragment {
     private Handler handler = new Handler();
     private Runnable refresh;
     private int itemPos = 0;
-    private List<String> images;
+    private String[] images;
 
     private ScrollView scrollView;
 
@@ -44,11 +45,22 @@ public class FragmentDashBorad extends Fragment {
     private Integer dashboardIcons[] = {R.drawable.publish_event,R.drawable.achievement,R.drawable.social_strength,
             R.drawable.about_us,R.drawable.contactus};
 
+    private PreferenceUtils pref;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dashboard_framelayout, null, false);
 
+        init(view);
+        initializeList();
+        handlingSlideShow();
+
+        return view;
+    }
+
+    private void init(View view) {
+
+        pref = new PreferenceUtils(getActivity());
         LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -60,34 +72,24 @@ public class FragmentDashBorad extends Fragment {
         }
 
         recyclerView.setLayoutManager(MyLayoutManager);
-
-        initSlider(view);
-        initializeList();
-        init(view);
-        return view;
-    }
-
-    private void init(View view) {
-
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
         recyclerView.setNestedScrollingEnabled(false);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         scrollView.smoothScrollTo(0,0);
-    }
 
-    private void initSlider(View view) {
         mPager = (ViewPager) view.findViewById(R.id.image_pager);
         mCircleIndicator = (CircleIndicator) view.findViewById(R.id.indicator);
 
-        images = new ArrayList<>();
-        if(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")!=null) {
-            for (int i = 0; i < Integer.parseInt(CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrlLength")); i++) {
-                String bannerImageURL = CommanUtils.getDataFromSharedPrefs(getActivity(), "bannerUrl" + i);
-                images.add(bannerImageURL);
-            }
+    }
+
+    private void handlingSlideShow() {
+
+        if(!pref.getBanners().isEmpty()){
+            images = pref.getBanners().split("~");
         }else{
-            for(int i=0;i<4;i++){
-                images.add("Drawables");
+            images = new String[3];
+            for(int i=0;i<3;i++){
+                images[i] = "www.error.com";
             }
         }
 
@@ -219,7 +221,6 @@ public class FragmentDashBorad extends Fragment {
 
         ActivityFragmentPlatform.changeToolbarTitleIcon(getResources().getString(R.string.dash_borad),
                 R.drawable.ic_menu_black_24dp);
-
         initializeTimer();
     }
 
@@ -236,7 +237,7 @@ public class FragmentDashBorad extends Fragment {
 
         refresh = new Runnable() {
             public void run() {
-                if (mPager.getCurrentItem() < images.size()-1) {
+                if (mPager.getCurrentItem() < images.length-1) {
                     mPager.setCurrentItem(itemPos, true);
                     itemPos = itemPos + 1;
                 }else{
