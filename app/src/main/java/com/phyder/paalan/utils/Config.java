@@ -23,5 +23,7 @@ public class Config {
     public static final String CLICK_EVENT = "click_event";
     public static final String TYPE = "notificationtype";
     public static final String ENTITY = "notificationentity";
+    public static final String ORG_ID = "orgid";
+    public static final String RECORD_ID = "recordid";
     public static final long TRIGGER_TIME = 86400000;
 }

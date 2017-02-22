@@ -55,10 +55,21 @@ import com.phyder.paalan.fragments.FragmentIndDashboard;
 import com.phyder.paalan.fragments.FragmentMyProfile;
 import com.phyder.paalan.fragments.FragmentNotifications;
 import com.phyder.paalan.fragments.FragmentViewAchievement;
+import com.phyder.paalan.fragments.FragmentViewDetailsAchievement;
+import com.phyder.paalan.fragments.FragmentViewDetailsEvent;
+import com.phyder.paalan.fragments.FragmentViewDetailsRequest;
 import com.phyder.paalan.fragments.FragmentViewEvent;
 import com.phyder.paalan.fragments.FragmentViewGroups;
 import com.phyder.paalan.fragments.FragmentViewRequest;
 import com.phyder.paalan.helper.DialogPopupListener;
+import com.phyder.paalan.helper.PaalanGetterSetter;
+import com.phyder.paalan.payload.request.RequestBroadcastNotification;
+import com.phyder.paalan.payload.request.organization.OrgReqSyncAchievement;
+import com.phyder.paalan.payload.response.organization.OrgResSyncAchievement;
+import com.phyder.paalan.payload.response.organization.OrgResSyncEvent;
+import com.phyder.paalan.payload.response.organization.OrgResSyncRequest;
+import com.phyder.paalan.services.Device;
+import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.Config;
@@ -69,6 +80,11 @@ import com.phyder.paalan.utils.TextViewOpenSansRegular;
 import com.phyder.paalan.utils.TextViewOpenSansSemiBold;
 
 import java.io.ByteArrayOutputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by cmss on 13/1/17.
@@ -167,23 +183,17 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         getFragmentTransaction(new FragmentViewRequest());
                     }
                 }else{
-                    CommanUtils.showToast(ActivityFragmentPlatform.this,"Please login with organization to view");
+                    CommanUtils.showToast(ActivityFragmentPlatform.this,"You are not logged in with organization");
                 }
             }else if(clickType.equals(Social.BROADCAST)){
 
                 if(PREF.getLoginType().equals(Social.IND_ENTITY)){
 
-                    if (clickEvent.contains(getString(R.string.click_event_event))){
+                    String orgId = getIntent().getExtras().getString(Config.ORG_ID);
+                    String recordId = getIntent().getExtras().getString(Config.RECORD_ID);
+                    setRetrofitRequest(recordId,clickEvent);
 
-                    }else if (clickEvent.contains(getString(R.string.click_event_achievement))){
-
-                    }else if (clickEvent.contains(getString(R.string.click_event_social_request))){
-
-                    }
                 }else{
-                    DB_ADAPTER.open();
-                    DB_ADAPTER.insertNotification("",clickEvent,getIntent().getExtras().getString(Config.BODY));
-                    DB_ADAPTER.close();
                     CommanUtils.showToast(ActivityFragmentPlatform.this,"Please sign out organization");
                 }
             }
@@ -1140,4 +1150,197 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             }
         }
     };
+
+
+    /**
+     * putting request to call
+     * @param recordId notification type id
+     * @param notificationType identify which type of notification such as events,achievements,social requests
+     */
+    public void setRetrofitRequest(String recordId,final String notificationType){
+
+        if(NetworkUtil.isInternetConnected(ActivityFragmentPlatform.this)) {
+
+            CommanUtils.showDialog(ActivityFragmentPlatform.this);
+            Device.newInstance(ActivityFragmentPlatform.this);
+
+            PreferenceUtils pref = new PreferenceUtils(ActivityFragmentPlatform.this);
+            RequestBroadcastNotification requestBroadcastNotification = RequestBroadcastNotification.get(pref.getOrgId(),
+                    recordId, notificationType);
+
+            Retrofit mRetrofit = NetworkUtil.getRetrofit();
+            PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
+
+            if (notificationType.contains(getString(R.string.click_event_event))) {
+                getEventsCallBack(requestBroadcastNotification, mPaalanServices);
+            } else if (notificationType.contains(getString(R.string.click_event_achievement))) {
+                getAchiementsCallBack(requestBroadcastNotification, mPaalanServices);
+            } else if (notificationType.contains(getString(R.string.click_event_social_request))) {
+                getRequestsCallBack(requestBroadcastNotification, mPaalanServices);
+            }
+        }else {
+            CommanUtils.showAlertDialog(ActivityFragmentPlatform.this,getResources().getString(R.string.error_internet));
+        }
+
+    }
+
+    public void getEventsCallBack(final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
+
+        Call<OrgResSyncEvent> resBroadcast = mPaalanServices.eventBroadcastNotification(broadcastNotification);
+
+        resBroadcast.enqueue(new Callback<OrgResSyncEvent>() {
+            @Override
+            public void onResponse(Call<OrgResSyncEvent> call, Response<OrgResSyncEvent> response) {
+                Log.e(TAG, "onResponse: " + response.body());
+                CommanUtils.hideDialog();
+                if (response.isSuccessful()) {
+
+                    if (response.body().getStatus().equals("success")) {
+
+                        DB_ADAPTER.open();
+
+                        for (int i = 0; i < response.body().getData()[0].getEventlist().length; i++) {
+
+                            DB_ADAPTER.populatingEventsIntoDB(response.body().getData()[0].getEventlist()[i].getOrgId(),null,
+                                    response.body().getData()[0].getEventlist()[i].getEventId(),
+                                    response.body().getData()[0].getEventlist()[i].getName(),
+                                    response.body().getData()[0].getEventlist()[i].getTitle(),
+                                    response.body().getData()[0].getEventlist()[i].getSubTitle(),
+                                    response.body().getData()[0].getEventlist()[i].getDiscription(),
+                                    response.body().getData()[0].getEventlist()[i].getOthers(),
+                                    response.body().getData()[0].getEventlist()[i].getStartDt(),
+                                    response.body().getData()[0].getEventlist()[i].getEndDt(),
+                                    response.body().getData()[0].getEventlist()[i].getDeleteFlag(),null,null,null,
+                                    PREF.getLoginType());
+
+                        }
+
+                        DB_ADAPTER.updateEventTimeSpan(response.body().getData()[0].getLastsyncdate());
+                        DB_ADAPTER.close();
+
+                        PaalanGetterSetter.setEventID(broadcastNotification.getData().getRecordid());
+                        getFragmentTransaction(new FragmentViewDetailsEvent());
+
+                    } else {
+                        CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_went_wrong));
+                    }
+                } else if (response.body() == null) {
+                    CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_server));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgResSyncEvent> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+                CommanUtils.hideDialog();
+                CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_timeout));
+            }
+        });
+
+    }
+
+    public void getRequestsCallBack(final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
+
+        Call<OrgResSyncRequest> resBroadcast = mPaalanServices.requestBroadcastNotification(broadcastNotification);
+
+        resBroadcast.enqueue(new Callback<OrgResSyncRequest>() {
+            @Override
+            public void onResponse(Call<OrgResSyncRequest> call, Response<OrgResSyncRequest> response) {
+                Log.e(TAG, "onResponse: " + response.body());
+                CommanUtils.hideDialog();
+                if (response.isSuccessful()) {
+
+                    if (response.body().getStatus().equals("success")) {
+                        DB_ADAPTER.open();
+
+                        for(int i=0;i<response.body().getData()[0].getOrgreqlist().length;i++) {
+
+                            DB_ADAPTER.populatingRequestIntoDB(response.body().getData()[0].getOrgreqlist()[i].getOrgId(),null,
+                                    response.body().getData()[0].getOrgreqlist()[i].getRequestId(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getName(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getTitle(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getSubTitle(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getDiscription(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getOthers(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getLocation(),
+                                    response.body().getData()[0].getOrgreqlist()[i].getDeleteFlag(),
+                                    PREF.getLoginType());
+                        }
+
+                        DB_ADAPTER.updateRequestTimeSpan(response.body().getMessage());
+                        DB_ADAPTER.close();
+
+                        PaalanGetterSetter.setRequestID(broadcastNotification.getData().getRecordid());
+                        getFragmentTransaction(new FragmentViewDetailsRequest());
+
+                    } else {
+                        CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_went_wrong));
+                    }
+                }else if(response.body()==null){
+                    CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_server));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgResSyncRequest> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+                CommanUtils.hideDialog();
+                CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_timeout));
+            }
+        });
+    }
+
+    public void getAchiementsCallBack(final RequestBroadcastNotification broadcastNotification,PaalanServices mPaalanServices){
+
+        Call<OrgResSyncAchievement> resBroadcast = mPaalanServices.achievementBroadcastNotification(broadcastNotification);
+
+        resBroadcast.enqueue(new Callback<OrgResSyncAchievement>() {
+            @Override
+            public void onResponse(Call<OrgResSyncAchievement> call, Response<OrgResSyncAchievement> response) {
+                Log.e(TAG, "onResponse: " + response.body());
+                CommanUtils.hideDialog();
+
+                if (response.isSuccessful()) {
+
+                    if (response.body().getStatus().equals("success")) {
+                        DB_ADAPTER.open();
+
+                        for(int i=0;i<response.body().getData()[0].getOrglist().length;i++) {
+
+                            DB_ADAPTER.populatingAchievementsIntoDB(response.body().getData()[0].getOrglist()[i].getOrgId(),null,
+                                    response.body().getData()[0].getOrglist()[i].getAchievementId(),
+                                    response.body().getData()[0].getOrglist()[i].getName(),
+                                    response.body().getData()[0].getOrglist()[i].getTitle(),
+                                    response.body().getData()[0].getOrglist()[i].getSubTitle(),
+                                    response.body().getData()[0].getOrglist()[i].getDiscription(),
+                                    response.body().getData()[0].getOrglist()[i].getOthers(),
+                                    response.body().getData()[0].getOrglist()[i].getImage1(),
+                                    response.body().getData()[0].getOrglist()[i].getImage2(),
+                                    response.body().getData()[0].getOrglist()[i].getImage3(),
+                                    response.body().getData()[0].getOrglist()[i].getImage4(),
+                                    response.body().getData()[0].getOrglist()[i].getDeleteFlag(),
+                                    PREF.getLoginType());
+                        }
+                        DB_ADAPTER.updateAchievementTimeSpan(response.body().getMessage());
+                        DB_ADAPTER.close();
+
+                        PaalanGetterSetter.setAchivementID(broadcastNotification.getData().getRecordid());
+                        getFragmentTransaction(new FragmentViewDetailsAchievement());
+
+                    } else {
+                        CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_went_wrong));
+                    }
+                }else if(response.body()==null){
+                    CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_server));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgResSyncAchievement> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage());
+                CommanUtils.hideDialog();
+                CommanUtils.showToast(ActivityFragmentPlatform.this,getResources().getString(R.string.error_timeout));
+            }
+        });
+    }
 }

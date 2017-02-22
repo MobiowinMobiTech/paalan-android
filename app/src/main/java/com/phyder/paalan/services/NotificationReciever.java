@@ -13,6 +13,8 @@ import android.util.Log;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
+import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.Config;
 
 
@@ -27,11 +29,8 @@ public class NotificationReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equalsIgnoreCase("com.phyder.paalan.SendBroadcast")){
-            String title = intent.getStringExtra(Config.TITLE);
-            String body = intent.getStringExtra(Config.BODY);
-            String clickEvent = intent.getStringExtra(Config.ENTITY);
-            String type = intent.getStringExtra(Config.TYPE);
-            displayNotification(title,body,clickEvent,type,context);
+
+            displayNotification(intent,context);
 
         }else {
             scheduleAlarm(context);
@@ -51,21 +50,42 @@ public class NotificationReciever extends BroadcastReceiver {
 
     /**
      * Function used to display notification
-     * @param title : title of notification
-     * @param body : message of notification
-     * @param clickEvent : event should fire after notification
+     * @param intent : for notification values
      * @param context : current context
      */
-    private void displayNotification(String title, String body, String clickEvent, String type,Context context) {
+    private void displayNotification(Intent intent,Context context) {
         // Using RemoteViews to bind custom layouts into Notification
         android.widget.RemoteViews remoteViews = new android.widget.RemoteViews(context.getPackageName(),
                 R.layout.customnotification);
 
         // Open NotificationView Class on Notification Click
+
+
+        String title = intent.getStringExtra(Config.TITLE);
+        String body = intent.getStringExtra(Config.BODY);
+        String clickEvent = intent.getStringExtra(Config.ENTITY);
+        String type = intent.getStringExtra(Config.TYPE);
+
         Intent resultIntent = new Intent(context, ActivityFragmentPlatform.class);
+
         resultIntent.putExtra(Config.CLICK_EVENT,clickEvent);
         resultIntent.putExtra(Config.TYPE,type);
         resultIntent.putExtra(Config.BODY,body);
+
+        if(type.equals(Social.BROADCAST)){
+
+            String orgId = intent.getStringExtra(Config.ORG_ID);
+            String recordId = intent.getStringExtra(Config.RECORD_ID);
+
+            DBAdapter dbAdapter =new DBAdapter(context);
+            dbAdapter.open();
+            dbAdapter.insertNotification(recordId,clickEvent,body);
+            dbAdapter.close();
+
+            resultIntent.putExtra(Config.ORG_ID,orgId);
+            resultIntent.putExtra(Config.RECORD_ID,recordId);
+        }
+
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, resultIntent,

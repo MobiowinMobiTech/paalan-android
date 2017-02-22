@@ -19,6 +19,7 @@ public class Social {
     public static final String EVENT_UPDATE_ACTION = "update";
     public static final String UPDATE_ACTION = "update";
     public static final String ACTION_TYPE = "event";
+    public static final String ACTION_RECORD_TYPE = "record";
     public static final String ACTION_SYNC_TYPE = "sync";
     public static final String ORG_REQ_TYPE = "registration";
     public static final String EVENT_TYPE = "event";

@@ -1,6 +1,7 @@
 package com.phyder.paalan.services;
 
 import com.phyder.paalan.payload.request.ForgotPasswordRequest;
+import com.phyder.paalan.payload.request.RequestBroadcastNotification;
 import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.request.RequestLogin;
 import com.phyder.paalan.payload.request.RequestOrganizerProfile;
@@ -134,4 +135,13 @@ public interface PaalanServices {
 
     @POST("paalan/PaalanGateway")
     Call<ForgotPasswordResponse> forgotPassword(@Body ForgotPasswordRequest forgotPassword);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResSyncEvent> eventBroadcastNotification(@Body RequestBroadcastNotification broadcastNotification);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResSyncAchievement> achievementBroadcastNotification(@Body RequestBroadcastNotification broadcastNotification);
+
+    @POST("paalan/PaalanGateway")
+    Call<OrgResSyncRequest> requestBroadcastNotification(@Body RequestBroadcastNotification broadcastNotification);
 }
