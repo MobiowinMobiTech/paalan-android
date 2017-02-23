@@ -11,6 +11,7 @@ public class PaalanGetterSetter {
     static String EVENT_ID = null;
     static String REQUEST_ID = null;
     static String ORG_ID = null;
+    static boolean SHOULD_APP_INIT_SERVICE_CALL = true;
 
     public static void setAchivementID(String id){
         ACHIEVEMENT_ID = id;
@@ -43,6 +44,14 @@ public class PaalanGetterSetter {
 
     public static String getOrgID(){
         return ORG_ID;
+    }
+
+    public static void setAppInitCall(boolean should_app_init_call){
+        SHOULD_APP_INIT_SERVICE_CALL = should_app_init_call;
+    }
+
+    public static boolean shouldAppInitCall(){
+        return SHOULD_APP_INIT_SERVICE_CALL;
     }
 }
 

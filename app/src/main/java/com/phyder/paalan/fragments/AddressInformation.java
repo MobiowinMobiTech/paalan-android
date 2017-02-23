@@ -11,13 +11,14 @@ import android.widget.EditText;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.model.OrgAddressInfo;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 
 /**
  * Created by yashika on 18/1/17.
  */
 public class AddressInformation extends Fragment {
 
-    EditText edtAddress, edtCity, edtState, edtCountry, edtPincode;
+    EditTextOpenSansRegular edtAddress, edtCity, edtState, edtCountry, edtPincode;
 
 
     @Override
@@ -30,11 +31,11 @@ public class AddressInformation extends Fragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_address_info,null);
         view.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
-        edtAddress = (EditText)view.findViewById(R.id.edtOrgAddress);
-        edtCity = (EditText)view.findViewById(R.id.edtOrgCity);
-        edtCountry = (EditText)view.findViewById(R.id.edtOrgCountry);
-        edtPincode = (EditText)view.findViewById(R.id.edtOrgPincode);
-        edtState = (EditText)view.findViewById(R.id.edtOrgState);
+        edtAddress = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgAddress);
+        edtCity = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgCity);
+        edtCountry = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgCountry);
+        edtPincode = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgPincode);
+        edtState = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgState);
 
         return view;
     }

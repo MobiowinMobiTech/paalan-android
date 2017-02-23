@@ -218,18 +218,14 @@ public class FragmentViewDetailsRequest extends Fragment {
                             dbAdapter.open();
                             dbAdapter.deleteRequest(requestID);
                             dbAdapter.close();
-                            Toast.makeText(getActivity(), getResources().getString(R.string.request_deleted), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.request_deleted));
                             getActivity().getSupportFragmentManager().popBackStack();
 
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
-                                    Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -237,8 +233,7 @@ public class FragmentViewDetailsRequest extends Fragment {
                 public void onFailure(Call<OrgResDeleteRequest> call, Throwable t) {
                     CommanUtils.hideDialog();
                     Log.e(TAG, "onFailure: " + t.getMessage());
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

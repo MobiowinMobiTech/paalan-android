@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
+import com.phyder.paalan.utils.TextViewOpenSansRegular;
 
 
 /**
@@ -24,7 +25,7 @@ public class FragmentAboutUs extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_aboutus, container, false);
 
-        TextView txtAboutUs = (TextView)view.findViewById(R.id.txtAboutUs);
+        TextViewOpenSansRegular txtAboutUs = (TextViewOpenSansRegular)view.findViewById(R.id.txtAboutUs);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             txtAboutUs.setText(Html.fromHtml(getString(R.string.about_us_text),Html.FROM_HTML_MODE_LEGACY));
         } else {

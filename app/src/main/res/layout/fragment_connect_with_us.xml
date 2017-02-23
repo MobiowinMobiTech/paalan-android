@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10.0">
 
-    <TextView
+    <com.phyder.paalan.utils.TextViewOpenSansRegular
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="7dp"

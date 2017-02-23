@@ -22,6 +22,8 @@ import com.phyder.paalan.payload.response.SubmitDonateResponse;
 import com.phyder.paalan.services.PaalanServices;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular;
+import com.phyder.paalan.utils.ButtonOpenSansRegular;
+import com.phyder.paalan.utils.ButtonOpenSansSemiBold;
 import com.phyder.paalan.utils.CommanUtils;
 import com.phyder.paalan.utils.NetworkUtil;
 
@@ -54,7 +56,7 @@ public class FragmentConnectWithUs extends Fragment implements View.OnClickListe
         edtMobile = (AutoCompleteTextViewOpenSansRegular)view.findViewById(R.id.edtMobile);
         edtMessage = (AutoCompleteTextViewOpenSansRegular)view.findViewById(R.id.edtMessage);
 
-        Button btnSubmit = (Button)view.findViewById(R.id.btnSubmitFeedback);
+        ButtonOpenSansSemiBold btnSubmit = (ButtonOpenSansSemiBold)view.findViewById(R.id.btnSubmitFeedback);
 
         imgFacebook.setOnClickListener(this);
         imgGooglePlus.setOnClickListener(this);

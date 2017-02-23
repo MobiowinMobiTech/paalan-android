@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class FragmentDashBorad extends Fragment {
     private int itemPos = 0;
     private String[] images;
 
-    private ScrollView scrollView;
+    private NestedScrollView scrollView;
 
     private ArrayList<DashboardModel> listitems = new ArrayList<>();
 
@@ -73,8 +74,8 @@ public class FragmentDashBorad extends Fragment {
 
         recyclerView.setLayoutManager(MyLayoutManager);
         recyclerView.setAdapter(new ORGDashboardAdapter(listitems));
-        recyclerView.setNestedScrollingEnabled(false);
-        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+
+        scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
         scrollView.smoothScrollTo(0,0);
 
         mPager = (ViewPager) view.findViewById(R.id.image_pager);

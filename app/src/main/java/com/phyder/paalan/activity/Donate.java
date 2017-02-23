@@ -122,7 +122,7 @@ public class Donate extends AppIntro {
             public void onResponse(Call<SubmitDonateResponse> call, Response<SubmitDonateResponse> response) {
                 CommanUtils.hideDialog();
                 Log.d(TAG, "onResponse: success :: "+call.toString());
-                Toast.makeText(Donate.this,getString(R.string.request_submitted_success),Toast.LENGTH_LONG).show();
+                CommanUtils.showToast(Donate.this,getString(R.string.request_submitted_success));
                 finish();
             }
 
@@ -130,7 +130,7 @@ public class Donate extends AppIntro {
             public void onFailure(Call<SubmitDonateResponse> call, Throwable t) {
                 CommanUtils.hideDialog();
                 Log.d(TAG, "onResponse: Failure :: "+call.toString());
-                Toast.makeText(Donate.this,getString(R.string.technical_issue),Toast.LENGTH_LONG).show();
+                CommanUtils.showToast(Donate.this,getString(R.string.technical_issue));
             }
         });
 

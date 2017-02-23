@@ -298,8 +298,7 @@ public class FragmentMyProfile extends Fragment {
 
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(), "Please try again");
                 }
             }
     }
@@ -348,15 +347,12 @@ public class FragmentMyProfile extends Fragment {
                                     strPresenceArea);
                             dbAdapter.close();
                             isDoingUpdateDp = false;
-                            Toast.makeText(getActivity(), getResources().getString(R.string.profile_up_to_date), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.profile_up_to_date));
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -364,8 +360,7 @@ public class FragmentMyProfile extends Fragment {
                 public void onFailure(Call<OrganizationResProfile> call, Throwable t) {
                     Log.e(TAG, "onFailure: " + t.getMessage());
                     CommanUtils.hideDialog();
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

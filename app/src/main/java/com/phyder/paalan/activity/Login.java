@@ -174,8 +174,7 @@ public class Login extends AppCompatActivity {
                     CommanUtils.hideDialog();
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equals("success")) {
-                            Toast.makeText(Login.this, getResources().getString(R.string.logggedIn),
-                                    Toast.LENGTH_SHORT).show();
+                            CommanUtils.showToast(Login.this, getResources().getString(R.string.logggedIn));
                             pref.setOrgID(response.body().getData()[0].getOrgregdata()[0].getOrgId().toString());
                             pref.setUserName(response.body().getData()[0].getOrgregdata()[0].getName().toString());
                             dbAdapter.open();
@@ -200,10 +199,10 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "onResponse: after login success");
 
                         } else {
-                            Toast.makeText(Login.this, response.body().getData()[0].getErrmsg(),Toast.LENGTH_LONG).show();
+                            CommanUtils.showToast(Login.this, response.body().getData()[0].getErrmsg());
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(Login.this, response.body().getData()[0].getErrmsg(),Toast.LENGTH_LONG).show();
+                        CommanUtils.showToast(Login.this,response.body().getData()[0].getErrmsg());
                     }
                 }
 
@@ -211,8 +210,7 @@ public class Login extends AppCompatActivity {
                 public void onFailure(Call<ResponseLogin> call, Throwable t) {
                     CommanUtils.hideDialog();
                     Log.e(TAG, "onFailure: " + t.getMessage());
-                    Toast.makeText(Login.this, getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(Login.this, getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

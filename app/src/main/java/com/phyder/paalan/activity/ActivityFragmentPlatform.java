@@ -38,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -130,11 +129,12 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     private static boolean IS_LAST = true;
     private static AppCompatActivity _CONTEXT;
 
-    private AdView mAdView;
-    private ViewGroup adContainer;
+//    private AdView mAdView;
+//    private ViewGroup adContainer;
 
     private static ImageView IMG_DONATE,IMG_NOTIFICATION;
     private static TextViewOpenSansSemiBold TOOLBAR_TITLE;
+    private static TextViewOpenSansRegular NOTIFICATION_COUNT;
 
 
     @Override
@@ -142,7 +142,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_platform);
         initComponents();
-        initAdsMob();
+//        initAdsMob();
         initSideDrawer();
     }
 
@@ -153,6 +153,27 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         PREF = new PreferenceUtils(ActivityFragmentPlatform.this);
         DB_ADAPTER = new DBAdapter(ActivityFragmentPlatform.this);
         llDrawerHolder = (LinearLayout) findViewById(R.id.llDrawerHolder);
+
+        launchDashboard();
+
+            try {
+
+                String entity = getIntent().getExtras().getString(Config.ENTITY);
+                String orgId = getIntent().getExtras().getString(Config.ORG_ID);
+                String recordId = getIntent().getExtras().getString(Config.RECORD_ID);
+                Log.e(TAG,"recordId : "+recordId);
+                if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
+                    setRetrofitRequest(ActivityFragmentPlatform.this,orgId,recordId, entity);
+                } else {
+                    CommanUtils.showToast(ActivityFragmentPlatform.this, "Please sign out organization");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+    }
+
+    private void launchDashboard(){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -166,45 +187,24 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         transaction.addToBackStack(null);
         transaction.commit();
-
-            if(getIntent().getData() != null) {
-
-                try {
-
-                    if (PREF.getLoginType().equals(Social.IND_ENTITY)) {
-
-                        String entity = getIntent().getExtras().getString(Config.ENTITY);
-                        String orgId = getIntent().getExtras().getString(Config.ORG_ID);
-                        String recordId = getIntent().getExtras().getString(Config.RECORD_ID);
-                        setRetrofitRequest(ActivityFragmentPlatform.this,orgId,recordId, entity);
-
-                    } else {
-                        CommanUtils.showToast(ActivityFragmentPlatform.this, "Please sign out organization");
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-
     }
 
-    private void initAdsMob() {
-
-        //render admob
-        adContainer = (ViewGroup) findViewById(R.id.adMobView);
-        mAdView = new AdView(this);
-        mAdView.setLayoutParams(new RelativeLayout.LayoutParams
-                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        //mAdView.setPadding(7, 7, 7, 7);
-        mAdView.setAdSize(AdSize.BANNER);
-        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
-        adContainer.addView(mAdView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        showAdsMob();
-    }
+//    private void initAdsMob() {
+//
+//        //render admob
+//        adContainer = (ViewGroup) findViewById(R.id.adMobView);
+//        mAdView = new AdView(this);
+//        mAdView.setLayoutParams(new RelativeLayout.LayoutParams
+//                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//
+//        //mAdView.setPadding(7, 7, 7, 7);
+//        mAdView.setAdSize(AdSize.BANNER);
+//        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+//        adContainer.addView(mAdView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//        showAdsMob();
+//    }
 
 
     private void initSideDrawer() {
@@ -214,6 +214,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         IMG_DONATE = (ImageView) findViewById(R.id.action_donate);
         IMG_NOTIFICATION = (ImageView) findViewById(R.id.action_notification);
+        NOTIFICATION_COUNT = (TextViewOpenSansRegular) findViewById(R.id.action_count);
         TOOLBAR_TITLE = (TextViewOpenSansSemiBold) findViewById(R.id.txtDashTitle);
 
         IMG_DONATE.setOnClickListener(this);
@@ -239,9 +240,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     /** Called when leaving the activity */
     @Override
     public void onPause() {
-        if (mAdView != null) {
-            mAdView.pause();
-        }
+//        if (mAdView != null) {
+//            mAdView.pause();
+//        }
         super.onPause();
     }
 
@@ -250,9 +251,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mAdView != null) {
-            mAdView.destroy();
-        }
+//        if (mAdView != null) {
+//            mAdView.destroy();
+//        }
 
     }
 
@@ -268,34 +269,40 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                 IS_LAST = title.equals(_CONTEXT.getString(R.string.dash_borad)) ? true : false;
             }
 
-            if(title.equals(_CONTEXT.getString(R.string.dash_borad)) && PREF.getLoginType().equals(Social.IND_ENTITY)){
-                IMG_DONATE.setVisibility(View.VISIBLE);
-                IMG_NOTIFICATION.setVisibility(View.VISIBLE);
-                DB_ADAPTER.open();
-                DB_ADAPTER.getUnreadNotificationCounts();
-                DB_ADAPTER.close();
-            }else{
-                IMG_DONATE.setVisibility(View.GONE);
-                IMG_NOTIFICATION.setVisibility(View.GONE);
-            }
+
+            int notification_donate_IconVisibility =
+                (title.equals(_CONTEXT.getString(R.string.dash_borad)) && PREF.getLoginType().equals(Social.IND_ENTITY))
+                 ? View.VISIBLE : View.GONE;
+            IMG_DONATE.setVisibility(notification_donate_IconVisibility);
+            IMG_NOTIFICATION.setVisibility(notification_donate_IconVisibility);
+
+            DB_ADAPTER.open();
+            int count = DB_ADAPTER.getUnreadNotificationCounts();
+            DB_ADAPTER.close();
+            NOTIFICATION_COUNT.setText(""+count);
+
+            int notificationCountVisibility = (count > 0 && notification_donate_IconVisibility==View.VISIBLE)
+                    ? View.VISIBLE : View.GONE;
+            NOTIFICATION_COUNT.setVisibility(notificationCountVisibility);
+
         }
     }
 
 
 
 
-    private void showAdsMob(){
-
-        Log.e(TAG,"showAdsMob_adContainer :"+adContainer);
-        if(adContainer!=null) {
-            if (NetworkUtil.isInternetConnected(this)) {
-                adContainer.setVisibility(View.VISIBLE);
-            } else {
-                adContainer.setVisibility(View.GONE);
-            }
-        }
-
-    }
+//    private void showAdsMob(){
+//
+//        Log.e(TAG,"showAdsMob_adContainer :"+adContainer);
+//        if(adContainer!=null) {
+//            if (NetworkUtil.isInternetConnected(this)) {
+//                adContainer.setVisibility(View.VISIBLE);
+//            } else {
+//                adContainer.setVisibility(View.GONE);
+//            }
+//        }
+//
+//    }
 
     private void expand(LinearLayout linearLayout,ValueAnimator valueAnimator) {
         // set Visible
@@ -486,8 +493,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
                 }
             } catch (Exception e) {
-                Toast.makeText(this, "Please try again", Toast.LENGTH_LONG)
-                        .show();
+                CommanUtils.showToast(this, "Please try again");
             }
         }
     }
@@ -548,7 +554,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                unregisterReceiver(broadcastReceiver);
+                PaalanGetterSetter.setAppInitCall(true);
+//                unregisterReceiver(broadcastReceiver);
                 finish();
             }
         });
@@ -566,14 +573,14 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
     protected void onResume() {
         super.onResume();
         _CONTEXT = this;
-        if (mAdView != null) {
-            mAdView.resume();
-        }
+//        if (mAdView != null) {
+//            mAdView.resume();
+//        }
 
         getProfileUpdate();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        registerReceiver(broadcastReceiver, filter);
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+//        registerReceiver(broadcastReceiver, filter);
 
     }
 
@@ -852,7 +859,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         }
                     }
                 else
-                    Toast.makeText(getApplicationContext(),getString(R.string.event_not_found),Toast.LENGTH_LONG).show();
+                    CommanUtils.showToast(getApplicationContext(),getString(R.string.event_not_found));
 
                 DB_ADAPTER.close();
                 break;
@@ -868,7 +875,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         }
                     }
                 else
-                    Toast.makeText(getApplicationContext(),getString(R.string.group_not_found),Toast.LENGTH_LONG).show();
+                    CommanUtils.showToast(getApplicationContext(),getString(R.string.group_not_found));
                 DB_ADAPTER.close();
                 break;
             case R.id.txtIndRequest:
@@ -882,7 +889,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         }
                     }
                 else
-                    Toast.makeText(getApplicationContext(),getString(R.string.social_request_not_found),Toast.LENGTH_LONG).show();
+                    CommanUtils.showToast(getApplicationContext(),getString(R.string.social_request_not_found));
                 DB_ADAPTER.close();
                 break;
 
@@ -897,7 +904,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         }
                     }
                 else
-                    Toast.makeText(getApplicationContext(),getString(R.string.achievement_not_found),Toast.LENGTH_LONG).show();
+                    CommanUtils.showToast(getApplicationContext(),getString(R.string.achievement_not_found));
                 DB_ADAPTER.close();
                 break;
 
@@ -1116,19 +1123,19 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
         onBackPressed();
     }
 
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            try {
-                showAdsMob();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    };
+//
+//    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//
+//            try {
+//                showAdsMob();
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//    };
 
 
     /**
@@ -1140,7 +1147,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
 
         if(NetworkUtil.isInternetConnected(context)) {
 
-            CommanUtils.showDialog(context);
             Device.newInstance(context);
 
             RequestBroadcastNotification requestBroadcastNotification = RequestBroadcastNotification.get(orgId,
@@ -1149,6 +1155,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             Retrofit mRetrofit = NetworkUtil.getRetrofit();
             PaalanServices mPaalanServices = mRetrofit.create(PaalanServices.class);
 
+            CommanUtils.showDialog(context);
+
             if (notificationType.contains(context.getString(R.string.click_event_event))) {
                 getEventsCallBack(context,requestBroadcastNotification, mPaalanServices);
             } else if (notificationType.contains(context.getString(R.string.click_event_achievement))) {
@@ -1156,6 +1164,9 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             } else if (notificationType.contains(context.getString(R.string.click_event_social_request))) {
                 getRequestsCallBack(context,requestBroadcastNotification, mPaalanServices);
             }
+
+            CommanUtils.hideDialog();
+            PaalanGetterSetter.setAppInitCall(true);
         }else {
             CommanUtils.showAlertDialog(context,context.getResources().getString(R.string.error_internet));
         }
@@ -1170,7 +1181,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             @Override
             public void onResponse(Call<OrgResSyncEvent> call, Response<OrgResSyncEvent> response) {
                 Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
+
                 if (response.isSuccessful()) {
 
                     if (response.body().getStatus().equals("success")) {
@@ -1199,8 +1210,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         PaalanGetterSetter.setEventID(broadcastNotification.getData().getRecordid());
                         getFragmentTransaction(context,new FragmentViewDetailsEvent());
 
-                    } else {
-                        CommanUtils.showToast(context,context.getResources().getString(R.string.error_went_wrong));
+                    } else if(response.body().getStatus().equals("error")){
+                        CommanUtils.showToast(context,response.body().getMessage());
                     }
                 } else if (response.body() == null) {
                     CommanUtils.showToast(context,context.getResources().getString(R.string.error_server));
@@ -1210,7 +1221,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             @Override
             public void onFailure(Call<OrgResSyncEvent> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
-                CommanUtils.hideDialog();
                 CommanUtils.showToast(context,context.getResources().getString(R.string.error_timeout));
             }
         });
@@ -1225,7 +1235,7 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             @Override
             public void onResponse(Call<OrgResSyncRequest> call, Response<OrgResSyncRequest> response) {
                 Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
+
                 if (response.isSuccessful()) {
 
                     if (response.body().getStatus().equals("success")) {
@@ -1251,8 +1261,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         PaalanGetterSetter.setRequestID(broadcastNotification.getData().getRecordid());
                         getFragmentTransaction(context,new FragmentViewDetailsRequest());
 
-                    } else {
-                        CommanUtils.showToast(context,context.getResources().getString(R.string.error_went_wrong));
+                    } else if(response.body().getStatus().equals("error")){
+                        CommanUtils.showToast(context,response.body().getMessage());
                     }
                 }else if(response.body()==null){
                     CommanUtils.showToast(context,context.getResources().getString(R.string.error_server));
@@ -1262,7 +1272,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             @Override
             public void onFailure(Call<OrgResSyncRequest> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
-                CommanUtils.hideDialog();
                 CommanUtils.showToast(context,context.getResources().getString(R.string.error_timeout));
             }
         });
@@ -1276,7 +1285,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             @Override
             public void onResponse(Call<OrgResSyncAchievement> call, Response<OrgResSyncAchievement> response) {
                 Log.e(TAG, "onResponse: " + response.body());
-                CommanUtils.hideDialog();
 
                 if (response.isSuccessful()) {
 
@@ -1305,8 +1313,8 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
                         PaalanGetterSetter.setAchivementID(broadcastNotification.getData().getRecordid());
                         getFragmentTransaction(context,new FragmentViewDetailsAchievement());
 
-                    } else {
-                        CommanUtils.showToast(context,context.getResources().getString(R.string.error_went_wrong));
+                    } else if(response.body().getStatus().equals("error")){
+                        CommanUtils.showToast(context,response.body().getMessage());
                     }
                 }else if(response.body()==null){
                     CommanUtils.showToast(context,context.getResources().getString(R.string.error_server));
@@ -1316,7 +1324,6 @@ public class ActivityFragmentPlatform extends AppCompatActivity implements View.
             @Override
             public void onFailure(Call<OrgResSyncAchievement> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage());
-                CommanUtils.hideDialog();
                 CommanUtils.showToast(context,context.getResources().getString(R.string.error_timeout));
             }
         });

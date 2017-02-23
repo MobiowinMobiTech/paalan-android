@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.phyder.paalan.R;
 import com.phyder.paalan.payload.request.individual.IndivitualReqRegistration;
 import com.phyder.paalan.services.Device;
+import com.phyder.paalan.utils.EditTextOpenSansRegular;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,23 +22,23 @@ import java.util.regex.Pattern;
  * Created by yashika on 7/2/17.
  */
 public class Donorinformation extends Fragment {
-    private EditText edtName, edtEmail, edtContactNo;
-    EditText edtAddress, edtCity, edtState, edtCountry, edtPincode;
+    private EditTextOpenSansRegular edtName, edtEmail, edtContactNo;
+    EditTextOpenSansRegular edtAddress, edtCity, edtState, edtCountry, edtPincode;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_donor_info,null);
         view.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        edtName = (EditText)view.findViewById(R.id.edtName);
-        edtEmail = (EditText)view.findViewById(R.id.edtEmail);
-        edtContactNo = (EditText)view.findViewById(R.id.edtContactNumber);
+        edtName = (EditTextOpenSansRegular)view.findViewById(R.id.edtName);
+        edtEmail = (EditTextOpenSansRegular)view.findViewById(R.id.edtEmail);
+        edtContactNo = (EditTextOpenSansRegular)view.findViewById(R.id.edtContactNumber);
 
-        edtAddress = (EditText)view.findViewById(R.id.edtOrgAddress);
-        edtCity = (EditText)view.findViewById(R.id.edtOrgCity);
-        edtCountry = (EditText)view.findViewById(R.id.edtOrgCountry);
-        edtPincode = (EditText)view.findViewById(R.id.edtOrgPincode);
-        edtState = (EditText)view.findViewById(R.id.edtOrgState);
+        edtAddress = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgAddress);
+        edtCity = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgCity);
+        edtCountry = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgCountry);
+        edtPincode = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgPincode);
+        edtState = (EditTextOpenSansRegular)view.findViewById(R.id.edtOrgState);
 
 
         return view;

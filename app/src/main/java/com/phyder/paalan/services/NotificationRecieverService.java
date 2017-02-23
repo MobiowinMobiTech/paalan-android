@@ -26,24 +26,23 @@ public class NotificationRecieverService extends FirebaseMessagingService {
         Log.d(TAG, "ad Message: " +
                 remoteMessage.getNotification());
 
-        Log.d(TAG, "FCM Message Id: " + remoteMessage.getData());
+        Log.d(TAG, "FCM Message Id: " + remoteMessage.getData().size());
 
-        // call local broadcast to display notification
-        Intent intent = new Intent();
-        intent.putExtra(Config.TITLE,remoteMessage.getData().get(Config.TITLE));
-        intent.putExtra(Config.BODY,remoteMessage.getData().get(Config.BODY));
-       // intent.putExtra(Config.IMAGE_URL,remoteMessage.getData().get(Config.IMAGE_URL));
-        intent.putExtra(Config.ENTITY,remoteMessage.getData().get(Config.ENTITY));
-        intent.putExtra(Config.ORG_ID,remoteMessage.getData().get(Config.ORG_ID));
-        intent.putExtra(Config.RECORD_ID,remoteMessage.getData().get(Config.RECORD_ID));
-        intent.setAction("com.phyder.paalan.SendBroadcast");
-        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        //  intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        sendBroadcast(intent);
-
+        if(remoteMessage.getData().size()>0) {
+            // call local broadcast to display notification
+            Intent intent = new Intent();
+            intent.putExtra(Config.TITLE, remoteMessage.getData().get(Config.TITLE));
+            intent.putExtra(Config.BODY, remoteMessage.getData().get(Config.BODY));
+            // intent.putExtra(Config.IMAGE_URL,remoteMessage.getData().get(Config.IMAGE_URL));
+            intent.putExtra(Config.ENTITY, remoteMessage.getData().get(Config.ENTITY));
+            intent.putExtra(Config.ORG_ID, remoteMessage.getData().get(Config.ORG_ID));
+            intent.putExtra(Config.RECORD_ID, remoteMessage.getData().get(Config.RECORD_ID));
+            intent.setAction("com.phyder.paalan.SendBroadcast");
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            //  intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            sendBroadcast(intent);
+        }
     }
-
-
 }
 
 

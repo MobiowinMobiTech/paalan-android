@@ -22,15 +22,13 @@
             android:id="@+id/platform"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"/>
+            android:layout_weight="10"/>
 
-        <RelativeLayout
-            android:id="@+id/adMobView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/adMobView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:background="@color/light_grey"/>-->
 
 
     </LinearLayout>

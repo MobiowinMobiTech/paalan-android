@@ -237,16 +237,12 @@ public class FragmentViewDetailsEvent extends Fragment {
                             dbAdapter.deleteEvent(eventId);
                             dbAdapter.close();
                             getActivity().getSupportFragmentManager().popBackStack();
-                            Toast.makeText(getActivity(), getResources().getString(R.string.event_deleted), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.event_deleted));
                         } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
-                                    Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_went_wrong));
                         }
                     }else if(response.body()==null){
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_server));
                     }
                 }
 
@@ -254,8 +250,7 @@ public class FragmentViewDetailsEvent extends Fragment {
                 public void onFailure(Call<OrgResDeleteEvent> call, Throwable t) {
                     CommanUtils.hideDialog();
                     Log.e(TAG, "onFailure: " + t.getMessage());
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                            .show();
+                    CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_timeout));
                 }
             });
         }else{

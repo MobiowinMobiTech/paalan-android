@@ -264,8 +264,7 @@ public class FragmentCreateAchievement extends Fragment{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong), Toast.LENGTH_LONG)
-                    .show();;
+            CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_went_wrong));
         }
 
     }

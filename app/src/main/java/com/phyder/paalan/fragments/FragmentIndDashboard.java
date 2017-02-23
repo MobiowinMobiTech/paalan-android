@@ -28,6 +28,7 @@ import com.phyder.paalan.db.DBAdapter;
 import com.phyder.paalan.helper.CircleIndicator;
 import com.phyder.paalan.helper.DialogPopupListener;
 import com.phyder.paalan.helper.GPSTracker;
+import com.phyder.paalan.helper.PaalanGetterSetter;
 import com.phyder.paalan.payload.request.RequestIndDashboard;
 import com.phyder.paalan.payload.response.ResponseIndDashboard;
 import com.phyder.paalan.services.Device;
@@ -432,12 +433,10 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                                 insertIntoDB(response);
 
                             } else {
-                                Toast.makeText(getActivity(), getResources().getString(R.string.error_went_wrong),
-                                        Toast.LENGTH_LONG).show();
+                                CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_went_wrong));
                             }
                         } else if (response.body() == null) {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_LONG)
-                                    .show();
+                            CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_server));
                         }
                         CommanUtils.hideDialog();
 
@@ -446,8 +445,7 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
                     @Override
                     public void onFailure(Call<ResponseIndDashboard> call, Throwable t) {
                         CommanUtils.hideDialog();
-                        Toast.makeText(getActivity(), getResources().getString(R.string.error_timeout), Toast.LENGTH_LONG)
-                                .show();
+                        CommanUtils.showToast(getActivity(), getResources().getString(R.string.error_timeout));
                     }
                 });
             } else {
@@ -594,7 +592,9 @@ public class FragmentIndDashboard extends Fragment implements DialogPopupListene
 
              if (requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, PERMISSION)){
                 if(!isFetched) {
-                    getRetrofitCall();
+                    if(PaalanGetterSetter.shouldAppInitCall()) {
+                        getRetrofitCall();
+                    }
                 }
              }
         }

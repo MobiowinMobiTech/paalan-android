@@ -14,6 +14,7 @@ import android.util.Log;
 import com.phyder.paalan.R;
 import com.phyder.paalan.activity.ActivityFragmentPlatform;
 import com.phyder.paalan.db.DBAdapter;
+import com.phyder.paalan.helper.PaalanGetterSetter;
 import com.phyder.paalan.social.Social;
 import com.phyder.paalan.utils.Config;
 
@@ -57,7 +58,7 @@ public class NotificationReciever extends BroadcastReceiver {
 //                R.layout.customnotification);
 
         // Open NotificationView Class on Notification Click
-
+        PaalanGetterSetter.setAppInitCall(false);
         String entity = intent.getStringExtra(Config.ENTITY);
         String title = intent.getStringExtra(Config.TITLE);
         String body = intent.getStringExtra(Config.BODY);
@@ -77,7 +78,7 @@ public class NotificationReciever extends BroadcastReceiver {
         dbAdapter.insertNotification(recordId, entity, body,orgId);
         dbAdapter.close();
 
-        android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, 0, resultIntent,
+        android.app.PendingIntent pIntent = android.app.PendingIntent.getActivity(context, recordId.hashCode(), resultIntent,
                 android.app.PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Locate and set the Text into customnotificationtext.xml TextViews

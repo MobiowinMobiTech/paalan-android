@@ -86,12 +86,9 @@ public class FragmentNotifications extends Fragment {
                         getActivity().getSupportFragmentManager().beginTransaction().
                                 replace(R.id.platform,new FragmentViewDetailsRequest()).addToBackStack(null).commit();
                     }
-
                 }
-
             }
         });
-
     }
 
 
