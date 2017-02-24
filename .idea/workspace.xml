@@ -11,48 +11,145 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7b15c87-f11a-422b-9605-9d40bec5280e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/notification_count_circle.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/encryption/AESEncryptDecrypt.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/encryption/Base64Coder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/encryption/ECrypto.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/encryption/RSAEncryptDecrypt.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsAchievement.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsRequest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_achievement_100.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_social_request.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestSlidingBanner.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/individual/IndReqCreateAchievments.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/individual/IndividualReqLogin.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/individual/IndivitualReqPublishEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/individual/IndivitualReqUpdateProfile.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqUpdateAchievments.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqUpdateEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrganizationReqLogin.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrganizationReqProfile.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrganizationReqPublishEven.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/ResponseSlidingBanner.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/individual/IndResCreateAchievments.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/individual/IndivitualResLogin.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/individual/IndivitualResPublishEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/individual/IndivitualResRegistration.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/individual/IndivitualResUpdateProfile.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResUpdateAchievments.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResUpdateEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrganizationResLogin.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrganizationResPublishEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/social/DashBoardModel.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NotificationUtils.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/fade_in.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/fade_out.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/in.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/indicator_animator.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/indicator_animator_reverse.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/out.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_down.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_up.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/black_radius_square.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/contact_us.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/date_circulweview.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/event_history.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/event_request.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/fteam.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_achievments.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_calendar_date.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_keyboard_arrow_left.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_keyboard_arrow_right.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_menu_slideshow.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_my_profile.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_people_black_24dp.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_power_settings_new_black_24dp.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_register.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_sign_out.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/org_id.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/shape_rounded_border_white_bg.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/shape_rounded_borderwhite_ind.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/shape_rounded_borderwhite_org.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/individual/IndivitualReqRegistration.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/IndivitualReqRegistration.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqCreateAchievments.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqCreateAchievments.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqCreateEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqCreateEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqCreateRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrgReqCreateRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqDeleteAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqDeleteAchievement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqDeleteEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqDeleteEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqDeleteRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqDeleteRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqSyncAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqSyncAchievement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqSyncEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrgReqSyncEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrgReqSyncRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrgReqSyncRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrganisationReqProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganisationReqProfile.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/OrganizationReqResistration.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqResistration.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/organization/RequestInitialData.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestInitialData.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResCreateAchievments.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResCreateAchievments.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResCreateEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResCreateEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResCreateRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResCreateRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResDeleteAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResDeleteAchievement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResDeleteEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResDeleteEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResDeleteRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResDeleteRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResSyncAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResSyncAchievement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResSyncEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResSyncEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrgResSyncRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResSyncRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrganizationResProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrganizationResProfile.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/OrganizationResRegistration.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrganizationResRegistration.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/organization/ResponseInitialData.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/ResponseInitialData.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/social/Social.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/Social.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config.properties" afterPath="$PROJECT_DIR$/app/config.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Donate.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Donate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ForgotPassword.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ForgotPassword.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/AddressInformation.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/AddressInformation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/RegisterUser.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/RegisterUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/HorizontalListVAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/HorizontalListVAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/DonateView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/DonateView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/Donorinformation.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/Donorinformation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentAboutUs.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentAboutUs.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentConnectWithUs.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentConnectWithUs.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateAchievement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentDashBorad.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentDashBorad.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateRequest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentMyProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentMyProfile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentNotifications.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentNotifications.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewAchievement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsAchievement.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsAchievement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsEvent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/OrganisationInformation.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/OrganisationInformation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/PaalanGetterSetter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/PaalanGetterSetter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestBroadcastNotification.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestBroadcastNotification.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestIndDashboard.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestIndDashboard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestLogin.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestLogin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestOrganizerProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestOrganizerProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/ResponseOrganizerProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/ResponseOrganizerProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/CronJobService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/CronJobService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/FCMTokenGeneratorService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/FCMTokenGeneratorService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_donation_white.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_donation_white.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_notifications_black_24dp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_notifications_black_24dp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_fragment_platform.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_fragment_platform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/dashboard_framelayout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dashboard_framelayout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_aboutus.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_aboutus.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_address_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_address_info.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_connect_with_us.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_connect_with_us.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_donor_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_donor_info.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/PaalanServices.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/PaalanServices.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Application.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/CommanUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/CommanUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/PreferenceUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/PreferenceUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/paalan_toolbar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/paalan_toolbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/slidingimages_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/slidingimages_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="android-paalan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -93,84 +190,110 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ActivityFragmentPlatform.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java">
+      <file leaf-file-name="DonateView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/DonateView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2064">
-              <caret line="144" column="23" selection-start-line="144" selection-start-column="23" selection-end-line="144" selection-end-column="23" />
+            <state relative-caret-position="177">
+              <caret line="104" column="34" selection-start-line="104" selection-start-column="34" selection-end-line="104" selection-end-column="34" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#initComponents#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#launchDashboard#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="e#7440#7473#0" expanded="false" />
-                <element signature="method#initSideDrawer#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="e#10782#10814#0" expanded="false" />
-                <element signature="method#expand#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#collapse#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#slideAnimator#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#updateProfileImage#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#openGalleryForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#openCameraForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#requestPermission#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#onRequestPermissionsResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#onActivityResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#saveProfilePicture#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#getFragmentTransaction#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#onBackPressed#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#showExitAlert#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#onOptionsItemSelected#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#getProfileUpdate#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#initializingIndDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#initializingOrgDrawerComponants#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#onClick#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#setRetrofitRequest#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#getEventsCallBack#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#getRequestsCallBack#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <element signature="method#getAchiementsCallBack#0;class#ActivityFragmentPlatform#0" expanded="false" />
-                <marker date="1487853753141" expanded="false" signature="7888:7925" ph="&quot;ca-app-pub-8352537985411717/5479616389&quot;" />
+                <element signature="e#3607#3880#0" expanded="true" />
+                <element signature="e#3879#3880#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NotificationReciever.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java">
+      <file leaf-file-name="NetworkUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-285">
-              <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+            <state relative-caret-position="146">
+              <caret line="68" column="46" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NotificationRecieverService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java">
+      <file leaf-file-name="BuildConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/phyder/paalan/BuildConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/db/DBAdapter.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-362">
-              <caret line="576" column="5" selection-start-line="576" selection-start-column="5" selection-end-line="576" selection-end-column="5" />
+            <state relative-caret-position="343">
+              <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_fragment_platform.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_fragment_platform.xml">
+      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/config.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="grid_item.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
+            <state relative-caret-position="60">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="recycle_items.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recycle_items.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CircleIndicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scale_with_alpha.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/scale_with_alpha.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoundedImageView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/RoundedImageView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-840">
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -186,6 +309,11 @@
         <option value="resourceFile" />
       </list>
     </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../paalan.jks" />
+    <option name="KEY_ALIAS" value="alias" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -1970,7 +2098,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="5949081361868" />
+        <entry key="$PROJECT_DIR$" value="5949359692738" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2357,65 +2485,65 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/FCMTokenGeneratorService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_notification.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/social/Social.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsAchievement.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentConnectWithUs.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestOrganizerProfile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrgReqSyncEvent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrgReqCreateRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestIndDashboard.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/IndivitualReqRegistration.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestLogin.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqDeleteAchievement.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrgReqSyncRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqSyncAchievement.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqDeleteEvent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqResistration.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqCreateEvent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqDeleteRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestInitialData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganisationReqProfile.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/RequestBroadcastNotification.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/ResponseBroadcastNotification.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/PaalanServices.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request/OrganizationReqCreateAchievments.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/FCMTokenGeneratorService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/PreferenceUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Donate.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ForgotPassword.java" />
+        <option value="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/phyder/paalan/BuildConfig.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/CommanUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/PreferenceUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Application.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_notification_list_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/NotificationListsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/Config.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/db/Attributes.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/db/DBAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentNotifications.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/notification_count_circle.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/paalan_toolbar.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_notifications_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_donation_white.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dashboard_framelayout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentDashBorad.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/PaalanGetterSetter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Donate.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_address_info.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/AddressInformation.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_donor_info.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/Donorinformation.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_connect_with_us.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentConnectWithUs.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentAboutUs.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_aboutus.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateAchievement.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentMyProfile.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsAchievement.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/slidingimages_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/WhatsNewSlide.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateEvent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/PaalanServices.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsEvent.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsRequest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_ind_dashboard.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_fragment_platform.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsEvent.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/paalan_toolbar.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_social_request.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_achievement_35.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_achievement_100.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsAchievement.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java" />
+        <option value="$PROJECT_DIR$/app/config.properties" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/DonateView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="49" />
-    <option name="y" value="18" />
+    <option name="y" value="-3" />
     <option name="width" value="1317" />
-    <option name="height" value="750" />
+    <option name="height" value="771" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -2442,12 +2570,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2455,19 +2577,9 @@
               <option name="myItemId" value="android-paalan" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="android-paalan" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2477,85 +2589,47 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-paalan" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-paalan" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paalan" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-paalan" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paalan" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.NonAndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
+      <pane id="Scratches">
+        <subPane />
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/android-sdk" />
     <property name="settings.editor.selected.configurable" value="preferences.updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Android-ViewFlipper-wth-Position-Indicator-master" />
-    <property name="device.picker.selection" value="Nexus_5X_API_23" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="device.picker.selection" value="KarbonnTitaniumS5Plus-b137ca2c" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlPreviewForm.SHOW" value="false" />
-    <property name="VectorAssetImportPath" value="$PROJECT_DIR$/.." />
+    <property name="VectorAssetImportPath" value="$PROJECT_DIR$/../.." />
+    <property name="ScreenshotViewer.SavePath" value="$PROJECT_DIR$/.." />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
+    <property name="ExportApk.Flavors" value="" />
+    <property name="ExportApk.BuildType" value="release" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.phyder.paalan.payload.response" />
+      <recent name="com.phyder.paalan.helper" />
       <recent name="com.phyder.paalan.payload.request" />
       <recent name="com.phyder.paalan.adapter" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v21" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/request" />
       <recent name="$PROJECT_DIR$/app" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -2838,7 +2912,7 @@
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="DEBUGGER_TYPE" value="Auto" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
       <option name="PREFERRED_AVD" value="" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -2910,32 +2984,32 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="18" width="1317" height="750" extended-state="6" />
-    <editor active="false" />
+    <frame x="49" y="-3" width="1317" height="771" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27215686" sideWeight="0.5063291" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8006329" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6993671" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3386076" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.023734177" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3254902" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08392157" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5537975" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6170886" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24941176" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27607843" sideWeight="0.49367088" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28" sideWeight="0.49367088" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2945,7 +3019,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2961,475 +3035,382 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/db/Attributes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="21" column="66" selection-start-line="21" selection-start-column="66" selection-end-line="21" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="102" column="48" selection-start-line="102" selection-start-column="48" selection-end-line="102" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_donation_white.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/notification_count_circle.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dashboard_framelayout.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-436">
-          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/PaalanGetterSetter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="53" column="38" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="38" />
-          <folding>
-            <element signature="e#1108#1109#0" expanded="true" />
-            <element signature="e#1159#1160#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Donate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-296">
-          <caret line="124" column="36" selection-start-line="124" selection-start-column="36" selection-end-line="124" selection-end-column="36" />
-          <folding>
-            <element signature="e#4012#4057#0" expanded="true" />
-            <element signature="e#4368#4403#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/GPSTracker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="134" column="23" selection-start-line="134" selection-start-column="23" selection-end-line="134" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ForgotPassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="132" column="96" selection-start-line="132" selection-start-column="96" selection-end-line="132" selection-end-column="96" />
-          <folding>
-            <element signature="e#5075#5110#0" expanded="false" />
-            <element signature="e#5140#5183#0" expanded="false" />
-            <element signature="e#5752#5787#0" expanded="false" />
-            <element signature="e#5789#5824#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="212" column="102" selection-start-line="212" selection-start-column="102" selection-end-line="212" selection-end-column="102" />
-          <folding>
-            <element signature="e#6311#6355#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="74" column="31" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/RegisterUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/WhatsNew.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-851">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/ExpandableListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_about_us.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/groups.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/events.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/achievement.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v21/ic_achievement_100.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_add_alert_black_24dp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_achievement_100.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_achievement_35.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/HorizontalListVAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        <state relative-caret-position="135">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/ListsAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_social_request.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="135">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/NotificationListsAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/payload/response/OrgResNotificationDetailsAchievement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="57" column="59" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_donate_view.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1367">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/DonateView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="52" column="66" selection-start-line="52" selection-start-column="66" selection-end-line="52" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_address_info.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="56" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/AddressInformation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="30" column="79" selection-start-line="30" selection-start-column="79" selection-end-line="30" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_donor_info.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1950">
-          <caret line="130" column="64" selection-start-line="130" selection-start-column="64" selection-end-line="130" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/Donorinformation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-220">
-          <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_aboutus.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentAboutUs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="25" column="59" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
+        <state relative-caret-position="1185">
+          <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
           <folding>
-            <element signature="e#1038#1071#0" expanded="true" />
+            <element signature="e#291#292#0" expanded="false" />
+            <element signature="e#321#322#0" expanded="false" />
+            <element signature="e#372#373#0" expanded="false" />
+            <element signature="e#410#411#0" expanded="false" />
+            <element signature="e#448#449#0" expanded="false" />
+            <element signature="e#477#478#0" expanded="false" />
+            <element signature="e#526#527#0" expanded="false" />
+            <element signature="e#562#563#0" expanded="false" />
+            <element signature="e#598#599#0" expanded="false" />
+            <element signature="e#625#626#0" expanded="false" />
+            <element signature="e#670#671#0" expanded="false" />
+            <element signature="e#702#703#0" expanded="false" />
+            <element signature="e#975#976#0" expanded="false" />
+            <element signature="e#1016#1017#0" expanded="false" />
+            <element signature="e#1087#1088#0" expanded="false" />
+            <element signature="e#1139#1140#0" expanded="false" />
+            <element signature="e#1201#1202#0" expanded="false" />
+            <element signature="e#1273#1274#0" expanded="false" />
+            <element signature="e#1928#1929#0" expanded="false" />
+            <element signature="e#1965#1966#0" expanded="false" />
+            <element signature="e#2022#2023#0" expanded="false" />
+            <element signature="e#2066#2067#0" expanded="false" />
+            <element signature="e#2116#2117#0" expanded="false" />
+            <element signature="e#2157#2158#0" expanded="false" />
+            <element signature="e#2222#2223#0" expanded="false" />
+            <element signature="e#2274#2275#0" expanded="false" />
+            <element signature="e#2327#2328#0" expanded="false" />
+            <element signature="e#2371#2372#0" expanded="false" />
+            <element signature="e#2442#2443#0" expanded="false" />
+            <element signature="e#2500#2501#0" expanded="false" />
+            <element signature="e#2551#2552#0" expanded="false" />
+            <element signature="e#2593#2594#0" expanded="false" />
+            <element signature="e#2660#2661#0" expanded="false" />
+            <element signature="e#2714#2715#0" expanded="false" />
+            <element signature="e#2761#2762#0" expanded="false" />
+            <element signature="e#2799#2800#0" expanded="false" />
+            <element signature="e#2858#2859#0" expanded="false" />
+            <element signature="e#2904#2905#0" expanded="false" />
+            <element signature="e#2946#2947#0" expanded="false" />
+            <element signature="e#2979#2980#0" expanded="false" />
+            <element signature="e#3028#3029#0" expanded="false" />
+            <element signature="e#3064#3065#0" expanded="false" />
+            <element signature="e#3109#3110#0" expanded="false" />
+            <element signature="e#3145#3146#0" expanded="false" />
+            <element signature="e#3200#3201#0" expanded="false" />
+            <element signature="e#3242#3243#0" expanded="false" />
+            <element signature="e#3290#3291#0" expanded="false" />
+            <element signature="e#3329#3330#0" expanded="false" />
+            <element signature="e#3390#3391#0" expanded="false" />
+            <element signature="e#3438#3439#0" expanded="false" />
+            <element signature="e#3483#3484#0" expanded="false" />
+            <element signature="e#3519#3520#0" expanded="false" />
+            <element signature="e#3574#3575#0" expanded="false" />
+            <element signature="e#3616#3617#0" expanded="false" />
+            <element signature="e#3662#3663#0" expanded="false" />
+            <element signature="e#3699#3700#0" expanded="false" />
+            <element signature="e#3756#3757#0" expanded="false" />
+            <element signature="e#3800#3801#0" expanded="false" />
+            <element signature="e#3846#3847#0" expanded="false" />
+            <element signature="e#3883#3884#0" expanded="false" />
+            <element signature="e#3940#3941#0" expanded="false" />
+            <element signature="e#3984#3985#0" expanded="false" />
+            <element signature="e#4033#4034#0" expanded="false" />
+            <element signature="e#4073#4074#0" expanded="false" />
+            <element signature="e#4136#4137#0" expanded="false" />
+            <element signature="e#4186#4187#0" expanded="false" />
+            <element signature="e#4236#4237#0" expanded="false" />
+            <element signature="e#4277#4278#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="false" />
+            <element signature="e#4394#4395#0" expanded="false" />
+            <element signature="e#4440#4441#0" expanded="false" />
+            <element signature="e#4477#4478#0" expanded="false" />
+            <element signature="e#4534#4535#0" expanded="false" />
+            <element signature="e#4578#4579#0" expanded="false" />
+            <element signature="e#4626#4627#0" expanded="false" />
+            <element signature="e#4665#4666#0" expanded="false" />
+            <element signature="e#4726#4727#0" expanded="false" />
+            <element signature="e#4774#4775#0" expanded="false" />
+            <element signature="e#4820#4821#0" expanded="false" />
+            <element signature="e#4857#4858#0" expanded="false" />
+            <element signature="e#4914#4915#0" expanded="false" />
+            <element signature="e#4958#4959#0" expanded="false" />
+            <element signature="e#5006#5007#0" expanded="false" />
+            <element signature="e#5045#5046#0" expanded="false" />
+            <element signature="e#5106#5107#0" expanded="false" />
+            <element signature="e#5154#5155#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_connect_with_us.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="111" column="20" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentConnectWithUs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1425">
-          <caret line="46" column="65" selection-start-line="46" selection-start-column="65" selection-end-line="46" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateAchievement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="266" column="101" selection-start-line="266" selection-start-column="101" selection-end-line="266" selection-end-column="101" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-539">
-          <caret line="243" column="57" selection-start-line="243" selection-start-column="52" selection-end-line="243" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentCreateRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2185">
-          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentDashBorad.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-160">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding>
-            <element signature="class#ORGDashboardAdapter#0;class#FragmentDashBorad#0" expanded="false" />
-            <element signature="class#MyViewHolder#0;class#FragmentDashBorad#0" expanded="false" />
-            <element signature="method#initializeList#0;class#FragmentDashBorad#0" expanded="false" />
-            <element signature="method#initializeTimer#0;class#FragmentDashBorad#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentGroupsProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1480">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentMyProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="362" column="105" selection-start-line="362" selection-start-column="105" selection-end-line="362" selection-end-column="105" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentNotifications.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="96" column="25" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewAchievement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1335">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsAchievement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="262" column="85" selection-start-line="262" selection-start-column="85" selection-end-line="262" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="253" column="17" selection-start-line="253" selection-start-column="17" selection-end-line="253" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewDetailsRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="223" column="32" selection-start-line="223" selection-start-column="32" selection-end-line="223" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewGroups.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentViewRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/OrganisationInformation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/WhatsNewSlide.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/adapter/SlidingImageAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="69" column="93" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="93" />
-          <folding>
-            <element signature="method#destroyItem#0;class#SlidingImageAdapter#0" expanded="false" />
-            <element signature="method#getCount#0;class#SlidingImageAdapter#0" expanded="false" />
-            <element signature="e#1911#2107#0" expanded="true" />
-            <element signature="e#2106#2107#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1350">
-          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        <state relative-caret-position="357">
+          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/FragmentIndDashboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="65" column="44" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="44" />
+        <state relative-caret-position="306">
+          <caret line="582" column="0" selection-start-line="582" selection-start-column="0" selection-end-line="582" selection-end-column="0" />
           <folding>
-            <element signature="method#onCreateView#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#init#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#handlingSlideShow#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#clickEventFire#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#requestPermission#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#getRetrofitCall#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#getPopulated#0;class#FragmentIndDashboard#0" expanded="false" />
+            <element signature="imports" expanded="false" />
             <element signature="method#callApi#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="e#19272#19320#0" expanded="true" />
             <element signature="method#insertIntoDB#0;class#FragmentIndDashboard#0" expanded="false" />
             <element signature="method#initializeTimer#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="e#26762#27230#0" expanded="true" />
-            <element signature="e#27229#27230#0" expanded="true" />
-            <element signature="method#onResume#0;class#FragmentIndDashboard#0" expanded="false" />
-            <element signature="method#onCancelClicked#0;class#FragmentIndDashboard#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_ind_dashboard.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        <state relative-caret-position="201">
+          <caret line="365" column="18" selection-start-line="365" selection-start-column="18" selection-end-line="365" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_fragment_platform.xml">
-      <provider editor-type-id="android-designer2">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/db/DBAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="45" column="73" selection-start-line="45" selection-start-column="73" selection-end-line="45" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/PaalanSplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="62" column="51" selection-start-line="62" selection-start-column="51" selection-end-line="62" selection-end-column="51" />
+          <folding>
+            <element signature="e#3516#3551#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../whatsNew1.png">
+      <provider selected="true" editor-type-id="images">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../whatsNew2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../whatsNew3.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../IndividualDashBoard1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../IndividualDashboard2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-175455.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-175514.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-175531.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-175716.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-175633.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/RegisterUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
+        <state relative-caret-position="-210">
+          <caret line="223" column="48" selection-start-line="223" selection-start-column="48" selection-end-line="223" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-175940.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-180021.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-180037.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-180102.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-180322.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-180334.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/Donate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/android-sdk/extras/android/m2repository/com/android/support/support-fragment/25.1.0/support-fragment-25.1.0-sources.jar!/android/support/v4/app/Fragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="1060" column="22" selection-start-line="1060" selection-start-column="22" selection-end-line="1060" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/activity/ActivityFragmentPlatform.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2064">
-          <caret line="144" column="23" selection-start-line="144" selection-start-column="23" selection-end-line="144" selection-end-column="23" />
+        <state relative-caret-position="170">
+          <caret line="374" column="17" selection-start-line="372" selection-start-column="15" selection-end-line="374" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#initComponents#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#launchDashboard#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="e#7440#7473#0" expanded="false" />
+            <element signature="e#7387#7420#0" expanded="false" />
             <element signature="method#initSideDrawer#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="e#10782#10814#0" expanded="false" />
+            <element signature="e#10730#10762#0" expanded="false" />
             <element signature="method#expand#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#collapse#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#slideAnimator#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#updateProfileImage#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#openGalleryForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#openCameraForDP#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#requestPermission#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#onActivityResult#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#saveProfilePicture#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#getFragmentTransaction#0;class#ActivityFragmentPlatform#0" expanded="false" />
@@ -3444,31 +3425,101 @@
             <element signature="method#getEventsCallBack#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#getRequestsCallBack#0;class#ActivityFragmentPlatform#0" expanded="false" />
             <element signature="method#getAchiementsCallBack#0;class#ActivityFragmentPlatform#0" expanded="false" />
-            <marker date="1487853753141" expanded="false" signature="7888:7925" ph="&quot;ca-app-pub-8352537985411717/5479616389&quot;" />
+            <marker date="1487937233472" expanded="false" signature="7835:7872" ph="&quot;ca-app-pub-8352537985411717/5479616389&quot;" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/db/DBAdapter.java">
+    <entry file="file://$PROJECT_DIR$/../device-2017-02-24-181234.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/fragments/DonateView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-362">
-          <caret line="576" column="5" selection-start-line="576" selection-start-column="5" selection-end-line="576" selection-end-column="5" />
+        <state relative-caret-position="177">
+          <caret line="104" column="34" selection-start-line="104" selection-start-column="34" selection-end-line="104" selection-end-column="34" />
+          <folding>
+            <element signature="e#3607#3880#0" expanded="true" />
+            <element signature="e#3879#3880#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/NetworkUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="68" column="46" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationReciever.java">
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/phyder/paalan/BuildConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-285">
-          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+        <state relative-caret-position="165">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/services/NotificationRecieverService.java">
+    <entry file="file://$PROJECT_DIR$/app/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/utils/RoundedImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-840">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recycle_items.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/scale_with_alpha.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phyder/paalan/helper/CircleIndicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/grid_item.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
           <folding />
         </state>
       </provider>

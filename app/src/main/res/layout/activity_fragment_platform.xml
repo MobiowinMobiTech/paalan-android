@@ -57,7 +57,7 @@
                 android:layout_centerVertical="true">
 
 
-                <com.phyder.paalan.utils.RoundedImageView
+                <com.mobiowin.paalan.utils.RoundedImageView
                     android:id="@+id/img_user_profile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -73,7 +73,7 @@
                     app:shadow="true"
                     android:src="@drawable/unknown" />
 
-                <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -7,7 +7,7 @@
 
 
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/lblListHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

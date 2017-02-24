@@ -37,6 +37,7 @@ android {
             minifyEnabled false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SERVER_URL", "\"${config.getProperty("server.url")}\""
         }
         debug{
             buildConfigField "String", "SERVER_URL", "\"${config.getProperty("server.url")}\""
@@ -66,6 +67,7 @@ dependencies {
     // Firebase
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-ads:10.0.1'
+
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'

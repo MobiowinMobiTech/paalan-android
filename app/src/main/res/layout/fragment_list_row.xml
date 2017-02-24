@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-    <com.phyder.paalan.utils.RoundedImageView
+    <com.mobiowin.paalan.utils.RoundedImageView
         android:id="@+id/img_logo"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -33,7 +33,7 @@
         android:layout_gravity="center_vertical"
         android:background="@drawable/primary_color_circle">
 
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+        <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
             android:id="@+id/txtDayRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_marginTop="-7dp"
             android:textColor="@color/primary_text"
             />
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtDateRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,14 +58,14 @@
         android:padding="10dp"
         android:layout_marginLeft="10dp">
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtPrimaryRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/primary_text"/>
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtSecondaryRow"
             android:layout_marginTop="-5dp"
             android:layout_width="match_parent"

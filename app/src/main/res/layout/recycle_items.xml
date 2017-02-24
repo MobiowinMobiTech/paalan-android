@@ -24,7 +24,7 @@
             android:layout_weight="3.2"
             android:orientation="vertical">
 
-                <com.phyder.paalan.utils.RoundedImageView
+                <com.mobiowin.paalan.utils.RoundedImageView
                     android:id="@+id/coverImageView"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -41,7 +41,7 @@
                     app:shadow="true"
                     android:src="@drawable/event_req" />
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:id="@+id/event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 />
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/tagline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:id="@+id/text_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/divider" />
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:id="@+id/text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

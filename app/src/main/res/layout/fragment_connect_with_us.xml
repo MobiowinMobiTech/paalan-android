@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10.0">
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="7dp"
@@ -89,7 +89,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1">
 
-                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.AutoCompleteTextViewOpenSansRegular
                         android:id="@+id/edtName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1">
 
-                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.AutoCompleteTextViewOpenSansRegular
                         android:id="@+id/edtMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1">
 
-                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.AutoCompleteTextViewOpenSansRegular
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1">
 
-                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.AutoCompleteTextViewOpenSansRegular
                         android:id="@+id/edtMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-                <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+                <com.mobiowin.paalan.utils.ButtonOpenSansSemiBold
                     android:id="@+id/btnSubmitFeedback"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

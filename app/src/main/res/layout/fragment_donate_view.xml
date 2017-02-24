@@ -5,7 +5,7 @@
     android:weightSum="10"
     android:background="#ebebeb">
 
-    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -55,7 +55,7 @@
                     android:padding="7dp"
                     android:layout_weight="1">
 
-                    <com.phyder.paalan.utils.AutoCompleteTextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.AutoCompleteTextViewOpenSansRegular
                         android:id="@+id/edtCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_margin="7dp"
                 android:layout_weight="1.5">
 
-                <com.phyder.paalan.utils.EditTextOpenSansRegular
+                <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                     android:id="@+id/edtDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                     android:id="@+id/imageCategory"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
-                <com.phyder.paalan.utils.TextViewOpenSansRegular
+                <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/capture_image"

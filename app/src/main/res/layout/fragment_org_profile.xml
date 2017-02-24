@@ -20,7 +20,7 @@
             android:weightSum="1">
 
 
-            <com.phyder.paalan.utils.RoundedImageView
+            <com.mobiowin.paalan.utils.RoundedImageView
                 android:id="@+id/imageview_dp_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
@@ -36,7 +36,7 @@
                 app:shadow="true"
                 android:src="@drawable/unknown" />
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtProfileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/edit_role"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/registration_no"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/fb_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/linkedin_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/website_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/twitter_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -273,7 +273,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.phyder.paalan.utils.EditTextOpenSansRegular
+                    <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                         android:id="@+id/presence_area"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -282,7 +282,7 @@
             </LinearLayout>
 
 
-            <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+            <com.mobiowin.paalan.utils.ButtonOpenSansSemiBold
                 android:id="@+id/btn_profile_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:weightSum="10">
 
-    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
         android:id="@+id/txtScreenTitle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,7 +28,7 @@
         android:layout_margin="7dp"
         android:layout_weight="5"/>
 
-    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
         android:id="@+id/txtScreenDescription"
         android:layout_width="match_parent"
         android:layout_height="0dp"

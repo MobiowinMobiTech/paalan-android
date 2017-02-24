@@ -12,7 +12,7 @@
         android:dividerHeight="1dp"></ListView>
 
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtDataNotFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

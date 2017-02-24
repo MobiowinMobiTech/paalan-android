@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtOrgProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:textColor="@color/primary_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtOrgAchievement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_marginLeft="30dp"
         android:visibility="gone">
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtOrgCreateAchievement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtOrgViewAchievement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
     </LinearLayout>
 
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtOrgEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
         android:layout_marginLeft="30dp"
         android:visibility="gone">
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtOrgCreateEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtOrgViewEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
     </LinearLayout>
 
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtOrgRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
         android:layout_marginLeft="30dp"
         android:visibility="gone">
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtOrgCreateRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:id="@+id/txtOrgViewRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
 
     </LinearLayout>
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtOrgAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
         android:textColor="@color/primary_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtOrgContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
         android:textColor="@color/primary_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
-    <com.phyder.paalan.utils.TextViewOpenSansRegular
+    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
         android:id="@+id/txtSignOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -12,7 +12,7 @@
         android:scaleType="fitXY"
         android:src="@mipmap/ic_launcher" />
 
-    <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+    <com.mobiowin.paalan.utils.ButtonOpenSansSemiBold
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
@@ -22,7 +22,7 @@
         android:textColor="@drawable/button_text_color"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

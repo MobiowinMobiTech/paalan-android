@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         >
 
-        <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+        <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
             android:id="@+id/txtDashTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:src="@drawable/ic_notifications_black_24dp"
                 />
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:id="@+id/action_count"
                 android:layout_width="18dp"
                 android:layout_height="18dp"

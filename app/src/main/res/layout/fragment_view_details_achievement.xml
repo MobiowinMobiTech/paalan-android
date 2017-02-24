@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/light_grey">
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtNameValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:layout_margin="10dp"
                 />
 
-                <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+                <com.mobiowin.paalan.utils.ButtonOpenSansSemiBold
                     android:id="@+id/btnView"
                     android:layout_width="90dp"
                     android:layout_height="30dp"
@@ -80,7 +80,7 @@
         </LinearLayout>
 
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
@@ -97,7 +97,7 @@
                 android:layout_height="1.2dp"
                 android:background="@color/primary_more_dark"/>
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtTitleValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
 
 
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
@@ -127,7 +127,7 @@
                 android:layout_height="1.2dp"
                 android:background="@color/primary_more_dark"/>
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtSubTitleValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
 
 
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
@@ -155,7 +155,7 @@
                 android:layout_height="1.2dp"
                 android:background="@color/primary_more_dark"/>
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtDescValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
 
 
 
-            <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+            <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Medium"
@@ -183,7 +183,7 @@
                 android:layout_height="1.2dp"
                 android:background="@color/primary_more_dark"/>
 
-            <com.phyder.paalan.utils.TextViewOpenSansRegular
+            <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                 android:id="@+id/txtRemarkValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
             android:layout_height="wrap_content"
             >
 
-    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -266,7 +266,7 @@
         android:layout_marginTop="10dp"
         android:padding="10dp">
 
-        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+        <com.mobiowin.paalan.utils.ButtonOpenSansSemiBold
             android:id="@+id/btnUpdateAchievement"
             android:layout_width="0dp"
             android:layout_weight="5"
@@ -279,7 +279,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
 
-        <com.phyder.paalan.utils.ButtonOpenSansSemiBold
+        <com.mobiowin.paalan.utils.ButtonOpenSansSemiBold
             android:id="@+id/btnDeleteAchievement"
             android:layout_width="0dp"
             android:layout_weight="5"

@@ -32,7 +32,7 @@
                     android:layout_height="match_parent"
                     />
 
-                <com.phyder.paalan.helper.CircleIndicator
+                <com.mobiowin.paalan.helper.CircleIndicator
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -66,7 +66,7 @@
                     android:padding="4dp"
                     >
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -76,7 +76,7 @@
                         android:layout_alignParentLeft="true"
                         android:textColor="@color/icons"/>
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtEventSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     android:gravity="center"
                     android:layout_gravity="center_horizontal">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
@@ -137,7 +137,7 @@
                     android:background="@color/primary"
                     android:layout_marginTop="10dp">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -147,7 +147,7 @@
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/icons"/>
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtGroupSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
@@ -207,7 +207,7 @@
                     android:background="@color/primary"
                     android:layout_marginTop="10dp">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -217,7 +217,7 @@
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/icons"/>
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtSocialSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -251,7 +251,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"
@@ -276,7 +276,7 @@
                     android:padding="5dp"
                     android:layout_marginTop="10dp">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -286,7 +286,7 @@
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/icons" />
 
-                    <com.phyder.paalan.utils.TextViewOpenSansSemiBold
+                    <com.mobiowin.paalan.utils.TextViewOpenSansSemiBold
                         android:id="@+id/txtAchievementSeeMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center_horizontal">
 
-                    <com.phyder.paalan.utils.TextViewOpenSansRegular
+                    <com.mobiowin.paalan.utils.TextViewOpenSansRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/secondary_text"

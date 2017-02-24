@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.phyder.paalan.utils.TextViewOpenSansRegular
+        <com.mobiowin.paalan.utils.TextViewOpenSansRegular
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -26,7 +26,7 @@
             android:layout_margin="7dp"
             android:padding="7dp">
 
-            <com.phyder.paalan.utils.EditTextOpenSansRegular
+            <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                 android:id="@+id/edtOrgAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_margin="7dp"
             android:padding="7dp">
 
-            <com.phyder.paalan.utils.EditTextOpenSansRegular
+            <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                 android:id="@+id/edtOrgCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             android:layout_margin="7dp"
             android:padding="7dp">
 
-            <com.phyder.paalan.utils.EditTextOpenSansRegular
+            <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                 android:id="@+id/edtOrgState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:layout_margin="7dp"
             android:padding="7dp">
 
-            <com.phyder.paalan.utils.EditTextOpenSansRegular
+            <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                 android:id="@+id/edtOrgCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:layout_margin="7dp"
             android:padding="7dp">
 
-            <com.phyder.paalan.utils.EditTextOpenSansRegular
+            <com.mobiowin.paalan.utils.EditTextOpenSansRegular
                 android:id="@+id/edtOrgPincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
-        <com.phyder.paalan.utils.ButtonOpenSansRegular
+        <com.mobiowin.paalan.utils.ButtonOpenSansRegular
             android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

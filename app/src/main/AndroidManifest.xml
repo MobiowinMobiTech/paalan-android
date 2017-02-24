@@ -15,7 +15,7 @@
 
     <!-- android:name=".activity.TestOneSignal" -->
     <application
-        android:name=".utils.Application"
+        android:name="com.mobiowin.paalan.utils.Application"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/paalan_logo"
@@ -25,7 +25,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activity.PaalanSplashActivity"
+            android:name="com.mobiowin.paalan.activity.PaalanSplashActivity"
             android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize">
@@ -37,37 +37,37 @@
         </activity>
 
 
-        <activity android:name=".activity.ForgotPassword"
+        <activity android:name="com.mobiowin.paalan.activity.ForgotPassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.Login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-
-        <activity
-            android:name=".activity.WhatsNew"
+        <activity android:name="com.mobiowin.paalan.activity.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity
-            android:name=".activity.Donate"
+            android:name="com.mobiowin.paalan.activity.WhatsNew"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <activity
+            android:name="com.mobiowin.paalan.activity.Donate"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
 
         <activity
-            android:name=".activity.RegisterUser"
+            android:name="com.mobiowin.paalan.activity.RegisterUser"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity
-            android:name=".activity.ActivityFragmentPlatform"
+            android:name="com.mobiowin.paalan.activity.ActivityFragmentPlatform"
             android:theme="@style/AppTheme"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
 
-        <service android:name=".services.NotificationRecieverService">
+        <service android:name="com.mobiowin.paalan.services.NotificationRecieverService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -78,13 +78,13 @@
             </intent-filter>
         </service>
 
-        <service android:name=".services.FCMTokenGeneratorService">
+        <service android:name="com.mobiowin.paalan.services.FCMTokenGeneratorService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".services.NotificationReciever">
+        <receiver android:name="com.mobiowin.paalan.services.NotificationReciever">
             <intent-filter>
                 <action android:name="com.phyder.paalan.SendBroadcast"></action>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -93,7 +93,7 @@
 
         <!-- ./Firebase Notifications -->
 
-        <service android:name=".services.CronJobService"/>
+        <service android:name="com.mobiowin.paalan.services.CronJobService"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
